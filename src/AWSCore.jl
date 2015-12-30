@@ -7,7 +7,9 @@
 
 module AWSCore
 
-export AWSConfig, aws_config, AWSRequest, post_request, do_request
+__precompile__()
+
+export AWSException, AWSConfig, aws_config, AWSRequest, post_request, do_request
 
 
 using Retry
@@ -71,8 +73,7 @@ function post_request(aws::AWSRequest,
 
     resource = get(aws, :resource, "/")
     url = aws_endpoint(service, aws[:region]) * resource
-
-    merge!(query, "Version" => version, "ContentType" => "JSON")
+    query["Version"] = version
     headers = Dict("Content-Type" =>
                    "application/x-www-form-urlencoded; charset=utf-8")
     content = format_query_str(query)

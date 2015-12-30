@@ -14,14 +14,14 @@ export AWSException
 type AWSException <: Exception
     code::AbstractString
     message::AbstractString
-    http::HTTPException
+    cause
 end
 
 
 function Base.show(io::IO,e::AWSException)
     println(io, string(e.code,
                        e.message == "" ? "" : (" -- " * e.message), "\n",
-                       e.http))
+                       e.cause))
 end
 
 
