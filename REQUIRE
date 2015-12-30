@@ -2,4 +2,8 @@ julia 0.4
 Retry
 SymDict
 LightXML
+JSON
+IniFile
 URIParser 0.1.2
+Requests
+Nettle

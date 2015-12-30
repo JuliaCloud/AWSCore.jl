@@ -22,8 +22,6 @@ type HTTPException <: Exception
     response
 end
 
-const http_debug = false
-
 
 http_status(e::HTTPException) = e.response.status
 headers(e::HTTPException) = e.response.headers
@@ -41,7 +39,7 @@ end
 
 function http_attempt(request::Request, return_stream=false)
 
-    if http_debug
+    if debug_level > 1
         println("$(request.method) $(request.uri)")
         dump(request.headers)
         println(bytestring(request.data))
@@ -63,7 +61,7 @@ function http_attempt(request::Request, return_stream=false)
     if !return_stream
         response.data = readbytes(stream)
 
-        if http_debug
+        if debug_level > 1
             println(response.status)
             dump(response.headers)
             println(bytestring(response.data))

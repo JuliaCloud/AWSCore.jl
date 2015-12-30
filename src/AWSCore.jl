@@ -7,7 +7,7 @@
 
 module AWSCore
 
-export AWSConfig, aws_config, AWSRequest
+export AWSConfig, aws_config, AWSRequest, post_request, do_request
 
 
 using Retry
@@ -137,7 +137,9 @@ function do_request(r::AWSRequest)
         # Use credentials to sign request...
         sign!(r)
 
-        #dump_aws_request(r)
+        if debug_level > 0
+            dump_aws_request(r)
+        end
 
         # Send the request...
         response = http_request(r)
@@ -180,6 +182,13 @@ function do_request(r::AWSRequest)
     end
 
     return response
+end
+
+
+global debug_level = 0
+
+function set_debug_level(n)
+    global debug_level = n
 end
 
 
