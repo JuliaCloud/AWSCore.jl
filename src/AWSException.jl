@@ -32,10 +32,8 @@ function AWSException(e::HTTPException)
 
     # Extract API error code from Lambda-style JSON error message...
     if content_type(e) == "application/json"
-        json = JSON.parse(http_message(e))
-        if haskey(json, "message")
-            message = json["message"]
-        end
+        info = JSON.parse(http_message(e))
+        message = get(info, "message", message)
     end
 
     # Extract API error code from JSON error message...
@@ -49,13 +47,13 @@ function AWSException(e::HTTPException)
     # Extract API error code from XML error message...
     if (content_type(e) in ["", "application/xml", "text/xml"]
     &&  length(http_message(e)) > 0)
-        xml = LightXML.parse_string(http_message(e))
-        xml = get(xml, "Errors", xml)
-        xml = get(xml, "Error", xml)
-        code = get(xml, "Code", code)
-        code = get(xml, "Code", code)
-        message = get(xml, "Message", message)
+        info = LightXML.parse_string(http_message(e))
     end
+
+    info = get(info, "Errors", info)
+    info = get(info, "Error", info)
+    code = get(info, "Code", code)
+    message = get(info, "Message", message)
 
     AWSException(code, message, e)
 end

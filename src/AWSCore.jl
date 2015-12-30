@@ -1,13 +1,13 @@
 #==============================================================================#
-# OCAWS.jl
+# AWSCore.jl
 #
 # Copyright Sam O'Connor 2014 - All rights reserved
 #==============================================================================#
 
 
-module OCAWS
+module AWSCore
 
-export sqs, sns, ec2, iam, sdb, s3, AWSConfig, aws_config, AWSRequest
+export AWSConfig, aws_config, AWSRequest
 
 
 using Retry
@@ -15,17 +15,10 @@ using SymDict
 using LightXML
 
 
+include("http.jl")
 include("AWSException.jl")
 include("AWSCredentials.jl")
 include("names.jl")
-include("http.jl")
-include("s3.jl")
-include("sqs.jl")
-include("sns.jl")
-include("iam.jl")
-include("sdb.jl")
-include("ec2.jl")
-include("lambda.jl")
 
 
 
@@ -35,9 +28,11 @@ include("lambda.jl")
 
 
 function aws_config(;creds=AWSCredentials(), region="us-east-1", args...)
-
     @SymDict(creds, region, args...)
 end
+
+aws_user_arn(aws) = aws_user_arn(aws[:creds])
+aws_account_number(aws) = aws_account_number(aws[:creds])
 
 
 
@@ -128,6 +123,9 @@ function do_request(r::AWSRequest)
     @repeat 3 try
 
         # Default headers...
+        if !haskey(r, :headers)
+            r[:headers] = Dict()
+        end
         r[:headers]["User-Agent"] = "JuliaAWS.jl/0.0.0"
         r[:headers]["Host"]       = URI(r[:url]).host
 
@@ -139,7 +137,7 @@ function do_request(r::AWSRequest)
         # Use credentials to sign request...
         sign!(r)
 
-        dump_aws_request(r)
+        #dump_aws_request(r)
 
         # Send the request...
         response = http_request(r)
@@ -186,7 +184,7 @@ end
 
 
 
-end # module
+end # module AWSCore
 
 
 #==============================================================================#

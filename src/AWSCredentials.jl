@@ -20,12 +20,16 @@ type AWSCredentials
     access_key_id::ASCIIString
     secret_key::ASCIIString
     token::ASCIIString
-    user_arn::ASCIIString
+    _user_arn::ASCIIString
+
+    function AWSCredentials(access_key_id, secret_key, token="", user_arn="")
+        new(access_key_id, secret_key, token, user_arn)
+    end
 end
 
 
 function Base.show(io::IO,c::AWSCredentials)
-    println(io, string(c.user_arn,
+    println(io, string(c._user_arn,
                        " (",
                        c.access_key_id,
                        c.secret_key == "" ? "" : ", $(c.secret_key[1:3])...",
@@ -33,18 +37,6 @@ function Base.show(io::IO,c::AWSCredentials)
                        ")")
 end
 
-
-function AWSCredentials(access_key_id, secret_key, token="", user_arn="")
-
-    c = AWSCredentials(access_key_id, secret_key, token, user_arn)
-
-    if user_arn == ""
-        c.usr_arn = aws_user_arn(c)
-    end
-
-    return c
-end
-    
 
 # Discover AWS Credentials for local host.
 
@@ -90,13 +82,13 @@ end
 
 function aws_user_arn(c::AWSCredentials)
 
-    if c.user_arn != ""
-        c.user_arn
+    if c._user_arn != ""
+        c._user_arn
     else
         aws = Dict(:creds => c, :region => "us-east-1")
         r = do_request(post_request(aws, "iam", "2010-05-08",
                                     Dict("Action" => "GetUser")))
-        r["User"]["Arn"]
+        c._user_arn = r["User"]["Arn"]
     end
 end
 

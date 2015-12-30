@@ -85,7 +85,7 @@ function arn(aws::SymbolDict,
              service,
              resource,
              region=get(aws, :region, ""),
-             account=aws_account_number(aws[:creds]))
+             account=aws_account_number(aws))
 
     arn(service, resource, region, account)
 end
