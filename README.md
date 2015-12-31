@@ -27,6 +27,7 @@ Automatic API Request retry in case of ExpiredToken or HTTP Redirect.
 ### Configuration
 
 Most `AWSCore` functions take a configuration object `aws` as the first argument.
+
 A default configuration can be obtained by calling `aws_config()`. e.g.:
 
 ```julia
@@ -51,7 +52,7 @@ aws_access_key_id = AKIAXXXXXXXXXXXXXXXX
 aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
-An `aws` configuration object can also be created directly from an key pair
+An `aws` configuration object can also be created directly from a key pair
 as follows. However, putting access credentials in source code is discouraged.
 
 ```julia
@@ -66,17 +67,6 @@ May throw: UVError, HTTPException or AWSException.
 
 
 ### Examples
-
-Create an "aws" dictionary containing user credentials and region...
-
-```julia
-aws = {
-    "user_arn"      => "arn:aws:iam::xxxxxxxxxx:user/ocaws.jl.test",
-    "access_key_id" => "AKIDEXAMPLE",
-    "secret_key"    => "wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY",
-    "region"        => "ap-southeast-2"
-}
-```
 
 
 Create an S3 bucket and store some data...
@@ -141,6 +131,3 @@ Get a list of DynamoDB tables...
 r = dynamodb(aws, "ListTables", "{}")
 println(r)
 ```
-
-
-[![Build Status](https://travis-ci.org/samoc/OCAWS.jl.svg?branch=master)](https://travis-ci.org/samoc/OCAWS.jl)
