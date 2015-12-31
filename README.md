@@ -1,15 +1,15 @@
 # AWSCore
 
-Work in progress.
+Amazon Web Services Core Functions and Types.
 
-See:
+See seperate modules for service interfaces:
 
- - samoconnor/AWSS3.jl
- - samoconnor/AWSSQS.jl
- - samoconnor/AWSSNS.jl
- - samoconnor/AWSIAM.jl
- - samoconnor/AWSEC2.jl
- - samoconnor/AWSLambda.jl
+ - [AWS S3](http://github.com/samoconnor/AWSS3.jl)
+ - [AWS SQS](http://github.com/samoconnor/AWSSQS.jl)
+ - [AWS SNS](http://github.com/samoconnor/AWSSNS.jl)
+ - [AWS IAM](http://github.com/samoconnor/AWSIAM.jl)
+ - [AWS EC2](http://github.com/samoconnor/AWSEC2.jl)
+ - [AWS Lambda](http://github.com/samoconnor/AWSLambda.jl)
 
 
 ### Features
@@ -42,10 +42,10 @@ The `aws_config()` function attempts to load AWS credentials from:
  - `~/.aws/credentials`
 
 A `~/.aws/credentials` file can be created using the
-[AWS CLI])(https://aws.amazon.com/cli/) command `aws configrue`.
+[AWS CLI](https://aws.amazon.com/cli/) command `aws configrue`.
 Or a `~/.aws/credentials` file can be created manually:
 
-```shell
+```ini
 [default]
 aws_access_key_id = AKIAXXXXXXXXXXXXXXXX
 aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
