@@ -1,4 +1,4 @@
-# OCAWS
+# AWSCore
 
 Work in progress.
 
