@@ -4,12 +4,12 @@ Work in progress.
 
 See:
 
- - samoconnor/AWSS3
- - samoconnor/AWSSQS
- - samoconnor/AWSSNS
- - samoconnor/AWSIAM
- - samoconnor/AWSEC2
- - samoconnor/AWSLambda
+ - samoconnor/AWSS3.jl
+ - samoconnor/AWSSQS.jl
+ - samoconnor/AWSSNS.jl
+ - samoconnor/AWSIAM.jl
+ - samoconnor/AWSEC2.jl
+ - samoconnor/AWSLambda.jl
 
 
 ### Features
