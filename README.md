@@ -2,10 +2,17 @@
 
 Work in progress.
 
+See:
+
+ -samoconnor/AWSS3
+ -samoconnor/AWSSQS
+ -samoconnor/AWSSNS
+ -samoconnor/AWSIAM
+ -samoconnor/AWSEC2
+ -samoconnor/AWSLambda
+
 
 ### Features
-
-S3, SQS, SNS, EC2, IAM, STS, SDB, DynamoDB
 
 AWS Signature Version 4.
 
@@ -16,28 +23,46 @@ Parsing of XML and JSON API error messages to AWSException type.
 Automatic API Request retry in case of ExpiredToken or HTTP Redirect.
 
 
+
+### Configuration
+
+Most `AWSCore` functions take a configuration object `aws` as the first argument.
+A default configuration can be obtained by calling `aws_config()`. e.g.:
+
+```julia
+aws = aws_config()
+or
+aws = aws_config(region = "ap-southeast-2")
+```
+
+The `aws_config()` function attempts to load AWS credentials from:
+
+ - EC2 Instance Credentials,
+ - AWS Lambda Role Credentials (i.e. `env["AWS_ACCESS_KEY_ID"`), or
+ - `~/.aws/credentials`
+
+A `~/.aws/credentials` file can be created using the
+[AWS CLI])(https://aws.amazon.com/cli/) command `aws configrue`.
+Or a `~/.aws/credentials` file can be created manually:
+
+```shell
+[default]
+aws_access_key_id = AKIAXXXXXXXXXXXXXXXX
+aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+```
+
+An `aws` configuration object can also be created directly from an key pair
+as follows. However, putting access credentials in source code is discouraged.
+
+```julia
+aws = aws_config(creds = AWSCredentials("AKIAXXXXXXXXXXXXXXXX",
+                                        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+```
+
+
 ### Exceptions
 
 May throw: UVError, HTTPException or AWSException.
-
-
-### Dependencies
-
-[JSON.jl](https://github.com/JuliaLang/JSON.jl)
-
-[Zlib.jl](https://github.com/dcjones/Zlib.jl) -- for crc32()
-
-[URIParser.jl](https://github.com/Keno/URIParser.jl)
-
-[Requests.jl](https://github.com/Keno/Requests.jl)
-
-[HttpCommon.jl](https://github.com/JuliaLang/HttpCommon.jl)
-
-[Nettle.jl](https://github.com/staticfloat/Nettle.jl)
-
-[Dates.jl](https://github.com/quinnj/Dates.jl)
-
-[LightXml.jl](https://github.com/lindahua/LightXML.jl)
 
 
 ### Examples

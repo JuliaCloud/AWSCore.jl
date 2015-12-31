@@ -87,7 +87,8 @@ function aws_user_arn(c::AWSCredentials)
     else
         aws = Dict(:creds => c, :region => "us-east-1")
         r = do_request(post_request(aws, "iam", "2010-05-08",
-                                    Dict("Action" => "GetUser")))
+                                    Dict("Action" => "GetUser",
+                                         "ContentType" => "JSON")))
         c._user_arn = r["User"]["Arn"]
     end
 end
