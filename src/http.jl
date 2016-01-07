@@ -9,12 +9,12 @@
 
 import URIParser: URI, query_params
 import Requests: format_query_str, process_response, open_stream, BodyDone,
-                 data, mimetype
+                 mimetype, text, bytes
 import HttpCommon: Request, Response, STATUS_CODES
 import Base: show, UVError
 
 
-export HTTPException
+export HTTPException, data
 
 
 type HTTPException <: Exception
@@ -105,8 +105,11 @@ function http_request(host::AbstractString, resource::AbstractString)
 end
 
 
+istext(r::Response) = any(p->ismatch(p, get(mimetype(r))),
+                         [r"^text/", r"/xml$", r"/json$"])
+data(r::Response) = istext(r) ? utf8(r.data) : r.data
+
 
 #==============================================================================#
 # End of file.
 #==============================================================================#
-

@@ -25,6 +25,51 @@ user = aws_user_arn(aws)
 
 println("Authenticated as: $user")
 
+println("Testing exceptions...")
+try
+    do_request(post_request(aws, "iam", "2010-05-08",
+                            Dict("Action" => "GetFoo",
+                                 "ContentType" => "JSON")))
+    @test false
+catch e
+    println(e)
+    @test isa(e, AWSCore.InvalidAction)
+end
+
+try
+    do_request(post_request(aws, "iam", "2010-05-08",
+                            Dict("Action" => "GetUser",
+                                 "UserName" => "notauser",
+                                 "ContentType" => "JSON")))
+    @test false
+catch e
+    println(e)
+    @test isa(e, AWSCore.AccessDenied)
+end
+
+try
+    do_request(post_request(aws, "iam", "2010-05-08",
+                            Dict("Action" => "GetUser",
+                                 "UserName" => "@#!%%!",
+                                 "ContentType" => "JSON")))
+    @test false
+catch e
+    println(e)
+    @test isa(e, AWSCore.ValidationError)
+end
+
+try
+    do_request(post_request(aws, "iam", "2010-05-08",
+                            Dict("Action" => "CreateUser",
+                                 "UserName" => "root",
+                                 "ContentType" => "JSON")))
+    @test false
+catch e
+    println(e)
+    @test isa(e, AWSCore.AccessDenied)
+end
+
+
 println("User ARN ok.")
 
 

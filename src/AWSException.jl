@@ -10,13 +10,7 @@ import JSON: json
 
 export AWSException
 
-
-type AWSException <: Exception
-    code::AbstractString
-    message::AbstractString
-    cause
-end
-
+abstract AWSException <: Exception
 
 function Base.show(io::IO,e::AWSException)
     println(io, string(e.code,
@@ -55,7 +49,15 @@ function AWSException(e::HTTPException)
     code = get(info, "Code", code)
     message = get(info, "Message", message)
 
-    AWSException(code, message, e)
+    # Create specialised exception object based on "code"...
+    etype = symbol(code)
+    @repeat 2 try
+        e = eval(:($etype($code, $message, $e)))
+    catch x
+        @retry if isa(x, UndefVarError)
+            eval(:(type $etype <: AWSException code; message; cause end))
+        end
+    end
 end
 
 
