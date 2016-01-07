@@ -11,6 +11,7 @@ See seperate modules for service interfaces:
  - [AWS EC2](http://github.com/samoconnor/AWSEC2.jl)
  - [AWS Lambda](http://github.com/samoconnor/AWSLambda.jl)
 
+[![Build Status](https://travis-ci.org/samoconnor/AWSCore.jl.svg)](https://travis-ci.org/samoconnor/AWSCore.jl)
 
 ### Features
 
