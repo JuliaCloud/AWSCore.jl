@@ -14,7 +14,7 @@ export AWSException, AWSConfig, aws_config, AWSRequest, post_request, do_request
 
 using Retry
 using SymDict
-using LightXML
+using XMLDict
 
 
 include("http.jl")
@@ -156,7 +156,7 @@ function do_request(r::AWSRequest)
         e = AWSException(e)
 
         # Handle ExpiredToken...
-        @retry if e.code == "ExpiredToken"
+        @retry if typeof(e) == ExpiredToken
             r[:creds].token = "ExpiredToken"
         end
     end
