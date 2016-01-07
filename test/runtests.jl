@@ -9,7 +9,7 @@ using Base.Test
 using AWSCore
 using SymDict
 using Retry
-using LightXML
+using XMLDict
 
 
 
@@ -33,7 +33,7 @@ println("User ARN ok.")
 # XML Parsing tests
 #-------------------------------------------------------------------------------
 
-XML(x)=LightXML.parse_string(x)
+XML(x)=parse_xml(x)
 
 xml = """
 <CreateQueueResponse>
@@ -119,7 +119,7 @@ xml = """
 </GetQueueAttributesResponse>
 """
 
-d = XML(xml)["GetQueueAttributesResult"]["Attribute"]["Name", "Value"]
+d = [a["Name"] => a["Value"] for a in XML(xml)["GetQueueAttributesResult"]["Attribute"]]
 
 @test d["MessageRetentionPeriod"] == "345600"
 @test d["CreatedTimestamp"] == "1286771522"
@@ -145,7 +145,7 @@ xml = """
 </ListAllMyBucketsResult>
 """
 
-@test XML(xml)["Buckets"]["Bucket"]["Name"] == ["quotes", "samples"]
+@test map(b->b["Name"], XML(xml)["Buckets"]["Bucket"]) == ["quotes", "samples"]
 
 
 xml = """

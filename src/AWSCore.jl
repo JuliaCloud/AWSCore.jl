@@ -167,7 +167,7 @@ function do_request(r::AWSRequest)
         mime = get(mimetype(response))
 
         if ismatch(r"/xml$", mime)
-            response =  LightXML.parse_string(bytestring(response))
+            response =  parse_xml(bytestring(response))
         end
 
         if ismatch(r"/json$", mime)

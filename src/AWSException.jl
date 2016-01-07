@@ -47,7 +47,7 @@ function AWSException(e::HTTPException)
     # Extract API error code from XML error message...
     if (content_type(e) in ["", "application/xml", "text/xml"]
     &&  length(http_message(e)) > 0)
-        info = LightXML.parse_string(http_message(e))
+        info = parse_xml(http_message(e))
     end
 
     info = get(info, "Errors", info)
