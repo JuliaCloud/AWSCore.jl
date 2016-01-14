@@ -50,7 +50,8 @@ function AWSCredentials()
 
         return env_instance_credentials()
 
-    elseif isfile("$(ENV["HOME"])/.aws/credentials")
+    elseif isfile(dot_aws_credentials_file())
+
 
         return dot_aws_credentials()
     end
@@ -146,14 +147,20 @@ end
 
 using IniFile
 
+
+dot_aws_credentials_file() = get(ENV, "AWS_CONFIG_FILE", 
+                                      "$(ENV["HOME"])/.aws/credentials")
+
 function dot_aws_credentials()
 
-    @assert isfile("$(ENV["HOME"])/.aws/credentials")
+    @assert isfile(dot_aws_credentials_file())
 
-    ini = read(Inifile(), "$(ENV["HOME"])/.aws/credentials")
+    ini = read(Inifile(), dot_aws_credentials_file())
 
-    AWSCredentials(get(ini, "default", "aws_access_key_id"),
-                   get(ini, "default", "aws_secret_access_key"))
+    profile = get(ENV, "AWS_DEFAULT_PROFILE", "default")
+
+    AWSCredentials(get(ini, profile, "aws_access_key_id"),
+                   get(ini, profile, "aws_secret_access_key"))
 end
 
 

@@ -29,7 +29,9 @@ include("names.jl")
 #------------------------------------------------------------------------------#
 
 
-function aws_config(;creds=AWSCredentials(), region="us-east-1", args...)
+function aws_config(;creds=AWSCredentials(),
+                     region=get(ENV, "AWS_DEFAULT_REGION", "us-east-1"),
+                     args...)
     @SymDict(creds, region, args...)
 end
 
