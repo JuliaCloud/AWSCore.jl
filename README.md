@@ -4,12 +4,14 @@ Amazon Web Services Core Functions and Types.
 
 See seperate modules for service interfaces:
 
- - [AWS S3](http://github.com/samoconnor/AWSS3.jl) [![Build Status](https://travis-ci.org/samoconnor/AWSS3.jl.svg)](https://travis-ci.org/samoconnor/AWSS3.jl)
- - [AWS SQS](http://github.com/samoconnor/AWSSQS.jl) [![Build Status](https://travis-ci.org/samoconnor/AWSSQS.jl.svg)](https://travis-ci.org/samoconnor/AWSSQS.jl)
- - [AWS SNS](http://github.com/samoconnor/AWSSNS.jl) [![Build Status](https://travis-ci.org/samoconnor/AWSSNS.jl.svg)](https://travis-ci.org/samoconnor/AWSSNS.jl)
- - [AWS IAM](http://github.com/samoconnor/AWSIAM.jl) [![Build Status](https://travis-ci.org/samoconnor/AWSIAM.jl.svg)](https://travis-ci.org/samoconnor/AWSIAM.jl)
- - [AWS EC2](http://github.com/samoconnor/AWSEC2.jl) [![Build Status](https://travis-ci.org/samoconnor/AWSEC2.jl.svg)](https://travis-ci.org/samoconnor/AWSEC2.jl)
- - [AWS Lambda](http://github.com/samoconnor/AWSLambda.jl) [![Build Status](https://travis-ci.org/samoconnor/AWSLambda.jl.svg)](https://travis-ci.org/samoconnor/AWSLambda.jl)
+| Package | Status |
+| --------| ------ |
+| [AWS S3](http://github.com/samoconnor/AWSS3.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSS3.jl.svg)](https://travis-ci.org/samoconnor/AWSS3.jl) |
+| [AWS SQS](http://github.com/samoconnor/AWSSQS.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSSQS.jl.svg)](https://travis-ci.org/samoconnor/AWSSQS.jl) |
+| [AWS SNS](http://github.com/samoconnor/AWSSNS.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSSNS.jl.svg)](https://travis-ci.org/samoconnor/AWSSNS.jl) |
+| [AWS IAM](http://github.com/samoconnor/AWSIAM.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSIAM.jl.svg)](https://travis-ci.org/samoconnor/AWSIAM.jl) |
+| [AWS EC2](http://github.com/samoconnor/AWSEC2.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSEC2.jl.svg)](https://travis-ci.org/samoconnor/AWSEC2.jl) |
+| [AWS Lambda](http://github.com/samoconnor/AWSLambda.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSLambda.jl.svg)](https://travis-ci.org/samoconnor/AWSLambda.jl) |
 
 [![Build Status](https://travis-ci.org/samoconnor/AWSCore.jl.svg)](https://travis-ci.org/samoconnor/AWSCore.jl)
 
