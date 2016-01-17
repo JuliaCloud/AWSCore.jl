@@ -30,7 +30,7 @@ function aws_endpoint(service, region="", hostname_prefix="")
     protocol = "http"
 
     # HTTPS where required...
-    if service in ["iam", "sts", "lambda"]
+    if service in ["iam", "sts", "lambda", "apigateway"]
         protocol = "https"
     end
 

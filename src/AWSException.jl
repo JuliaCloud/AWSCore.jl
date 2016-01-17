@@ -23,9 +23,10 @@ function AWSException(e::HTTPException)
 
     code = string(http_status(e))
     message = "AWSException"
+    info = Dict()
 
     # Extract API error code from Lambda-style JSON error message...
-    if content_type(e) == "application/json"
+    if ismatch(r"json$", content_type(e))
         info = JSON.parse(http_message(e))
         message = get(info, "message", message)
     end

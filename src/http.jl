@@ -70,7 +70,7 @@ function http_attempt(request::Request, return_stream=false)
 
     # Return on success...
     if (stream.state == BodyDone
-    &&  response.status in [200, 201, 204, 206])
+    &&  response.status in [200, 201, 202, 204, 206])
         return return_stream ? stream : response
     end
 

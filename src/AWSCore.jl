@@ -172,7 +172,7 @@ function do_request(r::AWSRequest)
             response =  parse_xml(bytestring(response))
         end
 
-        if ismatch(r"/json$", mime)
+        if ismatch(r"json$", mime)
             response = JSON.parse(bytestring(response))
             @protected try 
                 action = r[:query]["Action"]
