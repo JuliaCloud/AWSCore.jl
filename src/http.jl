@@ -37,6 +37,8 @@ function show(io::IO,e::HTTPException)
 end
 
 
+http_ok(r) = r.status in [200, 201, 202, 204, 206]
+
 function http_attempt(request::Request, return_stream=false)
 
     if debug_level > 1
@@ -47,35 +49,53 @@ function http_attempt(request::Request, return_stream=false)
 
     # Start HTTP transaction...
     stream = open_stream(request)
+    try
 
-    # Send request data...
-    if length(request.data) > 0
-        write(stream, request.data)
-    end
+        # Send request data...
+        if length(request.data) > 0
+            try
+                write(stream, request.data)
+            catch e
+                if debug_level > 0 && typeof(e) == UVError
+                    try
+                        println("AWSCore.http_attempt() UVError in write(): $e")
+                        println(readbytes(stream))
+                        println("prefix: $(e.prefix)")
+                        println("code: $(e.code)")
+                    end
+                end
+                rethrow(e)
+            end
+        end
 
-    # Wait for response...
-    stream = process_response(stream)
-    response = stream.response
+        # Wait for response...
+        stream = process_response(stream)
+        response = stream.response
 
-    # Read result...
-    if !return_stream
-        response.data = readbytes(stream)
+        # Read result...
+        if !return_stream || !http_ok(response)
+            response.data = readbytes(stream)
 
-        if debug_level > 1
-            println(response.status)
-            dump(response.headers)
-            println(bytestring(response.data))
+            if debug_level > 1
+                println(response.status)
+                dump(response.headers)
+                println(bytestring(response.data))
+            end
+        end
+
+        # Return on success...
+        if stream.state == BodyDone && http_ok(response)
+            return return_stream ? stream : response
+        end
+
+        # Throw error on failure...
+        throw(HTTPException(request, response))
+
+    finally
+        if !return_stream
+            close(stream)
         end
     end
-
-    # Return on success...
-    if (stream.state == BodyDone
-    &&  response.status in [200, 201, 202, 204, 206])
-        return return_stream ? stream : response
-    end
-
-    # Throw error on failure...
-    throw(HTTPException(request, response))
 end
 
 

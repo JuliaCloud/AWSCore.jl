@@ -161,6 +161,9 @@ function do_request(r::AWSRequest)
         @retry if typeof(e) == ExpiredToken
             r[:creds].token = "ExpiredToken"
         end
+        if debug_level > 0
+            println("Warning: AWSCore.do_request() exception: $(typeof(e))")
+        end
     end
 
     # If there is reponse data check for (and parse) XML or JSON...

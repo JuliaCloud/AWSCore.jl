@@ -53,10 +53,10 @@ function AWSException(e::HTTPException)
     # Create specialised exception object based on "code"...
     etype = symbol(code)
     @repeat 2 try
-        e = eval(:($etype($code, $message, $e)))
+        e = eval(:($etype($code, $message, $info, $e)))
     catch x
         @retry if isa(x, UndefVarError)
-            eval(:(type $etype <: AWSException code; message; cause end))
+            eval(:(type $etype <: AWSException code; message; info; cause end))
         end
     end
 end
