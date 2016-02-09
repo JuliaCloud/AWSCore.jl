@@ -104,10 +104,19 @@ end
 function dump_aws_request(r::AWSRequest)
 
     action = r[:verb]
+    name = r[:resource]
     if haskey(r, :query) && haskey(r[:query], "Action")
         action = r[:query]["Action"]
     end
-    println("$(r[:service]).$action $(r[:resource])")
+    if haskey(r, :query)
+        for k in keys(r[:query])
+            if ismatch(r"Name$", k)
+                name *= " "
+                name *= r[:query][k]
+            end
+        end
+    end
+    println("$(r[:service]).$action $name")
 end
 
 
