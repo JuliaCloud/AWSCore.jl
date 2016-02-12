@@ -95,7 +95,15 @@ function aws_user_arn(c::AWSCredentials)
 end
 
 
-aws_account_number(c::AWSCredentials) = split(aws_user_arn(c), ":")[5]
+# Get Account Number for "creds".
+
+function aws_account_number(c::AWSCredentials)
+    aws = Dict(:creds => c, :region => "us-east-1")
+    r = do_request(post_request(aws, "ec2", "2014-02-01",
+                                Dict("Action" => "DescribeSecurityGroups",
+                                     "GroupName.1" => "default")))
+    r["securityGroupInfo"]["item"]["ownerId"]
+end
 
 
 # Fetch EC2 meta-data for "key".
@@ -107,7 +115,6 @@ function ec2_metadata(key)
 
     http_request("169.254.169.254", "latest/meta-data/$key").data
 end
-
 
 
 # Load Instance Profile Credentials for EC2 virtual machine.
