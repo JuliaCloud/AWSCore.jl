@@ -20,17 +20,20 @@ type AWSCredentials
     access_key_id::ASCIIString
     secret_key::ASCIIString
     token::ASCIIString
-    _user_arn::ASCIIString
+    user_arn::ASCIIString
+    account_number::ASCIIString
 
-    function AWSCredentials(access_key_id, secret_key, token="", user_arn="")
-        new(access_key_id, secret_key, token, user_arn)
+    function AWSCredentials(access_key_id, secret_key,
+                            token="", user_arn="", account_number="")
+        new(access_key_id, secret_key, token, user_arn, account_number)
     end
 end
 
 
 function Base.show(io::IO,c::AWSCredentials)
-    println(io, string(c._user_arn,
+    println(io, string(c.user_arn,
                        " (",
+                       c.account_number,
                        c.access_key_id,
                        c.secret_key == "" ? "" : ", $(c.secret_key[1:3])...",
                        c.token == "" ? "" : ", $(c.token[1:3])..."),    
@@ -83,14 +86,14 @@ end
 
 function aws_user_arn(c::AWSCredentials)
 
-    if c._user_arn != ""
-        c._user_arn
+    if c.user_arn != ""
+        c.user_arn
     else
         aws = Dict(:creds => c, :region => "us-east-1")
         r = do_request(post_request(aws, "iam", "2010-05-08",
                                     Dict("Action" => "GetUser",
                                          "ContentType" => "JSON")))
-        c._user_arn = r["User"]["Arn"]
+        c.user_arn = r["User"]["Arn"]
     end
 end
 
@@ -98,11 +101,15 @@ end
 # Get Account Number for "creds".
 
 function aws_account_number(c::AWSCredentials)
-    aws = Dict(:creds => c, :region => "us-east-1")
-    r = do_request(post_request(aws, "ec2", "2014-02-01",
-                                Dict("Action" => "DescribeSecurityGroups",
-                                     "GroupName.1" => "default")))
-    r["securityGroupInfo"]["item"]["ownerId"]
+    if c.account_number != ""
+        c.account_number
+    else
+        aws = Dict(:creds => c, :region => "us-east-1")
+        r = do_request(post_request(aws, "ec2", "2014-02-01",
+                                    Dict("Action" => "DescribeSecurityGroups",
+                                         "GroupName.1" => "default")))
+        c.account_number = r["securityGroupInfo"]["item"]["ownerId"]
+    end
 end
 
 
