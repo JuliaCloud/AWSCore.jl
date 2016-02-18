@@ -5,9 +5,11 @@
 #==============================================================================#
 
 
+__precompile__()
+
+
 module AWSCore
 
-__precompile__()
 
 export AWSException, AWSConfig, aws_config, AWSRequest, post_request, do_request
 
