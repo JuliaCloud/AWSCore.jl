@@ -9,7 +9,7 @@
 
 import URIParser: URI, query_params
 import Requests: format_query_str, process_response, open_stream, BodyDone,
-                 mimetype, text, bytes
+                 mimetype, text, bytes, OnBody
 import HttpCommon: Request, Response, STATUS_CODES
 import Base: show, UVError
 
@@ -37,49 +37,56 @@ function show(io::IO,e::HTTPException)
 end
 
 
+function show_data(data)
+    if length(data) > 1000
+        println(ASCIIString(data[1:1000]))
+        println("...")
+    else
+        println(ASCIIString(data))
+    end
+end
+
+
 http_ok(r) = r.status in [200, 201, 202, 204, 206]
+
 
 function http_attempt(request::Request, return_stream=false)
 
     if debug_level > 1
         println("$(request.method) $(request.uri)")
         dump(request.headers)
-        println(bytestring(request.data))
+        show_data(request.data)
     end
 
     # Start HTTP transaction...
     stream = open_stream(request)
+
     try
 
-        # Send request data...
-        if length(request.data) > 0
-            try
-                write(stream, request.data)
-            catch e
-                if debug_level > 0 && typeof(e) == UVError
-                    try
-                        println("AWSCore.http_attempt() UVError in write(): $e")
-                        println(readbytes(stream))
-                        println("prefix: $(e.prefix)")
-                        println("code: $(e.code)")
-                    end
+        @sync begin 
+
+            @async process_response(stream)
+
+            # Send request data...
+            if length(request.data) > 0
+
+                @protected try
+                    write(stream, request.data)
+                catch e
+                    @ignore if isa(e, UVError) && stream.state >= OnBody end
                 end
-                rethrow(e)
             end
         end
 
-        # Wait for response...
-        stream = process_response(stream)
-        response = stream.response
-
         # Read result...
+        response = stream.response
         if !return_stream || !http_ok(response)
             response.data = readbytes(stream)
 
             if debug_level > 1
                 println(response.status)
                 dump(response.headers)
-                println(bytestring(response.data))
+                show_data(response.data)
             end
         end
 
