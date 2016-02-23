@@ -10,7 +10,7 @@
 #==============================================================================#
 
 
-export aws_endpoint, arn
+export aws_endpoint, arn, arn_region
 
 
 
@@ -90,6 +90,8 @@ function arn(aws::SymbolDict,
     arn(service, resource, region, account)
 end
 
+
+arn_region(arn) = split(arn, ":")[4]
 
 
 #==============================================================================#
