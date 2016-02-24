@@ -9,6 +9,8 @@
 
 import Nettle: digest, hexdigest
 
+using URIParser
+
 
 function sign!(r::AWSRequest, t = now(Dates.UTC))
 
@@ -61,6 +63,8 @@ end
 # Create AWS Signature Version 4 Authentication Headers.
 # http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html
 
+const path_esc_chars = filter(c->c!='/', URIParser.unescaped)
+
 function sign_aws4!(r::AWSRequest, t)
 
     # ISO8601 date/time strings for time of request...
@@ -104,7 +108,7 @@ function sign_aws4!(r::AWSRequest, t)
 
     # Create hash of canonical request...
     canonical_form = string(r[:verb], "\n",
-                            uri.path, "\n",
+                            escape_with(uri.path, path_esc_chars), "\n",
                             format_query_str(query), "\n",
                             join(sort(canonical_headers), "\n"), "\n\n",
                             signed_headers, "\n",
