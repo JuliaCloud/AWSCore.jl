@@ -12,6 +12,7 @@ See seperate modules for service interfaces:
 | [AWS IAM](http://github.com/samoconnor/AWSIAM.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSIAM.jl.svg)](https://travis-ci.org/samoconnor/AWSIAM.jl) |
 | [AWS EC2](http://github.com/samoconnor/AWSEC2.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSEC2.jl.svg)](https://travis-ci.org/samoconnor/AWSEC2.jl) |
 | [AWS Lambda](http://github.com/samoconnor/AWSLambda.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSLambda.jl.svg)](https://travis-ci.org/samoconnor/AWSLambda.jl) |
+| [AWS SES](http://github.com/samoconnor/AWSSES.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSSES.jl.svg)](https://travis-ci.org/samoconnor/AWSSES.jl) |
 
 [![Build Status](https://travis-ci.org/samoconnor/AWSCore.jl.svg)](https://travis-ci.org/samoconnor/AWSCore.jl)
 

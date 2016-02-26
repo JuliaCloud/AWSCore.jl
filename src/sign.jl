@@ -16,6 +16,8 @@ function sign!(r::AWSRequest, t = now(Dates.UTC))
 
     if r[:service] == "sdb"
         sign_aws2!(r, t)
+    elseif r[:service] == "ses"
+        sign_aws3!(r, t)
     else
         sign_aws4!(r, t)
     end
@@ -60,10 +62,25 @@ end
     
                                         
 
+# Create AWS3 Authentication Headers.
+# http://docs.aws.amazon.com/ses/latest/DeveloperGuide/query-interface-authentication.html
+
+function sign_aws3!(r::AWSRequest, t)
+
+    date = string(Dates.format(t, "e, d u yyyy H:M:S"), " GMT")
+
+    r[:headers]["Date"] = date
+    r[:headers]["X-Amzn-Authorization"] = string(
+        "AWS3-HTTPS AWSAccessKeyId=", r[:creds].access_key_id, ",",
+        "Algorithm=HmacSHA256,",
+        "Signature=", digest("sha256", r[:creds].secret_key, date)
+                      |> base64encode |> strip)
+end
+
+
+
 # Create AWS Signature Version 4 Authentication Headers.
 # http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html
-
-const path_esc_chars = filter(c->c!='/', URIParser.unescaped)
 
 function sign_aws4!(r::AWSRequest, t)
 
@@ -127,6 +144,8 @@ function sign_aws4!(r::AWSRequest, t)
         "Signature=$signature"
     )
 end
+
+const path_esc_chars = filter(c->c!='/', URIParser.unescaped)
 
 
 

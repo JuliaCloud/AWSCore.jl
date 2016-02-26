@@ -23,6 +23,7 @@ include("http.jl")
 include("AWSException.jl")
 include("AWSCredentials.jl")
 include("names.jl")
+include("mime.jl")
 
 
 
@@ -77,7 +78,9 @@ function post_request(aws::AWSRequest,
 
     resource = get(aws, :resource, "/")
     url = aws_endpoint(service, aws[:region]) * resource
-    query["Version"] = version
+    if version != ""
+        query["Version"] = version
+    end
     headers = Dict("Content-Type" =>
                    "application/x-www-form-urlencoded; charset=utf-8")
     content = format_query_str(query)

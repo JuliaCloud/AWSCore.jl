@@ -30,13 +30,18 @@ function aws_endpoint(service, region="", hostname_prefix="")
     protocol = "http"
 
     # HTTPS where required...
-    if service in ["iam", "sts", "lambda", "apigateway"]
+    if service in ["iam", "sts", "lambda", "apigateway", "email"]
         protocol = "https"
     end
 
     # Identity and Access Management API has no region suffix...
     if service in ["iam", "sts"]
         region = ""
+    end
+
+    # SES not available in all regions...
+    if service == "ses" && !(region in ["us-east-1", "us-west-2", "eu-west-1"])
+        region = "us-east-1"
     end
 
     # No region sufix for s3 or sdb in default region...
