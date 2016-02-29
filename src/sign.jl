@@ -34,7 +34,7 @@ function sign_aws2!(r::AWSRequest, t)
     query = Dict{AbstractString,AbstractString}()
     for elem in split(r[:content], '&', keep=false)
         (n, v) = split(elem, "=")
-        query[n] = v
+        query[n] = unescape(v)
     end
     
     r[:headers]["Content-Type"] = 
@@ -51,7 +51,9 @@ function sign_aws2!(r::AWSRequest, t)
 
     query = [(k, query[k]) for k in sort(collect(keys(query)))]
 
-    to_sign = "POST\n$(uri.host)\n$(uri.path)\n$(format_query_str(query))"
+#FIXME  see https://github.com/JuliaWeb/URIParser.jl/pull/31
+#    to_sign = "POST\n$(uri.host)\n$(uri.path)\n$(format_query_str(query))"
+    to_sign = "POST\n$(uri.host)\n$(uri.path)\n$(escape_with(format_query_str(query), "()"))"
     
     secret = r[:creds].secret_key
     push!(query, ("Signature", digest("sha256", secret, to_sign)
