@@ -53,17 +53,24 @@ function mime_multipart(header::AbstractString, parts::Array)
     for (filename, content_type, content) in parts
 
         if filename != ""
-            mime *= "Content-Disposition: attachment; filename=$filename\n"
+            mime *= "Content-Disposition: attachment;\n    filename=$filename\n"
+        end
+
+        if isa(content, AbstractString)
+            mime *= "Content-Transfer-Encoding: binary\n"
+        else
+            mime *= "Content-Transfer-Encoding: base64\n"
+            b64 = base64encode(content)
+            b64 = [b64[i:min(length(b64),i+75)] for i in 1:76:length(b64)]
+            content = join(b64, "\n")
         end
 
         mime *= """Content-Type: $content_type
-                   Content-Transfer-Encoding: binary 
 
                    $content
                    --$boundary
                    """
     end
-
     return mime
 end
 
