@@ -47,13 +47,17 @@ function mime_multipart(header::AbstractString, parts::Array)
     Content-Type: multipart/mixed; boundary="$boundary"
     $header
 
-    --$boundary
     """
 
     for (filename, content_type, content) in parts
 
+        mime *= "--$boundary\n"
+
         if filename != ""
+            mime *= "Content-Type: $content_type;\n    name=$filename\n"
             mime *= "Content-Disposition: attachment;\n    filename=$filename\n"
+        else
+            mime *= "Content-Type: $content_type\n"
         end
 
         if isa(content, AbstractString)
@@ -65,12 +69,10 @@ function mime_multipart(header::AbstractString, parts::Array)
             content = join(b64, "\n")
         end
 
-        mime *= """Content-Type: $content_type
-
-                   $content
-                   --$boundary
-                   """
+        mime *= "\n$content\n"
     end
+
+    mime *= "--$boundary--\n"
     return mime
 end
 
