@@ -8,8 +8,9 @@
 
 
 import URIParser: URI, query_params
-import Requests: format_query_str, process_response, open_stream, BodyDone,
-                 mimetype, text, bytes, OnBody
+import Requests: format_query_str, process_response, open_stream,
+                 mimetype, text, bytes, OnBody,
+                 BodyDone, EarlyEOF
 import HttpCommon: Request, Response, STATUS_CODES
 import Base: show, UVError
 
@@ -91,8 +92,15 @@ function http_attempt(request::Request, return_stream=false)
         end
 
         # Return on success...
-        if stream.state == BodyDone && http_ok(response)
-            return return_stream ? stream : response
+        if stream.state == BodyDone
+            if http_ok(response)
+                return return_stream ? stream : response
+            end
+        else
+            @assert stream.state == EarlyEOF
+            if http_ok(response)
+                throw(EOFError())
+            end
         end
 
         # Throw error on failure...
