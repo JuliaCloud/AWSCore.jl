@@ -76,7 +76,7 @@ function localhost_is_ec2()
         return false
     end
 
-    host = readall(`hostname -f`)
+    host = readstring(`hostname -f`)
     return ismatch(r"compute.internal$", host) ||
            ismatch(r"ec2.internal$", host)
 end

@@ -19,6 +19,10 @@ using SymDict
 using XMLDict
 
 
+# For compatibility with Julia 0.4
+using Compat: read, readstring
+
+
 include("http.jl")
 include("AWSException.jl")
 include("AWSCredentials.jl")

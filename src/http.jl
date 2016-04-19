@@ -6,7 +6,6 @@
 # Copyright Sam O'Connor 2014 - All rights reserved
 #==============================================================================#
 
-
 import URIParser: URI, query_params
 import Requests: format_query_str, process_response, open_stream,
                  mimetype, text, bytes, OnBody,
@@ -82,7 +81,7 @@ function http_attempt(request::Request, return_stream=false)
         # Read result...
         response = stream.response
         if !return_stream || !http_ok(response)
-            response.data = readbytes(stream)
+            response.data = read(stream)
 
             if debug_level > 1
                 println(response.status)
