@@ -175,12 +175,16 @@ function do_request(r::AWSRequest)
 
         e = AWSException(e)
 
+        if debug_level > 0
+            println("Warning: AWSCore.do_request() exception: $(typeof(e))")
+        end
+
+        # Handle expired signature...
+        @retry if ismatch(r"Signature expired", e.message) end
+
         # Handle ExpiredToken...
         @retry if typeof(e) == ExpiredToken
             r[:creds].token = "ExpiredToken"
-        end
-        if debug_level > 0
-            println("Warning: AWSCore.do_request() exception: $(typeof(e))")
         end
     end
 
