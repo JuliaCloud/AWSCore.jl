@@ -36,7 +36,7 @@ function Base.show(io::IO,c::AWSCredentials)
                        c.account_number,
                        c.access_key_id,
                        c.secret_key == "" ? "" : ", $(c.secret_key[1:3])...",
-                       c.token == "" ? "" : ", $(c.token[1:3])..."),    
+                       c.token == "" ? "" : ", $(c.token[1:3])..."),
                        ")")
 end
 
@@ -75,7 +75,9 @@ function localhost_is_ec2()
     if localhost_is_lambda()
         return false
     end
-
+	if OS_NAME == :Windows
+		return false
+	end
     host = readstring(`hostname -f`)
     return ismatch(r"compute.internal$", host) ||
            ismatch(r"ec2.internal$", host)
@@ -162,8 +164,8 @@ end
 using IniFile
 
 
-dot_aws_credentials_file() = get(ENV, "AWS_CONFIG_FILE", 
-                                      "$(ENV["HOME"])/.aws/credentials")
+dot_aws_credentials_file() = get(ENV, "AWS_CONFIG_FILE",
+                        (@windows? "$(ENV["HOMEPATH"])\\.aws\\credentials" : "$(ENV["HOME"])/.aws/credentials"))
 
 function dot_aws_credentials()
 
