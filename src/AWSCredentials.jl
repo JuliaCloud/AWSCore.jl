@@ -55,7 +55,6 @@ function AWSCredentials()
 
     elseif isfile(dot_aws_credentials_file())
 
-
         return dot_aws_credentials()
     end
 
@@ -75,12 +74,14 @@ function localhost_is_ec2()
     if localhost_is_lambda()
         return false
     end
-	if OS_NAME == :Windows
-		return false
-	end
-    host = readstring(`hostname -f`)
-    return ismatch(r"compute.internal$", host) ||
-           ismatch(r"ec2.internal$", host)
+
+    @unix_only begin
+        host = readstring(`hostname -f`)
+        return ismatch(r"compute.internal$", host) ||
+               ismatch(r"ec2.internal$", host)
+    end
+
+    return false
 end
 
 
@@ -163,9 +164,8 @@ end
 
 using IniFile
 
-
 dot_aws_credentials_file() = get(ENV, "AWS_CONFIG_FILE",
-                        (@windows? "$(ENV["HOMEPATH"])\\.aws\\credentials" : "$(ENV["HOME"])/.aws/credentials"))
+                                 joinpath(homedir(), ".aws", "credentials"))
 
 function dot_aws_credentials()
 
