@@ -121,8 +121,6 @@ end
 
 function ec2_metadata(key)
 
-    @assert localhost_is_ec2()
-
     http_request("169.254.169.254", "latest/meta-data/$key").data
 end
 
@@ -132,8 +130,6 @@ end
 using JSON
 
 function ec2_instance_credentials()
-
-    @assert localhost_is_ec2()
 
     info  = ec2_metadata("iam/info")
     info  = JSON.parse(info)
