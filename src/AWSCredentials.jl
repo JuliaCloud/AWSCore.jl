@@ -121,7 +121,7 @@ end
 
 function ec2_metadata(key)
 
-    http_request("169.254.169.254", "latest/meta-data/$key").data
+    bytestring(http_request("169.254.169.254", "latest/meta-data/$key").data)
 end
 
 
@@ -136,7 +136,7 @@ function ec2_instance_credentials()
 
     name  = ec2_metadata("iam/security-credentials/")
     creds = ec2_metadata("iam/security-credentials/$name")
-    creds = JSON.parse(new_creds)
+    new_creds = JSON.parse(creds)
 
     AWSCredentials(new_creds["AccessKeyId"],
                    new_creds["SecretAccessKey"],
