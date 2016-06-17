@@ -76,9 +76,8 @@ function localhost_is_ec2()
     end
 
     @unix_only begin
-        host = readstring(`hostname -f`)
-        return ismatch(r"compute.internal$", host) ||
-               ismatch(r"ec2.internal$", host)
+        return isfile("/sys/hypervisor/uuid") &&
+               readstring(`head -c 3 /sys/hypervisor/uuid`) == "ec2"
     end
 
     return false
