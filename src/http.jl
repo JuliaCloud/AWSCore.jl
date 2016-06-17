@@ -134,7 +134,7 @@ end
 function http_request(host::AbstractString, resource::AbstractString)
 
     http_request(Request("GET", resource,
-                         Dict{AbstractString,AbstractString}[], "",
+                         Dict{AbstractString,AbstractString}(), "",
                          URI("http://$host/$resource")))
 end
 
