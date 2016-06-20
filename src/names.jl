@@ -25,7 +25,9 @@ export aws_endpoint, arn, arn_region
 #------------------------------------------------------------------------------#
 
 
-function aws_endpoint(service, region="", hostname_prefix="")
+function aws_endpoint(service::ASCIIString,
+                      region::ASCIIString="",
+                      hostname_prefix::ASCIIString="")
 
     protocol = "http"
 
@@ -63,7 +65,9 @@ function aws_endpoint(service, region="", hostname_prefix="")
         service = "$hostname_prefix.$service"
     end
 
-    "$protocol://$service.amazonaws.com"
+    endpoint = "$protocol://$service.amazonaws.com"
+    endpoint::ASCIIString
+    return endpoint
 end
 
 

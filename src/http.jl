@@ -110,6 +110,8 @@ function http_attempt(request::Request, return_stream=false)
             close(stream)
         end
     end
+
+    assert(false) # Unreachable.
 end
 
 
