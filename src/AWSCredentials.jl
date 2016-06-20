@@ -79,9 +79,8 @@ function localhost_is_ec2()
     end
 
     @unix_only begin
-        host = readstring(`hostname -f`)
-        return ismatch(r"compute.internal$", host) ||
-               ismatch(r"ec2.internal$", host)
+        return isfile("/sys/hypervisor/uuid") &&
+               readstring(`head -c 3 /sys/hypervisor/uuid`) == "ec2"
     end
 
     return false
@@ -125,8 +124,8 @@ end
 function ec2_metadata(key)
 
     @assert localhost_is_ec2()
-
-    http_request("169.254.169.254", "latest/meta-data/$key").data
+    
+    bytestring(http_request("169.254.169.254", "latest/meta-data/$key").data)
 end
 
 
@@ -137,13 +136,13 @@ using JSON
 function ec2_instance_credentials()
 
     @assert localhost_is_ec2()
-
+    
     info  = ec2_metadata("iam/info")
     info  = JSON.parse(info)
 
     name  = ec2_metadata("iam/security-credentials/")
     creds = ec2_metadata("iam/security-credentials/$name")
-    creds = JSON.parse(new_creds)
+    new_creds = JSON.parse(creds)
 
     AWSCredentials(new_creds["AccessKeyId"],
                    new_creds["SecretAccessKey"],
