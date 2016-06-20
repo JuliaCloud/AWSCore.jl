@@ -23,8 +23,11 @@ type AWSCredentials
     user_arn::ASCIIString
     account_number::ASCIIString
 
-    function AWSCredentials(access_key_id, secret_key,
-                            token="", user_arn="", account_number="")
+    function AWSCredentials(access_key_id::ASCIIString,
+                            secret_key::ASCIIString,
+                            token::ASCIIString="",
+                            user_arn::ASCIIString="",
+                            account_number::ASCIIString="")
         new(access_key_id, secret_key, token, user_arn, account_number)
     end
 end
