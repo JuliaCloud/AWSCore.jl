@@ -39,10 +39,10 @@ end
 
 function show_data(data)
     if length(data) > 1000
-        println(ASCIIString(data[1:1000]))
+        println(UTF8String(data[1:1000]))
         println("...")
     else
-        println(ASCIIString(data))
+        println(UTF8String(data))
     end
 end
 
