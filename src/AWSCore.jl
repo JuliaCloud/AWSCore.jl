@@ -189,7 +189,8 @@ function do_request(r::AWSRequest)
     end
 
     # If there is reponse data check for (and parse) XML or JSON...
-    if typeof(response) == Response && length(response.data) > 0
+    if typeof(response) == Response && length(response.data) > 0 &&
+       !isnull(mimetype(response))
 
         mime = get(mimetype(response))
 
