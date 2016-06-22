@@ -26,7 +26,7 @@ export aws_endpoint, arn, arn_region
 
 
 function aws_endpoint(service::ASCIIString,
-                      region::ASCIIString="",
+                      region::AbstractString="",
                       hostname_prefix::ASCIIString="")
 
     protocol = "http"
