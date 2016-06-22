@@ -115,7 +115,7 @@ function http_attempt(request::Request, return_stream=false)
 end
 
 
-function http_request(request::Request, return_stream=false)
+function http_request(request::Request, return_stream::Bool=false)
 
     request.headers["Content-Length"] = string(length(request.data))
 
@@ -133,11 +133,11 @@ function http_request(request::Request, return_stream=false)
 end
 
 
-function http_request(host::AbstractString, resource::AbstractString)
+function http_request(host::ASCIIString, resource::ASCIIString)
 
     http_request(Request("GET", resource,
-                         Dict{AbstractString,AbstractString}(), "",
-                         URI("http://$host/$resource")))
+                         Dict{ASCIIString,ASCIIString}(), UInt8[],
+                         URI(host,resource)))
 end
 
 

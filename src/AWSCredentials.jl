@@ -32,7 +32,6 @@ type AWSCredentials
     end
 end
 
-
 function Base.show(io::IO,c::AWSCredentials)
     println(io, string(c.user_arn,
                        " (",
@@ -121,11 +120,11 @@ end
 # Fetch EC2 meta-data for "key".
 # http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html
 
-function ec2_metadata(key)
+function ec2_metadata(key::ASCIIString)
 
     @assert localhost_is_ec2()
-    
-    bytestring(http_request("169.254.169.254", "latest/meta-data/$key").data)
+
+    bytestring(http_request("169.254.169.254", "/latest/meta-data/$key").data)
 end
 
 
@@ -136,13 +135,13 @@ using JSON
 function ec2_instance_credentials()
 
     @assert localhost_is_ec2()
-    
+
     info  = ec2_metadata("iam/info")
-    info  = JSON.parse(info)
+    info  = JSON.parse(info, dicttype=Dict{ASCIIString,ASCIIString})
 
     name  = ec2_metadata("iam/security-credentials/")
     creds = ec2_metadata("iam/security-credentials/$name")
-    new_creds = JSON.parse(creds)
+    new_creds = JSON.parse(creds, dicttype=Dict{ASCIIString,ASCIIString})
 
     AWSCredentials(new_creds["AccessKeyId"],
                    new_creds["SecretAccessKey"],
