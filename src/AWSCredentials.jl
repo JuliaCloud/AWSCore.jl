@@ -90,30 +90,27 @@ end
 
 function aws_user_arn(c::AWSCredentials)
 
-    if c.user_arn != ""
-        c.user_arn
-    else
+    if c.user_arn == ""
+
         aws = Dict(:creds => c, :region => "us-east-1")
-        r = do_request(post_request(aws, "iam", "2010-05-08",
-                                    Dict("Action" => "GetUser",
+        r = do_request(post_request(aws, "sts", "2011-06-15",
+                                    Dict("Action" => "GetCallerIdentity",
                                          "ContentType" => "JSON")))
-        c.user_arn = r["User"]["Arn"]
+        c.user_arn = r["Arn"]
+        c.account_number = r["Account"]
     end
+
+    return c.user_arn
 end
 
 
 # Get Account Number for "creds".
 
 function aws_account_number(c::AWSCredentials)
-    if c.account_number != ""
-        c.account_number
-    else
-        aws = Dict(:creds => c, :region => "us-east-1")
-        r = do_request(post_request(aws, "ec2", "2014-02-01",
-                                    Dict("Action" => "DescribeSecurityGroups",
-                                         "GroupName.1" => "default")))
-        c.account_number = r["securityGroupInfo"]["item"]["ownerId"]
+    if c.account_number == ""
+        aws_user_arn(c)
     end
+    return c.account_number
 end
 
 
