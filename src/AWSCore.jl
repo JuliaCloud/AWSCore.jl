@@ -23,6 +23,10 @@ using XMLDict
 using Compat: read, readstring
 
 
+typealias AWSConfig SymbolDict
+typealias AWSRequest SymbolDict
+
+
 include("http.jl")
 include("AWSException.jl")
 include("AWSCredentials.jl")
@@ -42,17 +46,11 @@ function aws_config(;creds=AWSCredentials(),
     @SymDict(creds, region, args...)
 end
 
-aws_user_arn(aws) = aws_user_arn(aws[:creds])
-aws_account_number(aws) = aws_account_number(aws[:creds])
-
 
 
 #------------------------------------------------------------------------------#
 # AWSRequest to Request.jl conversion.
 #------------------------------------------------------------------------------#
-
-
-typealias AWSRequest SymbolDict
 
 
 # Construct a HTTP POST request dictionary for "servce" and "query"...
@@ -75,7 +73,7 @@ typealias AWSRequest SymbolDict
 #     :service  => "sdb"
 # )
 
-function post_request(aws::AWSRequest,
+function post_request(aws::AWSConfig,
                       service::ASCIIString,
                       version::ASCIIString,
                       query::Dict)
@@ -189,13 +187,14 @@ function do_request(r::AWSRequest)
     end
 
     # If there is reponse data check for (and parse) XML or JSON...
-    if typeof(response) == Response && length(response.data) > 0 &&
-       !isnull(mimetype(response))
+    if (typeof(response) == Response
+    &&  length(response.data) > 0
+    && !isnull(mimetype(response)))
 
         mime = get(mimetype(response))
 
         if ismatch(r"/xml$", mime)
-            response =  parse_xml(bytestring(response))
+            response = parse_xml(bytestring(response))
         end
 
         if ismatch(r"/x-amz-json-1.0$", mime)
@@ -204,7 +203,7 @@ function do_request(r::AWSRequest)
 
         if ismatch(r"json$", mime)
             response = JSON.parse(bytestring(response))
-            @protected try 
+            @protected try
                 action = r[:query]["Action"]
                 response = response[action * "Response"]
                 response = response[action * "Result"]

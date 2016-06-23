@@ -88,29 +88,31 @@ end
 
 # Get User ARN for "creds".
 
-function aws_user_arn(c::AWSCredentials)
+function aws_user_arn(aws::AWSConfig)
 
-    if c.user_arn == ""
+    creds = aws[:creds]
 
-        aws = Dict(:creds => c, :region => "us-east-1")
+    if creds.user_arn == ""
+
         r = do_request(post_request(aws, "sts", "2011-06-15",
                                     Dict("Action" => "GetCallerIdentity",
                                          "ContentType" => "JSON")))
-        c.user_arn = r["Arn"]
-        c.account_number = r["Account"]
+        creds.user_arn = r["Arn"]
+        creds.account_number = r["Account"]
     end
 
-    return c.user_arn
+    return creds.user_arn
 end
 
 
 # Get Account Number for "creds".
 
-function aws_account_number(c::AWSCredentials)
-    if c.account_number == ""
-        aws_user_arn(c)
+function aws_account_number(aws::AWSConfig)
+    creds = aws[:creds]
+    if creds.account_number == ""
+        aws_user_arn(aws)
     end
-    return c.account_number
+    return creds.account_number
 end
 
 

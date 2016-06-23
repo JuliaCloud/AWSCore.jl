@@ -37,7 +37,7 @@ function aws_endpoint(service::ASCIIString,
     end
 
     # Identity and Access Management API has no region suffix...
-    if service in ["iam", "sts"]
+    if service == "iam"
         region = ""
     end
 
