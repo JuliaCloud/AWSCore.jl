@@ -19,8 +19,9 @@ using SymDict
 using XMLDict
 
 
-# For compatibility with Julia 0.4
-using Compat: read, readstring
+using Compat
+import Compat: String
+
 
 
 typealias AWSConfig SymbolDict
@@ -74,8 +75,8 @@ end
 # )
 
 function post_request(aws::AWSConfig,
-                      service::ASCIIString,
-                      version::ASCIIString,
+                      service::String,
+                      version::String,
                       query::Dict)
 
     resource = get(aws, :resource, "/")
@@ -117,7 +118,7 @@ function dump_aws_request(r::AWSRequest)
     end
     if haskey(r, :query)
         for k in keys(r[:query])
-            if ismatch(r"Name$", k)
+            if ismatch(r"[^.]Name$", k)
                 name *= " "
                 name *= r[:query][k]
             end
@@ -137,6 +138,8 @@ include("sign.jl")
 
 
 function do_request(r::AWSRequest)
+
+    response = nothing
 
     # Try request 3 times to deal with possible Redirect and ExiredToken...
     @repeat 3 try
@@ -186,34 +189,45 @@ function do_request(r::AWSRequest)
         end
     end
 
-    # If there is reponse data check for (and parse) XML or JSON...
-    if (typeof(response) == Response
-    &&  length(response.data) > 0
-    && !isnull(mimetype(response)))
-
-        mime = get(mimetype(response))
-
-        if ismatch(r"/xml$", mime)
-            response = parse_xml(bytestring(response))
-        end
-
-        if ismatch(r"/x-amz-json-1.0$", mime)
-            response = JSON.parse(bytestring(response))
-        end
-
-        if ismatch(r"json$", mime)
-            response = JSON.parse(bytestring(response))
-            @protected try
-                action = r[:query]["Action"]
-                response = response[action * "Response"]
-                response = response[action * "Result"]
-            catch e
-                @ignore if typeof(e) == KeyError end
-            end
-        end
+    # If there is no reponse data, return raw response object...
+    if typeof(response) != Response || length(response.data) < 1
+        return response
     end
 
-    return response
+    # Return raw data if there is no mimetype...
+    if isnull(mimetype(response))
+        return response.data
+    end
+
+    # Parse response data according to mimetype...
+    mime = get(mimetype(response))
+
+    if ismatch(r"/xml$", mime)
+        return parse_xml(String(response.data))
+    end
+
+    if ismatch(r"/x-amz-json-1.0$", mime)
+        return JSON.parse(String(response.data))
+    end
+
+    if ismatch(r"json$", mime)
+        info = JSON.parse(String(response.data))
+        @protected try
+            action = r[:query]["Action"]
+            info = info[action * "Response"]
+            info = info[action * "Result"]
+        catch e
+            @ignore if typeof(e) == KeyError end
+        end
+        return info
+    end
+
+    if ismatch(r"^text/", mime)
+        return String(response.data)
+    end
+
+    # Return raw data by default...
+    return response.data
 end
 
 

@@ -17,17 +17,14 @@ export AWSCredentials,
 
 
 type AWSCredentials
-    access_key_id::ASCIIString
-    secret_key::ASCIIString
-    token::ASCIIString
-    user_arn::ASCIIString
-    account_number::ASCIIString
+    access_key_id::String
+    secret_key::String
+    token::String
+    user_arn::String
+    account_number::String
 
-    function AWSCredentials(access_key_id::ASCIIString,
-                            secret_key::ASCIIString,
-                            token::ASCIIString="",
-                            user_arn::ASCIIString="",
-                            account_number::ASCIIString="")
+    function AWSCredentials(access_key_id, secret_key,
+                            token="", user_arn="", account_number="")
         new(access_key_id, secret_key, token, user_arn, account_number)
     end
 end
@@ -77,7 +74,7 @@ function localhost_is_ec2()
         return false
     end
 
-    @unix_only begin
+    @static if is_unix()
         return isfile("/sys/hypervisor/uuid") &&
                readstring(`head -c 3 /sys/hypervisor/uuid`) == "ec2"
     end
@@ -119,7 +116,7 @@ end
 # Fetch EC2 meta-data for "key".
 # http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html
 
-function ec2_metadata(key::ASCIIString)
+function ec2_metadata(key)
 
     @assert localhost_is_ec2()
 
@@ -136,11 +133,11 @@ function ec2_instance_credentials()
     @assert localhost_is_ec2()
 
     info  = ec2_metadata("iam/info")
-    info  = JSON.parse(info, dicttype=Dict{ASCIIString,ASCIIString})
+    info  = JSON.parse(info, dicttype=Dict{String,String})
 
     name  = ec2_metadata("iam/security-credentials/")
     creds = ec2_metadata("iam/security-credentials/$name")
-    new_creds = JSON.parse(creds, dicttype=Dict{ASCIIString,ASCIIString})
+    new_creds = JSON.parse(creds, dicttype=Dict{String,String})
 
     AWSCredentials(new_creds["AccessKeyId"],
                    new_creds["SecretAccessKey"],

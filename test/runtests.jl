@@ -25,6 +25,8 @@ user = aws_user_arn(aws)
 
 println("Authenticated as: $user")
 
+aws[:region] = "us-east-1"
+
 println("Testing exceptions...")
 try
     do_request(post_request(aws, "iam", "2010-05-08",
@@ -302,7 +304,7 @@ import AWSCore: aws_endpoint
 @test aws_endpoint("sdb", "us-east-1") == "http://sdb.amazonaws.com"
 @test aws_endpoint("iam", "us-east-1") == "https://iam.amazonaws.com"
 @test aws_endpoint("iam", "eu-west-1") == "https://iam.amazonaws.com"
-@test aws_endpoint("sts", "us-east-1") == "https://sts.amazonaws.com"
+@test aws_endpoint("sts", "us-east-1") == "https://sts.us-east-1.amazonaws.com"
 @test aws_endpoint("sqs", "eu-west-1") == "http://sqs.eu-west-1.amazonaws.com"
 @test aws_endpoint("sdb", "eu-west-1") == "http://sdb.eu-west-1.amazonaws.com"
 @test aws_endpoint("sns", "eu-west-1") == "http://sns.eu-west-1.amazonaws.com"

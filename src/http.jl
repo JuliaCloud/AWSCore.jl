@@ -14,7 +14,7 @@ import HttpCommon: Request, Response, STATUS_CODES
 import Base: show, UVError
 
 
-export HTTPException, data
+export HTTPException
 
 
 type HTTPException <: Exception
@@ -25,7 +25,7 @@ end
 
 http_status(e::HTTPException) = e.response.status
 headers(e::HTTPException) = e.response.headers
-http_message(e::HTTPException) = bytestring(e.response.data)
+http_message(e::HTTPException) = String(e.response.data)
 content_type(e::HTTPException) = get(e.response.headers, "Content-Type", "")
 
 
@@ -39,10 +39,10 @@ end
 
 function show_data(data)
     if length(data) > 1000
-        println(UTF8String(data[1:1000]))
+        println(String(data[1:1000]))
         println("...")
     else
-        println(UTF8String(data))
+        println(String(data))
     end
 end
 
@@ -54,7 +54,7 @@ function http_attempt(request::Request, return_stream=false)
 
     if debug_level > 1
         println("$(request.method) $(request.uri)")
-        dump(request.headers)
+        @show request.headers
         show_data(request.data)
     end
 
@@ -85,7 +85,7 @@ function http_attempt(request::Request, return_stream=false)
 
             if debug_level > 1
                 println(response.status)
-                dump(response.headers)
+                @show response.headers
                 show_data(response.data)
             end
         end
@@ -115,7 +115,7 @@ function http_attempt(request::Request, return_stream=false)
 end
 
 
-function http_request(request::Request, return_stream::Bool=false)
+function http_request(request::Request, return_stream=false)
 
     request.headers["Content-Length"] = string(length(request.data))
 
@@ -133,17 +133,13 @@ function http_request(request::Request, return_stream::Bool=false)
 end
 
 
-function http_request(host::ASCIIString, resource::ASCIIString)
+function http_request(host::String, resource::String)
 
     http_request(Request("GET", resource,
-                         Dict{ASCIIString,ASCIIString}(), UInt8[],
+                         Dict{String,String}(), UInt8[],
                          URI(host,resource)))
 end
 
-
-istext(r::Response) = any(p->ismatch(p, get(mimetype(r))),
-                         [r"^text/", r"/xml$", r"/json$"])
-data(r::Response) = istext(r) ? utf8(r.data) : r.data
 
 
 #==============================================================================#

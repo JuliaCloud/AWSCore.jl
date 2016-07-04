@@ -51,7 +51,7 @@ function AWSException(e::HTTPException)
     message = get(info, "Message", message)
 
     # Create specialised exception object based on "code"...
-    etype = symbol(code)
+    etype = Symbol(code)
     @repeat 2 try
         e = eval(:($etype($code, $message, $info, $e)))
     catch x
