@@ -6,7 +6,7 @@
 # - Environment variables, or
 # - ~/.aws/credentials file.
 #
-# Copyright Sam O'Connor 2014 - All rights reserved
+# Copyright OC Technology Pty Ltd 2014 - All rights reserved
 #==============================================================================#
 
 export AWSCredentials,

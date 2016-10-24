@@ -30,7 +30,7 @@
 #   --=PRZLn8Nm1I82df0Dtj4ZvJi=
 #
 #
-# Copyright Sam O'Connor 2015 - All rights reserved
+# Copyright OC Technology Pty Ltd 2015 - All rights reserved
 #==============================================================================#
 
 

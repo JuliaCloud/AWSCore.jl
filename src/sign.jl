@@ -3,7 +3,7 @@
 #
 # AWS Request Signing.
 #
-# Copyright Sam O'Connor 2014 - All rights reserved
+# Copyright OC Technology Pty Ltd 2014 - All rights reserved
 #==============================================================================#
 
 

@@ -6,7 +6,7 @@
 # http://docs.aws.amazon.com/general/latest/gr/rande.html
 # http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html
 #
-# Copyright Sam O'Connor 2014 - All rights reserved
+# Copyright OC Technology Pty Ltd 2014 - All rights reserved
 #==============================================================================#
 
 
