@@ -141,6 +141,8 @@ iam(aws, "CreateUser", {"UserName" => "me"})
 
 Get a list of DynamoDB tables...
 
+(See [DynamoDB.jl](https://github.com/samuelpowell/DynamoDB.jl))
+
 ```julia
 r = dynamodb(aws, "ListTables", "{}")
 println(r)
