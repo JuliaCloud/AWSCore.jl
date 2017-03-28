@@ -19,10 +19,6 @@ using SymDict
 using XMLDict
 
 
-using Compat
-import Compat: String
-
-
 
 typealias AWSConfig SymbolDict
 typealias AWSRequest SymbolDict
