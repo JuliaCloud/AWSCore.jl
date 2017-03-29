@@ -44,17 +44,17 @@ end
 
 function AWSCredentials()
 
-    if localhost_is_ec2()
-
-        return ec2_instance_credentials()
-
-    elseif haskey(ENV, "AWS_ACCESS_KEY_ID")
+    if haskey(ENV, "AWS_ACCESS_KEY_ID")
 
         return env_instance_credentials()
 
     elseif isfile(dot_aws_credentials_file())
 
         return dot_aws_credentials()
+
+    elseif localhost_is_ec2()
+
+        return ec2_instance_credentials()
     end
 
     error("Can't find AWS credentials!")
