@@ -76,7 +76,7 @@ function localhost_is_ec2()
 
     @static if is_unix()
         return isfile("/sys/hypervisor/uuid") &&
-               bytestring(readbytes("/sys/hypervisor/uuid",3)) == "ec2"
+               String(read("/sys/hypervisor/uuid",3)) == "ec2"
     end
 
     return false
