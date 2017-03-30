@@ -20,8 +20,8 @@ using XMLDict
 
 
 
-typealias AWSConfig SymbolDict
-typealias AWSRequest SymbolDict
+const AWSConfig = SymbolDict
+const AWSRequest = SymbolDict
 
 
 include("http.jl")

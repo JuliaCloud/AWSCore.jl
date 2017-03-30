@@ -46,7 +46,11 @@ try
     @test false
 catch e
     println(e)
-    @test isa(e, AWSCore.AccessDenied)
+    if isdefined(AWSCore, :AccessDenied)
+        @test isa(e, AWSCore.AccessDenied)
+    else
+        @test isa(e, AWSCore.NoSuchEntity)
+    end
 end
 
 try
@@ -68,7 +72,11 @@ try
     @test false
 catch e
     println(e)
-    @test isa(e, AWSCore.AccessDenied)
+    if isdefined(AWSCore, :AccessDenied)
+        @test isa(e, AWSCore.AccessDenied)
+    else
+        @test isa(e, AWSCore.EntityAlreadyExists)
+    end
 end
 
 
@@ -166,7 +174,7 @@ xml = """
 </GetQueueAttributesResponse>
 """
 
-d = [a["Name"] => a["Value"] for a in XML(xml)["GetQueueAttributesResult"]["Attribute"]]
+d = Dict(a["Name"] => a["Value"] for a in XML(xml)["GetQueueAttributesResult"]["Attribute"])
 
 @test d["MessageRetentionPeriod"] == "345600"
 @test d["CreatedTimestamp"] == "1286771522"
