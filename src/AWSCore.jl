@@ -11,7 +11,8 @@ __precompile__()
 module AWSCore
 
 
-export AWSException, AWSConfig, aws_config, AWSRequest, post_request, do_request
+export AWSException, AWSConfig, aws_config, default_aws_config,
+       AWSRequest, post_request, do_request
 
 
 using Retry
@@ -41,6 +42,18 @@ function aws_config(;creds=AWSCredentials(),
                      region=get(ENV, "AWS_DEFAULT_REGION", "us-east-1"),
                      args...)
     @SymDict(creds, region, args...)
+end
+
+
+global _default_aws_config = Nullable{AWSConfig}()
+
+
+function default_aws_config()
+    global _default_aws_config
+    if isnull(_default_aws_config)
+        _default_aws_config = Nullable(aws_config())
+    end
+    return get(_default_aws_config)
 end
 
 

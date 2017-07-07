@@ -31,7 +31,8 @@ end
 
 function Base.show(io::IO,c::AWSCredentials)
     println(io, string(c.user_arn,
-                       " (",
+                       c.user_arn == "" ? "" : " ",
+                       "(",
                        c.account_number,
                        c.access_key_id,
                        c.secret_key == "" ? "" : ", $(c.secret_key[1:3])...",
@@ -46,18 +47,24 @@ function AWSCredentials()
 
     if haskey(ENV, "AWS_ACCESS_KEY_ID")
 
-        return env_instance_credentials()
+        aws = env_instance_credentials()
 
     elseif isfile(dot_aws_credentials_file())
 
-        return dot_aws_credentials()
+        aws = dot_aws_credentials()
 
     elseif localhost_is_ec2()
 
-        return ec2_instance_credentials()
+        aws = ec2_instance_credentials()
+    else
+        error("Can't find AWS credentials!")
     end
 
-    error("Can't find AWS credentials!")
+    if debug_level > 0
+        display(aws)
+    end
+
+    return aws
 end
 
 
@@ -139,6 +146,10 @@ function ec2_instance_credentials()
     creds = ec2_metadata("iam/security-credentials/$name")
     new_creds = JSON.parse(creds, dicttype=Dict{String,String})
 
+    if debug_level > 0
+        print("Loading AWSCredentials EC2 metadata... ")
+    end
+
     AWSCredentials(new_creds["AccessKeyId"],
                    new_creds["SecretAccessKey"],
                    new_creds["Token"],
@@ -149,6 +160,10 @@ end
 # Load Credentials from environment variables (e.g. in Lambda sandbox)
 
 function env_instance_credentials()
+
+    if debug_level > 0
+        print("Loading AWSCredentials from ENV[\"AWS_ACCESS_KEY_ID\"]... ")
+    end
 
     AWSCredentials(ENV["AWS_ACCESS_KEY_ID"],
                    ENV["AWS_SECRET_ACCESS_KEY"],
@@ -171,6 +186,11 @@ function dot_aws_credentials()
     ini = read(Inifile(), dot_aws_credentials_file())
 
     profile = get(ENV, "AWS_DEFAULT_PROFILE", "default")
+
+    if debug_level > 0
+        print("Loading \"$profile\" AWSCredentials from " *
+                dot_aws_credentials_file() * "... ")
+    end
 
     AWSCredentials(get(ini, profile, "aws_access_key_id"),
                    get(ini, profile, "aws_secret_access_key"))
