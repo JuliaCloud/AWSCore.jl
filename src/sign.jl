@@ -36,8 +36,8 @@ function sign_aws2!(r::AWSRequest, t)
         (n, v) = split(elem, "=")
         query[n] = unescape(v)
     end
-    
-    r[:headers]["Content-Type"] = 
+
+    r[:headers]["Content-Type"] =
         "application/x-www-form-urlencoded; charset=utf-8"
 
     query["AWSAccessKeyId"] = r[:creds].access_key_id
@@ -52,15 +52,15 @@ function sign_aws2!(r::AWSRequest, t)
     query = [(k, query[k]) for k in sort(collect(keys(query)))]
 
     to_sign = "POST\n$(uri.host)\n$(uri.path)\n$(format_query_str(query))"
-    
+
     secret = r[:creds].secret_key
     push!(query, ("Signature", digest("sha256", secret, to_sign)
                                |> base64encode |> strip))
 
     r[:content] = format_query_str(query)
 end
-    
-                                        
+
+
 
 # Create AWS3 Authentication Headers.
 # http://docs.aws.amazon.com/ses/latest/DeveloperGuide/query-interface-authentication.html
@@ -119,13 +119,13 @@ function sign_aws4!(r::AWSRequest, t)
     signed_headers = join(sort([lowercase(k) for k in keys(r[:headers])]), ";")
 
     # Sort Query String...
-    uri = URI(r[:url])
+    uri = URI(replace(r[:url], " ", "+"))
     query = query_params(uri)
     query = [(k, query[k]) for k in sort(collect(keys(query)))]
 
     # Create hash of canonical request...
     canonical_form = string(r[:verb], "\n",
-                            escape_with(uri.path, path_esc_chars), "\n",
+                            escape_with(replace(uri.path, "+", " "), path_esc_chars), "\n",
                             format_query_str(query), "\n",
                             join(sort(canonical_headers), "\n"), "\n\n",
                             signed_headers, "\n",
@@ -152,4 +152,3 @@ const path_esc_chars = filter(c->c!='/', URIParser.unescaped)
 #==============================================================================#
 # End of file.
 #==============================================================================#
-
