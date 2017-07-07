@@ -277,9 +277,8 @@ aws4_request_headers_test()
 println("AWS4 Signature ok.")
 
 
-@test URIParser.escape_with("invocations/function:f:PROD",
-                            AWSCore.path_esc_chars) ==
-                            "invocations/function%3Af%3APROD"
+@test AWSCore.escape_path("invocations/function:f:PROD") ==
+                          "invocations/function%3Af%3APROD"
 
 
 #-------------------------------------------------------------------------------

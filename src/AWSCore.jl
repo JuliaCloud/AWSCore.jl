@@ -105,7 +105,7 @@ end
 # Convert AWSRequest dictionary into Requests.Request (Requests.jl)
 
 function Request(r::AWSRequest)
-    Request(r[:verb], replace(r[:resource], " ", "+"), r[:headers], r[:content], URI(replace(r[:url], " ", "+")))
+    Request(r[:verb], r[:resource], r[:headers], r[:content], URI(r[:url]))
 end
 
 
@@ -145,8 +145,15 @@ end
 
 include("sign.jl")
 
+const path_esc_chars = filter(c->c!='/', URIParser.unescaped)
+escape_path(path) = URIParser.escape_with(path, path_esc_chars)
+
+const resource_esc_chars = Vector{Char}(filter(c->!in(c, "/?=&%"),
+                                               URIParser.unescaped))
 
 function do_request(r::AWSRequest)
+
+    @assert search(r[:resource], resource_esc_chars) == 0
 
     response = nothing
 
@@ -158,7 +165,7 @@ function do_request(r::AWSRequest)
             r[:headers] = Dict()
         end
         r[:headers]["User-Agent"] = "JuliaAWS.jl/0.0.0"
-        r[:headers]["Host"]       = URI(replace(r[:url], " ", "+")).host
+        r[:headers]["Host"]       = URI(r[:url]).host
 
         # Load local system credentials if needed...
         if !haskey(r, :creds) || r[:creds].token == "ExpiredToken"

@@ -119,13 +119,13 @@ function sign_aws4!(r::AWSRequest, t)
     signed_headers = join(sort([lowercase(k) for k in keys(r[:headers])]), ";")
 
     # Sort Query String...
-    uri = URI(replace(r[:url], " ", "+"))
+    uri = URI(r[:url])
     query = query_params(uri)
     query = [(k, query[k]) for k in sort(collect(keys(query)))]
 
     # Create hash of canonical request...
     canonical_form = string(r[:verb], "\n",
-                            escape_with(replace(uri.path, "+", " "), path_esc_chars), "\n",
+                            uri.path, "\n",
                             format_query_str(query), "\n",
                             join(sort(canonical_headers), "\n"), "\n\n",
                             signed_headers, "\n",
@@ -144,8 +144,6 @@ function sign_aws4!(r::AWSRequest, t)
         "Signature=$signature"
     )
 end
-
-const path_esc_chars = filter(c->c!='/', URIParser.unescaped)
 
 
 
