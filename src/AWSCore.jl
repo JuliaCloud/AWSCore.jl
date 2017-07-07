@@ -92,7 +92,7 @@ end
 # Convert AWSRequest dictionary into Requests.Request (Requests.jl)
 
 function Request(r::AWSRequest)
-    Request(r[:verb], r[:resource], r[:headers], r[:content], URI(r[:url]))
+    Request(r[:verb], replace(r[:resource], " ", "+"), r[:headers], r[:content], URI(replace(r[:url], " ", "+")))
 end
 
 
@@ -145,7 +145,7 @@ function do_request(r::AWSRequest)
             r[:headers] = Dict()
         end
         r[:headers]["User-Agent"] = "JuliaAWS.jl/0.0.0"
-        r[:headers]["Host"]       = URI(r[:url]).host
+        r[:headers]["Host"]       = URI(replace(r[:url], " ", "+")).host
 
         # Load local system credentials if needed...
         if !haskey(r, :creds) || r[:creds].token == "ExpiredToken"
