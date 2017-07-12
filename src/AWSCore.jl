@@ -210,6 +210,11 @@ function do_request(r::AWSRequest)
         return response
     end
 
+    # Return raw data if requested...
+    if get(r, :return_raw, false)
+        return response.data
+    end
+
     # Return raw data if there is no mimetype...
     if !isnull(mimetype(response))
         mime = get(mimetype(response))
