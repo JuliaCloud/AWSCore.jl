@@ -211,13 +211,17 @@ function do_request(r::AWSRequest)
     end
 
     # Return raw data if there is no mimetype...
-    if isnull(mimetype(response))
-        return response.data
+    if !isnull(mimetype(response))
+        mime = get(mimetype(response))
+    else
+        if length(response.data) > 5 && String(response.data[1:5]) == "<?xml"
+            mime = "text/xml"
+        else
+            return response.data
+        end
     end
 
     # Parse response data according to mimetype...
-    mime = get(mimetype(response))
-
     if ismatch(r"/xml$", mime)
         return parse_xml(String(response.data))
     end
