@@ -12,6 +12,8 @@ using Retry
 using XMLDict
 
 
+AWSCore.set_debug_level(1)
+
 
 #-------------------------------------------------------------------------------
 # Load credentials...

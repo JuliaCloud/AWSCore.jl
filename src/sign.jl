@@ -8,8 +8,10 @@
 
 
 import Nettle: digest, hexdigest
+import Requests: format_query_str
 
 using URIParser
+using HTTP
 
 
 function sign!(r::AWSRequest, t = now(Dates.UTC))
@@ -49,15 +51,15 @@ function sign_aws2!(r::AWSRequest, t)
         query["SecurityToken"] = r[:creds].token
     end
 
-    query = [(k, query[k]) for k in sort(collect(keys(query)))]
+    query = Pair[k => query[k] for k in sort(collect(keys(query)))]
 
-    to_sign = "POST\n$(uri.host)\n$(uri.path)\n$(format_query_str(query))"
+    to_sign = "POST\n$(uri.host)\n$(uri.path)\n$(HTTP.escape(query))"
 
     secret = r[:creds].secret_key
-    push!(query, ("Signature", digest("sha256", secret, to_sign)
-                               |> base64encode |> strip))
+    push!(query, "Signature" =>
+                  (digest("sha256", secret, to_sign) |> base64encode |> strip))
 
-    r[:content] = format_query_str(query)
+    r[:content] = HTTP.escape(query)
 end
 
 
@@ -121,12 +123,12 @@ function sign_aws4!(r::AWSRequest, t)
     # Sort Query String...
     uri = URI(r[:url])
     query = query_params(uri)
-    query = [(k, query[k]) for k in sort(collect(keys(query)))]
+    query = Pair[k => query[k] for k in sort(collect(keys(query)))]
 
     # Create hash of canonical request...
     canonical_form = string(r[:verb], "\n",
                             uri.path, "\n",
-                            format_query_str(query), "\n",
+                            HTTP.escape(query), "\n",
                             join(sort(canonical_headers), "\n"), "\n\n",
                             signed_headers, "\n",
                             content_hash)
