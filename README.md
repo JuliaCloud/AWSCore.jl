@@ -2,6 +2,8 @@
 
 Amazon Web Services Core Functions and Types.
 
+[Documentation](http://samoconnor.github.io/AWSCore.jl/build/index.html)
+
 See seperate modules for service interfaces:
 
 | Package | Status |
@@ -28,64 +30,13 @@ Parsing of XML and JSON API error messages to AWSException type.
 Automatic API Request retry in case of ExpiredToken or HTTP Redirect.
 
 
-
-### Configuration
-
-Most `AWSCore` functions take a configuration object `aws` as the first argument.
-
-A default configuration can be obtained by calling `aws_config()`. e.g.:
-
-```julia
-aws = aws_config()
-or
-aws = aws_config(region = "ap-southeast-2")
-```
-
-The `aws_config()` function attempts to load AWS credentials from:
-
- - EC2 Instance Credentials,
- - AWS Lambda Role Credentials (i.e. `env["AWS_ACCESS_KEY_ID"`), or
- - `~/.aws/credentials`
-
-A `~/.aws/credentials` file can be created using the
-[AWS CLI](https://aws.amazon.com/cli/) command `aws configrue`.
-Or a `~/.aws/credentials` file can be created manually:
-
-```ini
-[default]
-aws_access_key_id = AKIAXXXXXXXXXXXXXXXX
-aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-```
-
-If your `~/.aws/credentials` file contains multiple profiles you can
-select a profile by setting the `AWS_DEFAULT_PROFILE` environment variable.
-
-`aws_config()` understands the following [AWS CLI environment
-variables](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#cli-environment):
-`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`,
-`AWS_DEFAULT_REGION`, `AWS_DEFAULT_PROFILE` and `AWS_CONFIG_FILE`.
-
-
-An `aws` configuration object can also be created directly from a key pair
-as follows. However, putting access credentials in source code is discouraged.
-
-```julia
-aws = aws_config(creds = AWSCredentials("AKIAXXXXXXXXXXXXXXXX",
-                                        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-```
-
-
-### Exceptions
-
-May throw: UVError, HTTPException or AWSException.
-
-
 ### Examples
 
 
 Create an S3 bucket and store some data...
 
 ```julia
+aws = aws_config()
 s3_create_bucket(aws, "my.bucket")
 s3_enable_versioning(aws, "my.bucket")
 
