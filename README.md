@@ -2,7 +2,7 @@
 
 Amazon Web Services Core Functions and Types.
 
-[Documentation](http://samoconnor.github.io/AWSCore.jl/build/index.html)
+[Documentation](https://juliacloud.github.io/AWSCore.jl/build/index.html)
 
 See seperate modules for service interfaces:
 
