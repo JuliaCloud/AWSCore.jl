@@ -15,6 +15,19 @@ export AWSCredentials,
        aws_user_arn,
        aws_account_number
 
+"""
+When you interact with AWS, you specify your [AWS Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html) to verify who you are and whether you have permission to access the resources that you are requesting. AWS uses the security credentials to authenticate and authorize your requests.
+
+The fields `access_key_id` and `secret_key` hold the access keys used to authenticate API requests (see [Creating, Modifying, and Viewing Access Keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)).
+
+[Temporary Security Credentials](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html) require the extra session `token` field.
+
+
+The `user_arn` and `account_number` fields are used to cache the result of the [`aws_user_arn`](@ref) and [`aws_account_number`](@ref) functions.
+
+The `AWSCredentials()` constructor tries to load local Credentials from
+environment variables, `~/.aws/credentials` or EC2 instance credentials. 
+"""
 
 type AWSCredentials
     access_key_id::String
@@ -41,8 +54,6 @@ function Base.show(io::IO,c::AWSCredentials)
 end
 
 
-# Discover AWS Credentials for local host.
-
 function AWSCredentials()
 
     if haskey(ENV, "AWS_ACCESS_KEY_ID")
@@ -68,12 +79,16 @@ function AWSCredentials()
 end
 
 
-# Is Julia running in an AWS Lambda sandbox?
+"""
+Is Julia running in an AWS Lambda sandbox?
+"""
 
 localhost_is_lambda() = haskey(ENV, "LAMBDA_TASK_ROOT")
 
 
-# Is Julia running on an EC2 virtual machine?
+"""
+Is Julia running on an EC2 virtual machine?
+"""
 
 function localhost_is_ec2()
 
@@ -90,7 +105,16 @@ function localhost_is_ec2()
 end
 
 
-# Get User ARN for "creds".
+"""
+    aws_user_arn(::AWSConfig)
+
+Unique
+[Amazon Resource Name]
+(http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html)
+for configrued user.
+
+e.g. `"arn:aws:iam::account-ID-without-hyphens:user/Bob"`
+"""
 
 function aws_user_arn(aws::AWSConfig)
 
@@ -109,7 +133,11 @@ function aws_user_arn(aws::AWSConfig)
 end
 
 
-# Get Account Number for "creds".
+"""
+    aws_account_number(::AWSConfig)
+
+12-digit [AWS Account Number](http://docs.aws.amazon.com/general/latest/gr/acct-identifiers.html).
+"""
 
 function aws_account_number(aws::AWSConfig)
     creds = aws[:creds]
@@ -120,8 +148,13 @@ function aws_account_number(aws::AWSConfig)
 end
 
 
-# Fetch EC2 meta-data for "key".
-# http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html
+"""
+    ec2_metadata(key)
+
+Fetch [EC2 meta-data]
+(http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
+for `key`.
+"""
 
 function ec2_metadata(key)
 
@@ -131,9 +164,13 @@ function ec2_metadata(key)
 end
 
 
-# Load Instance Profile Credentials for EC2 virtual machine.
-
 using JSON
+
+"""
+Load [Instance Profile Credentials]
+(http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials)
+for EC2 virtual machine.
+"""
 
 function ec2_instance_credentials()
 
@@ -157,7 +194,12 @@ function ec2_instance_credentials()
 end
 
 
-# Load Credentials from environment variables (e.g. in Lambda sandbox)
+"""
+Load Credentials from [environment variables]
+(http://docs.aws.amazon.com/cli/latest/userguide/cli-environment.html)
+`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` etc.
+(e.g. in Lambda sandbox).
+"""
 
 function env_instance_credentials()
 
@@ -172,12 +214,15 @@ function env_instance_credentials()
 end
 
 
-# Load Credentials from AWS CLI ~/.aws/credentials file.
-
 using IniFile
 
 dot_aws_credentials_file() = get(ENV, "AWS_CONFIG_FILE",
                                  joinpath(homedir(), ".aws", "credentials"))
+
+"""
+Load Credentials from [AWS CLI ~/.aws/credentials file]
+(http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html).
+"""
 
 function dot_aws_credentials()
 

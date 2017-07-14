@@ -20,8 +20,31 @@ using SymDict
 using XMLDict
 
 
+"""
+Most `AWSCore` functions take a `AWSConfig` dictionary as the first argument.
+This dictionary holds [`AWSCredentials`](@ref) and AWS region configuration.
+
+```julia
+aws = AWSConfig(:creds => AWSCredentials(), :region => "us-east-1")`
+```
+"""
 
 const AWSConfig = SymbolDict
+
+
+"""
+The `AWSRequest` dictionary describes a single API request:
+It contains the following keys:
+
+- `:creds` => [`AWSCredentials`](@ref) for authentication.
+- `:verb` => `"GET"`, `"PUT"`, `"POST"` or `"DELETE"`
+- `:url` => service endpoint url (returned by [`aws_endpoint`](@ref))
+- `:headers` => HTTP headers
+- `:content` => HTTP body
+- `:resource` => HTTP request path
+- `:region` => AWS region
+- `:service` => AWS service name
+"""
 const AWSRequest = SymbolDict
 
 
@@ -37,7 +60,50 @@ include("mime.jl")
 # Configuration.
 #------------------------------------------------------------------------------#
 
+"""
+The `aws_config` function provides a simple way to creates an
+[`AWSConfig`](@ref) configuration dictionary.
 
+```julia
+>aws = aws_config()
+>aws = aws_config(creds = my_credentials)
+>aws = aws_config(region = "ap-southeast-2")
+```
+
+By default, the `aws_config` attempts to load AWS credentials from:
+
+ - `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` [environemnt variables](http://docs.aws.amazon.com/cli/latest/userguide/cli-environment.html),
+ - [`~/.aws/credentials`](http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html) or
+ - [EC2 Instance Credentials](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials).
+
+A `~/.aws/credentials` file can be created using the
+[AWS CLI](https://aws.amazon.com/cli/) command `aws configrue`.
+Or it can be created manually:
+
+```ini
+[default]
+aws_access_key_id = AKIAXXXXXXXXXXXXXXXX
+aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+```
+
+If your `~/.aws/credentials` file contains multiple profiles you can
+select a profile by setting the `AWS_DEFAULT_PROFILE` environment variable.
+
+`aws_config` understands the following [AWS CLI environment
+variables](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#cli-environment):
+`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`,
+`AWS_DEFAULT_REGION`, `AWS_DEFAULT_PROFILE` and `AWS_CONFIG_FILE`.
+
+
+An configuration dictionary can also be created directly from a key pair
+as follows. However, putting access credentials in source code is discouraged.
+
+```julia
+aws = aws_config(creds = AWSCredentials("AKIAXXXXXXXXXXXXXXXX",
+                                        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
+```
+
+"""
 function aws_config(;creds=AWSCredentials(),
                      region=get(ENV, "AWS_DEFAULT_REGION", "us-east-1"),
                      args...)
@@ -48,6 +114,10 @@ end
 global _default_aws_config = Nullable{AWSConfig}()
 
 
+"""
+`default_aws_config` returns a global shared [`AWSConfig`](@ref) object
+obtained by calling [`aws_config`](@ref) with no optional arguments.
+"""
 function default_aws_config()
     global _default_aws_config
     if isnull(_default_aws_config)
@@ -58,30 +128,31 @@ end
 
 
 
-#------------------------------------------------------------------------------#
-# AWSRequest to Request.jl conversion.
-#------------------------------------------------------------------------------#
+"""
+    post_request(::AWSConfig, service, version, query)
 
+Construct a [`AWSRequest`](@ref) dictionary for a HTTP POST request.
 
-# Construct a HTTP POST request dictionary for "servce" and "query"...
-#
-# e.g.
-# aws = Dict(:creds  => AWSCredentials(),
-#            :region => "ap-southeast-2")
-#
-# post_request(aws, "sdb", "2009-04-15", StrDict("Action" => "ListDomains"))
-#
-# Dict{Symbol, Any}(
-#     :creds    => creds::AWSCredentials
-#     :verb     => "POST"
-#     :url      => "http://sdb.ap-southeast-2.amazonaws.com/"
-#     :headers  => Dict("Content-Type" =>
-#                       "application/x-www-form-urlencoded; charset=utf-8)
-#     :content  => "Version=2009-04-15&ContentType=JSON&Action=ListDomains"
-#     :resource => "/"
-#     :region   => "ap-southeast-2"
-#     :service  => "sdb"
-# )
+e.g.
+```julia
+aws = AWSConfig(:creds  => AWSCredentials(),
+                :region => "ap-southeast-2")
+
+post_request(aws, "sdb", "2009-04-15", Dict("Action" => "ListDomains"))
+
+Dict{Symbol, Any}(
+    :creds    => creds::AWSCredentials
+    :verb     => "POST"
+    :url      => "http://sdb.ap-southeast-2.amazonaws.com/"
+    :headers  => Dict("Content-Type" =>
+                      "application/x-www-form-urlencoded; charset=utf-8)
+    :content  => "Version=2009-04-15&Action=ListDomains"
+    :resource => "/"
+    :region   => "ap-southeast-2"
+    :service  => "sdb"
+)
+```
+"""
 
 function post_request(aws::AWSConfig,
                       service::String,
@@ -102,21 +173,27 @@ function post_request(aws::AWSConfig,
 end
 
 
-# Convert AWSRequest dictionary into Requests.Request (Requests.jl)
+"""
+Convert AWSRequest dictionary into Requests.Request (Requests.jl)
+"""
 
 function Request(r::AWSRequest)
     Request(r[:verb], r[:resource], r[:headers], r[:content], URI(r[:url]))
 end
 
 
-# Call http_request for AWSRequest.
+"""
+Call http_request for AWSRequest.
+"""
 
 function http_request(request::AWSRequest, args...)
     http_request(Request(request), get(request, :return_stream, false))
 end
 
 
-# Pretty-print AWSRequest dictionary.
+"""
+Pretty-print AWSRequest dictionary.
+"""
 
 function dump_aws_request(r::AWSRequest)
 
@@ -137,19 +214,21 @@ function dump_aws_request(r::AWSRequest)
 end
 
 
-
-#------------------------------------------------------------------------------#
-# AWSRequest retry loop
-#------------------------------------------------------------------------------#
-
-
 include("sign.jl")
+
 
 const path_esc_chars = filter(c->c!='/', URIParser.unescaped)
 escape_path(path) = URIParser.escape_with(path, path_esc_chars)
 
 const resource_esc_chars = Vector{Char}(filter(c->!in(c, "/?=&%"),
                                                URIParser.unescaped))
+
+
+"""
+    do_request(::AWSRequest)
+
+Submit an API request, return the result.
+"""
 
 function do_request(r::AWSRequest)
 
@@ -164,7 +243,7 @@ function do_request(r::AWSRequest)
         if !haskey(r, :headers)
             r[:headers] = Dict()
         end
-        r[:headers]["User-Agent"] = "JuliaAWS.jl/0.0.0"
+        r[:headers]["User-Agent"] = "AWSCore.jl/0.0.0"
         r[:headers]["Host"]       = URI(r[:url]).host
 
         # Load local system credentials if needed...
