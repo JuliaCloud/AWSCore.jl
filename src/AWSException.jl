@@ -32,10 +32,10 @@ function AWSException(e::HTTPException)
     end
 
     # Extract API error code from JSON error message...
-    if content_type(e) == "application/x-amz-json-1.0"
-        json = JSON.parse(http_message(e))
-        if haskey(json, "__type")
-            code = split(json["__type"], "#")[2]
+    if ismatch(r"^application/x-amz-json-1.[01]$", content_type(e))
+        info = JSON.parse(http_message(e))
+        if haskey(info, "__type")
+            code = split(info["__type"], "#")[end]
         end
     end
 

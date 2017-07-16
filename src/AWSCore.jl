@@ -12,7 +12,7 @@ module AWSCore
 
 
 export AWSException, AWSConfig, aws_config, default_aws_config,
-       AWSRequest, post_request, do_request
+       AWSRequest, post_request, target_request, do_request
 
 
 using Retry
@@ -154,6 +154,31 @@ end
 
 
 """
+    target_request(::AWSConfig, service, version, command, args...)
+
+Construct a [`AWSRequest`](@ref) dictionary for a `X-Amz_Target`
+HTTP POST request.
+"""
+
+function target_request(aws::AWSConfig,
+                        service::String,
+                        version::String,
+                        command::String;
+                        args...)
+    @SymDict(
+        service = lowercase(service),
+        verb = "POST",
+        url = "https://$(lowercase(service)).$(aws[:region]).amazonaws.com/",
+        resource = "/",
+        headers = Dict("Content-Type" => "application/x-amz-json-1.1",
+                       "X-Amz-Target" => "$(service)_$version.$command"),
+        content = json(Dict(args)),
+        aws...)
+
+end
+
+
+"""
 Convert AWSRequest dictionary into Requests.Request (Requests.jl)
 """
 
@@ -290,7 +315,7 @@ function do_request(r::AWSRequest)
         return parse_xml(String(response.data))
     end
 
-    if ismatch(r"/x-amz-json-1.0$", mime)
+    if ismatch(r"/x-amz-json-1.[01]$", mime)
         return JSON.parse(String(response.data))
     end
 
