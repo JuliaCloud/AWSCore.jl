@@ -1,12 +1,21 @@
-using Documenter, AWSCore
+using Documenter
+using AWSCore
+using AWSS3
 
 makedocs(
-    modules = [AWSCore],
+    modules = [
+        AWSCore,
+        AWSS3
+    ],
     format = :html,
     sitename = "AWSCore.jl",
-    pages = ["Home" => "index.md"]
+    pages = [
+        "AWSCore.jl" => "index.md",
+        "AWSS3.jl" => "AWSS3.md"
+    ]
 )
 
+#=
 deploydocs(
     repo = "github.com/JuliaWeb/AWSCore.jl.git",
     target = "build",
@@ -15,3 +24,4 @@ deploydocs(
     julia = "release",
     osname = "linux"
 )
+=#

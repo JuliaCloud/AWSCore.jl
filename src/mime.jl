@@ -6,42 +6,21 @@
 # Copyright OC Technology Pty Ltd 2015 - All rights reserved
 #==============================================================================#
 
+const Part = Tuple{String,String,String}
+
 """
     mime_multipart([header,] parts)
 
-e.g.
-```julia
-mime_multipart([
-     ("foo.txt", "text/plain", "foo"),
-     ("bar.txt", "text/plain", "bar")
- ])
-```
+Encode `parts` as a
+[MIME Multipart](https://www.w3.org/Protocols/rfc1341/7_2_Multipart.html)
+message.
 
-returns...
-
-```
-"MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary=\"=PRZLn8Nm1I82df0Dtj4ZvJi=\"
-
---=PRZLn8Nm1I82df0Dtj4ZvJi=
-Content-Disposition: attachment; filename=foo.txt
-Content-Type: text/plain
-Content-Transfer-Encoding: binary
-
-foo
---=PRZLn8Nm1I82df0Dtj4ZvJi=
-Content-Disposition: attachment; filename=bar.txt
-Content-Type: text/plain
-Content-Transfer-Encoding: binary
-
-bar
---=PRZLn8Nm1I82df0Dtj4ZvJi=
-```
+`parts` is a Vector of `(filename, content_type, content)` Tuples.
 """
-mime_multipart(parts::Array) = mime_multipart("", parts::Array)
+mime_multipart(parts::Array) = mime_multipart("", parts::Vector{Part})
 
 
-function mime_multipart(header::AbstractString, parts::Array)
+function mime_multipart(header::AbstractString, parts::Vector{Part})
 
     boundary = "=PRZLn8Nm1I82df0Dtj4ZvJi="
 

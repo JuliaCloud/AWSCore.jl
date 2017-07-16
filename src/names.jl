@@ -18,11 +18,6 @@ export aws_endpoint, arn, arn_region
     aws_endpoint(service, [region, [hostname_prefix]])
 
 Generate service endpoint URL for `service` and  `region`.
-
-```julia
-aws_endpoint("sqs", "eu-west-1")
-"http://sqs.eu-west-1.amazonaws.com"
-```
 """
 
 function aws_endpoint(service, region="", hostname_prefix="")
@@ -73,11 +68,6 @@ end
     arn([::AWSConfig], service, resource, [region, [account]])
 
 Generate an [Amazon Resource Name](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) for `service` and `resource`.
-
-```julia
-arn(aws,"sqs", "au-test-queue", "ap-southeast-2", "1234")
-"arn:aws:sqs:ap-southeast-2:1234:au-test-queue"
-```
 """
 
 function arn(service, resource, region="", account="")

@@ -132,26 +132,6 @@ end
     post_request(::AWSConfig, service, version, query)
 
 Construct a [`AWSRequest`](@ref) dictionary for a HTTP POST request.
-
-e.g.
-```julia
-aws = AWSConfig(:creds  => AWSCredentials(),
-                :region => "ap-southeast-2")
-
-post_request(aws, "sdb", "2009-04-15", Dict("Action" => "ListDomains"))
-
-Dict{Symbol, Any}(
-    :creds    => creds::AWSCredentials
-    :verb     => "POST"
-    :url      => "http://sdb.ap-southeast-2.amazonaws.com/"
-    :headers  => Dict("Content-Type" =>
-                      "application/x-www-form-urlencoded; charset=utf-8)
-    :content  => "Version=2009-04-15&Action=ListDomains"
-    :resource => "/"
-    :region   => "ap-southeast-2"
-    :service  => "sdb"
-)
-```
 """
 
 function post_request(aws::AWSConfig,

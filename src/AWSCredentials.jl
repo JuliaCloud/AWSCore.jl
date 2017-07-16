@@ -47,6 +47,7 @@ function Base.show(io::IO,c::AWSCredentials)
                        c.user_arn == "" ? "" : " ",
                        "(",
                        c.account_number,
+                       c.account_number == "" ? "" : ", ",
                        c.access_key_id,
                        c.secret_key == "" ? "" : ", $(c.secret_key[1:3])...",
                        c.token == "" ? "" : ", $(c.token[1:3])..."),
