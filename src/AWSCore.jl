@@ -207,6 +207,16 @@ function dump_aws_request(r::AWSRequest)
     if haskey(r, :query) && haskey(r[:query], "Action")
         action = r[:query]["Action"]
     end
+    if haskey(r[:headers], "X-Amz-Target")
+        action = split(r[:headers]["X-Amz-Target"], ".")[end]
+        q = JSON.parse(r[:content])
+        for k in keys(q)
+            if ismatch(r"[^.]Name$", k)
+                name *= " "
+                name *= q[k]
+            end
+        end
+    end
     if haskey(r, :query)
         for k in keys(r[:query])
             if ismatch(r"[^.]Name$", k)
