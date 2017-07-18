@@ -125,7 +125,8 @@ function sign_aws4!(r::AWSRequest, t)
 
     # Create hash of canonical request...
     canonical_form = string(r[:verb], "\n",
-                            uri.path, "\n",
+                            r[:service] == "s3" ? uri.path
+                                                : escape_path(uri.path), "\n",
                             format_query_str(query), "\n",
                             join(sort(canonical_headers), "\n"), "\n\n",
                             signed_headers, "\n",
