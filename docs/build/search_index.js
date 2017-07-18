@@ -13,7 +13,7 @@ var documenterSearchIndex = {"docs": [
     "page": "AWSCore.jl",
     "title": "AWSCore.jl Documentation",
     "category": "section",
-    "text": "Amazon Web Services Core Functions and Types.Depth = 1"
+    "text": "Amazon Web Services Core Functions and Types.https://github.com/samoconnor/AWSCore.jl"
 },
 
 {
@@ -245,7 +245,7 @@ var documenterSearchIndex = {"docs": [
     "page": "AWSS3.jl",
     "title": "AWS S3",
     "category": "section",
-    "text": "CurrentModule = AWSS3using AWSS3"
+    "text": "CurrentModule = AWSS3using AWSS3https://github.com/samoconnor/AWSS3.jlPages = [\"AWSS3.md\"]"
 },
 
 {
@@ -317,7 +317,7 @@ var documenterSearchIndex = {"docs": [
     "page": "AWSS3.jl",
     "title": "AWSS3.s3_sign_url",
     "category": "Function",
-    "text": "s3_sign_url([::AWSConfig], bucket, path, [seconds=3600])\n\nCreate a pre-signed url for bucket and path (expires after for seconds).\n\n\n\n"
+    "text": "s3_sign_url([::AWSConfig], bucket, path, [seconds=3600];\n            [verb=\"GET\"], [content_type=\"application/octet-stream\"])\n\nCreate a pre-signed url for bucket and path (expires after for seconds).\n\nTo create an upload URL use verb=\"PUT\" and set content_type to match the type used in the Content-Type header of the PUT request.\n\nurl = s3_sign_url(\"my_bucket\", \"my_file.txt\"; verb=\"PUT\")\nRequests.put(URI(url), \"Hello!\")\n\nurl = s3_sign_url(\"my_bucket\", \"my_file.txt\";\n                  verb=\"PUT\", content_type=\"text/plain\")\n\nRequests.put(URI(url), \"Hello!\";\n             headers=Dict(\"Content-Type\" => \"text/plain\"))\n\n\n\n"
 },
 
 {

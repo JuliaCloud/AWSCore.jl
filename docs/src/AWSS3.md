@@ -7,6 +7,12 @@ CurrentModule = AWSS3
 using AWSS3
 ```
 
+[https://github.com/samoconnor/AWSS3.jl](https://github.com/samoconnor/AWSS3.jl)
+
+```@index
+Pages = ["AWSS3.md"]
+```
+
 ## AWS S3 Objects
 
 ```@docs

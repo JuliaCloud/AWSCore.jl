@@ -2,9 +2,8 @@
 
 Amazon Web Services Core Functions and Types.
 
-```@contents
-Depth = 1
-```
+[https://github.com/samoconnor/AWSCore.jl](https://github.com/samoconnor/AWSCore.jl)
+
 
 # AWSCore Configuration
 
