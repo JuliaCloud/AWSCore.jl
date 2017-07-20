@@ -608,4 +608,44 @@ var documenterSearchIndex = {"docs": [
     "text": "sqs_name\nsqs_arn\nsqs_get_queue_attributes\nsqs_count\nsqs_busy_count"
 },
 
+{
+    "location": "AWSSES.html#",
+    "page": "AWSSES.jl",
+    "title": "AWSSES.jl",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "AWSSES.html#AWSSES.ses_send-Tuple{Dict{Symbol,Any}}",
+    "page": "AWSSES.jl",
+    "title": "AWSSES.ses_send",
+    "category": "Method",
+    "text": "ses_send([::AWSConfig]; to=, from=, subject=, body=)\n\nSend plain text email.\n\nses_send(\n    to=\"sam@octech.com.au\"\n    from=\"sam@octech.com.au\"\n    subject=\"Hi Sam!\"\n    body=\"Hello!\"\n)\n\n\n\n"
+},
+
+{
+    "location": "AWSSES.html#AWSSES.ses_send_attachments-Tuple{Dict{Symbol,Any}}",
+    "page": "AWSSES.jl",
+    "title": "AWSSES.ses_send_attachments",
+    "category": "Method",
+    "text": "ses_send_attachments([::AWSConfig],\n                     to=, from=, subject=, body=,\n                     attachments=[])\n\nSend an email with attachments.\n\nses_send_attachments(to=\"sam@octech.com.au\", from=\"sam@octech.com.au\"\n                     subject=\"Attachments attached\",    \n                     body=\"See attached attachments...\",\n                     [(\"bar.txt\", \"text/plain\", \"bar\\n\"),\n                      (\"foo.txt\", \"text/plain\", \"foo\\n\")])\n\n\n\n"
+},
+
+{
+    "location": "AWSSES.html#AWSSES.ses_send_raw-Tuple{Dict{Symbol,Any}}",
+    "page": "AWSSES.jl",
+    "title": "AWSSES.ses_send_raw",
+    "category": "Method",
+    "text": "ses_send_raw([::AWSConfig]; to=, from=, raw=)\n\nSend a raw email.\n\nraw must contain both headers and message body.\n\n\n\n"
+},
+
+{
+    "location": "AWSSES.html#AWS-SES-1",
+    "page": "AWSSES.jl",
+    "title": "AWS SES",
+    "category": "section",
+    "text": "CurrentModule = AWSSEShttps://github.com/samoconnor/AWSSES.jlPages = [\"AWSSES.md\"]Modules = [AWSSES]"
+},
+
 ]}
