@@ -648,4 +648,100 @@ var documenterSearchIndex = {"docs": [
     "text": "CurrentModule = AWSSEShttps://github.com/samoconnor/AWSSES.jlPages = [\"AWSSES.md\"]Modules = [AWSSES]"
 },
 
+{
+    "location": "AWSSNS.html#",
+    "page": "AWSSNS.jl",
+    "title": "AWSSNS.jl",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "AWSSNS.html#AWSSNS.send_sms-Tuple{Dict{Symbol,Any},Any,Any}",
+    "page": "AWSSNS.jl",
+    "title": "AWSSNS.send_sms",
+    "category": "Method",
+    "text": "send_sms([::AWSConfig], number, message)\n\nSend SMS message to number.\n\n\n\n"
+},
+
+{
+    "location": "AWSSNS.html#AWSSNS.sns_create_topic-Tuple{Dict{Symbol,Any},Any}",
+    "page": "AWSSNS.jl",
+    "title": "AWSSNS.sns_create_topic",
+    "category": "Method",
+    "text": "sns_create_topic([::AWSConfig], topic_name)\n\nCreate a named topic.\n\n\n\n"
+},
+
+{
+    "location": "AWSSNS.html#AWSSNS.sns_delete_topic-Tuple{Dict{Symbol,Any},Any}",
+    "page": "AWSSNS.jl",
+    "title": "AWSSNS.sns_delete_topic",
+    "category": "Method",
+    "text": "sns_delete_topic([::AWSConfig], topic_name)\n\nDelete a named topic.\n\n\n\n"
+},
+
+{
+    "location": "AWSSNS.html#AWSSNS.sns_list_subscriptsion-Tuple{Dict{Symbol,Any},Any}",
+    "page": "AWSSNS.jl",
+    "title": "AWSSNS.sns_list_subscriptsion",
+    "category": "Method",
+    "text": "sns_list_subscriptsion([::AWSConfig], topic_name)\n\nList endpoints that are subscribed to topic_name.\n\n\n\n"
+},
+
+{
+    "location": "AWSSNS.html#AWSSNS.sns_list_topics",
+    "page": "AWSSNS.jl",
+    "title": "AWSSNS.sns_list_topics",
+    "category": "Function",
+    "text": "sns_list_topics([::AWSConfig])\n\nReturns a list of topic names.\n\n\n\n"
+},
+
+{
+    "location": "AWSSNS.html#AWSSNS.sns_publish",
+    "page": "AWSSNS.jl",
+    "title": "AWSSNS.sns_publish",
+    "category": "Function",
+    "text": "sns_publish([::AWSConfig], topic_name, message, subject=\"No Subject\")\n\nSend a message to a named topic (with optional subject).\n\n\n\n"
+},
+
+{
+    "location": "AWSSNS.html#AWSSNS.sns_subscribe_email-Tuple{Dict{Symbol,Any},Any,Any}",
+    "page": "AWSSNS.jl",
+    "title": "AWSSNS.sns_subscribe_email",
+    "category": "Method",
+    "text": "sns_subscribe_email([::AWSConfig], topic_name, email)\n\nConnect email to topic_name.\n\n\n\n"
+},
+
+{
+    "location": "AWSSNS.html#AWSSNS.sns_subscribe_lambda-Tuple{Dict{Symbol,Any},Any,Any}",
+    "page": "AWSSNS.jl",
+    "title": "AWSSNS.sns_subscribe_lambda",
+    "category": "Method",
+    "text": "sns_subscribe_lambda([::AWSConfig], topic_name, lambda_name)\n\nConnect lambda_name to topic_name.\n\n\n\n"
+},
+
+{
+    "location": "AWSSNS.html#AWSSNS.sns_subscribe_sqs-Tuple{Dict{Symbol,Any},Any,Any}",
+    "page": "AWSSNS.jl",
+    "title": "AWSSNS.sns_subscribe_sqs",
+    "category": "Method",
+    "text": "sns_subscribe_sqs([::AWSConfig], topic_name, queue; raw=false)\n\nConnect SQS queue to topic_name.\n\n\n\n"
+},
+
+{
+    "location": "AWSSNS.html#AWSSNS.sns_unsubscribe-Tuple{Dict{Symbol,Any},Any,Any}",
+    "page": "AWSSNS.jl",
+    "title": "AWSSNS.sns_unsubscribe",
+    "category": "Method",
+    "text": "sns_unsubscribe([::AWSConfig], topic_name, SubscriptionArn)\nsns_unsubscribe([::AWSConfig], topic_name, ::Regex)\n\nDisconnect SubscriptionArn from topic_name.\n\n\n\n"
+},
+
+{
+    "location": "AWSSNS.html#AWS-SNS-1",
+    "page": "AWSSNS.jl",
+    "title": "AWS SNS",
+    "category": "section",
+    "text": "CurrentModule = AWSSNShttps://github.com/samoconnor/AWSSNS.jlPages = [\"AWSSNS.md\"]Modules = [AWSSNS]"
+},
+
 ]}

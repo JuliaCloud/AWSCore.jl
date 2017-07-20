@@ -3,13 +3,15 @@ using AWSCore
 using AWSS3
 using AWSSQS
 using AWSSES
+using AWSSNS
 
 makedocs(
     modules = [
         AWSCore,
         AWSS3,
         AWSSQS,
-        AWSSES
+        AWSSES,
+        AWSSNS
     ],
     format = :html,
     sitename = "AWSCore.jl",
@@ -17,7 +19,8 @@ makedocs(
         "AWSCore.jl" => "index.md",
         "AWSS3.jl" => "AWSS3.md",
         "AWSSQS.jl" => "AWSSQS.md",
-        "AWSSES.jl" => "AWSSES.md"
+        "AWSSES.jl" => "AWSSES.md",
+        "AWSSNS.jl" => "AWSSNS.md"
     ]
 )
 
