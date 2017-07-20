@@ -253,7 +253,7 @@ var documenterSearchIndex = {"docs": [
     "page": "AWSS3.jl",
     "title": "AWSS3.s3_get",
     "category": "Function",
-    "text": "s3_get([::AWSConfig], bucket, path; <keyword arguments>)\n\nGet Object from path in bucket.\n\nArguments\n\nversion=: version of object to get.\nretry=true: try again on \"NoSuchBucket\", \"NoSuchKey\"               (common if object was recently created).\nraw=false:  return response as Vector{UInt8}               (by default return type depends on Content-Type header).\n\n\n\n"
+    "text": "s3_get([::AWSConfig], bucket, path; <keyword arguments>)\n\nGet Object from path in bucket.\n\nOptional Arguments\n\nversion=: version of object to get.\nretry=true: try again on \"NoSuchBucket\", \"NoSuchKey\"               (common if object was recently created).\nraw=false:  return response as Vector{UInt8}               (by default return type depends on Content-Type header).\n\n\n\n"
 },
 
 {
@@ -285,7 +285,7 @@ var documenterSearchIndex = {"docs": [
     "page": "AWSS3.jl",
     "title": "AWSS3.s3_put",
     "category": "Function",
-    "text": "s3_put([::AWSConfig], bucket, path, data; <keyword arguments>\n\nPUT Object data at path in bucket.\n\nArguments\n\ndata_type=; optional Content-Type header.\nencoding=; optional Content-Encoding header.\nmetadata::Dict=; optional x-amz-meta- headers.\ntags::Dict=; optional x-amz-tagging- headers                (see also s3_put_tags and s3_get_tags).\n\n\n\n"
+    "text": "s3_put([::AWSConfig], bucket, path, data; <keyword arguments>\n\nPUT Object data at path in bucket.\n\nOptional Arguments\n\ndata_type=; Content-Type header.\nencoding=; Content-Encoding header.\nmetadata::Dict=; x-amz-meta- headers.\ntags::Dict=; x-amz-tagging- headers                (see also s3_put_tags and s3_get_tags).\n\n\n\n"
 },
 
 {
@@ -309,7 +309,7 @@ var documenterSearchIndex = {"docs": [
     "page": "AWSS3.jl",
     "title": "AWSS3.s3_copy",
     "category": "Function",
-    "text": "s3_copy([::AWSConfig], bucket, path; to_bucket=bucket, to_path=path)\n\nPUT Object - Copy\n\n\n\n"
+    "text": "s3_copy([::AWSConfig], bucket, path; to_bucket=bucket, to_path=path)\n\nPUT Object - Copy\n\nOptional Arguments\n\nmetadata::Dict=; optional x-amz-meta- headers.\n\n\n\n"
 },
 
 {
@@ -438,6 +438,174 @@ var documenterSearchIndex = {"docs": [
     "title": "AWSS3 Internals",
     "category": "section",
     "text": "s3_arns3_arn(\"my_bucket/foo/bar.txt\")s3_arn(\"my_bucket\",\"foo/bar.txt\")"
+},
+
+{
+    "location": "AWSSQS.html#",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.jl",
+    "category": "page",
+    "text": ""
+},
+
+{
+    "location": "AWSSQS.html#AWS-SQS-1",
+    "page": "AWSSQS.jl",
+    "title": "AWS SQS",
+    "category": "section",
+    "text": "CurrentModule = AWSSQSusing AWSSQShttps://github.com/samoconnor/AWSSQS.jlPages = [\"AWSSQS.md\"]"
+},
+
+{
+    "location": "AWSSQS.html#AWSSQS.sqs_list_queues",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.sqs_list_queues",
+    "category": "Function",
+    "text": "sqs_list_queues([::AWSConfig], prefix=\"\")\n\nReturns a list of ::AWSQueue.\n\nfor q in sqs_list_queues()\n    println(\"$(sqs_name(q)) has ~$(sqs_count(q)) messages.\")\nend\n\n\n\n"
+},
+
+{
+    "location": "AWSSQS.html#AWSSQS.sqs_get_queue",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.sqs_get_queue",
+    "category": "Function",
+    "text": "sqs_get_queue([::AWSConfig], name)\n\nLook up a queue by name. Returns ::AWSQueue.\n\nq = sqs_get_queue(\"my-queue\")\nsqs_send_message(q, \"my message\")\n\n\n\n"
+},
+
+{
+    "location": "AWSSQS.html#AWSSQS.sqs_create_queue",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.sqs_create_queue",
+    "category": "Function",
+    "text": "sqs_create_queue([::AWSConfig], name; options...)\n\nCreate new queue with name. Returns ::AWSQueue.\n\noptions: VisibilityTimeout, MessageRetentionPeriod, DelaySeconds etc...\n\nSee SQS API Reference for detail.\n\nq = sqs_create_queue(\"my-queue\")\nsqs_send_message(q, \"my message\")\n\n\n\n"
+},
+
+{
+    "location": "AWSSQS.html#AWSSQS.sqs_set_policy",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.sqs_set_policy",
+    "category": "Function",
+    "text": "sqs_set_policy(::AWSQueue, policy)\n\nSet access policy for a queue.\n\n\n\n"
+},
+
+{
+    "location": "AWSSQS.html#AWSSQS.sqs_delete_queue",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.sqs_delete_queue",
+    "category": "Function",
+    "text": "sqs_delete_queue(::AWSQueue)\n\nDelete a queue.\n\n\n\n"
+},
+
+{
+    "location": "AWSSQS.html#SQS-Queues-1",
+    "page": "AWSSQS.jl",
+    "title": "SQS Queues",
+    "category": "section",
+    "text": "sqs_list_queues\nsqs_get_queue\nsqs_create_queue\nsqs_set_policy\nsqs_delete_queue"
+},
+
+{
+    "location": "AWSSQS.html#AWSSQS.sqs_send_message",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.sqs_send_message",
+    "category": "Function",
+    "text": "sqs_send_message(::AWSQueue, message)\n\nSend a message to a queue.\n\n\n\n"
+},
+
+{
+    "location": "AWSSQS.html#AWSSQS.sqs_send_message_batch",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.sqs_send_message_batch",
+    "category": "Function",
+    "text": "sqs_send_message_batch(::AWSQueue, messages)\n\nSend a collection of messages to a queue.\n\n\n\n"
+},
+
+{
+    "location": "AWSSQS.html#AWSSQS.sqs_receive_message",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.sqs_receive_message",
+    "category": "Function",
+    "text": "sqs_receive_message(::AWSQueue)\n\nReturns a Dict containing :message and :handle or nothing if the queue is empty.\n\nm = sqs_receive_message(q)\nprintln(m[:message])\nsqs_delete_message(m)\n\n\n\n"
+},
+
+{
+    "location": "AWSSQS.html#AWSSQS.sqs_messages",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.sqs_messages",
+    "category": "Function",
+    "text": "sqs_messages(::AWSQueue)\n\nReturns an iterator that retrieves messages from a queue.\n\nfor m in sqs_messages(q)\n    println(m[:message])\n    sqs_delete_message(m)\nend\n\n\n\n"
+},
+
+{
+    "location": "AWSSQS.html#AWSSQS.sqs_delete_message",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.sqs_delete_message",
+    "category": "Function",
+    "text": "sqs_delete_message(::AWSQueue, message)\n\nDelete a message from a queue.\n\n\n\n"
+},
+
+{
+    "location": "AWSSQS.html#AWSSQS.sqs_flush",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.sqs_flush",
+    "category": "Function",
+    "text": "sqs_flush(::AWSQueue)\n\nDelete all messages from a queue.\n\n\n\n"
+},
+
+{
+    "location": "AWSSQS.html#SQS-Messages-1",
+    "page": "AWSSQS.jl",
+    "title": "SQS Messages",
+    "category": "section",
+    "text": "sqs_send_message\nsqs_send_message_batch\nsqs_receive_message\nsqs_messages\nsqs_delete_message\nsqs_flush"
+},
+
+{
+    "location": "AWSSQS.html#AWSSQS.sqs_name",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.sqs_name",
+    "category": "Function",
+    "text": "sqs_name(::AWSQueue)\n\nName of a queue.\n\n\n\n"
+},
+
+{
+    "location": "AWSSQS.html#AWSSQS.sqs_arn",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.sqs_arn",
+    "category": "Function",
+    "text": "sqs_arn(::AWSQueue)\n\nARN of a queue.\n\n\n\n"
+},
+
+{
+    "location": "AWSSQS.html#AWSSQS.sqs_get_queue_attributes",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.sqs_get_queue_attributes",
+    "category": "Function",
+    "text": "sqs_get_queue_attributes(::AWSQueue)\n\nGet Queue Attributes for a queue.\n\n\n\n"
+},
+
+{
+    "location": "AWSSQS.html#AWSSQS.sqs_count",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.sqs_count",
+    "category": "Function",
+    "text": "sqs_count(::AWSQueue)\n\nApproximate number of messages in a queue.\n\n\n\n"
+},
+
+{
+    "location": "AWSSQS.html#AWSSQS.sqs_busy_count",
+    "page": "AWSSQS.jl",
+    "title": "AWSSQS.sqs_busy_count",
+    "category": "Function",
+    "text": "sqs_busy_count(::AWSQueue)\n\nApproximate number of messages not visible in a queue.\n\n\n\n"
+},
+
+{
+    "location": "AWSSQS.html#SQS-Metadata-1",
+    "page": "AWSSQS.jl",
+    "title": "SQS Metadata",
+    "category": "section",
+    "text": "sqs_name\nsqs_arn\nsqs_get_queue_attributes\nsqs_count\nsqs_busy_count"
 },
 
 ]}

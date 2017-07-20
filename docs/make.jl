@@ -1,17 +1,20 @@
 using Documenter
 using AWSCore
 using AWSS3
+using AWSSQS
 
 makedocs(
     modules = [
         AWSCore,
-        AWSS3
+        AWSS3,
+        AWSSQS
     ],
     format = :html,
     sitename = "AWSCore.jl",
     pages = [
         "AWSCore.jl" => "index.md",
-        "AWSS3.jl" => "AWSS3.md"
+        "AWSS3.jl" => "AWSS3.md",
+        "AWSSQS.jl" => "AWSSQS.md"
     ]
 )
 
