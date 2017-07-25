@@ -161,7 +161,7 @@ function ec2_metadata(key)
 
     @assert localhost_is_ec2()
 
-    bytestring(http_request("169.254.169.254", "/latest/meta-data/$key").data)
+    String(http_request("169.254.169.254", "/latest/meta-data/$key").data)
 end
 
 
