@@ -111,21 +111,85 @@ function service_definition(service)
     return definition
 end
 
-function service_shape(service, name)
+
+function service_args(service, name)
 
     shape = service["shapes"][name]
+    @assert shape["type"] == "structure"
 
-    if shape["type"] == "structure"
-        return "Dict($(join(["$m => $(service_shape(service, i["shape"]))"
-                      for (m, i) in shape["members"]], "\n")))\n"
+    join((name for (name, info) in shape["members"]), ", ")
+end
+    
+
+function service_shape(service, name, isrequired=false, pad="")
+
+    shape = service["shapes"][name]
+    t = shape["type"]
+
+    @assert pad != "" || t == "structure"
+
+    padmore = pad * "    "
+
+    result = ""
+
+    if t == "structure"
+
+        if pad == ""
+            return join(
+                ["- `$m` = $(service_shape(service,
+                                            i["shape"],
+                                            haskey(shape, "required")
+                                               && m in shape["required"],
+                                            padmore))\n"
+                 for (m, i) in shape["members"]], "\n")
+        end
+
+        if length(shape["members"]) == 1
+            m, i = first(shape["members"])
+            required = haskey(shape, "required") && m in shape["required"]
+            return service_shape(service, i["shape"], required, pad)
+        else 
+            result = "Dict(\n$padmore$(join(
+                ["\"$m\" => $(service_shape(service,
+                                            i["shape"],
+                                            haskey(shape, "required")
+                                                && m in shape["required"],
+                                            padmore))"
+                 for (m, i) in shape["members"]], ",\n$padmore"))\n$pad)"
+        end
     end
 
-    if shape["type"] == "list"
-        return "[$(service_shape(service, shape["member"]["shape"]))...]"
+    if t == "list"
+        result = "[\n$padmore$(service_shape(service,
+                                             shape["member"]["shape"],
+                                             false,
+                                             padmore))...]"
     end
 
-    if shape["type"] == "string"
-        return "::String"
+    if t == "string"
+        if haskey(shape, "enum")
+            result = orjoin(["\"$v\"" for v in shape["enum"]])
+        else
+            result = "::String"
+        end
+    end
+
+    if t == "boolean"
+        result = "::Bool"
+    end
+
+    if isrequired
+        result *= " *"
+    end
+
+    if pad == "    "
+        if contains(result, "\n")
+            return "\n$pad```\n$pad$result\n$pad```"
+        else
+            return "`$result`"
+        end
+    else
+        return result
     end
 end
 
@@ -138,36 +202,59 @@ function service_operation(service, operation, info)
     input = ""
     inputdoc = ""
     if haskey(info, "input")
-        input = "::$(info["input"]["shape"])"
-        inputdoc = "$input = $(service_shape(service, info["input"]["shape"]))"
+        input = " $(service_args(service, info["input"]["shape"]))"
+        inputdoc = string("\n\n# Arguments\n\n",
+                          service_shape(service, info["input"]["shape"]))
     end
 
     output = ""
     if haskey(info, "output")
-        output = "\n\nReturns `$(info["output"]["shape"])`"
+        output = "\n\n# Returns\n\n`$(info["output"]["shape"])`"
     end
 
     errors = ""
     if haskey(info, "errors")
         errors = orjoin(["`$(e["shape"])`" for e in (info["errors"])])
-        errors = "\n\nMay throw: $errors."
+        errors = "\n\n# Exceptions\n\n$errors."
     end
 
+    api_ref = service_api_reference_url(service, operation)
+
+    request = "$(service["metadata"]["endpointPrefix"])_request"
+    method = "\"$(info["http"]["method"])\""
+    resource = "\"$(info["http"]["requestUri"])\""
     """
     \"\"\"
-        $name($input)
+        $name(::AWSConfig;$input)
 
-    $inputdoc
-
-    $(info["documentation"])$output$errors
+    $(info["documentation"])$inputdoc$output$errors
+    See also: [AWS API Documentation]($api_ref)
     \"\"\"
 
-    function $name(in)
+    function $name(aws::AWSConfig; args...)
+        $request(aws, $method, $resource, \"$operation\", args)
     end
 
 
     """
 end
+
+
+function service_request_function(service)
+
+    meta = service["metadata"]
+
+"""
+function $(meta["endpointPrefix"])_request(
+    aws::AWSConfig, verb::String, resource::String, args)
+
+    meta = $meta
+
+    service_request(aws, meta, verb, resource, args)
+end
+"""
+end
+
 
 function service_interface(service)
 
@@ -184,6 +271,8 @@ function service_interface(service)
 #===============================================================================
 """,
 
+    service_request_function(service),
+
    (service_operation(service, o, i) for (o, i) in service["operations"])...,
 
 """
@@ -192,6 +281,13 @@ function service_interface(service)
 #===============================================================================
 """
     )
+end
+
+
+function service_api_reference_url(service, operation)
+
+    uid = service["metadata"]["uid"]
+    "https://docs.aws.amazon.com/goto/WebAPI/$uid/$operation"
 end
 
 
