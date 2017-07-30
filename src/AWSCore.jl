@@ -51,6 +51,7 @@ const AWSRequest = SymbolDict
 include("http.jl")
 include("AWSException.jl")
 include("AWSCredentials.jl")
+include("AWSService.jl")
 include("names.jl")
 include("mime.jl")
 
@@ -153,6 +154,51 @@ function post_request(aws::AWSConfig,
 end
 
 
+function flatten_query(query, prefix="")
+
+    result = Dict()
+
+    for (k, v) in query
+        if typeof(v) <: Associative
+            merge!(result, flatten_query(v, "$prefix$k."))
+        elseif typeof(v) <: Array
+            for (i, x) in enumerate(v)
+                result["$prefix$k.member.$i"] = x
+            end
+        else
+            result["$prefix$k"] = v
+        end
+    end
+
+    return result
+end
+
+
+function service_query(aws::AWSConfig, meta,
+                       verb::String, resource::String,
+                       operation::String, query)
+
+    query = Dict(query)
+    query[:Action] = operation
+    query[:Version] = meta["apiVersion"]
+
+    @show query
+    query = flatten_query(query)
+    @show query
+
+    do_request(@SymDict(
+        service  = meta["signingName"],
+        verb     = verb,
+        url      = service_url(aws, meta) * resource,
+        resource = resource,
+        headers  = Dict(
+            "Content-Type" =>
+            "application/x-www-form-urlencoded; charset=utf-8"),
+        content  = format_query_str(query),
+        aws...))
+end
+
+
 """
     target_request(::AWSConfig, service, version, command, args...)
 
@@ -175,6 +221,49 @@ function target_request(aws::AWSConfig,
         content = json(Dict(args)),
         aws...)
 
+end
+
+
+function service_url(aws, meta)
+    string("https://", meta["endpointPrefix"],
+           ".", aws[:region], ".amazonaws.com")
+end
+
+
+function service_json(aws::AWSConfig, meta,
+                      verb::String, resource::String,
+                      operation::String, args)
+
+    version = get(meta, "jsonVersion", "1.0")
+    version = (version == "1") ? "1.0" : version
+
+    target = "$(meta["targetPrefix"]).$operation"
+
+    do_request(@SymDict(
+        service = meta["signingName"],
+        verb = verb,
+        url = service_url(aws, meta) * resource,
+        resource = resource,
+        headers = Dict(
+            "Content-Type" => "application/x-amz-json-$version",
+            "X-Amz-Target" => target),
+        content = json(Dict(args)),
+        aws...))
+end
+
+
+function service_rest_json(aws::AWSConfig, meta,
+                           verb::String, resource::String,
+                           operation::String, args)
+
+    do_request(@SymDict(
+        service = meta["signingName"],
+        verb = verb,
+        url = service_url(aws, meta) * resource,
+        resource = resource,
+#        headers = Dict("Content-Type" => "application/json"),
+        content = json(Dict(args)),
+        aws...))
 end
 
 
