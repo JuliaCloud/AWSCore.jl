@@ -220,13 +220,16 @@ function service_request_function(service)
     protocol = replace(meta["protocol"], "-", "_")
     prefix = replace(meta["endpointPrefix"], r"[.-]", "_")
 
+    meta = filter((k, v) -> !(k in ["sourceURL", "sourceFile"]), meta)
+
 """
-function $(prefix)_request(
-    aws::AWSConfig, verb::String, resource::String, operation::String, args)
+const service_meta = $meta
 
-    meta = $meta
+function $(prefix)_request(aws::AWSConfig, verb::String, resource::String, operation::String, args)
 
-    AWSCore.service_$protocol(aws, meta, verb, resource, operation, args)
+    global service_meta
+
+    AWSCore.service_$protocol(aws, service_meta, verb, resource, operation, args)
 end
 """
 end
@@ -295,6 +298,7 @@ function service_documentation(service)
 
     This document is generated from
     [$(meta["sourceFile"])]($(meta["sourceURL"])).
+    See [JuliaCloud/AWSCore.jl](https://github.com/JuliaCloud/AWSCore.jl).
 
     ```@meta
     CurrentModule = $m
@@ -321,8 +325,39 @@ function service_generate(name)
 
     println(meta["serviceFullName"])
 
-    write(joinpath(@__DIR__, "$m.jl"),
-          service_interface(definition))
+    pkg_dir = joinpath(Pkg.dir(), m)
+    src_path = joinpath(pkg_dir, "src", "$m.jl")
+    mkpath(dirname(src_path))
+    write(src_path, service_interface(definition))
+    write(joinpath(pkg_dir, "REQUIRE"),
+        """
+        julia 0.5
+        AWSCore
+        DataStructures
+        """)
+    write(joinpath(pkg_dir, "README.md"),
+        """
+        # $m.jl
+
+        Julia interface for [$(meta["serviceFullName"])](https://docs.aws.amazon.com/goto/WebAPI/$(meta["uid"]))
+
+        See [$m.jl API Reference](https://juliacloud.github.io/AWSCore.jl/build/$m.html).
+
+        See [JuliaCloud/AWSCore.jl](https://github.com/JuliaCloud/AWSCore.jl).
+
+
+        Please file issues under [JuliaCloud/AWSCore.jl/issues](https://github.com/JuliaCloud/AWSCore.jl/issues).
+
+        This module is generated from
+        [$(meta["sourceFile"])]($(meta["sourceURL"])).
+
+        ---
+
+        $(html2md(get(definition, "documentation", "")))
+        """)
+    cp(joinpath(@__DIR__, "..", "LICENSE.md"),
+       joinpath(pkg_dir, "LICENSE.md"),
+       remove_destination=true)
 
     write(joinpath(@__DIR__, "..", "docs", "src", "$m.md"),
           service_documentation(definition))
