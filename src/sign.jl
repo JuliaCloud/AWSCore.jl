@@ -14,10 +14,8 @@ using URIParser
 
 function sign!(r::AWSRequest, t = now(Dates.UTC))
 
-    if r[:service] == "sdb"
+    if r[:service] in ["sdb", "importexport"]
         sign_aws2!(r, t)
-    elseif r[:service] == "ses"
-        sign_aws3!(r, t)
     else
         sign_aws4!(r, t)
     end
@@ -58,23 +56,6 @@ function sign_aws2!(r::AWSRequest, t)
                                |> base64encode |> strip))
 
     r[:content] = format_query_str(query)
-end
-
-
-
-# Create AWS3 Authentication Headers.
-# http://docs.aws.amazon.com/ses/latest/DeveloperGuide/query-interface-authentication.html
-
-function sign_aws3!(r::AWSRequest, t)
-
-    date = string(Dates.format(t, "e, d u yyyy H:M:S"), " GMT")
-
-    r[:headers]["Date"] = date
-    r[:headers]["X-Amzn-Authorization"] = string(
-        "AWS3-HTTPS AWSAccessKeyId=", r[:creds].access_key_id, ",",
-        "Algorithm=HmacSHA256,",
-        "Signature=", digest("sha256", r[:creds].secret_key, date)
-                      |> base64encode |> strip)
 end
 
 

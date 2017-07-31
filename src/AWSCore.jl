@@ -51,7 +51,6 @@ const AWSRequest = SymbolDict
 include("http.jl")
 include("AWSException.jl")
 include("AWSCredentials.jl")
-include("AWSService.jl")
 include("names.jl")
 include("mime.jl")
 
@@ -199,6 +198,9 @@ function service_query(aws::AWSConfig, meta,
 end
 
 
+service_ec2(a...) = service_query(a...)
+
+
 """
     target_request(::AWSConfig, service, version, command, args...)
 
@@ -261,8 +263,32 @@ function service_rest_json(aws::AWSConfig, meta,
         verb = verb,
         url = service_url(aws, meta) * resource,
         resource = resource,
-#        headers = Dict("Content-Type" => "application/json"),
         content = json(Dict(args)),
+        aws...))
+end
+
+
+function service_rest_xml(aws::AWSConfig, meta,
+                          verb::String, resource::String,
+                          operation::String, query)
+
+    query_str  = format_query_str(query)
+
+    if query_str  != ""
+        resource *= "?"
+        resource *= query_str
+    end
+        
+    url = error("FIXME") #deal with bucket prefix
+    #string("https://", meta["endpointPrefix"],
+    #       ".", aws[:region], ".amazonaws.com")
+
+    do_request(@SymDict(
+        service = meta["signingName"],
+        verb = verb,
+        url = url * resource,
+        resource = resource,
+        content = error("FIXME"),
         aws...))
 end
 
