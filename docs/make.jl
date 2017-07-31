@@ -1,36 +1,119 @@
-using Documenter
-using AWSCore
-using AWSS3
-using AWSSQS
-using AWSSES
-using AWSSNS
-
-makedocs(
-    modules = [
-        AWSCore,
-        AWSS3,
-        AWSSQS,
-        AWSSES,
-        AWSSNS
-    ],
-    format = :html,
-    sitename = "AWSCore.jl",
-    pages = [
-        "AWSCore.jl" => "index.md",
-        "AWSS3.jl" => "AWSS3.md",
-        "AWSSQS.jl" => "AWSSQS.md",
-        "AWSSES.jl" => "AWSSES.md",
-        "AWSSNS.jl" => "AWSSNS.md"
-    ]
-)
-
-#=
-deploydocs(
-    repo = "github.com/JuliaWeb/AWSCore.jl.git",
-    target = "build",
-    deps = nothing,
-    make = nothing,
-    julia = "release",
-    osname = "linux"
-)
-=#
+    using Documenter
+    using AWSCore
+    using AWSS3
+    using AWSSES
+    using AWSSQS
+    using AWSSNS
+using AmazonACM
+using AmazonAPIGateway
+using AmazonApplicationAutoScaling
+using AmazonAppStream
+using AmazonAthena
+using AmazonAutoScaling
+using AmazonBatch
+using AmazonBudgets
+using AmazonCloudDirectory
+using AmazonCloudFormation
+using AmazonCloudFront
+using AmazonCloudHSM
+using AmazonCloudSearch
+using AmazonCloudSearchDomain
+using AmazonCloudTrail
+using AmazonCodeBuild
+using AmazonCodeCommit
+using AmazonCodeDeploy
+using AmazonCodePipeline
+using AmazonCodeStar
+using AmazonCognitoIdentity
+using AmazonCognitoIdentityServiceProvider
+using AmazonCognitoSync
+using AmazonConfigService
+using AmazonCUR
+using AmazonDataPipeline
+using AmazonDAX
+using AmazonDeviceFarm
+using AmazonDirectConnect
+using AmazonDiscovery
+using AmazonDMS
+using AmazonDirectoryService
+using AmazonDynamoDB
+using AmazonEC2
+using AmazonECR
+using AmazonECS
+using AmazonElastiCache
+using AmazonElasticBeanstalk
+using AmazonEFS
+using AmazonELB
+using AmazonELBv2
+using AmazonEMR
+using AmazonElasticTranscoder
+using AmazonSES
+using AmazonMarketplaceEntitlementService
+using AmazonES
+using AmazonCloudWatchEvents
+using AmazonFirehose
+using AmazonGameLift
+using AmazonGlacier
+using AmazonGreengrass
+using AmazonHealth
+using AmazonIAM
+using AmazonImportExport
+using AmazonInspector
+using AmazonIot
+using AmazonIotData
+using AmazonKinesis
+using AmazonKinesisAnalytics
+using AmazonKMS
+using AmazonLambda
+using AmazonLexModelBuildingService
+using AmazonLightsail
+using AmazonCloudWatchLogs
+using AmazonMachineLearning
+using AmazonMarketplaceCommerceAnalytics
+using AmazonMarketplaceMetering
+using AmazonMobileAnalytics
+using AmazonCloudWatch
+using AmazonMTurk
+using AmazonOpsWorks
+using AmazonOpsWorksCM
+using AmazonOrganizations
+using AmazonPinpoint
+using AmazonPolly
+using AmazonRDS
+using AmazonRedshift
+using AmazonRekognition
+using AmazonResourceGroupsTaggingAPI
+using AmazonRoute53
+using AmazonRoute53Domains
+using AmazonLexRuntime
+using AmazonS3
+using AmazonSimpleDB
+using AmazonServiceCatalog
+using AmazonShield
+using AmazonSMS
+using AmazonSnowball
+using AmazonSNS
+using AmazonSQS
+using AmazonSSM
+using AmazonStepFunctions
+using AmazonStorageGateway
+using AmazonDynamoDBStreams
+using AmazonSTS
+using AmazonSupport
+using AmazonSWF
+using AmazonWAF
+using AmazonWAFRegional
+using AmazonWorkDocs
+using AmazonWorkSpaces
+using AmazonXRay
+makedocs(modules = [AWSCore, AWSS3, AWSSES, AWSSQS, AWSSNS,
+                    AmazonACM,AmazonAPIGateway,AmazonApplicationAutoScaling,AmazonAppStream,AmazonAthena,AmazonAutoScaling,AmazonBatch,AmazonBudgets,AmazonCloudDirectory,AmazonCloudFormation,AmazonCloudFront,AmazonCloudHSM,AmazonCloudSearch,AmazonCloudSearchDomain,AmazonCloudTrail,AmazonCodeBuild,AmazonCodeCommit,AmazonCodeDeploy,AmazonCodePipeline,AmazonCodeStar,AmazonCognitoIdentity,AmazonCognitoIdentityServiceProvider,AmazonCognitoSync,AmazonConfigService,AmazonCUR,AmazonDataPipeline,AmazonDAX,AmazonDeviceFarm,AmazonDirectConnect,AmazonDiscovery,AmazonDMS,AmazonDirectoryService,AmazonDynamoDB,AmazonEC2,AmazonECR,AmazonECS,AmazonElastiCache,AmazonElasticBeanstalk,AmazonEFS,AmazonELB,AmazonELBv2,AmazonEMR,AmazonElasticTranscoder,AmazonSES,AmazonMarketplaceEntitlementService,AmazonES,AmazonCloudWatchEvents,AmazonFirehose,AmazonGameLift,AmazonGlacier,AmazonGreengrass,AmazonHealth,AmazonIAM,AmazonImportExport,AmazonInspector,AmazonIot,AmazonIotData,AmazonKinesis,AmazonKinesisAnalytics,AmazonKMS,AmazonLambda,AmazonLexModelBuildingService,AmazonLightsail,AmazonCloudWatchLogs,AmazonMachineLearning,AmazonMarketplaceCommerceAnalytics,AmazonMarketplaceMetering,AmazonMobileAnalytics,AmazonCloudWatch,AmazonMTurk,AmazonOpsWorks,AmazonOpsWorksCM,AmazonOrganizations,AmazonPinpoint,AmazonPolly,AmazonRDS,AmazonRedshift,AmazonRekognition,AmazonResourceGroupsTaggingAPI,AmazonRoute53,AmazonRoute53Domains,AmazonLexRuntime,AmazonS3,AmazonSimpleDB,AmazonServiceCatalog,AmazonShield,AmazonSMS,AmazonSnowball,AmazonSNS,AmazonSQS,AmazonSSM,AmazonStepFunctions,AmazonStorageGateway,AmazonDynamoDBStreams,AmazonSTS,AmazonSupport,AmazonSWF,AmazonWAF,AmazonWAFRegional,AmazonWorkDocs,AmazonWorkSpaces,AmazonXRay],
+         format = :html,
+         sitename = "AWSCore.jl",
+         pages = ["AWSCore.jl" => "index.md",
+                  "AWSS3.jl" => "AWSS3.md",
+                  "AWSSQS.jl" => "AWSSQS.md",
+                  "AWSSES.jl" => "AWSSES.md",
+                  "AWSSNS.jl" => "AWSSNS.md",
+                  "AmazonACM.jl" => "AmazonACM.md","AmazonAPIGateway.jl" => "AmazonAPIGateway.md","AmazonApplicationAutoScaling.jl" => "AmazonApplicationAutoScaling.md","AmazonAppStream.jl" => "AmazonAppStream.md","AmazonAthena.jl" => "AmazonAthena.md","AmazonAutoScaling.jl" => "AmazonAutoScaling.md","AmazonBatch.jl" => "AmazonBatch.md","AmazonBudgets.jl" => "AmazonBudgets.md","AmazonCloudDirectory.jl" => "AmazonCloudDirectory.md","AmazonCloudFormation.jl" => "AmazonCloudFormation.md","AmazonCloudFront.jl" => "AmazonCloudFront.md","AmazonCloudHSM.jl" => "AmazonCloudHSM.md","AmazonCloudSearch.jl" => "AmazonCloudSearch.md","AmazonCloudSearchDomain.jl" => "AmazonCloudSearchDomain.md","AmazonCloudTrail.jl" => "AmazonCloudTrail.md","AmazonCodeBuild.jl" => "AmazonCodeBuild.md","AmazonCodeCommit.jl" => "AmazonCodeCommit.md","AmazonCodeDeploy.jl" => "AmazonCodeDeploy.md","AmazonCodePipeline.jl" => "AmazonCodePipeline.md","AmazonCodeStar.jl" => "AmazonCodeStar.md","AmazonCognitoIdentity.jl" => "AmazonCognitoIdentity.md","AmazonCognitoIdentityServiceProvider.jl" => "AmazonCognitoIdentityServiceProvider.md","AmazonCognitoSync.jl" => "AmazonCognitoSync.md","AmazonConfigService.jl" => "AmazonConfigService.md","AmazonCUR.jl" => "AmazonCUR.md","AmazonDataPipeline.jl" => "AmazonDataPipeline.md","AmazonDAX.jl" => "AmazonDAX.md","AmazonDeviceFarm.jl" => "AmazonDeviceFarm.md","AmazonDirectConnect.jl" => "AmazonDirectConnect.md","AmazonDiscovery.jl" => "AmazonDiscovery.md","AmazonDMS.jl" => "AmazonDMS.md","AmazonDirectoryService.jl" => "AmazonDirectoryService.md","AmazonDynamoDB.jl" => "AmazonDynamoDB.md","AmazonEC2.jl" => "AmazonEC2.md","AmazonECR.jl" => "AmazonECR.md","AmazonECS.jl" => "AmazonECS.md","AmazonElastiCache.jl" => "AmazonElastiCache.md","AmazonElasticBeanstalk.jl" => "AmazonElasticBeanstalk.md","AmazonEFS.jl" => "AmazonEFS.md","AmazonELB.jl" => "AmazonELB.md","AmazonELBv2.jl" => "AmazonELBv2.md","AmazonEMR.jl" => "AmazonEMR.md","AmazonElasticTranscoder.jl" => "AmazonElasticTranscoder.md","AmazonSES.jl" => "AmazonSES.md","AmazonMarketplaceEntitlementService.jl" => "AmazonMarketplaceEntitlementService.md","AmazonES.jl" => "AmazonES.md","AmazonCloudWatchEvents.jl" => "AmazonCloudWatchEvents.md","AmazonFirehose.jl" => "AmazonFirehose.md","AmazonGameLift.jl" => "AmazonGameLift.md","AmazonGlacier.jl" => "AmazonGlacier.md","AmazonGreengrass.jl" => "AmazonGreengrass.md","AmazonHealth.jl" => "AmazonHealth.md","AmazonIAM.jl" => "AmazonIAM.md","AmazonImportExport.jl" => "AmazonImportExport.md","AmazonInspector.jl" => "AmazonInspector.md","AmazonIot.jl" => "AmazonIot.md","AmazonIotData.jl" => "AmazonIotData.md","AmazonKinesis.jl" => "AmazonKinesis.md","AmazonKinesisAnalytics.jl" => "AmazonKinesisAnalytics.md","AmazonKMS.jl" => "AmazonKMS.md","AmazonLambda.jl" => "AmazonLambda.md","AmazonLexModelBuildingService.jl" => "AmazonLexModelBuildingService.md","AmazonLightsail.jl" => "AmazonLightsail.md","AmazonCloudWatchLogs.jl" => "AmazonCloudWatchLogs.md","AmazonMachineLearning.jl" => "AmazonMachineLearning.md","AmazonMarketplaceCommerceAnalytics.jl" => "AmazonMarketplaceCommerceAnalytics.md","AmazonMarketplaceMetering.jl" => "AmazonMarketplaceMetering.md","AmazonMobileAnalytics.jl" => "AmazonMobileAnalytics.md","AmazonCloudWatch.jl" => "AmazonCloudWatch.md","AmazonMTurk.jl" => "AmazonMTurk.md","AmazonOpsWorks.jl" => "AmazonOpsWorks.md","AmazonOpsWorksCM.jl" => "AmazonOpsWorksCM.md","AmazonOrganizations.jl" => "AmazonOrganizations.md","AmazonPinpoint.jl" => "AmazonPinpoint.md","AmazonPolly.jl" => "AmazonPolly.md","AmazonRDS.jl" => "AmazonRDS.md","AmazonRedshift.jl" => "AmazonRedshift.md","AmazonRekognition.jl" => "AmazonRekognition.md","AmazonResourceGroupsTaggingAPI.jl" => "AmazonResourceGroupsTaggingAPI.md","AmazonRoute53.jl" => "AmazonRoute53.md","AmazonRoute53Domains.jl" => "AmazonRoute53Domains.md","AmazonLexRuntime.jl" => "AmazonLexRuntime.md","AmazonS3.jl" => "AmazonS3.md","AmazonSimpleDB.jl" => "AmazonSimpleDB.md","AmazonServiceCatalog.jl" => "AmazonServiceCatalog.md","AmazonShield.jl" => "AmazonShield.md","AmazonSMS.jl" => "AmazonSMS.md","AmazonSnowball.jl" => "AmazonSnowball.md","AmazonSNS.jl" => "AmazonSNS.md","AmazonSQS.jl" => "AmazonSQS.md","AmazonSSM.jl" => "AmazonSSM.md","AmazonStepFunctions.jl" => "AmazonStepFunctions.md","AmazonStorageGateway.jl" => "AmazonStorageGateway.md","AmazonDynamoDBStreams.jl" => "AmazonDynamoDBStreams.md","AmazonSTS.jl" => "AmazonSTS.md","AmazonSupport.jl" => "AmazonSupport.md","AmazonSWF.jl" => "AmazonSWF.md","AmazonWAF.jl" => "AmazonWAF.md","AmazonWAFRegional.jl" => "AmazonWAFRegional.md","AmazonWorkDocs.jl" => "AmazonWorkDocs.md","AmazonWorkSpaces.jl" => "AmazonWorkSpaces.md","AmazonXRay.jl" => "AmazonXRay.md"
+         ])
