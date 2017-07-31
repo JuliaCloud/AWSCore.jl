@@ -1,6 +1,9 @@
 The AWSCore.jl package is licensed under the MIT "Expat" License:
 
-> Copyright (c) 2014: OC Technology Pty Ltd.
+> Copyright (c) 2017: OC Technology Pty Ltd.
+>
+> Includes portions derived from the AWS SDK for JavaScript,
+> Copyright Amazon.com
 >
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the
