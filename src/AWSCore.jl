@@ -181,9 +181,7 @@ function service_query(aws::AWSConfig, meta,
     query[:Action] = operation
     query[:Version] = meta["apiVersion"]
 
-    @show query
     query = flatten_query(query)
-    @show query
 
     do_request(@SymDict(
         service  = meta["signingName"],
