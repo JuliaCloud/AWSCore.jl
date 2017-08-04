@@ -6,6 +6,6 @@ JSON
 IniFile
 URIParser 0.1.2
 Requests
-Nettle
+MbedTLS
 HttpCommon
 DataStructures

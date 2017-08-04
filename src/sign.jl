@@ -7,7 +7,7 @@
 #==============================================================================#
 
 
-import Nettle: digest, hexdigest
+using MbedTLS
 
 using URIParser
 
@@ -52,7 +52,7 @@ function sign_aws2!(r::AWSRequest, t)
     to_sign = "POST\n$(uri.host)\n$(uri.path)\n$(format_query_str(query))"
 
     secret = r[:creds].secret_key
-    push!(query, ("Signature", digest("sha256", secret, to_sign)
+    push!(query, ("Signature", digest(MD_SHA256, to_sign, secret)
                                |> base64encode |> strip))
 
     r[:content] = format_query_str(query)
@@ -75,21 +75,21 @@ function sign_aws4!(r::AWSRequest, t)
     # Signing key generated from today's scope string...
     signing_key = string("AWS4", r[:creds].secret_key)
     for element in scope
-        signing_key = digest("sha256", signing_key, element)
+        signing_key = digest(MD_SHA256, element, signing_key)
     end
 
     # Authentication scope string...
     scope = join(scope, "/")
 
     # SHA256 hash of content...
-    content_hash = hexdigest("sha256", r[:content])
+    content_hash = bytes2hex(digest(MD_SHA256, r[:content]))
 
     # HTTP headers...
     delete!(r[:headers], "Authorization")
     merge!(r[:headers], Dict(
         "x-amz-content-sha256" => content_hash,
         "x-amz-date"           => datetime,
-        "Content-MD5"          => base64encode(digest("md5", r[:content]))
+        "Content-MD5"          => base64encode(digest(MD_MD5, r[:content]))
     ))
     if r[:creds].token != ""
         r[:headers]["x-amz-security-token"] = r[:creds].token
@@ -112,11 +112,11 @@ function sign_aws4!(r::AWSRequest, t)
                             join(sort(canonical_headers), "\n"), "\n\n",
                             signed_headers, "\n",
                             content_hash)
-    canonical_hash = hexdigest("sha256", canonical_form)
+    canonical_hash = bytes2hex(digest(MD_SHA256, canonical_form))
 
     # Create and sign "String to Sign"...
     string_to_sign = "AWS4-HMAC-SHA256\n$datetime\n$scope\n$canonical_hash"
-    signature = hexdigest("sha256", signing_key, string_to_sign)
+    signature = bytes2hex(digest(MD_SHA256, string_to_sign, signing_key))
 
     # Append Authorization header...
     r[:headers]["Authorization"] = string(
