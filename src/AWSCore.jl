@@ -153,16 +153,29 @@ function post_request(aws::AWSConfig,
 end
 
 
-function flatten_query(query, prefix="")
+# FIXME handle map.flattened and list.flattened (see SQS and SDB)
+function flatten_query(meta, query, prefix="")
 
     result = Dict()
 
     for (k, v) in query
+
         if typeof(v) <: Associative
-            merge!(result, flatten_query(v, "$prefix$k."))
+
+            merge!(result, flatten_query(meta, v, "$prefix$k."))
+
         elseif typeof(v) <: Array
+
             for (i, x) in enumerate(v)
-                result["$prefix$k.member.$i"] = x
+
+                suffix = meta["signingName"] == "ec2" ? "" : ".member"
+                k = "$prefix$k$suffix.$i"
+
+                if typeof(x) <: Associative
+                    merge!(result, flatten_query(meta, x, "$k."))
+                else
+                    result[k] = x
+                end
             end
         else
             result["$prefix$k"] = v
@@ -177,21 +190,29 @@ function service_query(aws::AWSConfig, meta,
                        verb::String, resource::String,
                        operation::String, query)
 
-    query = Dict(query)
-    query[:Action] = operation
-    query[:Version] = meta["apiVersion"]
+    if meta["endpointPrefix"] == "iam"
+        aws = merge(aws, Dict(:region => "us-east-1"))
+        query = merge(Dict(query), Dict("ContentType" => "JSON"))
+    end
 
-    query = flatten_query(query)
+    query = merge(Dict(query), Dict(
+        "Action" => operation,
+        "Version" => meta["apiVersion"]
+    ))
+
+    query = flatten_query(meta, query)
 
     do_request(@SymDict(
+
         service  = meta["signingName"],
         verb     = verb,
         url      = service_url(aws, meta) * resource,
         resource = resource,
-        headers  = Dict(
-            "Content-Type" =>
-            "application/x-www-form-urlencoded; charset=utf-8"),
+        headers  = Dict("Content-Type" =>
+                        "application/x-www-form-urlencoded; charset=utf-8"),
         content  = format_query_str(query),
+        query    = query,
+
         aws...))
 end
 
@@ -225,8 +246,8 @@ end
 
 
 function service_url(aws, meta)
-    string("https://", meta["endpointPrefix"],
-           ".", aws[:region], ".amazonaws.com")
+    region = meta["endpointPrefix"] != "iam" ? "." * aws[:region] : ""
+    string("https://", meta["endpointPrefix"], region, ".amazonaws.com")
 end
 
 
@@ -240,14 +261,15 @@ function service_json(aws::AWSConfig, meta,
     target = "$(meta["targetPrefix"]).$operation"
 
     do_request(@SymDict(
-        service = meta["signingName"],
-        verb = verb,
-        url = service_url(aws, meta) * resource,
+
+        service  = meta["signingName"],
+        verb     = verb,
+        url      = service_url(aws, meta) * resource,
         resource = resource,
-        headers = Dict(
-            "Content-Type" => "application/x-amz-json-$version",
-            "X-Amz-Target" => target),
-        content = json(Dict(args)),
+        headers  = Dict("Content-Type" => "application/x-amz-json-$version",
+                        "X-Amz-Target" => target),
+        content  = json(Dict(args)),
+
         aws...))
 end
 
@@ -257,11 +279,13 @@ function service_rest_json(aws::AWSConfig, meta,
                            operation::String, args)
 
     do_request(@SymDict(
-        service = meta["signingName"],
-        verb = verb,
-        url = service_url(aws, meta) * resource,
+
+        service  = meta["signingName"],
+        verb     = verb,
+        url      = service_url(aws, meta) * resource,
         resource = resource,
-        content = json(Dict(args)),
+        content  = json(Dict(args)),
+
         aws...))
 end
 
@@ -282,11 +306,13 @@ function service_rest_xml(aws::AWSConfig, meta,
     #       ".", aws[:region], ".amazonaws.com")
 
     do_request(@SymDict(
-        service = meta["signingName"],
-        verb = verb,
-        url = url * resource,
+
+        service  = meta["signingName"],
+        verb     = verb,
+        url      = url * resource,
         resource = resource,
-        content = error("FIXME"),
+        content  = error("FIXME"),
+
         aws...))
 end
 
@@ -317,6 +343,9 @@ function dump_aws_request(r::AWSRequest)
 
     action = r[:verb]
     name = r[:resource]
+    if name == "/"
+        name = ""
+    end
     if haskey(r, :query) && haskey(r[:query], "Action")
         action = r[:query]["Action"]
     end

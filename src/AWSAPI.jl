@@ -41,6 +41,18 @@ orjoin(words) = isempty(words) ? "" :
                 "$(join(words[1:end-1], ", ")) or $(words[end])"
 
 
+function member_name(service, name, info)
+
+    name = get(info, "locationName", name)
+
+    if service["metadata"]["signingName"] == "ec2"
+        name = string(uppercase(name[1]), name[2:end])
+    end
+
+    return name
+end
+
+
 function service_args(service, name)
 
     shape = service["shapes"][name]
@@ -49,7 +61,8 @@ function service_args(service, name)
     m = filter((n, i) -> (n in get(shape, "required", [])), shape["members"])
 
 
-    args = join(["$name=" for (name, info) in m], ", ")
+    args = join(["$(member_name(service, name, info))="
+                 for (name, info) in m], ", ")
     if length(m) < length(shape["members"])
         if args != ""
             args *= ", "
@@ -72,7 +85,7 @@ function service_shape_doc(service, name, pad="", stack=[])
         return t
     end
 
-    push!(stack, name) ; try 
+    push!(stack, name) ; try
 
     @assert pad != "" || t == "structure"
 
@@ -85,39 +98,37 @@ function service_shape_doc(service, name, pad="", stack=[])
             result = ""
 
             for (m, i) in shape["members"]
+                n = member_name(service, m, i)
                 s = service_shape_doc(service, i["shape"], padmore, stack)
                 d = html2md(get(i, "documentation", ""))
                 r = haskey(shape, "required") && m in shape["required"]
-                if s[1] != ':'
-                    m = "$m: "
-                end
+                n = "$n = "
                 if !contains(s, "\n")
-                    m = "$m$s"
+                    n = "$n$s"
                     s = ""
                 else
-                    s = "```\n$padmore$s\n```"
+                    brief = join(map(strip, split(s, "\n")[[1,end]]), " ... ")
+                    s = "```\n $n$s\n```"
+                    n = "$n$brief"
                 end
-                result *= "## `$m` $(r ? "-- *Required*" : "")\n$d\n$s\n\n"
+                result *= "## `$n`$(r ? " -- *Required*" : "")\n$d\n$s\n\n"
             end
 
             return result
         end
 
-        if length(shape["members"]) == 1
-            m, i = first(shape["members"])
-            r = haskey(shape, "required") && m in shape["required"]
-            return string(service_shape_doc(service, i["shape"], pad, stack),
-                          r ? " *" : "")
-        end
-
         members = []
         for (m, i) in shape["members"]
+            n = member_name(service, m, i)
             s = service_shape_doc(service, i["shape"], padmore, stack)
             r = haskey(shape, "required") && m in shape["required"]
-            push!(members, "$m $(r ? "*" : "") => $s")
+            push!(members, "\"$n\" => $(r ? "<required>" : "") $s")
         end
-
-        return "Dict(\n$padmore$(join(members, ",\n$padmore"))\n$pad)"
+        if length(members) == 1
+            return "Dict($(members[1]))"
+        else
+            return "Dict(\n$padmore$(join(members, ",\n$padmore"))\n$pad)"
+        end
     end
 
     if t == "list"
@@ -131,7 +142,7 @@ function service_shape_doc(service, name, pad="", stack=[])
 
     if t == "string"
         if haskey(shape, "enum")
-            return ": $(orjoin(["\"$v\"" for v in shape["enum"]]))"
+            return orjoin(["\"$v\"" for v in shape["enum"]])
         else
             return "::String"
         end
@@ -184,10 +195,10 @@ function service_operation(service, operation, info)
     resource = "\"$(info["http"]["requestUri"])\""
 
     if haskey(info, "input")
+        sig2 = "$name([::AWSConfig]; $input)"
         sig1 = "$name(::AWSConfig, arguments::Dict)"
-        sig2 = "$name(::AWSConfig; $input)"
     else
-        sig1 = "$name(::AWSConfig)\n"
+        sig1 = "$name([::AWSConfig])\n"
         sig2 = ""
     end
 
@@ -203,11 +214,14 @@ function service_operation(service, operation, info)
     See also: [AWS API Documentation]($api_ref)
     \"\"\"
 
-    $name(aws::AWSConfig; args...) = $name(aws, args)
+    $name(aws::AWSConfig=default_aws_config(); args...) = $name(aws, args)
 
     function $name(aws::AWSConfig, args)
         $request(aws, $method, $resource, \"$operation\", args)
     end
+
+    $name(args) = $name(default_aws_config(), args)
+
 
     """
 end
