@@ -11,8 +11,8 @@ __precompile__()
 module AWSCore
 
 
-export AWSException, AWSConfig, aws_config, default_aws_config,
-       AWSRequest, post_request, target_request, do_request
+export AWSException, AWSConfig, AWSRequest,
+       aws_config, default_aws_config
 
 
 using Retry
@@ -127,52 +127,57 @@ function default_aws_config()
 end
 
 
-
 """
-    post_request(::AWSConfig, service, version, query)
+    aws_args_dict(args)
 
-Construct a [`AWSRequest`](@ref) dictionary for a HTTP POST request.
+Convert nested `Vector{Pair}` maps in `args` into `Dict{String,Any}` maps.
 """
 
-function post_request(aws::AWSConfig,
-                      service::String,
-                      version::String,
-                      query::Dict)
+function aws_args_dict(args)
 
-    resource = get(aws, :resource, "/")
-    url = aws_endpoint(service, aws[:region]) * resource
-    if version != ""
-        query["Version"] = version
+    result = stringdict(args)
+
+    dictlike(t) = (t <: Associative
+                || t <: Vector && t.parameters[1] <: Pair{String})
+
+    for (k, v) in result
+        if dictlike(typeof(v))
+            result[k] = aws_args_dict(v)
+        elseif isa(v, Vector)
+            result[k] = [dictlike(typeof(i)) ? aws_args_dict(i) : i for i in v]
+        end
     end
-    headers = Dict("Content-Type" =>
-                   "application/x-www-form-urlencoded; charset=utf-8")
-    content = format_query_str(query)
 
-    @SymDict(verb = "POST", service, resource, url, headers, query, content,
-             aws...)
+    return result
 end
 
 
-# FIXME handle map.flattened and list.flattened (see SQS and SDB)
-function flatten_query(meta, query, prefix="")
+"""
+    flatten_query(service, query, prefix="")
 
-    result = Dict()
+Recursivly flatten tree of `Dicts` and `Arrays` into a 1-level deep Dict.
+"""
+
+# FIXME handle map.flattened and list.flattened (see SQS and SDB)
+function flatten_query(service, query, prefix="")
+
+    result = Dict{String,Any}()
 
     for (k, v) in query
 
         if typeof(v) <: Associative
 
-            merge!(result, flatten_query(meta, v, "$prefix$k."))
+            merge!(result, flatten_query(service, v, "$prefix$k."))
 
         elseif typeof(v) <: Array
 
             for (i, x) in enumerate(v)
 
-                suffix = meta["signingName"] == "ec2" ? "" : ".member"
+                suffix = service == "ec2" ? "" : ".member"
                 k = "$prefix$k$suffix.$i"
 
                 if typeof(x) <: Associative
-                    merge!(result, flatten_query(meta, x, "$k."))
+                    merge!(result, flatten_query(service, x, "$k."))
                 else
                     result[k] = x
                 end
@@ -186,109 +191,98 @@ function flatten_query(meta, query, prefix="")
 end
 
 
-function service_query(aws::AWSConfig, meta,
-                       verb::String, resource::String,
-                       operation::String, query)
+"""
+    service_url(aws::AWSConfig; request)
 
-    if meta["endpointPrefix"] == "iam"
+Service endpoint URL for `request`.
+"""
+
+function service_url(aws, request)
+    endpoint = get(request, :endpoint, request[:service])
+    region = endpoint != "iam" ? "." * aws[:region] : ""
+    string("https://", endpoint, region, ".amazonaws.com",
+           request[:resource])
+end
+
+
+"""
+    service_query(aws::AWSConfig; args...)
+
+Process request for AWS "query" service protocol.
+"""
+
+function service_query(aws::AWSConfig; args...)
+
+    request = Dict{Symbol,Any}(args)
+
+    request[:verb] = "POST"
+    request[:resource] = get(aws, :resource, "/") #FIXME AWSSQS.jl aws[:resource]
+    request[:url] = service_url(aws, request)
+    request[:headers] = Dict("Content-Type" =>
+                             "application/x-www-form-urlencoded; charset=utf-8")
+
+    request[:query] = aws_args_dict(request[:args])
+    request[:query]["Action"] = request[:operation]
+    request[:query]["Version"] = request[:version]
+
+    if request[:service] == "iam"
         aws = merge(aws, Dict(:region => "us-east-1"))
-        query = merge(Dict(query), Dict("ContentType" => "JSON"))
+    end
+    if request[:service] in ["iam", "sts", "sqs", "sns"]
+        request[:query]["ContentType"] = "JSON"
     end
 
-    query = merge(Dict(query), Dict(
-        "Action" => operation,
-        "Version" => meta["apiVersion"]
-    ))
+    request[:content] = format_query_str(flatten_query(request[:service],
+                                                       request[:query]))
 
-    query = flatten_query(meta, query)
-
-    do_request(@SymDict(
-
-        service  = meta["signingName"],
-        verb     = verb,
-        url      = service_url(aws, meta) * resource,
-        resource = resource,
-        headers  = Dict("Content-Type" =>
-                        "application/x-www-form-urlencoded; charset=utf-8"),
-        content  = format_query_str(query),
-        query    = query,
-
-        aws...))
+    do_request(merge(request, aws))
 end
-
-
-service_ec2(a...) = service_query(a...)
 
 
 """
-    target_request(::AWSConfig, service, version, command, args...)
+    service_json(aws::AWSConfig; args...)
 
-Construct a [`AWSRequest`](@ref) dictionary for a `X-Amz_Target`
-HTTP POST request.
+Process request for AWS "json" service protocol.
 """
 
-function target_request(aws::AWSConfig,
-                        service::String,
-                        version::String,
-                        command::String;
-                        args...)
-    @SymDict(
-        service = lowercase(service),
-        verb = "POST",
-        url = "https://$(lowercase(service)).$(aws[:region]).amazonaws.com/",
-        resource = "/",
-        headers = Dict("Content-Type" => "application/x-amz-json-1.1",
-                       "X-Amz-Target" => "$(service)_$version.$command"),
-        content = json(Dict(args)),
-        aws...)
+function service_json(aws::AWSConfig; args...)
 
+    request = Dict{Symbol,Any}(args)
+
+    request[:verb] = "POST"
+    request[:resource] = "/"
+    request[:url] = service_url(aws, request)
+    request[:headers] = Dict(
+        "Content-Type" => "application/x-amz-json-$(request[:json_version])",
+        "X-Amz-Target" => "$(request[:target]).$(request[:operation])")
+    request[:content] = json(aws_args_dict(request[:args]))
+
+    do_request(merge(request, aws))
 end
 
 
-function service_url(aws, meta)
-    region = meta["endpointPrefix"] != "iam" ? "." * aws[:region] : ""
-    string("https://", meta["endpointPrefix"], region, ".amazonaws.com")
+"""
+    service_rest_json(aws::AWSConfig; args...)
+
+Process request for AWS "rest_json" service protocol.
+"""
+
+function service_rest_json(aws::AWSConfig; args...)
+
+    request = Dict{Symbol,Any}(args)
+
+    request[:url] = service_url(aws, request)
+    request[:content] = json(aws_args_dict(request[:args]))
+
+    do_request(merge(request, aws))
 end
 
 
-function service_json(aws::AWSConfig, meta,
-                      verb::String, resource::String,
-                      operation::String, args)
+"""
+    service_rest_xml(aws::AWSConfig; args...)
 
-    version = get(meta, "jsonVersion", "1.0")
-    version = (version == "1") ? "1.0" : version
-
-    target = "$(meta["targetPrefix"]).$operation"
-
-    do_request(@SymDict(
-
-        service  = meta["signingName"],
-        verb     = verb,
-        url      = service_url(aws, meta) * resource,
-        resource = resource,
-        headers  = Dict("Content-Type" => "application/x-amz-json-$version",
-                        "X-Amz-Target" => target),
-        content  = json(Dict(args)),
-
-        aws...))
-end
-
-
-function service_rest_json(aws::AWSConfig, meta,
-                           verb::String, resource::String,
-                           operation::String, args)
-
-    do_request(@SymDict(
-
-        service  = meta["signingName"],
-        verb     = verb,
-        url      = service_url(aws, meta) * resource,
-        resource = resource,
-        content  = json(Dict(args)),
-
-        aws...))
-end
-
+Process request for AWS "rest_xml" service protocol.
+"""
 
 function service_rest_xml(aws::AWSConfig, meta,
                           verb::String, resource::String,
@@ -498,6 +492,8 @@ function set_debug_level(n)
     global debug_level = n
 end
 
+
+include("Services.jl")
 
 
 end # module AWSCore

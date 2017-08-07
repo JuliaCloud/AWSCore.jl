@@ -41,6 +41,12 @@ orjoin(words) = isempty(words) ? "" :
                 "$(join(words[1:end-1], ", ")) or $(words[end])"
 
 
+function is_simple_post_service(service)
+    return (service["metadata"]["protocol"] in ["json", "query", "ec2"]
+        &&  service["metadata"]["endpointPrefix"] != "importexport")
+end
+
+
 function member_name(service, name, info)
 
     name = get(info, "locationName", name)
@@ -125,15 +131,15 @@ function service_shape_doc(service, name, pad="", stack=[])
             push!(members, "\"$n\" => $(r ? "<required>" : "") $s")
         end
         if length(members) == 1
-            return "Dict($(members[1]))"
+            return "[$(members[1])]"
         else
-            return "Dict(\n$padmore$(join(members, ",\n$padmore"))\n$pad)"
+            return "[\n$padmore$(join(members, ",\n$padmore"))\n$pad]"
         end
     end
 
     if t == "list"
         s = service_shape_doc(service, shape["member"]["shape"], pad, stack)
-        return  "[$s...]"
+        return  "[$s, ...]"
     end
 
     if t == "map"
@@ -189,10 +195,16 @@ function service_operation(service, operation, info)
 
     api_ref = service_api_reference_url(service, operation)
 
-    prefix = replace(service["metadata"]["endpointPrefix"], r"[.-]", "_")
-    request = "$(prefix)_request"
-    method = "\"$(info["http"]["method"])\""
-    resource = "\"$(info["http"]["requestUri"])\""
+    request = service_request_function_name(service)
+    if is_simple_post_service(service)
+        @assert info["http"]["method"] == "POST"
+        @assert info["http"]["requestUri"] == "/"
+        method = ""
+        resource = ""
+    else
+        method = " \"$(info["http"]["method"])\","
+        resource = " \"$(info["http"]["requestUri"])\","
+    end
 
     if haskey(info, "input")
         sig2 = "$name([::AWSConfig]; $input)"
@@ -201,6 +213,7 @@ function service_operation(service, operation, info)
         sig1 = "$name([::AWSConfig])\n"
         sig2 = ""
     end
+
 
     """
     \"\"\"
@@ -214,16 +227,20 @@ function service_operation(service, operation, info)
     See also: [AWS API Documentation]($api_ref)
     \"\"\"
 
-    $name(aws::AWSConfig=default_aws_config(); args...) = $name(aws, args)
+    @inline $name(aws::AWSConfig=default_aws_config(); args...) = $name(aws, args)
 
-    function $name(aws::AWSConfig, args)
-        $request(aws, $method, $resource, \"$operation\", args)
-    end
+    @inline $name(aws::AWSConfig, args) = AWSCore.Services.$request(aws,$method$resource \"$operation\", args)
 
-    $name(args) = $name(default_aws_config(), args)
+    @inline $name(args) = $name(default_aws_config(), args)
 
 
     """
+end
+
+
+function service_request_function_name(service)
+
+    join(split(service["metadata"]["uid"], ['.', '-'])[1:end-3], "_")
 end
 
 
@@ -232,18 +249,50 @@ function service_request_function(service)
     meta = service["metadata"]
 
     protocol = replace(meta["protocol"], "-", "_")
-    prefix = replace(meta["endpointPrefix"], r"[.-]", "_")
+    if protocol == "ec2"
+        protocol = "query"
+    end
+    name = service_request_function_name(service)
 
-    meta = filter((k, v) -> !(k in ["sourceURL", "sourceFile"]), meta)
+    args = ["service      = \"$(meta["signingName"])\"",
+            "version      = \"$(meta["apiVersion"])\""]
+
+    if meta["endpointPrefix"] != meta["signingName"]
+        push!(args,
+            "endpoint     = \"$(meta["endpointPrefix"])\"")
+    end
+
+    if is_simple_post_service(service)
+        verb = ""
+        resource = ""
+    else
+        push!(args,
+            "verb         = verb",
+            "resource     = resource")
+        verb = " verb,"
+        resource = " resource,"
+    end
+
+    if meta["protocol"] == "json"
+        json_version = get(meta, "jsonVersion", "1.0")
+        if json_version == "1"
+            json_version = "1.0"
+        end
+        push!(args,
+            "json_version = \"$json_version\"",
+            "target       = \"$(get(meta, "targetPrefix", ""))\"")
+    end
+
+    push!(args,
+            "operation    = operation",
+            "args         = args")
 
 """
-const service_meta = $meta
+function $name(aws::AWSConfig,$verb$resource operation, args)
 
-function $(prefix)_request(aws::AWSConfig, verb::String, resource::String, operation::String, args)
-
-    global service_meta
-
-    AWSCore.service_$protocol(aws, service_meta, verb, resource, operation, args)
+    AWSCore.service_$protocol(
+        aws;
+        $(join(args, ",\n        ")))
 end
 """
 end
@@ -268,14 +317,9 @@ __precompile__()
 module $m
 
 using AWSCore
-using DataStructures
 
 
 """,
-
-    service_request_function(service),
-
-    "\n\n",
 
     (service_operation(service, o, i) for (o, i) in service["operations"])...,
 
@@ -329,10 +373,8 @@ function service_documentation(service)
 
 end
 
-function service_generate(name)
+function service_generate(name, definition)
 
-    service = AWSMetadata.service_list()[name]
-    definition = AWSMetadata.service_definition(service)
     meta = definition["metadata"]
     m = api_module_name(name)
     meta["juliaModule"] = m
@@ -416,9 +458,36 @@ function generate_all()
 
     services = keys(AWSMetadata.service_list())
 
-    for s in services
-        service_generate(s)
+    request_functions = []
+
+    for name in services
+        service = AWSMetadata.service_list()[name]
+        definition = AWSMetadata.service_definition(service)
+        service_generate(name, definition)
+        push!(request_functions, service_request_function(definition))
     end
+
+    write(joinpath(@__DIR__, "Services.jl"),
+"""
+#==============================================================================#
+# Services.jl
+#
+# This file is generated by AWSAPI.jl from service decriptions at:
+# https://github.com/aws/aws-sdk-js/tree/master/apis
+#==============================================================================#
+
+module Services
+
+using ..AWSCore
+
+$(join(request_functions, "\n"))
+
+end # module Services
+
+#==============================================================================#
+# End of file
+#==============================================================================#
+""")
 
     write(joinpath(@__DIR__, "..", "docs", "make.jl"), generate_doc(services))
 end
