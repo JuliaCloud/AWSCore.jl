@@ -136,7 +136,7 @@ end
 function http_request(host::String, resource::String)
 
     http_request(Request("GET", resource,
-                         Dict{String,String}(), UInt8[],
+                         Dict("Host" => host), UInt8[],
                          URI(host,resource)))
 end
 

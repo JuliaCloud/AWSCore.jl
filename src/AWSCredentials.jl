@@ -26,7 +26,7 @@ The fields `access_key_id` and `secret_key` hold the access keys used to authent
 The `user_arn` and `account_number` fields are used to cache the result of the [`aws_user_arn`](@ref) and [`aws_account_number`](@ref) functions.
 
 The `AWSCredentials()` constructor tries to load local Credentials from
-environment variables, `~/.aws/credentials` or EC2 instance credentials. 
+environment variables, `~/.aws/credentials` or EC2 instance credentials.
 """
 
 type AWSCredentials
@@ -67,7 +67,11 @@ function AWSCredentials()
 
     elseif localhost_is_ec2()
 
-        aws = ec2_instance_credentials()
+        if haskey(ENV, "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
+            aws = ecs_instance_credentials()
+        else
+            aws = ec2_instance_credentials()
+        end
     else
         error("Can't find AWS credentials!")
     end
@@ -123,9 +127,7 @@ function aws_user_arn(aws::AWSConfig)
 
     if creds.user_arn == ""
 
-        r = do_request(post_request(aws, "sts", "2011-06-15",
-                                    Dict("Action" => "GetCallerIdentity",
-                                         "ContentType" => "JSON")))
+        r = Services.sts(aws, "GetCallerIdentity", [])
         creds.user_arn = r["Arn"]
         creds.account_number = r["Account"]
     end
@@ -185,13 +187,38 @@ function ec2_instance_credentials()
     new_creds = JSON.parse(creds, dicttype=Dict{String,String})
 
     if debug_level > 0
-        print("Loading AWSCredentials EC2 metadata... ")
+        print("Loading AWSCredentials from EC2 metadata... ")
     end
 
     AWSCredentials(new_creds["AccessKeyId"],
                    new_creds["SecretAccessKey"],
                    new_creds["Token"],
                    info["InstanceProfileArn"])
+end
+
+
+"""
+Load [ECS Task Credentials]
+(http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html)
+"""
+
+function ecs_instance_credentials()
+
+    @assert localhost_is_ec2()
+    @assert haskey(ENV, "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
+
+    uri = ENV["AWS_CONTAINER_CREDENTIALS_RELATIVE_URI"]
+
+    new_creds = JSON.parse(String(http_request("169.254.170.2", uri).data))
+
+#    if debug_level > 0
+        print("Loading AWSCredentials from ECS metadata... ")
+#    end
+
+    AWSCredentials(new_creds["AccessKeyId"],
+                   new_creds["SecretAccessKey"],
+                   new_creds["Token"],
+                   new_creds["RoleArn"])
 end
 
 
