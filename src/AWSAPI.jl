@@ -16,6 +16,7 @@ module AWSAPI
 using AWSMetadata
 using HTML2MD
 using DataStructures
+using JSON
 
 
 api_module_name(service_name) = "Amazon$(service_name)"
@@ -168,6 +169,24 @@ function service_shape_doc(service, name, pad="", stack=[])
 end
 
 
+function pretty(d::Associative, dict = "Dict()", pad="")
+    dict[1:end-1] * "\n" *
+    join([string(pad, "    \"", k, "\" => ", pretty(v, dict, pad * "    "))
+          for (k, v) in d], ",\n") *
+    "\n$pad" * dict[end:end]
+end
+
+function pretty(v::Vector, dict, pad)
+    "[\n" *
+    join([string(pad, "    ", pretty(i, dict, pad * "    ")) for i in v], ",\n") *
+    "\n$pad]"
+end
+
+pretty(s::String, args...) = string("\"", replace(s, "\$", "\\\$"), "\"")
+
+pretty(n, args...) = string(n)
+
+
 function service_operation(service, operation, info)
 
     @assert !haskey(info, "input") || isa(info["input"], OrderedDict)
@@ -214,6 +233,37 @@ function service_operation(service, operation, info)
         sig2 = ""
     end
 
+    example = ""
+    if haskey(service, "examples") && haskey(service["examples"], operation)
+
+        for eg in service["examples"][operation]
+            example *= """
+
+            # Example: $(eg["title"])
+
+            $(eg["description"])
+            """
+
+            if haskey(eg, "input")
+                example *= """
+
+                Input:
+                ```
+                $(pretty(eg["input"], "[]"))
+                ```
+                """
+            end
+            if haskey(eg, "output")
+                example *= """
+
+                Output:
+                ```
+                $(pretty(eg["output"]))
+                ```
+                """
+            end
+        end
+    end
 
     """
     \"\"\"
@@ -223,7 +273,7 @@ function service_operation(service, operation, info)
     # $operation Operation
 
     $(html2md(get(info, "documentation", "")))$inputdoc$output$errors
-
+    $example
     See also: [AWS API Documentation]($api_ref)
     \"\"\"
 

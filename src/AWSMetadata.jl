@@ -13,8 +13,9 @@ module AWSMetadata
 
 
 using JSON
-using Requests: get, post, URI
+using Requests: get, post, URI, Response
 using DataStructures
+using Retry
 
 
 """
@@ -30,7 +31,7 @@ json_parse(d) = JSON.parse(d, dicttype=DataStructures.OrderedDict)
     cachehas(file)
     cacheget(file)
     cacheput(file, data)
-    
+
 Cache for files downloaded from the AWS JavaScript SDK on GitHub.
 """
 
@@ -77,6 +78,11 @@ Get `filename` from the AWS JavaScript SDK on GitHub.
 
 function aws_sdk_js(filename)
 
+    if cachehas(filename * ".404")
+        r = Response()
+        r.status = 404
+        throw(r)
+    end
     if cachehas(filename)
         return cacheget(filename)
     end
@@ -84,7 +90,12 @@ function aws_sdk_js(filename)
     url = "https://raw.githubusercontent.com/aws/aws-sdk-js/master/$filename"
     println("GET $url...")
     r = get(URI(url))
-    @assert r.status == 200
+    if r.status != 200
+        if r.status == 404
+            cacheput(filename * ".404", "")
+        end
+        throw(r)
+    end
 
     r = String(r.data)
     cacheput(filename, r)
@@ -159,11 +170,11 @@ function service_definition(service)
     @assert meta["apiVersion"] == service["version"]
 
     # Check that service definition JSON version is 2.0...
-    @assert service["prefix"] in ["sdb", "greengrass", "pinpoint"] || 
+    @assert service["prefix"] in ["sdb", "greengrass", "pinpoint"] ||
             definition["version"] == "2.0"
 
     # Check that signature version is v4...
-    @assert service["prefix"] in ["s3", "sdb", "importexport"] || 
+    @assert service["prefix"] in ["s3", "sdb", "importexport"] ||
             meta["signatureVersion"] == "v4"
 
     @assert service["prefix"] in ["sdb", "mobileanalytics", "pinpoint"] ||
@@ -182,6 +193,22 @@ function service_definition(service)
     meta["sourceFile"] = filename
     meta["sourceURL"] =
         "https://github.com/aws/aws-sdk-js/blob/master/$filename"
+
+    @protected try
+        # Fetch examples...
+        filename = "apis/$(service["prefix"])-$(service["version"]).examples.json"
+        definition["examples"] = json_parse(aws_sdk_js(filename))["examples"]
+    catch e
+        @ignore if e.status == 404 end
+    end
+
+    @protected try
+        # Fetch paginators...
+        filename = "apis/$(service["prefix"])-$(service["version"]).paginators.json"
+        definition["pagination"] = json_parse(aws_sdk_js(filename))["pagination"]
+    catch e
+        @ignore if e.status == 404 end
+    end
 
     return definition
 end
@@ -206,7 +233,7 @@ function service_summary()
 
     for (name, service) in services
 
-        sd = service_definition(service) 
+        sd = service_definition(service)
         meta = sd["metadata"]
         pr = meta["protocol"]
         sv = meta["signatureVersion"]

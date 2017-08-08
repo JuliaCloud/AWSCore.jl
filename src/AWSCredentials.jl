@@ -211,9 +211,9 @@ function ecs_instance_credentials()
 
     new_creds = JSON.parse(String(http_request("169.254.170.2", uri).data))
 
-#    if debug_level > 0
+    if debug_level > 0
         print("Loading AWSCredentials from ECS metadata... ")
-#    end
+    end
 
     AWSCredentials(new_creds["AccessKeyId"],
                    new_creds["SecretAccessKey"],
