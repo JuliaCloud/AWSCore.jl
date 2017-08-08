@@ -1,9 +1,23 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>AmazonRoute53.jl · AWSCore.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link href="assets/highlightjs/default.css" rel="stylesheet" type="text/css"/><link href="assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>AWSCore.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="index.html">AWSCore.jl</a></li><li><a class="toctext" href="AWSS3.html">AWSS3.jl</a></li><li><a class="toctext" href="AWSSQS.html">AWSSQS.jl</a></li><li><a class="toctext" href="AWSSES.html">AWSSES.jl</a></li><li><a class="toctext" href="AWSSNS.html">AWSSNS.jl</a></li><li><a class="toctext" href="AmazonACM.html">AmazonACM.jl</a></li><li><a class="toctext" href="AmazonAPIGateway.html">AmazonAPIGateway.jl</a></li><li><a class="toctext" href="AmazonApplicationAutoScaling.html">AmazonApplicationAutoScaling.jl</a></li><li><a class="toctext" href="AmazonAppStream.html">AmazonAppStream.jl</a></li><li><a class="toctext" href="AmazonAthena.html">AmazonAthena.jl</a></li><li><a class="toctext" href="AmazonAutoScaling.html">AmazonAutoScaling.jl</a></li><li><a class="toctext" href="AmazonBatch.html">AmazonBatch.jl</a></li><li><a class="toctext" href="AmazonBudgets.html">AmazonBudgets.jl</a></li><li><a class="toctext" href="AmazonCloudDirectory.html">AmazonCloudDirectory.jl</a></li><li><a class="toctext" href="AmazonCloudFormation.html">AmazonCloudFormation.jl</a></li><li><a class="toctext" href="AmazonCloudFront.html">AmazonCloudFront.jl</a></li><li><a class="toctext" href="AmazonCloudHSM.html">AmazonCloudHSM.jl</a></li><li><a class="toctext" href="AmazonCloudSearch.html">AmazonCloudSearch.jl</a></li><li><a class="toctext" href="AmazonCloudSearchDomain.html">AmazonCloudSearchDomain.jl</a></li><li><a class="toctext" href="AmazonCloudTrail.html">AmazonCloudTrail.jl</a></li><li><a class="toctext" href="AmazonCodeBuild.html">AmazonCodeBuild.jl</a></li><li><a class="toctext" href="AmazonCodeCommit.html">AmazonCodeCommit.jl</a></li><li><a class="toctext" href="AmazonCodeDeploy.html">AmazonCodeDeploy.jl</a></li><li><a class="toctext" href="AmazonCodePipeline.html">AmazonCodePipeline.jl</a></li><li><a class="toctext" href="AmazonCodeStar.html">AmazonCodeStar.jl</a></li><li><a class="toctext" href="AmazonCognitoIdentity.html">AmazonCognitoIdentity.jl</a></li><li><a class="toctext" href="AmazonCognitoIdentityServiceProvider.html">AmazonCognitoIdentityServiceProvider.jl</a></li><li><a class="toctext" href="AmazonCognitoSync.html">AmazonCognitoSync.jl</a></li><li><a class="toctext" href="AmazonConfigService.html">AmazonConfigService.jl</a></li><li><a class="toctext" href="AmazonCUR.html">AmazonCUR.jl</a></li><li><a class="toctext" href="AmazonDataPipeline.html">AmazonDataPipeline.jl</a></li><li><a class="toctext" href="AmazonDAX.html">AmazonDAX.jl</a></li><li><a class="toctext" href="AmazonDeviceFarm.html">AmazonDeviceFarm.jl</a></li><li><a class="toctext" href="AmazonDirectConnect.html">AmazonDirectConnect.jl</a></li><li><a class="toctext" href="AmazonDiscovery.html">AmazonDiscovery.jl</a></li><li><a class="toctext" href="AmazonDMS.html">AmazonDMS.jl</a></li><li><a class="toctext" href="AmazonDirectoryService.html">AmazonDirectoryService.jl</a></li><li><a class="toctext" href="AmazonDynamoDB.html">AmazonDynamoDB.jl</a></li><li><a class="toctext" href="AmazonEC2.html">AmazonEC2.jl</a></li><li><a class="toctext" href="AmazonECR.html">AmazonECR.jl</a></li><li><a class="toctext" href="AmazonECS.html">AmazonECS.jl</a></li><li><a class="toctext" href="AmazonElastiCache.html">AmazonElastiCache.jl</a></li><li><a class="toctext" href="AmazonElasticBeanstalk.html">AmazonElasticBeanstalk.jl</a></li><li><a class="toctext" href="AmazonEFS.html">AmazonEFS.jl</a></li><li><a class="toctext" href="AmazonELB.html">AmazonELB.jl</a></li><li><a class="toctext" href="AmazonELBv2.html">AmazonELBv2.jl</a></li><li><a class="toctext" href="AmazonEMR.html">AmazonEMR.jl</a></li><li><a class="toctext" href="AmazonElasticTranscoder.html">AmazonElasticTranscoder.jl</a></li><li><a class="toctext" href="AmazonSES.html">AmazonSES.jl</a></li><li><a class="toctext" href="AmazonMarketplaceEntitlementService.html">AmazonMarketplaceEntitlementService.jl</a></li><li><a class="toctext" href="AmazonES.html">AmazonES.jl</a></li><li><a class="toctext" href="AmazonCloudWatchEvents.html">AmazonCloudWatchEvents.jl</a></li><li><a class="toctext" href="AmazonFirehose.html">AmazonFirehose.jl</a></li><li><a class="toctext" href="AmazonGameLift.html">AmazonGameLift.jl</a></li><li><a class="toctext" href="AmazonGlacier.html">AmazonGlacier.jl</a></li><li><a class="toctext" href="AmazonGreengrass.html">AmazonGreengrass.jl</a></li><li><a class="toctext" href="AmazonHealth.html">AmazonHealth.jl</a></li><li><a class="toctext" href="AmazonIAM.html">AmazonIAM.jl</a></li><li><a class="toctext" href="AmazonImportExport.html">AmazonImportExport.jl</a></li><li><a class="toctext" href="AmazonInspector.html">AmazonInspector.jl</a></li><li><a class="toctext" href="AmazonIot.html">AmazonIot.jl</a></li><li><a class="toctext" href="AmazonIotData.html">AmazonIotData.jl</a></li><li><a class="toctext" href="AmazonKinesis.html">AmazonKinesis.jl</a></li><li><a class="toctext" href="AmazonKinesisAnalytics.html">AmazonKinesisAnalytics.jl</a></li><li><a class="toctext" href="AmazonKMS.html">AmazonKMS.jl</a></li><li><a class="toctext" href="AmazonLambda.html">AmazonLambda.jl</a></li><li><a class="toctext" href="AmazonLexModelBuildingService.html">AmazonLexModelBuildingService.jl</a></li><li><a class="toctext" href="AmazonLightsail.html">AmazonLightsail.jl</a></li><li><a class="toctext" href="AmazonCloudWatchLogs.html">AmazonCloudWatchLogs.jl</a></li><li><a class="toctext" href="AmazonMachineLearning.html">AmazonMachineLearning.jl</a></li><li><a class="toctext" href="AmazonMarketplaceCommerceAnalytics.html">AmazonMarketplaceCommerceAnalytics.jl</a></li><li><a class="toctext" href="AmazonMarketplaceMetering.html">AmazonMarketplaceMetering.jl</a></li><li><a class="toctext" href="AmazonMobileAnalytics.html">AmazonMobileAnalytics.jl</a></li><li><a class="toctext" href="AmazonCloudWatch.html">AmazonCloudWatch.jl</a></li><li><a class="toctext" href="AmazonMTurk.html">AmazonMTurk.jl</a></li><li><a class="toctext" href="AmazonOpsWorks.html">AmazonOpsWorks.jl</a></li><li><a class="toctext" href="AmazonOpsWorksCM.html">AmazonOpsWorksCM.jl</a></li><li><a class="toctext" href="AmazonOrganizations.html">AmazonOrganizations.jl</a></li><li><a class="toctext" href="AmazonPinpoint.html">AmazonPinpoint.jl</a></li><li><a class="toctext" href="AmazonPolly.html">AmazonPolly.jl</a></li><li><a class="toctext" href="AmazonRDS.html">AmazonRDS.jl</a></li><li><a class="toctext" href="AmazonRedshift.html">AmazonRedshift.jl</a></li><li><a class="toctext" href="AmazonRekognition.html">AmazonRekognition.jl</a></li><li><a class="toctext" href="AmazonResourceGroupsTaggingAPI.html">AmazonResourceGroupsTaggingAPI.jl</a></li><li class="current"><a class="toctext" href="AmazonRoute53.html">AmazonRoute53.jl</a><ul class="internal"></ul></li><li><a class="toctext" href="AmazonRoute53Domains.html">AmazonRoute53Domains.jl</a></li><li><a class="toctext" href="AmazonLexRuntime.html">AmazonLexRuntime.jl</a></li><li><a class="toctext" href="AmazonS3.html">AmazonS3.jl</a></li><li><a class="toctext" href="AmazonSimpleDB.html">AmazonSimpleDB.jl</a></li><li><a class="toctext" href="AmazonServiceCatalog.html">AmazonServiceCatalog.jl</a></li><li><a class="toctext" href="AmazonShield.html">AmazonShield.jl</a></li><li><a class="toctext" href="AmazonSMS.html">AmazonSMS.jl</a></li><li><a class="toctext" href="AmazonSnowball.html">AmazonSnowball.jl</a></li><li><a class="toctext" href="AmazonSNS.html">AmazonSNS.jl</a></li><li><a class="toctext" href="AmazonSQS.html">AmazonSQS.jl</a></li><li><a class="toctext" href="AmazonSSM.html">AmazonSSM.jl</a></li><li><a class="toctext" href="AmazonStepFunctions.html">AmazonStepFunctions.jl</a></li><li><a class="toctext" href="AmazonStorageGateway.html">AmazonStorageGateway.jl</a></li><li><a class="toctext" href="AmazonDynamoDBStreams.html">AmazonDynamoDBStreams.jl</a></li><li><a class="toctext" href="AmazonSTS.html">AmazonSTS.jl</a></li><li><a class="toctext" href="AmazonSupport.html">AmazonSupport.jl</a></li><li><a class="toctext" href="AmazonSWF.html">AmazonSWF.jl</a></li><li><a class="toctext" href="AmazonWAF.html">AmazonWAF.jl</a></li><li><a class="toctext" href="AmazonWAFRegional.html">AmazonWAFRegional.jl</a></li><li><a class="toctext" href="AmazonWorkDocs.html">AmazonWorkDocs.jl</a></li><li><a class="toctext" href="AmazonWorkSpaces.html">AmazonWorkSpaces.jl</a></li><li><a class="toctext" href="AmazonXRay.html">AmazonXRay.jl</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href="AmazonRoute53.html">AmazonRoute53.jl</a></li></ul><a class="edit-page" href="https://github.com/samoconnor/AWSCore.jl/tree/51db81e3b11027dea3d39d36c6d42c7cba5cde8e/docs/src/AmazonRoute53.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>AmazonRoute53.jl</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="AmazonRoute53-1" href="#AmazonRoute53-1">AmazonRoute53</a></h1><p>This document is generated from <a href="https://github.com/aws/aws-sdk-js/blob/master/apis/route53-2013-04-01.normal.json">apis/route53-2013-04-01.normal.json</a>. See <a href="https://github.com/JuliaCloud/AWSCore.jl">JuliaCloud/AWSCore.jl</a>.</p><ul><li><a href="AmazonRoute53.html#AmazonRoute53.associate_vpcwith_hosted_zone"><code>AmazonRoute53.associate_vpcwith_hosted_zone</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.change_resource_record_sets"><code>AmazonRoute53.change_resource_record_sets</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.change_tags_for_resource"><code>AmazonRoute53.change_tags_for_resource</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.create_health_check"><code>AmazonRoute53.create_health_check</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.create_hosted_zone"><code>AmazonRoute53.create_hosted_zone</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.create_reusable_delegation_set"><code>AmazonRoute53.create_reusable_delegation_set</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.create_traffic_policy"><code>AmazonRoute53.create_traffic_policy</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.create_traffic_policy_instance"><code>AmazonRoute53.create_traffic_policy_instance</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.create_traffic_policy_version"><code>AmazonRoute53.create_traffic_policy_version</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.create_vpcassociation_authorization"><code>AmazonRoute53.create_vpcassociation_authorization</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.delete_health_check"><code>AmazonRoute53.delete_health_check</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.delete_hosted_zone"><code>AmazonRoute53.delete_hosted_zone</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.delete_reusable_delegation_set"><code>AmazonRoute53.delete_reusable_delegation_set</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.delete_traffic_policy"><code>AmazonRoute53.delete_traffic_policy</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.delete_traffic_policy_instance"><code>AmazonRoute53.delete_traffic_policy_instance</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.delete_vpcassociation_authorization"><code>AmazonRoute53.delete_vpcassociation_authorization</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.disassociate_vpcfrom_hosted_zone"><code>AmazonRoute53.disassociate_vpcfrom_hosted_zone</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_change"><code>AmazonRoute53.get_change</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_checker_ip_ranges"><code>AmazonRoute53.get_checker_ip_ranges</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_geo_location"><code>AmazonRoute53.get_geo_location</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_health_check"><code>AmazonRoute53.get_health_check</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_health_check_count"><code>AmazonRoute53.get_health_check_count</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_health_check_last_failure_reason"><code>AmazonRoute53.get_health_check_last_failure_reason</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_health_check_status"><code>AmazonRoute53.get_health_check_status</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_hosted_zone"><code>AmazonRoute53.get_hosted_zone</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_hosted_zone_count"><code>AmazonRoute53.get_hosted_zone_count</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_reusable_delegation_set"><code>AmazonRoute53.get_reusable_delegation_set</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_traffic_policy"><code>AmazonRoute53.get_traffic_policy</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_traffic_policy_instance"><code>AmazonRoute53.get_traffic_policy_instance</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_traffic_policy_instance_count"><code>AmazonRoute53.get_traffic_policy_instance_count</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_geo_locations"><code>AmazonRoute53.list_geo_locations</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_health_checks"><code>AmazonRoute53.list_health_checks</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_hosted_zones"><code>AmazonRoute53.list_hosted_zones</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_hosted_zones_by_name"><code>AmazonRoute53.list_hosted_zones_by_name</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_resource_record_sets"><code>AmazonRoute53.list_resource_record_sets</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_reusable_delegation_sets"><code>AmazonRoute53.list_reusable_delegation_sets</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_tags_for_resource"><code>AmazonRoute53.list_tags_for_resource</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_tags_for_resources"><code>AmazonRoute53.list_tags_for_resources</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_traffic_policies"><code>AmazonRoute53.list_traffic_policies</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_traffic_policy_instances"><code>AmazonRoute53.list_traffic_policy_instances</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_traffic_policy_instances_by_hosted_zone"><code>AmazonRoute53.list_traffic_policy_instances_by_hosted_zone</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_traffic_policy_instances_by_policy"><code>AmazonRoute53.list_traffic_policy_instances_by_policy</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_traffic_policy_versions"><code>AmazonRoute53.list_traffic_policy_versions</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_vpcassociation_authorizations"><code>AmazonRoute53.list_vpcassociation_authorizations</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.test_dnsanswer"><code>AmazonRoute53.test_dnsanswer</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.update_health_check"><code>AmazonRoute53.update_health_check</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.update_hosted_zone_comment"><code>AmazonRoute53.update_hosted_zone_comment</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.update_traffic_policy_comment"><code>AmazonRoute53.update_traffic_policy_comment</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.update_traffic_policy_instance"><code>AmazonRoute53.update_traffic_policy_instance</code></a></li></ul><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AmazonRoute53.associate_vpcwith_hosted_zone" href="#AmazonRoute53.associate_vpcwith_hosted_zone"><code>AmazonRoute53.associate_vpcwith_hosted_zone</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">associate_vpcwith_hosted_zone(::AWSConfig, arguments::Dict)
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>AmazonRoute53.jl · AWSCore.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link href="assets/highlightjs/default.css" rel="stylesheet" type="text/css"/><link href="assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>AWSCore.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="index.html">AWSCore.jl</a></li><li><a class="toctext" href="AWSS3.html">AWSS3.jl</a></li><li><a class="toctext" href="AWSSQS.html">AWSSQS.jl</a></li><li><a class="toctext" href="AWSSES.html">AWSSES.jl</a></li><li><a class="toctext" href="AWSSNS.html">AWSSNS.jl</a></li><li><a class="toctext" href="AmazonACM.html">AmazonACM.jl</a></li><li><a class="toctext" href="AmazonAPIGateway.html">AmazonAPIGateway.jl</a></li><li><a class="toctext" href="AmazonApplicationAutoScaling.html">AmazonApplicationAutoScaling.jl</a></li><li><a class="toctext" href="AmazonAppStream.html">AmazonAppStream.jl</a></li><li><a class="toctext" href="AmazonAthena.html">AmazonAthena.jl</a></li><li><a class="toctext" href="AmazonAutoScaling.html">AmazonAutoScaling.jl</a></li><li><a class="toctext" href="AmazonBatch.html">AmazonBatch.jl</a></li><li><a class="toctext" href="AmazonBudgets.html">AmazonBudgets.jl</a></li><li><a class="toctext" href="AmazonCloudDirectory.html">AmazonCloudDirectory.jl</a></li><li><a class="toctext" href="AmazonCloudFormation.html">AmazonCloudFormation.jl</a></li><li><a class="toctext" href="AmazonCloudFront.html">AmazonCloudFront.jl</a></li><li><a class="toctext" href="AmazonCloudHSM.html">AmazonCloudHSM.jl</a></li><li><a class="toctext" href="AmazonCloudSearch.html">AmazonCloudSearch.jl</a></li><li><a class="toctext" href="AmazonCloudSearchDomain.html">AmazonCloudSearchDomain.jl</a></li><li><a class="toctext" href="AmazonCloudTrail.html">AmazonCloudTrail.jl</a></li><li><a class="toctext" href="AmazonCodeBuild.html">AmazonCodeBuild.jl</a></li><li><a class="toctext" href="AmazonCodeCommit.html">AmazonCodeCommit.jl</a></li><li><a class="toctext" href="AmazonCodeDeploy.html">AmazonCodeDeploy.jl</a></li><li><a class="toctext" href="AmazonCodePipeline.html">AmazonCodePipeline.jl</a></li><li><a class="toctext" href="AmazonCodeStar.html">AmazonCodeStar.jl</a></li><li><a class="toctext" href="AmazonCognitoIdentity.html">AmazonCognitoIdentity.jl</a></li><li><a class="toctext" href="AmazonCognitoIdentityServiceProvider.html">AmazonCognitoIdentityServiceProvider.jl</a></li><li><a class="toctext" href="AmazonCognitoSync.html">AmazonCognitoSync.jl</a></li><li><a class="toctext" href="AmazonConfigService.html">AmazonConfigService.jl</a></li><li><a class="toctext" href="AmazonCUR.html">AmazonCUR.jl</a></li><li><a class="toctext" href="AmazonDataPipeline.html">AmazonDataPipeline.jl</a></li><li><a class="toctext" href="AmazonDAX.html">AmazonDAX.jl</a></li><li><a class="toctext" href="AmazonDeviceFarm.html">AmazonDeviceFarm.jl</a></li><li><a class="toctext" href="AmazonDirectConnect.html">AmazonDirectConnect.jl</a></li><li><a class="toctext" href="AmazonDiscovery.html">AmazonDiscovery.jl</a></li><li><a class="toctext" href="AmazonDMS.html">AmazonDMS.jl</a></li><li><a class="toctext" href="AmazonDirectoryService.html">AmazonDirectoryService.jl</a></li><li><a class="toctext" href="AmazonDynamoDB.html">AmazonDynamoDB.jl</a></li><li><a class="toctext" href="AmazonEC2.html">AmazonEC2.jl</a></li><li><a class="toctext" href="AmazonECR.html">AmazonECR.jl</a></li><li><a class="toctext" href="AmazonECS.html">AmazonECS.jl</a></li><li><a class="toctext" href="AmazonElastiCache.html">AmazonElastiCache.jl</a></li><li><a class="toctext" href="AmazonElasticBeanstalk.html">AmazonElasticBeanstalk.jl</a></li><li><a class="toctext" href="AmazonEFS.html">AmazonEFS.jl</a></li><li><a class="toctext" href="AmazonELB.html">AmazonELB.jl</a></li><li><a class="toctext" href="AmazonELBv2.html">AmazonELBv2.jl</a></li><li><a class="toctext" href="AmazonEMR.html">AmazonEMR.jl</a></li><li><a class="toctext" href="AmazonElasticTranscoder.html">AmazonElasticTranscoder.jl</a></li><li><a class="toctext" href="AmazonSES.html">AmazonSES.jl</a></li><li><a class="toctext" href="AmazonMarketplaceEntitlementService.html">AmazonMarketplaceEntitlementService.jl</a></li><li><a class="toctext" href="AmazonES.html">AmazonES.jl</a></li><li><a class="toctext" href="AmazonCloudWatchEvents.html">AmazonCloudWatchEvents.jl</a></li><li><a class="toctext" href="AmazonFirehose.html">AmazonFirehose.jl</a></li><li><a class="toctext" href="AmazonGameLift.html">AmazonGameLift.jl</a></li><li><a class="toctext" href="AmazonGlacier.html">AmazonGlacier.jl</a></li><li><a class="toctext" href="AmazonGreengrass.html">AmazonGreengrass.jl</a></li><li><a class="toctext" href="AmazonHealth.html">AmazonHealth.jl</a></li><li><a class="toctext" href="AmazonIAM.html">AmazonIAM.jl</a></li><li><a class="toctext" href="AmazonImportExport.html">AmazonImportExport.jl</a></li><li><a class="toctext" href="AmazonInspector.html">AmazonInspector.jl</a></li><li><a class="toctext" href="AmazonIot.html">AmazonIot.jl</a></li><li><a class="toctext" href="AmazonIotData.html">AmazonIotData.jl</a></li><li><a class="toctext" href="AmazonKinesis.html">AmazonKinesis.jl</a></li><li><a class="toctext" href="AmazonKinesisAnalytics.html">AmazonKinesisAnalytics.jl</a></li><li><a class="toctext" href="AmazonKMS.html">AmazonKMS.jl</a></li><li><a class="toctext" href="AmazonLambda.html">AmazonLambda.jl</a></li><li><a class="toctext" href="AmazonLexModelBuildingService.html">AmazonLexModelBuildingService.jl</a></li><li><a class="toctext" href="AmazonLightsail.html">AmazonLightsail.jl</a></li><li><a class="toctext" href="AmazonCloudWatchLogs.html">AmazonCloudWatchLogs.jl</a></li><li><a class="toctext" href="AmazonMachineLearning.html">AmazonMachineLearning.jl</a></li><li><a class="toctext" href="AmazonMarketplaceCommerceAnalytics.html">AmazonMarketplaceCommerceAnalytics.jl</a></li><li><a class="toctext" href="AmazonMarketplaceMetering.html">AmazonMarketplaceMetering.jl</a></li><li><a class="toctext" href="AmazonMobileAnalytics.html">AmazonMobileAnalytics.jl</a></li><li><a class="toctext" href="AmazonCloudWatch.html">AmazonCloudWatch.jl</a></li><li><a class="toctext" href="AmazonMTurk.html">AmazonMTurk.jl</a></li><li><a class="toctext" href="AmazonOpsWorks.html">AmazonOpsWorks.jl</a></li><li><a class="toctext" href="AmazonOpsWorksCM.html">AmazonOpsWorksCM.jl</a></li><li><a class="toctext" href="AmazonOrganizations.html">AmazonOrganizations.jl</a></li><li><a class="toctext" href="AmazonPinpoint.html">AmazonPinpoint.jl</a></li><li><a class="toctext" href="AmazonPolly.html">AmazonPolly.jl</a></li><li><a class="toctext" href="AmazonRDS.html">AmazonRDS.jl</a></li><li><a class="toctext" href="AmazonRedshift.html">AmazonRedshift.jl</a></li><li><a class="toctext" href="AmazonRekognition.html">AmazonRekognition.jl</a></li><li><a class="toctext" href="AmazonResourceGroupsTaggingAPI.html">AmazonResourceGroupsTaggingAPI.jl</a></li><li class="current"><a class="toctext" href="AmazonRoute53.html">AmazonRoute53.jl</a><ul class="internal"></ul></li><li><a class="toctext" href="AmazonRoute53Domains.html">AmazonRoute53Domains.jl</a></li><li><a class="toctext" href="AmazonLexRuntime.html">AmazonLexRuntime.jl</a></li><li><a class="toctext" href="AmazonS3.html">AmazonS3.jl</a></li><li><a class="toctext" href="AmazonSimpleDB.html">AmazonSimpleDB.jl</a></li><li><a class="toctext" href="AmazonServiceCatalog.html">AmazonServiceCatalog.jl</a></li><li><a class="toctext" href="AmazonShield.html">AmazonShield.jl</a></li><li><a class="toctext" href="AmazonSMS.html">AmazonSMS.jl</a></li><li><a class="toctext" href="AmazonSnowball.html">AmazonSnowball.jl</a></li><li><a class="toctext" href="AmazonSNS.html">AmazonSNS.jl</a></li><li><a class="toctext" href="AmazonSQS.html">AmazonSQS.jl</a></li><li><a class="toctext" href="AmazonSSM.html">AmazonSSM.jl</a></li><li><a class="toctext" href="AmazonStepFunctions.html">AmazonStepFunctions.jl</a></li><li><a class="toctext" href="AmazonStorageGateway.html">AmazonStorageGateway.jl</a></li><li><a class="toctext" href="AmazonDynamoDBStreams.html">AmazonDynamoDBStreams.jl</a></li><li><a class="toctext" href="AmazonSTS.html">AmazonSTS.jl</a></li><li><a class="toctext" href="AmazonSupport.html">AmazonSupport.jl</a></li><li><a class="toctext" href="AmazonSWF.html">AmazonSWF.jl</a></li><li><a class="toctext" href="AmazonWAF.html">AmazonWAF.jl</a></li><li><a class="toctext" href="AmazonWAFRegional.html">AmazonWAFRegional.jl</a></li><li><a class="toctext" href="AmazonWorkDocs.html">AmazonWorkDocs.jl</a></li><li><a class="toctext" href="AmazonWorkSpaces.html">AmazonWorkSpaces.jl</a></li><li><a class="toctext" href="AmazonXRay.html">AmazonXRay.jl</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href="AmazonRoute53.html">AmazonRoute53.jl</a></li></ul><a class="edit-page" href="https://github.com/samoconnor/AWSCore.jl/tree/e296ccc2f9bf5899d13d1729c669041b04b330b9/docs/src/AmazonRoute53.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>AmazonRoute53.jl</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="AmazonRoute53-1" href="#AmazonRoute53-1">AmazonRoute53</a></h1><p>This document is generated from <a href="https://github.com/aws/aws-sdk-js/blob/master/apis/route53-2013-04-01.normal.json">apis/route53-2013-04-01.normal.json</a>. See <a href="https://github.com/JuliaCloud/AWSCore.jl">JuliaCloud/AWSCore.jl</a>.</p><ul><li><a href="AmazonRoute53.html#AmazonRoute53.associate_vpcwith_hosted_zone"><code>AmazonRoute53.associate_vpcwith_hosted_zone</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.change_resource_record_sets"><code>AmazonRoute53.change_resource_record_sets</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.change_tags_for_resource"><code>AmazonRoute53.change_tags_for_resource</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.create_health_check"><code>AmazonRoute53.create_health_check</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.create_hosted_zone"><code>AmazonRoute53.create_hosted_zone</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.create_reusable_delegation_set"><code>AmazonRoute53.create_reusable_delegation_set</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.create_traffic_policy"><code>AmazonRoute53.create_traffic_policy</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.create_traffic_policy_instance"><code>AmazonRoute53.create_traffic_policy_instance</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.create_traffic_policy_version"><code>AmazonRoute53.create_traffic_policy_version</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.create_vpcassociation_authorization"><code>AmazonRoute53.create_vpcassociation_authorization</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.delete_health_check"><code>AmazonRoute53.delete_health_check</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.delete_hosted_zone"><code>AmazonRoute53.delete_hosted_zone</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.delete_reusable_delegation_set"><code>AmazonRoute53.delete_reusable_delegation_set</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.delete_traffic_policy"><code>AmazonRoute53.delete_traffic_policy</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.delete_traffic_policy_instance"><code>AmazonRoute53.delete_traffic_policy_instance</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.delete_vpcassociation_authorization"><code>AmazonRoute53.delete_vpcassociation_authorization</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.disassociate_vpcfrom_hosted_zone"><code>AmazonRoute53.disassociate_vpcfrom_hosted_zone</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_change"><code>AmazonRoute53.get_change</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_checker_ip_ranges"><code>AmazonRoute53.get_checker_ip_ranges</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_geo_location"><code>AmazonRoute53.get_geo_location</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_health_check"><code>AmazonRoute53.get_health_check</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_health_check_count"><code>AmazonRoute53.get_health_check_count</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_health_check_last_failure_reason"><code>AmazonRoute53.get_health_check_last_failure_reason</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_health_check_status"><code>AmazonRoute53.get_health_check_status</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_hosted_zone"><code>AmazonRoute53.get_hosted_zone</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_hosted_zone_count"><code>AmazonRoute53.get_hosted_zone_count</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_reusable_delegation_set"><code>AmazonRoute53.get_reusable_delegation_set</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_traffic_policy"><code>AmazonRoute53.get_traffic_policy</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_traffic_policy_instance"><code>AmazonRoute53.get_traffic_policy_instance</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.get_traffic_policy_instance_count"><code>AmazonRoute53.get_traffic_policy_instance_count</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_geo_locations"><code>AmazonRoute53.list_geo_locations</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_health_checks"><code>AmazonRoute53.list_health_checks</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_hosted_zones"><code>AmazonRoute53.list_hosted_zones</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_hosted_zones_by_name"><code>AmazonRoute53.list_hosted_zones_by_name</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_resource_record_sets"><code>AmazonRoute53.list_resource_record_sets</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_reusable_delegation_sets"><code>AmazonRoute53.list_reusable_delegation_sets</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_tags_for_resource"><code>AmazonRoute53.list_tags_for_resource</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_tags_for_resources"><code>AmazonRoute53.list_tags_for_resources</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_traffic_policies"><code>AmazonRoute53.list_traffic_policies</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_traffic_policy_instances"><code>AmazonRoute53.list_traffic_policy_instances</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_traffic_policy_instances_by_hosted_zone"><code>AmazonRoute53.list_traffic_policy_instances_by_hosted_zone</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_traffic_policy_instances_by_policy"><code>AmazonRoute53.list_traffic_policy_instances_by_policy</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_traffic_policy_versions"><code>AmazonRoute53.list_traffic_policy_versions</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.list_vpcassociation_authorizations"><code>AmazonRoute53.list_vpcassociation_authorizations</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.test_dnsanswer"><code>AmazonRoute53.test_dnsanswer</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.update_health_check"><code>AmazonRoute53.update_health_check</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.update_hosted_zone_comment"><code>AmazonRoute53.update_hosted_zone_comment</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.update_traffic_policy_comment"><code>AmazonRoute53.update_traffic_policy_comment</code></a></li><li><a href="AmazonRoute53.html#AmazonRoute53.update_traffic_policy_instance"><code>AmazonRoute53.update_traffic_policy_instance</code></a></li></ul><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AmazonRoute53.associate_vpcwith_hosted_zone" href="#AmazonRoute53.associate_vpcwith_hosted_zone"><code>AmazonRoute53.associate_vpcwith_hosted_zone</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">associate_vpcwith_hosted_zone(::AWSConfig, arguments::Dict)
 associate_vpcwith_hosted_zone([::AWSConfig]; Id=, VPC=, &lt;keyword arguments&gt;)</code></pre><p><strong>AssociateVPCWithHostedZone Operation</strong></p><p>Associates an Amazon VPC with a private hosted zone.</p><p><strong>Important</strong></p><blockquote><p>To perform the association, the VPC and the private hosted zone must already exist. You can&#39;t convert a public hosted zone into a private hosted zone.</p></blockquote><p><strong>Note</strong></p><blockquote><p>If you want to associate a VPC that was created by using one AWS account with a private hosted zone that was created by using a different account, the AWS account that created the private hosted zone must first submit a <code>CreateVPCAssociationAuthorization</code> request. Then the account that created the VPC must submit an <code>AssociateVPCWithHostedZone</code> request.</p></blockquote><p><strong>Arguments</strong></p><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The ID of the private hosted zone that you want to associate an Amazon VPC with.</p><p>Note that you can&#39;t associate a VPC with a hosted zone that doesn&#39;t have an existing VPC association.</p><p><strong><code>VPC = [ ... ]</code> – <em>Required</em></strong></p><p>A complex type that contains information about the VPC that you want to associate with a private hosted zone.</p><pre><code class="language-none"> VPC = [
         &quot;VPCRegion&quot; =&gt;  &quot;us-east-1&quot;, &quot;us-east-2&quot;, &quot;us-west-1&quot;, &quot;us-west-2&quot;, &quot;eu-west-1&quot;, &quot;eu-west-2&quot;, &quot;eu-central-1&quot;, &quot;ap-southeast-1&quot;, &quot;ap-southeast-2&quot;, &quot;ap-south-1&quot;, &quot;ap-northeast-1&quot;, &quot;ap-northeast-2&quot;, &quot;sa-east-1&quot;, &quot;ca-central-1&quot; or &quot;cn-north-1&quot;,
         &quot;VPCId&quot; =&gt;  ::String
-    ]</code></pre><p><strong><code>Comment = ::String</code></strong></p><p><em>Optional:</em> A comment about the association request.</p><p><strong>Returns</strong></p><p><code>AssociateVPCWithHostedZoneResponse</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchHostedZone</code>, <code>NotAuthorizedException</code>, <code>InvalidVPCId</code>, <code>InvalidInput</code>, <code>PublicZoneVPCAssociation</code>, <code>ConflictingDomainExists</code> or <code>LimitsExceeded</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/AssociateVPCWithHostedZone">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AmazonRoute53.change_resource_record_sets" href="#AmazonRoute53.change_resource_record_sets"><code>AmazonRoute53.change_resource_record_sets</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">change_resource_record_sets(::AWSConfig, arguments::Dict)
+    ]</code></pre><p><strong><code>Comment = ::String</code></strong></p><p><em>Optional:</em> A comment about the association request.</p><p><strong>Returns</strong></p><p><code>AssociateVPCWithHostedZoneResponse</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchHostedZone</code>, <code>NotAuthorizedException</code>, <code>InvalidVPCId</code>, <code>InvalidInput</code>, <code>PublicZoneVPCAssociation</code>, <code>ConflictingDomainExists</code> or <code>LimitsExceeded</code>.</p><p><strong>Example: To associate a VPC with a hosted zone</strong></p><p>The following example associates the VPC with ID vpc-1a2b3c4d with the hosted zone with ID Z3M3LMPEXAMPLE.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Comment&quot; =&gt; &quot;&quot;,
+    &quot;HostedZoneId&quot; =&gt; &quot;Z3M3LMPEXAMPLE&quot;,
+    &quot;VPC&quot; =&gt; [
+        &quot;VPCId&quot; =&gt; &quot;vpc-1a2b3c4d&quot;,
+        &quot;VPCRegion&quot; =&gt; &quot;us-east-2&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;ChangeInfo&quot; =&gt; Dict(
+        &quot;Comment&quot; =&gt; &quot;&quot;,
+        &quot;Id&quot; =&gt; &quot;/change/C3HC6WDB2UANE2&quot;,
+        &quot;Status&quot; =&gt; &quot;INSYNC&quot;,
+        &quot;SubmittedAt&quot; =&gt; &quot;2017-01-31T01:36:41.958Z&quot;
+    )
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/AssociateVPCWithHostedZone">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AmazonRoute53.change_resource_record_sets" href="#AmazonRoute53.change_resource_record_sets"><code>AmazonRoute53.change_resource_record_sets</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">change_resource_record_sets(::AWSConfig, arguments::Dict)
 change_resource_record_sets([::AWSConfig]; Id=, ChangeBatch=)</code></pre><p><strong>ChangeResourceRecordSets Operation</strong></p><p>Creates, changes, or deletes a resource record set, which contains authoritative DNS information for a specified domain name or subdomain name. For example, you can use <code>ChangeResourceRecordSets</code> to create a resource record set that routes traffic for test.example.com to a web server that has an IP address of 192.0.2.44.</p><p><strong>Change Batches and Transactional Changes</strong></p><p>The request body must include a document with a <code>ChangeResourceRecordSetsRequest</code> element. The request body contains a list of change items, known as a change batch. Change batches are considered transactional changes. When using the Amazon Route 53 API to change resource record sets, Amazon Route 53 either makes all or none of the changes in a change batch request. This ensures that Amazon Route 53 never partially implements the intended changes to the resource record sets in a hosted zone.</p><p>For example, a change batch request that deletes the <code>CNAME</code> record for www.example.com and creates an alias resource record set for www.example.com. Amazon Route 53 deletes the first resource record set and creates the second resource record set in a single operation. If either the <code>DELETE</code> or the <code>CREATE</code> action fails, then both changes (plus any other changes in the batch) fail, and the original <code>CNAME</code> record continues to exist.</p><p><strong>Important</strong></p><blockquote><p>Due to the nature of transactional changes, you can&#39;t delete the same resource record set more than once in a single change batch. If you attempt to delete the same change batch more than once, Amazon Route 53 returns an <code>InvalidChangeBatch</code> error.</p></blockquote><p><strong>Traffic Flow</strong></p><p>To create resource record sets for complex routing configurations, use either the traffic flow visual editor in the Amazon Route 53 console or the API actions for traffic policies and traffic policy instances. Save the configuration as a traffic policy, then associate the traffic policy with one or more domain names (such as example.com) or subdomain names (such as www.example.com), in the same hosted zone or in multiple hosted zones. You can roll back the updates if the new configuration isn&#39;t performing as expected. For more information, see <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/traffic-flow.html">Using Traffic Flow to Route DNS Traffic</a> in the <em>Amazon Route 53 Developer Guide</em>.</p><p><strong>Create, Delete, and Upsert</strong></p><p>Use <code>ChangeResourceRecordsSetsRequest</code> to perform the following actions:</p><ul><li><p><code>CREATE</code>: Creates a resource record set that has the specified values.</p></li><li><p><code>DELETE</code>: Deletes an existing resource record set that has the specified values.</p></li><li><p><code>UPSERT</code>: If a resource record set does not already exist, AWS creates it. If a resource set does exist, Amazon Route 53 updates it with the values in the request.</p></li></ul><p><strong>Syntaxes for Creating, Updating, and Deleting Resource Record Sets</strong></p><p>The syntax for a request depends on the type of resource record set that you want to create, delete, or update, such as weighted, alias, or failover. The XML elements in your request must appear in the order listed in the syntax.</p><p>For an example for each type of resource record set, see &quot;Examples.&quot;</p><p>Don&#39;t refer to the syntax in the &quot;Parameter Syntax&quot; section, which includes all of the elements for every kind of resource record set that you can create, delete, or update by using <code>ChangeResourceRecordSets</code>.</p><p><strong>Change Propagation to Amazon Route 53 DNS Servers</strong></p><p>When you submit a <code>ChangeResourceRecordSets</code> request, Amazon Route 53 propagates your changes to all of the Amazon Route 53 authoritative DNS servers. While your changes are propagating, <code>GetChange</code> returns a status of <code>PENDING</code>. When propagation is complete, <code>GetChange</code> returns a status of <code>INSYNC</code>. Changes generally propagate to all Amazon Route 53 name servers within 60 seconds. For more information, see <a href="@ref">GetChange</a>.</p><p><strong>Limits on ChangeResourceRecordSets Requests</strong></p><p>For information about the limits on a <code>ChangeResourceRecordSets</code> request, see <a href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html">Limits</a> in the <em>Amazon Route 53 Developer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The ID of the hosted zone that contains the resource record sets that you want to change.</p><p><strong><code>ChangeBatch = [ ... ]</code> – <em>Required</em></strong></p><p>A complex type that contains an optional comment and the <code>Changes</code> element.</p><pre><code class="language-none"> ChangeBatch = [
         &quot;Comment&quot; =&gt;  ::String,
         &quot;Changes&quot; =&gt; &lt;required&gt; [[
@@ -32,11 +46,506 @@ change_resource_record_sets([::AWSConfig]; Id=, ChangeBatch=)</code></pre><p><st
                 &quot;TrafficPolicyInstanceId&quot; =&gt;  ::String
             ]
         ], ...]
-    ]</code></pre><p><strong>Returns</strong></p><p><code>ChangeResourceRecordSetsResponse</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchHostedZone</code>, <code>NoSuchHealthCheck</code>, <code>InvalidChangeBatch</code>, <code>InvalidInput</code> or <code>PriorRequestNotComplete</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ChangeResourceRecordSets">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AmazonRoute53.change_tags_for_resource" href="#AmazonRoute53.change_tags_for_resource"><code>AmazonRoute53.change_tags_for_resource</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">change_tags_for_resource(::AWSConfig, arguments::Dict)
+    ]</code></pre><p><strong>Returns</strong></p><p><code>ChangeResourceRecordSetsResponse</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchHostedZone</code>, <code>NoSuchHealthCheck</code>, <code>InvalidChangeBatch</code>, <code>InvalidInput</code> or <code>PriorRequestNotComplete</code>.</p><p><strong>Example: To create a basic resource record set</strong></p><p>The following example creates a resource record set that routes Internet traffic to a resource with an IP address of 192.0.2.44.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;ChangeBatch&quot; =&gt; [
+        &quot;Changes&quot; =&gt; [
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;ResourceRecords&quot; =&gt; [
+                        [
+                            &quot;Value&quot; =&gt; &quot;192.0.2.44&quot;
+                        ]
+                    ],
+                    &quot;TTL&quot; =&gt; 60,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ]
+        ],
+        &quot;Comment&quot; =&gt; &quot;Web server for example.com&quot;
+    ],
+    &quot;HostedZoneId&quot; =&gt; &quot;Z3M3LMPEXAMPLE&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;ChangeInfo&quot; =&gt; Dict(
+        &quot;Comment&quot; =&gt; &quot;Web server for example.com&quot;,
+        &quot;Id&quot; =&gt; &quot;/change/C2682N5HXP0BZ4&quot;,
+        &quot;Status&quot; =&gt; &quot;PENDING&quot;,
+        &quot;SubmittedAt&quot; =&gt; &quot;2017-02-10T01:36:41.958Z&quot;
+    )
+)</code></pre><p><strong>Example: To create weighted resource record sets</strong></p><p>The following example creates two weighted resource record sets. The resource with a Weight of 100 will get 1/3rd of traffic (100/100+200), and the other resource will get the rest of the traffic for example.com.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;ChangeBatch&quot; =&gt; [
+        &quot;Changes&quot; =&gt; [
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;HealthCheckId&quot; =&gt; &quot;abcdef11-2222-3333-4444-555555fedcba&quot;,
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;ResourceRecords&quot; =&gt; [
+                        [
+                            &quot;Value&quot; =&gt; &quot;192.0.2.44&quot;
+                        ]
+                    ],
+                    &quot;SetIdentifier&quot; =&gt; &quot;Seattle data center&quot;,
+                    &quot;TTL&quot; =&gt; 60,
+                    &quot;Type&quot; =&gt; &quot;A&quot;,
+                    &quot;Weight&quot; =&gt; 100
+                ]
+            ],
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;HealthCheckId&quot; =&gt; &quot;abcdef66-7777-8888-9999-000000fedcba&quot;,
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;ResourceRecords&quot; =&gt; [
+                        [
+                            &quot;Value&quot; =&gt; &quot;192.0.2.45&quot;
+                        ]
+                    ],
+                    &quot;SetIdentifier&quot; =&gt; &quot;Portland data center&quot;,
+                    &quot;TTL&quot; =&gt; 60,
+                    &quot;Type&quot; =&gt; &quot;A&quot;,
+                    &quot;Weight&quot; =&gt; 200
+                ]
+            ]
+        ],
+        &quot;Comment&quot; =&gt; &quot;Web servers for example.com&quot;
+    ],
+    &quot;HostedZoneId&quot; =&gt; &quot;Z3M3LMPEXAMPLE&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;ChangeInfo&quot; =&gt; Dict(
+        &quot;Comment&quot; =&gt; &quot;Web servers for example.com&quot;,
+        &quot;Id&quot; =&gt; &quot;/change/C2682N5HXP0BZ4&quot;,
+        &quot;Status&quot; =&gt; &quot;PENDING&quot;,
+        &quot;SubmittedAt&quot; =&gt; &quot;2017-02-10T01:36:41.958Z&quot;
+    )
+)</code></pre><p><strong>Example: To create an alias resource record set</strong></p><p>The following example creates an alias resource record set that routes traffic to a CloudFront distribution.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;ChangeBatch&quot; =&gt; [
+        &quot;Changes&quot; =&gt; [
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;AliasTarget&quot; =&gt; [
+                        &quot;DNSName&quot; =&gt; &quot;d123rk29d0stfj.cloudfront.net&quot;,
+                        &quot;EvaluateTargetHealth&quot; =&gt; false,
+                        &quot;HostedZoneId&quot; =&gt; &quot;Z2FDTNDATAQYW2&quot;
+                    ],
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ]
+        ],
+        &quot;Comment&quot; =&gt; &quot;CloudFront distribution for example.com&quot;
+    ],
+    &quot;HostedZoneId&quot; =&gt; &quot;Z3M3LMPEXAMPLE&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;ChangeInfo&quot; =&gt; Dict(
+        &quot;Comment&quot; =&gt; &quot;CloudFront distribution for example.com&quot;,
+        &quot;Id&quot; =&gt; &quot;/change/C2682N5HXP0BZ4&quot;,
+        &quot;Status&quot; =&gt; &quot;PENDING&quot;,
+        &quot;SubmittedAt&quot; =&gt; &quot;2017-02-10T01:36:41.958Z&quot;
+    )
+)</code></pre><p><strong>Example: To create weighted alias resource record sets</strong></p><p>The following example creates two weighted alias resource record sets that route traffic to ELB load balancers. The resource with a Weight of 100 will get 1/3rd of traffic (100/100+200), and the other resource will get the rest of the traffic for example.com.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;ChangeBatch&quot; =&gt; [
+        &quot;Changes&quot; =&gt; [
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;AliasTarget&quot; =&gt; [
+                        &quot;DNSName&quot; =&gt; &quot;example-com-123456789.us-east-2.elb.amazonaws.com &quot;,
+                        &quot;EvaluateTargetHealth&quot; =&gt; true,
+                        &quot;HostedZoneId&quot; =&gt; &quot;Z3AADJGX6KTTL2&quot;
+                    ],
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;SetIdentifier&quot; =&gt; &quot;Ohio region&quot;,
+                    &quot;Type&quot; =&gt; &quot;A&quot;,
+                    &quot;Weight&quot; =&gt; 100
+                ]
+            ],
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;AliasTarget&quot; =&gt; [
+                        &quot;DNSName&quot; =&gt; &quot;example-com-987654321.us-west-2.elb.amazonaws.com &quot;,
+                        &quot;EvaluateTargetHealth&quot; =&gt; true,
+                        &quot;HostedZoneId&quot; =&gt; &quot;Z1H1FL5HABSF5&quot;
+                    ],
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;SetIdentifier&quot; =&gt; &quot;Oregon region&quot;,
+                    &quot;Type&quot; =&gt; &quot;A&quot;,
+                    &quot;Weight&quot; =&gt; 200
+                ]
+            ]
+        ],
+        &quot;Comment&quot; =&gt; &quot;ELB load balancers for example.com&quot;
+    ],
+    &quot;HostedZoneId&quot; =&gt; &quot;Z3M3LMPEXAMPLE&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;ChangeInfo&quot; =&gt; Dict(
+        &quot;Comment&quot; =&gt; &quot;ELB load balancers for example.com&quot;,
+        &quot;Id&quot; =&gt; &quot;/change/C2682N5HXP0BZ4&quot;,
+        &quot;Status&quot; =&gt; &quot;PENDING&quot;,
+        &quot;SubmittedAt&quot; =&gt; &quot;2017-02-10T01:36:41.958Z&quot;
+    )
+)</code></pre><p><strong>Example: To create latency resource record sets</strong></p><p>The following example creates two latency resource record sets that route traffic to EC2 instances. Traffic for example.com is routed either to the Ohio region or the Oregon region, depending on the latency between the user and those regions.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;ChangeBatch&quot; =&gt; [
+        &quot;Changes&quot; =&gt; [
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;HealthCheckId&quot; =&gt; &quot;abcdef11-2222-3333-4444-555555fedcba&quot;,
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;Region&quot; =&gt; &quot;us-east-2&quot;,
+                    &quot;ResourceRecords&quot; =&gt; [
+                        [
+                            &quot;Value&quot; =&gt; &quot;192.0.2.44&quot;
+                        ]
+                    ],
+                    &quot;SetIdentifier&quot; =&gt; &quot;Ohio region&quot;,
+                    &quot;TTL&quot; =&gt; 60,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ],
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;HealthCheckId&quot; =&gt; &quot;abcdef66-7777-8888-9999-000000fedcba&quot;,
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;Region&quot; =&gt; &quot;us-west-2&quot;,
+                    &quot;ResourceRecords&quot; =&gt; [
+                        [
+                            &quot;Value&quot; =&gt; &quot;192.0.2.45&quot;
+                        ]
+                    ],
+                    &quot;SetIdentifier&quot; =&gt; &quot;Oregon region&quot;,
+                    &quot;TTL&quot; =&gt; 60,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ]
+        ],
+        &quot;Comment&quot; =&gt; &quot;EC2 instances for example.com&quot;
+    ],
+    &quot;HostedZoneId&quot; =&gt; &quot;Z3M3LMPEXAMPLE&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;ChangeInfo&quot; =&gt; Dict(
+        &quot;Comment&quot; =&gt; &quot;EC2 instances for example.com&quot;,
+        &quot;Id&quot; =&gt; &quot;/change/C2682N5HXP0BZ4&quot;,
+        &quot;Status&quot; =&gt; &quot;PENDING&quot;,
+        &quot;SubmittedAt&quot; =&gt; &quot;2017-02-10T01:36:41.958Z&quot;
+    )
+)</code></pre><p><strong>Example: To create latency alias resource record sets</strong></p><p>The following example creates two latency alias resource record sets that route traffic for example.com to ELB load balancers. Requests are routed either to the Ohio region or the Oregon region, depending on the latency between the user and those regions.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;ChangeBatch&quot; =&gt; [
+        &quot;Changes&quot; =&gt; [
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;AliasTarget&quot; =&gt; [
+                        &quot;DNSName&quot; =&gt; &quot;example-com-123456789.us-east-2.elb.amazonaws.com &quot;,
+                        &quot;EvaluateTargetHealth&quot; =&gt; true,
+                        &quot;HostedZoneId&quot; =&gt; &quot;Z3AADJGX6KTTL2&quot;
+                    ],
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;Region&quot; =&gt; &quot;us-east-2&quot;,
+                    &quot;SetIdentifier&quot; =&gt; &quot;Ohio region&quot;,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ],
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;AliasTarget&quot; =&gt; [
+                        &quot;DNSName&quot; =&gt; &quot;example-com-987654321.us-west-2.elb.amazonaws.com &quot;,
+                        &quot;EvaluateTargetHealth&quot; =&gt; true,
+                        &quot;HostedZoneId&quot; =&gt; &quot;Z1H1FL5HABSF5&quot;
+                    ],
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;Region&quot; =&gt; &quot;us-west-2&quot;,
+                    &quot;SetIdentifier&quot; =&gt; &quot;Oregon region&quot;,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ]
+        ],
+        &quot;Comment&quot; =&gt; &quot;ELB load balancers for example.com&quot;
+    ],
+    &quot;HostedZoneId&quot; =&gt; &quot;Z3M3LMPEXAMPLE&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;ChangeInfo&quot; =&gt; Dict(
+        &quot;Comment&quot; =&gt; &quot;ELB load balancers for example.com&quot;,
+        &quot;Id&quot; =&gt; &quot;/change/C2682N5HXP0BZ4&quot;,
+        &quot;Status&quot; =&gt; &quot;PENDING&quot;,
+        &quot;SubmittedAt&quot; =&gt; &quot;2017-02-10T01:36:41.958Z&quot;
+    )
+)</code></pre><p><strong>Example: To create failover resource record sets</strong></p><p>The following example creates primary and secondary failover resource record sets that route traffic to EC2 instances. Traffic is generally routed to the primary resource, in the Ohio region. If that resource is unavailable, traffic is routed to the secondary resource, in the Oregon region.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;ChangeBatch&quot; =&gt; [
+        &quot;Changes&quot; =&gt; [
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;Failover&quot; =&gt; &quot;PRIMARY&quot;,
+                    &quot;HealthCheckId&quot; =&gt; &quot;abcdef11-2222-3333-4444-555555fedcba&quot;,
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;ResourceRecords&quot; =&gt; [
+                        [
+                            &quot;Value&quot; =&gt; &quot;192.0.2.44&quot;
+                        ]
+                    ],
+                    &quot;SetIdentifier&quot; =&gt; &quot;Ohio region&quot;,
+                    &quot;TTL&quot; =&gt; 60,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ],
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;Failover&quot; =&gt; &quot;SECONDARY&quot;,
+                    &quot;HealthCheckId&quot; =&gt; &quot;abcdef66-7777-8888-9999-000000fedcba&quot;,
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;ResourceRecords&quot; =&gt; [
+                        [
+                            &quot;Value&quot; =&gt; &quot;192.0.2.45&quot;
+                        ]
+                    ],
+                    &quot;SetIdentifier&quot; =&gt; &quot;Oregon region&quot;,
+                    &quot;TTL&quot; =&gt; 60,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ]
+        ],
+        &quot;Comment&quot; =&gt; &quot;Failover configuration for example.com&quot;
+    ],
+    &quot;HostedZoneId&quot; =&gt; &quot;Z3M3LMPEXAMPLE&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;ChangeInfo&quot; =&gt; Dict(
+        &quot;Comment&quot; =&gt; &quot;Failover configuration for example.com&quot;,
+        &quot;Id&quot; =&gt; &quot;/change/C2682N5HXP0BZ4&quot;,
+        &quot;Status&quot; =&gt; &quot;PENDING&quot;,
+        &quot;SubmittedAt&quot; =&gt; &quot;2017-02-10T01:36:41.958Z&quot;
+    )
+)</code></pre><p><strong>Example: To create failover alias resource record sets</strong></p><p>The following example creates primary and secondary failover alias resource record sets that route traffic to ELB load balancers. Traffic is generally routed to the primary resource, in the Ohio region. If that resource is unavailable, traffic is routed to the secondary resource, in the Oregon region.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;ChangeBatch&quot; =&gt; [
+        &quot;Changes&quot; =&gt; [
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;AliasTarget&quot; =&gt; [
+                        &quot;DNSName&quot; =&gt; &quot;example-com-123456789.us-east-2.elb.amazonaws.com &quot;,
+                        &quot;EvaluateTargetHealth&quot; =&gt; true,
+                        &quot;HostedZoneId&quot; =&gt; &quot;Z3AADJGX6KTTL2&quot;
+                    ],
+                    &quot;Failover&quot; =&gt; &quot;PRIMARY&quot;,
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;SetIdentifier&quot; =&gt; &quot;Ohio region&quot;,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ],
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;AliasTarget&quot; =&gt; [
+                        &quot;DNSName&quot; =&gt; &quot;example-com-987654321.us-west-2.elb.amazonaws.com &quot;,
+                        &quot;EvaluateTargetHealth&quot; =&gt; true,
+                        &quot;HostedZoneId&quot; =&gt; &quot;Z1H1FL5HABSF5&quot;
+                    ],
+                    &quot;Failover&quot; =&gt; &quot;SECONDARY&quot;,
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;SetIdentifier&quot; =&gt; &quot;Oregon region&quot;,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ]
+        ],
+        &quot;Comment&quot; =&gt; &quot;Failover alias configuration for example.com&quot;
+    ],
+    &quot;HostedZoneId&quot; =&gt; &quot;Z3M3LMPEXAMPLE&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;ChangeInfo&quot; =&gt; Dict(
+        &quot;Comment&quot; =&gt; &quot;Failover alias configuration for example.com&quot;,
+        &quot;Id&quot; =&gt; &quot;/change/C2682N5HXP0BZ4&quot;,
+        &quot;Status&quot; =&gt; &quot;PENDING&quot;,
+        &quot;SubmittedAt&quot; =&gt; &quot;2017-02-10T01:36:41.958Z&quot;
+    )
+)</code></pre><p><strong>Example: To create geolocation resource record sets</strong></p><p>The following example creates four geolocation resource record sets that use IPv4 addresses to route traffic to resources such as web servers running on EC2 instances. Traffic is routed to one of four IP addresses, for North America (NA), for South America (SA), for Europe (EU), and for all other locations (*).</p><p>Input:</p><pre><code class="language-none">[
+    &quot;ChangeBatch&quot; =&gt; [
+        &quot;Changes&quot; =&gt; [
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;GeoLocation&quot; =&gt; [
+                        &quot;ContinentCode&quot; =&gt; &quot;NA&quot;
+                    ],
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;ResourceRecords&quot; =&gt; [
+                        [
+                            &quot;Value&quot; =&gt; &quot;192.0.2.44&quot;
+                        ]
+                    ],
+                    &quot;SetIdentifier&quot; =&gt; &quot;North America&quot;,
+                    &quot;TTL&quot; =&gt; 60,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ],
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;GeoLocation&quot; =&gt; [
+                        &quot;ContinentCode&quot; =&gt; &quot;SA&quot;
+                    ],
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;ResourceRecords&quot; =&gt; [
+                        [
+                            &quot;Value&quot; =&gt; &quot;192.0.2.45&quot;
+                        ]
+                    ],
+                    &quot;SetIdentifier&quot; =&gt; &quot;South America&quot;,
+                    &quot;TTL&quot; =&gt; 60,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ],
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;GeoLocation&quot; =&gt; [
+                        &quot;ContinentCode&quot; =&gt; &quot;EU&quot;
+                    ],
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;ResourceRecords&quot; =&gt; [
+                        [
+                            &quot;Value&quot; =&gt; &quot;192.0.2.46&quot;
+                        ]
+                    ],
+                    &quot;SetIdentifier&quot; =&gt; &quot;Europe&quot;,
+                    &quot;TTL&quot; =&gt; 60,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ],
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;GeoLocation&quot; =&gt; [
+                        &quot;CountryCode&quot; =&gt; &quot;*&quot;
+                    ],
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;ResourceRecords&quot; =&gt; [
+                        [
+                            &quot;Value&quot; =&gt; &quot;192.0.2.47&quot;
+                        ]
+                    ],
+                    &quot;SetIdentifier&quot; =&gt; &quot;Other locations&quot;,
+                    &quot;TTL&quot; =&gt; 60,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ]
+        ],
+        &quot;Comment&quot; =&gt; &quot;Geolocation configuration for example.com&quot;
+    ],
+    &quot;HostedZoneId&quot; =&gt; &quot;Z3M3LMPEXAMPLE&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;ChangeInfo&quot; =&gt; Dict(
+        &quot;Comment&quot; =&gt; &quot;Geolocation configuration for example.com&quot;,
+        &quot;Id&quot; =&gt; &quot;/change/C2682N5HXP0BZ4&quot;,
+        &quot;Status&quot; =&gt; &quot;PENDING&quot;,
+        &quot;SubmittedAt&quot; =&gt; &quot;2017-02-10T01:36:41.958Z&quot;
+    )
+)</code></pre><p><strong>Example: To create geolocation alias resource record sets</strong></p><p>The following example creates four geolocation alias resource record sets that route traffic to ELB load balancers. Traffic is routed to one of four IP addresses, for North America (NA), for South America (SA), for Europe (EU), and for all other locations (*).</p><p>Input:</p><pre><code class="language-none">[
+    &quot;ChangeBatch&quot; =&gt; [
+        &quot;Changes&quot; =&gt; [
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;AliasTarget&quot; =&gt; [
+                        &quot;DNSName&quot; =&gt; &quot;example-com-123456789.us-east-2.elb.amazonaws.com &quot;,
+                        &quot;EvaluateTargetHealth&quot; =&gt; true,
+                        &quot;HostedZoneId&quot; =&gt; &quot;Z3AADJGX6KTTL2&quot;
+                    ],
+                    &quot;GeoLocation&quot; =&gt; [
+                        &quot;ContinentCode&quot; =&gt; &quot;NA&quot;
+                    ],
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;SetIdentifier&quot; =&gt; &quot;North America&quot;,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ],
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;AliasTarget&quot; =&gt; [
+                        &quot;DNSName&quot; =&gt; &quot;example-com-234567890.sa-east-1.elb.amazonaws.com &quot;,
+                        &quot;EvaluateTargetHealth&quot; =&gt; true,
+                        &quot;HostedZoneId&quot; =&gt; &quot;Z2P70J7HTTTPLU&quot;
+                    ],
+                    &quot;GeoLocation&quot; =&gt; [
+                        &quot;ContinentCode&quot; =&gt; &quot;SA&quot;
+                    ],
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;SetIdentifier&quot; =&gt; &quot;South America&quot;,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ],
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;AliasTarget&quot; =&gt; [
+                        &quot;DNSName&quot; =&gt; &quot;example-com-234567890.eu-central-1.elb.amazonaws.com &quot;,
+                        &quot;EvaluateTargetHealth&quot; =&gt; true,
+                        &quot;HostedZoneId&quot; =&gt; &quot;Z215JYRZR1TBD5&quot;
+                    ],
+                    &quot;GeoLocation&quot; =&gt; [
+                        &quot;ContinentCode&quot; =&gt; &quot;EU&quot;
+                    ],
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;SetIdentifier&quot; =&gt; &quot;Europe&quot;,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ],
+            [
+                &quot;Action&quot; =&gt; &quot;CREATE&quot;,
+                &quot;ResourceRecordSet&quot; =&gt; [
+                    &quot;AliasTarget&quot; =&gt; [
+                        &quot;DNSName&quot; =&gt; &quot;example-com-234567890.ap-southeast-1.elb.amazonaws.com &quot;,
+                        &quot;EvaluateTargetHealth&quot; =&gt; true,
+                        &quot;HostedZoneId&quot; =&gt; &quot;Z1LMS91P8CMLE5&quot;
+                    ],
+                    &quot;GeoLocation&quot; =&gt; [
+                        &quot;CountryCode&quot; =&gt; &quot;*&quot;
+                    ],
+                    &quot;Name&quot; =&gt; &quot;example.com&quot;,
+                    &quot;SetIdentifier&quot; =&gt; &quot;Other locations&quot;,
+                    &quot;Type&quot; =&gt; &quot;A&quot;
+                ]
+            ]
+        ],
+        &quot;Comment&quot; =&gt; &quot;Geolocation alias configuration for example.com&quot;
+    ],
+    &quot;HostedZoneId&quot; =&gt; &quot;Z3M3LMPEXAMPLE&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;ChangeInfo&quot; =&gt; Dict(
+        &quot;Comment&quot; =&gt; &quot;Geolocation alias configuration for example.com&quot;,
+        &quot;Id&quot; =&gt; &quot;/change/C2682N5HXP0BZ4&quot;,
+        &quot;Status&quot; =&gt; &quot;PENDING&quot;,
+        &quot;SubmittedAt&quot; =&gt; &quot;2017-02-10T01:36:41.958Z&quot;
+    )
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ChangeResourceRecordSets">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AmazonRoute53.change_tags_for_resource" href="#AmazonRoute53.change_tags_for_resource"><code>AmazonRoute53.change_tags_for_resource</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">change_tags_for_resource(::AWSConfig, arguments::Dict)
 change_tags_for_resource([::AWSConfig]; ResourceType=, ResourceId=, &lt;keyword arguments&gt;)</code></pre><p><strong>ChangeTagsForResource Operation</strong></p><p>Adds, edits, or deletes tags for a health check or a hosted zone.</p><p>For information about using tags for cost allocation, see <a href="http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html">Using Cost Allocation Tags</a> in the <em>AWS Billing and Cost Management User Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>ResourceType = &quot;healthcheck&quot; or &quot;hostedzone&quot;</code> – <em>Required</em></strong></p><p>The type of the resource.</p><ul><li><p>The resource type for health checks is <code>healthcheck</code>.</p></li><li><p>The resource type for hosted zones is <code>hostedzone</code>.</p></li></ul><p><strong><code>ResourceId = ::String</code> – <em>Required</em></strong></p><p>The ID of the resource for which you want to add, change, or delete tags.</p><p><strong><code>AddTags = [[ ... ], ...]</code></strong></p><p>A complex type that contains a list of the tags that you want to add to the specified health check or hosted zone and/or the tags that you want to edit <code>Value</code> for.</p><p>You can add a maximum of 10 tags to a health check or a hosted zone.</p><pre><code class="language-none"> AddTags = [[
         &quot;Key&quot; =&gt;  ::String,
         &quot;Value&quot; =&gt;  ::String
-    ], ...]</code></pre><p><strong><code>RemoveTagKeys = [::String, ...]</code></strong></p><p>A complex type that contains a list of the tags that you want to delete from the specified health check or hosted zone. You can specify up to 10 keys.</p><p><strong>Returns</strong></p><p><code>ChangeTagsForResourceResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInput</code>, <code>NoSuchHealthCheck</code>, <code>NoSuchHostedZone</code>, <code>PriorRequestNotComplete</code> or <code>ThrottlingException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ChangeTagsForResource">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AmazonRoute53.create_health_check" href="#AmazonRoute53.create_health_check"><code>AmazonRoute53.create_health_check</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">create_health_check(::AWSConfig, arguments::Dict)
+    ], ...]</code></pre><p><strong><code>RemoveTagKeys = [::String, ...]</code></strong></p><p>A complex type that contains a list of the tags that you want to delete from the specified health check or hosted zone. You can specify up to 10 keys.</p><p><strong>Returns</strong></p><p><code>ChangeTagsForResourceResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInput</code>, <code>NoSuchHealthCheck</code>, <code>NoSuchHostedZone</code>, <code>PriorRequestNotComplete</code> or <code>ThrottlingException</code>.</p><p><strong>Example: To add or remove tags from a hosted zone or health check</strong></p><p>The following example adds two tags and removes one tag from the hosted zone with ID Z3M3LMPEXAMPLE.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;AddTags&quot; =&gt; [
+        [
+            &quot;Key&quot; =&gt; &quot;apex&quot;,
+            &quot;Value&quot; =&gt; &quot;3874&quot;
+        ],
+        [
+            &quot;Key&quot; =&gt; &quot;acme&quot;,
+            &quot;Value&quot; =&gt; &quot;4938&quot;
+        ]
+    ],
+    &quot;RemoveTagKeys&quot; =&gt; [
+        &quot;Nadir&quot;
+    ],
+    &quot;ResourceId&quot; =&gt; &quot;Z3M3LMPEXAMPLE&quot;,
+    &quot;ResourceType&quot; =&gt; &quot;hostedzone&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/ChangeTagsForResource">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AmazonRoute53.create_health_check" href="#AmazonRoute53.create_health_check"><code>AmazonRoute53.create_health_check</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">create_health_check(::AWSConfig, arguments::Dict)
 create_health_check([::AWSConfig]; CallerReference=, HealthCheckConfig=)</code></pre><p><strong>CreateHealthCheck Operation</strong></p><p>Creates a new health check.</p><p>For information about adding health checks to resource record sets, see <a href="@ref">ResourceRecordSetHealthCheckId</a> in <a href="@ref">ChangeResourceRecordSets</a>.</p><p><strong>ELB Load Balancers</strong></p><p>If you&#39;re registering EC2 instances with an Elastic Load Balancing (ELB) load balancer, do not create Amazon Route 53 health checks for the EC2 instances. When you register an EC2 instance with a load balancer, you configure settings for an ELB health check, which performs a similar function to an Amazon Route 53 health check.</p><p><strong>Private Hosted Zones</strong></p><p>You can associate health checks with failover resource record sets in a private hosted zone. Note the following:</p><ul><li><p>Amazon Route 53 health checkers are outside the VPC. To check the health of an endpoint within a VPC by IP address, you must assign a public IP address to the instance in the VPC.</p></li><li><p>You can configure a health checker to check the health of an external resource that the instance relies on, such as a database server.</p></li><li><p>You can create a CloudWatch metric, associate an alarm with the metric, and then create a health check that is based on the state of the alarm. For example, you might create a CloudWatch metric that checks the status of the Amazon EC2 <code>StatusCheckFailed</code> metric, add an alarm to the metric, and then create a health check that is based on the state of the alarm. For information about creating CloudWatch metrics and alarms by using the CloudWatch console, see the <a href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatch.html">Amazon CloudWatch User Guide</a>.</p></li></ul><p><strong>Arguments</strong></p><p><strong><code>CallerReference = ::String</code> – <em>Required</em></strong></p><p>A unique string that identifies the request and that allows you to retry a failed <code>CreateHealthCheck</code> request without the risk of creating two identical health checks:</p><ul><li><p>If you send a <code>CreateHealthCheck</code> request with the same <code>CallerReference</code> and settings as a previous request, and if the health check doesn&#39;t exist, Amazon Route 53 creates the health check. If the health check does exist, Amazon Route 53 returns the settings for the existing health check.</p></li><li><p>If you send a <code>CreateHealthCheck</code> request with the same <code>CallerReference</code> as a deleted health check, regardless of the settings, Amazon Route 53 returns a <code>HealthCheckAlreadyExists</code> error.</p></li><li><p>If you send a <code>CreateHealthCheck</code> request with the same <code>CallerReference</code> as an existing health check but with different settings, Amazon Route 53 returns a <code>HealthCheckAlreadyExists</code> error.</p></li><li><p>If you send a <code>CreateHealthCheck</code> request with a unique <code>CallerReference</code> but settings identical to an existing health check, Amazon Route 53 creates the health check.</p></li></ul><p><strong><code>HealthCheckConfig = [ ... ]</code> – <em>Required</em></strong></p><p>A complex type that contains the response to a <code>CreateHealthCheck</code> request.</p><pre><code class="language-none"> HealthCheckConfig = [
         &quot;IPAddress&quot; =&gt;  ::String,
         &quot;Port&quot; =&gt;  ::Int,
@@ -93,7 +602,27 @@ get_health_check([::AWSConfig]; HealthCheckId=)</code></pre><p><strong>GetHealth
 get_health_check_count([::AWSConfig]; )</code></pre><p><strong>GetHealthCheckCount Operation</strong></p><p>Retrieves the number of health checks that are associated with the current AWS account.</p><p><strong>Arguments</strong></p><p><strong>Returns</strong></p><p><code>GetHealthCheckCountResponse</code></p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHealthCheckCount">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AmazonRoute53.get_health_check_last_failure_reason" href="#AmazonRoute53.get_health_check_last_failure_reason"><code>AmazonRoute53.get_health_check_last_failure_reason</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">get_health_check_last_failure_reason(::AWSConfig, arguments::Dict)
 get_health_check_last_failure_reason([::AWSConfig]; HealthCheckId=)</code></pre><p><strong>GetHealthCheckLastFailureReason Operation</strong></p><p>Gets the reason that a specified health check failed most recently.</p><p><strong>Arguments</strong></p><p><strong><code>HealthCheckId = ::String</code> – <em>Required</em></strong></p><p>The ID for the health check for which you want the last failure reason. When you created the health check, <code>CreateHealthCheck</code> returned the ID in the response, in the <code>HealthCheckId</code> element.</p><p><strong>Returns</strong></p><p><code>GetHealthCheckLastFailureReasonResponse</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchHealthCheck</code> or <code>InvalidInput</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHealthCheckLastFailureReason">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AmazonRoute53.get_health_check_status" href="#AmazonRoute53.get_health_check_status"><code>AmazonRoute53.get_health_check_status</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">get_health_check_status(::AWSConfig, arguments::Dict)
 get_health_check_status([::AWSConfig]; HealthCheckId=)</code></pre><p><strong>GetHealthCheckStatus Operation</strong></p><p>Gets status of a specified health check.</p><p><strong>Arguments</strong></p><p><strong><code>HealthCheckId = ::String</code> – <em>Required</em></strong></p><p>The ID for the health check that you want the current status for. When you created the health check, <code>CreateHealthCheck</code> returned the ID in the response, in the <code>HealthCheckId</code> element.</p><p><strong>Note</strong></p><blockquote><p>If you want to check the status of a calculated health check, you must use the Amazon Route 53 console or the CloudWatch console. You can&#39;t use <code>GetHealthCheckStatus</code> to get the status of a calculated health check.</p></blockquote><p><strong>Returns</strong></p><p><code>GetHealthCheckStatusResponse</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchHealthCheck</code> or <code>InvalidInput</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHealthCheckStatus">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AmazonRoute53.get_hosted_zone" href="#AmazonRoute53.get_hosted_zone"><code>AmazonRoute53.get_hosted_zone</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">get_hosted_zone(::AWSConfig, arguments::Dict)
-get_hosted_zone([::AWSConfig]; Id=)</code></pre><p><strong>GetHostedZone Operation</strong></p><p>Gets information about a specified hosted zone including the four name servers assigned to the hosted zone.</p><p><strong>Arguments</strong></p><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The ID of the hosted zone that you want to get information about.</p><p><strong>Returns</strong></p><p><code>GetHostedZoneResponse</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchHostedZone</code> or <code>InvalidInput</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHostedZone">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AmazonRoute53.get_hosted_zone_count" href="#AmazonRoute53.get_hosted_zone_count"><code>AmazonRoute53.get_hosted_zone_count</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">get_hosted_zone_count(::AWSConfig, arguments::Dict)
+get_hosted_zone([::AWSConfig]; Id=)</code></pre><p><strong>GetHostedZone Operation</strong></p><p>Gets information about a specified hosted zone including the four name servers assigned to the hosted zone.</p><p><strong>Arguments</strong></p><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The ID of the hosted zone that you want to get information about.</p><p><strong>Returns</strong></p><p><code>GetHostedZoneResponse</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchHostedZone</code> or <code>InvalidInput</code>.</p><p><strong>Example: To get information about a hosted zone</strong></p><p>The following example gets information about the Z3M3LMPEXAMPLE hosted zone.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Id&quot; =&gt; &quot;Z3M3LMPEXAMPLE&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;DelegationSet&quot; =&gt; Dict(
+        &quot;NameServers&quot; =&gt; [
+            &quot;ns-2048.awsdns-64.com&quot;,
+            &quot;ns-2049.awsdns-65.net&quot;,
+            &quot;ns-2050.awsdns-66.org&quot;,
+            &quot;ns-2051.awsdns-67.co.uk&quot;
+        ]
+    ),
+    &quot;HostedZone&quot; =&gt; Dict(
+        &quot;CallerReference&quot; =&gt; &quot;C741617D-04E4-F8DE-B9D7-0D150FC61C2E&quot;,
+        &quot;Config&quot; =&gt; Dict(
+            &quot;PrivateZone&quot; =&gt; false
+        ),
+        &quot;Id&quot; =&gt; &quot;/hostedzone/Z3M3LMPEXAMPLE&quot;,
+        &quot;Name&quot; =&gt; &quot;myawsbucket.com.&quot;,
+        &quot;ResourceRecordSetCount&quot; =&gt; 8
+    )
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHostedZone">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AmazonRoute53.get_hosted_zone_count" href="#AmazonRoute53.get_hosted_zone_count"><code>AmazonRoute53.get_hosted_zone_count</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">get_hosted_zone_count(::AWSConfig, arguments::Dict)
 get_hosted_zone_count([::AWSConfig]; )</code></pre><p><strong>GetHostedZoneCount Operation</strong></p><p>Retrieves the number of hosted zones that are associated with the current AWS account.</p><p><strong>Arguments</strong></p><p><strong>Returns</strong></p><p><code>GetHostedZoneCountResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInput</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetHostedZoneCount">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AmazonRoute53.get_reusable_delegation_set" href="#AmazonRoute53.get_reusable_delegation_set"><code>AmazonRoute53.get_reusable_delegation_set</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">get_reusable_delegation_set(::AWSConfig, arguments::Dict)
 get_reusable_delegation_set([::AWSConfig]; Id=)</code></pre><p><strong>GetReusableDelegationSet Operation</strong></p><p>Retrieves information about a specified reusable delegation set, including the four name servers that are assigned to the delegation set.</p><p><strong>Arguments</strong></p><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The ID of the reusable delegation set that you want to get a list of name servers for.</p><p><strong>Returns</strong></p><p><code>GetReusableDelegationSetResponse</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchDelegationSet</code>, <code>DelegationSetNotReusable</code> or <code>InvalidInput</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetReusableDelegationSet">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AmazonRoute53.get_traffic_policy" href="#AmazonRoute53.get_traffic_policy"><code>AmazonRoute53.get_traffic_policy</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">get_traffic_policy(::AWSConfig, arguments::Dict)
 get_traffic_policy([::AWSConfig]; Id=, Version=)</code></pre><p><strong>GetTrafficPolicy Operation</strong></p><p>Gets information about a specific traffic policy version.</p><p><strong>Arguments</strong></p><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The ID of the traffic policy that you want to get information about.</p><p><strong><code>Version = ::Int</code> – <em>Required</em></strong></p><p>The version number of the traffic policy that you want to get information about.</p><p><strong>Returns</strong></p><p><code>GetTrafficPolicyResponse</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchTrafficPolicy</code> or <code>InvalidInput</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/route53-2013-04-01/GetTrafficPolicy">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AmazonRoute53.get_traffic_policy_instance" href="#AmazonRoute53.get_traffic_policy_instance"><code>AmazonRoute53.get_traffic_policy_instance</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">get_traffic_policy_instance(::AWSConfig, arguments::Dict)
