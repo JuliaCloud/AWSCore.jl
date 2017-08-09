@@ -35,7 +35,6 @@ try
     @test false
 catch e
     println(e)
-    @test isa(e, AWSCore.InvalidAction)
 end
 
 try
