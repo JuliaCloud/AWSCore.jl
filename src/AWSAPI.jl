@@ -47,6 +47,8 @@ function is_simple_post_service(service)
         &&  service["metadata"]["endpointPrefix"] != "importexport")
 end
 
+is_rest_service(service) = ismatch(r"^rest", service["metadata"]["protocol"])
+
 
 function member_name(service, name, info)
 
@@ -226,8 +228,8 @@ function service_operation(service, operation, info)
     end
 
     if haskey(info, "input")
+        sig1 = "$name([::AWSConfig], arguments::Dict)"
         sig2 = "$name([::AWSConfig]; $input)"
-        sig1 = "$name(::AWSConfig, arguments::Dict)"
     else
         sig1 = "$name([::AWSConfig])\n"
         sig2 = ""
@@ -265,12 +267,22 @@ function service_operation(service, operation, info)
         end
     end
 
+    operation_name = operation
+    operation = is_rest_service(service) ? "" : "\"$operation\","
+    resource = replace(resource, "\$", "\\\$")
+
+    @assert !ismatch(r"[{][^{}]+[}]", resource) || is_rest_service(service)
+
     """
     \"\"\"
+        using $(service["metadata"]["juliaModule"])
         $sig1
         $sig2
 
-    # $operation Operation
+        using AWSCore.Services.$request
+        request([::AWSConfig],$method$resource$operation args)
+
+    # $operation_name Operation
 
     $(html2md(get(info, "documentation", "")))$inputdoc$output$errors
     $example
@@ -279,7 +291,7 @@ function service_operation(service, operation, info)
 
     @inline $name(aws::AWSConfig=default_aws_config(); args...) = $name(aws, args)
 
-    @inline $name(aws::AWSConfig, args) = AWSCore.Services.$request(aws,$method$resource \"$operation\", args)
+    @inline $name(aws::AWSConfig, args) = AWSCore.Services.$request(aws,$method$resource$operation args)
 
     @inline $name(args) = $name(default_aws_config(), args)
 
@@ -319,8 +331,8 @@ function service_request_function(service)
         push!(args,
             "verb         = verb",
             "resource     = resource")
-        verb = " verb,"
-        resource = " resource,"
+        verb = "verb, "
+        resource = "resource, "
     end
 
     if meta["protocol"] == "json"
@@ -333,17 +345,26 @@ function service_request_function(service)
             "target       = \"$(get(meta, "targetPrefix", ""))\"")
     end
 
+    if !is_rest_service(service)
+        push!(args,
+            "operation    = operation")
+        operation = "operation, "
+    else
+        operation = ""
+    end
     push!(args,
-            "operation    = operation",
             "args         = args")
 
 """
-function $name(aws::AWSConfig,$verb$resource operation, args)
+function $name(aws::AWSConfig, $(verb)$(resource)$(operation)args)
 
     AWSCore.service_$protocol(
         aws;
         $(join(args, ",\n        ")))
 end
+
+$name($(verb)$(resource)$(operation)args) =
+    $name(default_aws_config(), $(verb)$(resource)$(operation)args)
 """
 end
 

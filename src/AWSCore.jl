@@ -262,6 +262,30 @@ end
 
 
 """
+   rest_resource(request, args)
+
+Replace {Arg} placeholders in `request[:resource]` with arg values.
+"""
+
+function rest_resource(request, args)
+
+    r = request[:resource]
+
+    for (k,v) in args
+        if contains(r, "{$k}")
+            r = replace(r, "{$k}", v)
+            delete!(args, k)
+        elseif contains(r, "{$k+}")
+            r = replace(r, "{$k+}", escape_path(v))
+            delete!(args, k)
+        end
+    end
+
+    return r
+end
+
+
+"""
     service_rest_json(aws::AWSConfig; args...)
 
 Process request for AWS "rest_json" service protocol.
@@ -270,9 +294,11 @@ Process request for AWS "rest_json" service protocol.
 function service_rest_json(aws::AWSConfig; args...)
 
     request = Dict{Symbol,Any}(args)
+    args = Dict(request[:args])
 
+    request[:resource] = rest_resource(request, args)
     request[:url] = service_url(aws, request)
-    request[:content] = json(aws_args_dict(request[:args]))
+    request[:content] = json(aws_args_dict(args))
 
     do_request(merge(request, aws))
 end
@@ -284,30 +310,23 @@ end
 Process request for AWS "rest_xml" service protocol.
 """
 
-function service_rest_xml(aws::AWSConfig, meta,
-                          verb::String, resource::String,
-                          operation::String, query)
+function service_rest_xml(aws::AWSConfig; args...)
 
-    query_str  = format_query_str(query)
+    request = Dict{Symbol,Any}(args)
+    args = Dict(request[:args])
 
+    request[:resource] = rest_resource(request, args)
+
+    query_str  = format_query_str(args)
     if query_str  != ""
-        resource *= "?"
-        resource *= query_str
+        request[:resource] *= "?$query_str"
     end
-        
-    url = error("FIXME") #deal with bucket prefix
-    #string("https://", meta["endpointPrefix"],
-    #       ".", aws[:region], ".amazonaws.com")
 
-    do_request(@SymDict(
+    #FIXME deal with bucket prefix
+    request[:url] = service_url(aws, request)
+    request[:content] = get(request, "Body", "")
 
-        service  = meta["signingName"],
-        verb     = verb,
-        url      = url * resource,
-        resource = resource,
-        content  = error("FIXME"),
-
-        aws...))
+    do_request(merge(request, aws))
 end
 
 
