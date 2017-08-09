@@ -11,7 +11,7 @@ using SymDict
 using Retry
 using XMLDict
 
-
+using AWSCore: service_query
 
 #-------------------------------------------------------------------------------
 # Load credentials...
@@ -29,9 +29,7 @@ aws[:region] = "us-east-1"
 
 println("Testing exceptions...")
 try
-    do_request(post_request(aws, "iam", "2010-05-08",
-                            Dict("Action" => "GetFoo",
-                                 "ContentType" => "JSON")))
+    AWSCore.Services.iam("GetFoo", Dict("ContentType" => "JSON"))
     @test false
 catch e
     println(e)
@@ -39,10 +37,8 @@ catch e
 end
 
 try
-    do_request(post_request(aws, "iam", "2010-05-08",
-                            Dict("Action" => "GetUser",
-                                 "UserName" => "notauser",
-                                 "ContentType" => "JSON")))
+    AWSCore.Services.iam("GetUser", Dict("UserName" => "notauser",
+                                         "ContentType" => "JSON"))
     @test false
 catch e
     println(e)
@@ -54,10 +50,8 @@ catch e
 end
 
 try
-    do_request(post_request(aws, "iam", "2010-05-08",
-                            Dict("Action" => "GetUser",
-                                 "UserName" => "@#!%%!",
-                                 "ContentType" => "JSON")))
+    AWSCore.Services.iam("GetUser", Dict("UserName" => "@#!%%!",
+                                         "ContentType" => "JSON"))
     @test false
 catch e
     println(e)
@@ -65,10 +59,8 @@ catch e
 end
 
 try
-    do_request(post_request(aws, "iam", "2010-05-08",
-                            Dict("Action" => "CreateUser",
-                                 "UserName" => "root",
-                                 "ContentType" => "JSON")))
+    AWSCore.Services.iam("CreateUser", Dict("UserName" => "root",
+                                            "ContentType" => "JSON"))
     @test false
 catch e
     println(e)
