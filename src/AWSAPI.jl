@@ -227,14 +227,6 @@ function service_operation(service, operation, info)
         resource = " \"$(info["http"]["requestUri"])\","
     end
 
-    if haskey(info, "input")
-        sig1 = "$name([::AWSConfig], arguments::Dict)"
-        sig2 = "$name([::AWSConfig]; $input)"
-    else
-        sig1 = "$name([::AWSConfig])\n"
-        sig2 = ""
-    end
-
     example = ""
     if haskey(service, "examples") && haskey(service["examples"], operation)
 
@@ -268,8 +260,20 @@ function service_operation(service, operation, info)
     end
 
     operation_name = operation
-    operation = is_rest_service(service) ? "" : "\"$operation\","
+    operation = is_rest_service(service) ? "" : " \"$operation\","
     resource = replace(resource, "\$", "\\\$")
+
+    if haskey(info, "input")
+        sig1 = "$name([::AWSConfig], arguments::Dict)"
+        sig2 = "$name([::AWSConfig]; $input)"
+        sig3 = "$request([::AWSConfig],$method$resource$operation arguments::Dict)"
+        sig4 = "$request([::AWSConfig],$method$resource$operation $input)"
+    else
+        sig1 = "$name([::AWSConfig])"
+        sig2 = ""
+        sig3 = "$request([::AWSConfig],$method$resource$operation)"
+        sig4 = ""
+    end
 
     @assert !ismatch(r"[{][^{}]+[}]", resource) || is_rest_service(service)
 
@@ -280,7 +284,8 @@ function service_operation(service, operation, info)
         $sig2
 
         using AWSCore.Services.$request
-        request([::AWSConfig],$method$resource$operation args)
+        $sig3
+        $sig4
 
     # $operation_name Operation
 
@@ -356,14 +361,14 @@ function service_request_function(service)
             "args         = args")
 
 """
-function $name(aws::AWSConfig, $(verb)$(resource)$(operation)args)
+function $name(aws::AWSConfig, $(verb)$(resource)$(operation)args=[])
 
     AWSCore.service_$protocol(
         aws;
         $(join(args, ",\n        ")))
 end
 
-$name($(verb)$(resource)$(operation)args) =
+$name($(verb)$(resource)$(operation)args=[]) =
     $name(default_aws_config(), $(verb)$(resource)$(operation)args)
 """
 end

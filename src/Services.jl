@@ -9,7 +9,7 @@ module Services
 
 using ..AWSCore
 
-function acm(aws::AWSConfig, operation, args)
+function acm(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -21,10 +21,10 @@ function acm(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-acm(operation, args) =
+acm(operation, args=[]) =
     acm(default_aws_config(), operation, args)
 
-function apigateway(aws::AWSConfig, verb, resource, args)
+function apigateway(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -35,10 +35,10 @@ function apigateway(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-apigateway(verb, resource, args) =
+apigateway(verb, resource, args=[]) =
     apigateway(default_aws_config(), verb, resource, args)
 
-function application_autoscaling(aws::AWSConfig, operation, args)
+function application_autoscaling(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -51,10 +51,10 @@ function application_autoscaling(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-application_autoscaling(operation, args) =
+application_autoscaling(operation, args=[]) =
     application_autoscaling(default_aws_config(), operation, args)
 
-function appstream(aws::AWSConfig, operation, args)
+function appstream(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -67,10 +67,10 @@ function appstream(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-appstream(operation, args) =
+appstream(operation, args=[]) =
     appstream(default_aws_config(), operation, args)
 
-function athena(aws::AWSConfig, operation, args)
+function athena(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -82,10 +82,10 @@ function athena(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-athena(operation, args) =
+athena(operation, args=[]) =
     athena(default_aws_config(), operation, args)
 
-function autoscaling(aws::AWSConfig, operation, args)
+function autoscaling(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -95,10 +95,10 @@ function autoscaling(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-autoscaling(operation, args) =
+autoscaling(operation, args=[]) =
     autoscaling(default_aws_config(), operation, args)
 
-function batch(aws::AWSConfig, verb, resource, args)
+function batch(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -109,10 +109,10 @@ function batch(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-batch(verb, resource, args) =
+batch(verb, resource, args=[]) =
     batch(default_aws_config(), verb, resource, args)
 
-function budgets(aws::AWSConfig, operation, args)
+function budgets(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -124,10 +124,10 @@ function budgets(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-budgets(operation, args) =
+budgets(operation, args=[]) =
     budgets(default_aws_config(), operation, args)
 
-function clouddirectory(aws::AWSConfig, verb, resource, args)
+function clouddirectory(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -138,10 +138,10 @@ function clouddirectory(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-clouddirectory(verb, resource, args) =
+clouddirectory(verb, resource, args=[]) =
     clouddirectory(default_aws_config(), verb, resource, args)
 
-function cloudformation(aws::AWSConfig, operation, args)
+function cloudformation(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -151,10 +151,10 @@ function cloudformation(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-cloudformation(operation, args) =
+cloudformation(operation, args=[]) =
     cloudformation(default_aws_config(), operation, args)
 
-function cloudfront(aws::AWSConfig, verb, resource, args)
+function cloudfront(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_xml(
         aws;
@@ -165,10 +165,10 @@ function cloudfront(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-cloudfront(verb, resource, args) =
+cloudfront(verb, resource, args=[]) =
     cloudfront(default_aws_config(), verb, resource, args)
 
-function cloudhsm(aws::AWSConfig, operation, args)
+function cloudhsm(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -180,10 +180,10 @@ function cloudhsm(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-cloudhsm(operation, args) =
+cloudhsm(operation, args=[]) =
     cloudhsm(default_aws_config(), operation, args)
 
-function cloudsearch(aws::AWSConfig, operation, args)
+function cloudsearch(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -193,10 +193,10 @@ function cloudsearch(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-cloudsearch(operation, args) =
+cloudsearch(operation, args=[]) =
     cloudsearch(default_aws_config(), operation, args)
 
-function cloudsearchdomain(aws::AWSConfig, verb, resource, args)
+function cloudsearchdomain(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -208,10 +208,10 @@ function cloudsearchdomain(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-cloudsearchdomain(verb, resource, args) =
+cloudsearchdomain(verb, resource, args=[]) =
     cloudsearchdomain(default_aws_config(), verb, resource, args)
 
-function cloudtrail(aws::AWSConfig, operation, args)
+function cloudtrail(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -223,10 +223,10 @@ function cloudtrail(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-cloudtrail(operation, args) =
+cloudtrail(operation, args=[]) =
     cloudtrail(default_aws_config(), operation, args)
 
-function codebuild(aws::AWSConfig, operation, args)
+function codebuild(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -238,10 +238,10 @@ function codebuild(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-codebuild(operation, args) =
+codebuild(operation, args=[]) =
     codebuild(default_aws_config(), operation, args)
 
-function codecommit(aws::AWSConfig, operation, args)
+function codecommit(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -253,10 +253,10 @@ function codecommit(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-codecommit(operation, args) =
+codecommit(operation, args=[]) =
     codecommit(default_aws_config(), operation, args)
 
-function codedeploy(aws::AWSConfig, operation, args)
+function codedeploy(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -268,10 +268,10 @@ function codedeploy(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-codedeploy(operation, args) =
+codedeploy(operation, args=[]) =
     codedeploy(default_aws_config(), operation, args)
 
-function codepipeline(aws::AWSConfig, operation, args)
+function codepipeline(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -283,10 +283,10 @@ function codepipeline(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-codepipeline(operation, args) =
+codepipeline(operation, args=[]) =
     codepipeline(default_aws_config(), operation, args)
 
-function codestar(aws::AWSConfig, operation, args)
+function codestar(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -298,10 +298,10 @@ function codestar(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-codestar(operation, args) =
+codestar(operation, args=[]) =
     codestar(default_aws_config(), operation, args)
 
-function cognito_identity(aws::AWSConfig, operation, args)
+function cognito_identity(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -313,10 +313,10 @@ function cognito_identity(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-cognito_identity(operation, args) =
+cognito_identity(operation, args=[]) =
     cognito_identity(default_aws_config(), operation, args)
 
-function cognito_idp(aws::AWSConfig, operation, args)
+function cognito_idp(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -328,10 +328,10 @@ function cognito_idp(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-cognito_idp(operation, args) =
+cognito_idp(operation, args=[]) =
     cognito_idp(default_aws_config(), operation, args)
 
-function cognito_sync(aws::AWSConfig, verb, resource, args)
+function cognito_sync(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -342,10 +342,10 @@ function cognito_sync(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-cognito_sync(verb, resource, args) =
+cognito_sync(verb, resource, args=[]) =
     cognito_sync(default_aws_config(), verb, resource, args)
 
-function config(aws::AWSConfig, operation, args)
+function config(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -357,10 +357,10 @@ function config(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-config(operation, args) =
+config(operation, args=[]) =
     config(default_aws_config(), operation, args)
 
-function cur(aws::AWSConfig, operation, args)
+function cur(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -372,10 +372,10 @@ function cur(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-cur(operation, args) =
+cur(operation, args=[]) =
     cur(default_aws_config(), operation, args)
 
-function datapipeline(aws::AWSConfig, operation, args)
+function datapipeline(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -387,10 +387,10 @@ function datapipeline(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-datapipeline(operation, args) =
+datapipeline(operation, args=[]) =
     datapipeline(default_aws_config(), operation, args)
 
-function dax(aws::AWSConfig, operation, args)
+function dax(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -402,10 +402,10 @@ function dax(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-dax(operation, args) =
+dax(operation, args=[]) =
     dax(default_aws_config(), operation, args)
 
-function devicefarm(aws::AWSConfig, operation, args)
+function devicefarm(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -417,10 +417,10 @@ function devicefarm(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-devicefarm(operation, args) =
+devicefarm(operation, args=[]) =
     devicefarm(default_aws_config(), operation, args)
 
-function directconnect(aws::AWSConfig, operation, args)
+function directconnect(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -432,10 +432,10 @@ function directconnect(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-directconnect(operation, args) =
+directconnect(operation, args=[]) =
     directconnect(default_aws_config(), operation, args)
 
-function discovery(aws::AWSConfig, operation, args)
+function discovery(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -447,10 +447,10 @@ function discovery(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-discovery(operation, args) =
+discovery(operation, args=[]) =
     discovery(default_aws_config(), operation, args)
 
-function dms(aws::AWSConfig, operation, args)
+function dms(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -462,10 +462,10 @@ function dms(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-dms(operation, args) =
+dms(operation, args=[]) =
     dms(default_aws_config(), operation, args)
 
-function ds(aws::AWSConfig, operation, args)
+function ds(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -477,10 +477,10 @@ function ds(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-ds(operation, args) =
+ds(operation, args=[]) =
     ds(default_aws_config(), operation, args)
 
-function dynamodb(aws::AWSConfig, operation, args)
+function dynamodb(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -492,10 +492,10 @@ function dynamodb(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-dynamodb(operation, args) =
+dynamodb(operation, args=[]) =
     dynamodb(default_aws_config(), operation, args)
 
-function ec2(aws::AWSConfig, operation, args)
+function ec2(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -505,10 +505,10 @@ function ec2(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-ec2(operation, args) =
+ec2(operation, args=[]) =
     ec2(default_aws_config(), operation, args)
 
-function ecr(aws::AWSConfig, operation, args)
+function ecr(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -520,10 +520,10 @@ function ecr(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-ecr(operation, args) =
+ecr(operation, args=[]) =
     ecr(default_aws_config(), operation, args)
 
-function ecs(aws::AWSConfig, operation, args)
+function ecs(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -535,10 +535,10 @@ function ecs(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-ecs(operation, args) =
+ecs(operation, args=[]) =
     ecs(default_aws_config(), operation, args)
 
-function elasticache(aws::AWSConfig, operation, args)
+function elasticache(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -548,10 +548,10 @@ function elasticache(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-elasticache(operation, args) =
+elasticache(operation, args=[]) =
     elasticache(default_aws_config(), operation, args)
 
-function elasticbeanstalk(aws::AWSConfig, operation, args)
+function elasticbeanstalk(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -561,10 +561,10 @@ function elasticbeanstalk(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-elasticbeanstalk(operation, args) =
+elasticbeanstalk(operation, args=[]) =
     elasticbeanstalk(default_aws_config(), operation, args)
 
-function elasticfilesystem(aws::AWSConfig, verb, resource, args)
+function elasticfilesystem(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -575,10 +575,10 @@ function elasticfilesystem(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-elasticfilesystem(verb, resource, args) =
+elasticfilesystem(verb, resource, args=[]) =
     elasticfilesystem(default_aws_config(), verb, resource, args)
 
-function elasticloadbalancing(aws::AWSConfig, operation, args)
+function elasticloadbalancing(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -588,10 +588,10 @@ function elasticloadbalancing(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-elasticloadbalancing(operation, args) =
+elasticloadbalancing(operation, args=[]) =
     elasticloadbalancing(default_aws_config(), operation, args)
 
-function elasticloadbalancingv2(aws::AWSConfig, operation, args)
+function elasticloadbalancingv2(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -601,10 +601,10 @@ function elasticloadbalancingv2(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-elasticloadbalancingv2(operation, args) =
+elasticloadbalancingv2(operation, args=[]) =
     elasticloadbalancingv2(default_aws_config(), operation, args)
 
-function elasticmapreduce(aws::AWSConfig, operation, args)
+function elasticmapreduce(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -616,10 +616,10 @@ function elasticmapreduce(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-elasticmapreduce(operation, args) =
+elasticmapreduce(operation, args=[]) =
     elasticmapreduce(default_aws_config(), operation, args)
 
-function elastictranscoder(aws::AWSConfig, verb, resource, args)
+function elastictranscoder(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -630,10 +630,10 @@ function elastictranscoder(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-elastictranscoder(verb, resource, args) =
+elastictranscoder(verb, resource, args=[]) =
     elastictranscoder(default_aws_config(), verb, resource, args)
 
-function email(aws::AWSConfig, operation, args)
+function email(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -644,10 +644,10 @@ function email(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-email(operation, args) =
+email(operation, args=[]) =
     email(default_aws_config(), operation, args)
 
-function entitlement_marketplace(aws::AWSConfig, operation, args)
+function entitlement_marketplace(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -660,10 +660,10 @@ function entitlement_marketplace(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-entitlement_marketplace(operation, args) =
+entitlement_marketplace(operation, args=[]) =
     entitlement_marketplace(default_aws_config(), operation, args)
 
-function es(aws::AWSConfig, verb, resource, args)
+function es(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -674,10 +674,10 @@ function es(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-es(verb, resource, args) =
+es(verb, resource, args=[]) =
     es(default_aws_config(), verb, resource, args)
 
-function events(aws::AWSConfig, operation, args)
+function events(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -689,10 +689,10 @@ function events(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-events(operation, args) =
+events(operation, args=[]) =
     events(default_aws_config(), operation, args)
 
-function firehose(aws::AWSConfig, operation, args)
+function firehose(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -704,10 +704,10 @@ function firehose(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-firehose(operation, args) =
+firehose(operation, args=[]) =
     firehose(default_aws_config(), operation, args)
 
-function gamelift(aws::AWSConfig, operation, args)
+function gamelift(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -719,10 +719,10 @@ function gamelift(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-gamelift(operation, args) =
+gamelift(operation, args=[]) =
     gamelift(default_aws_config(), operation, args)
 
-function glacier(aws::AWSConfig, verb, resource, args)
+function glacier(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -733,10 +733,10 @@ function glacier(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-glacier(verb, resource, args) =
+glacier(verb, resource, args=[]) =
     glacier(default_aws_config(), verb, resource, args)
 
-function greengrass(aws::AWSConfig, verb, resource, args)
+function greengrass(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -747,10 +747,10 @@ function greengrass(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-greengrass(verb, resource, args) =
+greengrass(verb, resource, args=[]) =
     greengrass(default_aws_config(), verb, resource, args)
 
-function health(aws::AWSConfig, operation, args)
+function health(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -762,10 +762,10 @@ function health(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-health(operation, args) =
+health(operation, args=[]) =
     health(default_aws_config(), operation, args)
 
-function iam(aws::AWSConfig, operation, args)
+function iam(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -775,10 +775,10 @@ function iam(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-iam(operation, args) =
+iam(operation, args=[]) =
     iam(default_aws_config(), operation, args)
 
-function importexport(aws::AWSConfig, verb, resource, operation, args)
+function importexport(aws::AWSConfig, verb, resource, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -790,10 +790,10 @@ function importexport(aws::AWSConfig, verb, resource, operation, args)
         args         = args)
 end
 
-importexport(verb, resource, operation, args) =
+importexport(verb, resource, operation, args=[]) =
     importexport(default_aws_config(), verb, resource, operation, args)
 
-function inspector(aws::AWSConfig, operation, args)
+function inspector(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -805,10 +805,10 @@ function inspector(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-inspector(operation, args) =
+inspector(operation, args=[]) =
     inspector(default_aws_config(), operation, args)
 
-function iot(aws::AWSConfig, verb, resource, args)
+function iot(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -820,10 +820,10 @@ function iot(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-iot(verb, resource, args) =
+iot(verb, resource, args=[]) =
     iot(default_aws_config(), verb, resource, args)
 
-function iot_data(aws::AWSConfig, verb, resource, args)
+function iot_data(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -835,10 +835,10 @@ function iot_data(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-iot_data(verb, resource, args) =
+iot_data(verb, resource, args=[]) =
     iot_data(default_aws_config(), verb, resource, args)
 
-function kinesis(aws::AWSConfig, operation, args)
+function kinesis(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -850,10 +850,10 @@ function kinesis(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-kinesis(operation, args) =
+kinesis(operation, args=[]) =
     kinesis(default_aws_config(), operation, args)
 
-function kinesisanalytics(aws::AWSConfig, operation, args)
+function kinesisanalytics(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -865,10 +865,10 @@ function kinesisanalytics(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-kinesisanalytics(operation, args) =
+kinesisanalytics(operation, args=[]) =
     kinesisanalytics(default_aws_config(), operation, args)
 
-function kms(aws::AWSConfig, operation, args)
+function kms(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -880,10 +880,10 @@ function kms(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-kms(operation, args) =
+kms(operation, args=[]) =
     kms(default_aws_config(), operation, args)
 
-function lambda(aws::AWSConfig, verb, resource, args)
+function lambda(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -894,10 +894,10 @@ function lambda(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-lambda(verb, resource, args) =
+lambda(verb, resource, args=[]) =
     lambda(default_aws_config(), verb, resource, args)
 
-function lex_models(aws::AWSConfig, verb, resource, args)
+function lex_models(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -909,10 +909,10 @@ function lex_models(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-lex_models(verb, resource, args) =
+lex_models(verb, resource, args=[]) =
     lex_models(default_aws_config(), verb, resource, args)
 
-function lightsail(aws::AWSConfig, operation, args)
+function lightsail(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -924,10 +924,10 @@ function lightsail(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-lightsail(operation, args) =
+lightsail(operation, args=[]) =
     lightsail(default_aws_config(), operation, args)
 
-function logs(aws::AWSConfig, operation, args)
+function logs(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -939,10 +939,10 @@ function logs(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-logs(operation, args) =
+logs(operation, args=[]) =
     logs(default_aws_config(), operation, args)
 
-function machinelearning(aws::AWSConfig, operation, args)
+function machinelearning(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -954,10 +954,10 @@ function machinelearning(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-machinelearning(operation, args) =
+machinelearning(operation, args=[]) =
     machinelearning(default_aws_config(), operation, args)
 
-function marketplacecommerceanalytics(aws::AWSConfig, operation, args)
+function marketplacecommerceanalytics(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -969,10 +969,10 @@ function marketplacecommerceanalytics(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-marketplacecommerceanalytics(operation, args) =
+marketplacecommerceanalytics(operation, args=[]) =
     marketplacecommerceanalytics(default_aws_config(), operation, args)
 
-function meteringmarketplace(aws::AWSConfig, operation, args)
+function meteringmarketplace(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -985,10 +985,10 @@ function meteringmarketplace(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-meteringmarketplace(operation, args) =
+meteringmarketplace(operation, args=[]) =
     meteringmarketplace(default_aws_config(), operation, args)
 
-function mobileanalytics(aws::AWSConfig, verb, resource, args)
+function mobileanalytics(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -999,10 +999,10 @@ function mobileanalytics(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-mobileanalytics(verb, resource, args) =
+mobileanalytics(verb, resource, args=[]) =
     mobileanalytics(default_aws_config(), verb, resource, args)
 
-function monitoring(aws::AWSConfig, operation, args)
+function monitoring(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -1012,10 +1012,10 @@ function monitoring(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-monitoring(operation, args) =
+monitoring(operation, args=[]) =
     monitoring(default_aws_config(), operation, args)
 
-function mturk_requester(aws::AWSConfig, operation, args)
+function mturk_requester(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1027,10 +1027,10 @@ function mturk_requester(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-mturk_requester(operation, args) =
+mturk_requester(operation, args=[]) =
     mturk_requester(default_aws_config(), operation, args)
 
-function opsworks(aws::AWSConfig, operation, args)
+function opsworks(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1042,10 +1042,10 @@ function opsworks(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-opsworks(operation, args) =
+opsworks(operation, args=[]) =
     opsworks(default_aws_config(), operation, args)
 
-function opsworkscm(aws::AWSConfig, operation, args)
+function opsworkscm(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1057,10 +1057,10 @@ function opsworkscm(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-opsworkscm(operation, args) =
+opsworkscm(operation, args=[]) =
     opsworkscm(default_aws_config(), operation, args)
 
-function organizations(aws::AWSConfig, operation, args)
+function organizations(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1072,10 +1072,10 @@ function organizations(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-organizations(operation, args) =
+organizations(operation, args=[]) =
     organizations(default_aws_config(), operation, args)
 
-function pinpoint(aws::AWSConfig, verb, resource, args)
+function pinpoint(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -1087,10 +1087,10 @@ function pinpoint(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-pinpoint(verb, resource, args) =
+pinpoint(verb, resource, args=[]) =
     pinpoint(default_aws_config(), verb, resource, args)
 
-function polly(aws::AWSConfig, verb, resource, args)
+function polly(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -1101,10 +1101,10 @@ function polly(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-polly(verb, resource, args) =
+polly(verb, resource, args=[]) =
     polly(default_aws_config(), verb, resource, args)
 
-function rds(aws::AWSConfig, operation, args)
+function rds(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -1114,10 +1114,10 @@ function rds(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-rds(operation, args) =
+rds(operation, args=[]) =
     rds(default_aws_config(), operation, args)
 
-function redshift(aws::AWSConfig, operation, args)
+function redshift(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -1127,10 +1127,10 @@ function redshift(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-redshift(operation, args) =
+redshift(operation, args=[]) =
     redshift(default_aws_config(), operation, args)
 
-function rekognition(aws::AWSConfig, operation, args)
+function rekognition(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1142,10 +1142,10 @@ function rekognition(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-rekognition(operation, args) =
+rekognition(operation, args=[]) =
     rekognition(default_aws_config(), operation, args)
 
-function resourcegroupstaggingapi(aws::AWSConfig, operation, args)
+function resourcegroupstaggingapi(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1157,10 +1157,10 @@ function resourcegroupstaggingapi(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-resourcegroupstaggingapi(operation, args) =
+resourcegroupstaggingapi(operation, args=[]) =
     resourcegroupstaggingapi(default_aws_config(), operation, args)
 
-function route53(aws::AWSConfig, verb, resource, args)
+function route53(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_xml(
         aws;
@@ -1171,10 +1171,10 @@ function route53(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-route53(verb, resource, args) =
+route53(verb, resource, args=[]) =
     route53(default_aws_config(), verb, resource, args)
 
-function route53domains(aws::AWSConfig, operation, args)
+function route53domains(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1186,10 +1186,10 @@ function route53domains(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-route53domains(operation, args) =
+route53domains(operation, args=[]) =
     route53domains(default_aws_config(), operation, args)
 
-function runtime_lex(aws::AWSConfig, verb, resource, args)
+function runtime_lex(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -1201,10 +1201,10 @@ function runtime_lex(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-runtime_lex(verb, resource, args) =
+runtime_lex(verb, resource, args=[]) =
     runtime_lex(default_aws_config(), verb, resource, args)
 
-function s3(aws::AWSConfig, verb, resource, args)
+function s3(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_xml(
         aws;
@@ -1215,10 +1215,10 @@ function s3(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-s3(verb, resource, args) =
+s3(verb, resource, args=[]) =
     s3(default_aws_config(), verb, resource, args)
 
-function sdb(aws::AWSConfig, operation, args)
+function sdb(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -1228,10 +1228,10 @@ function sdb(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-sdb(operation, args) =
+sdb(operation, args=[]) =
     sdb(default_aws_config(), operation, args)
 
-function servicecatalog(aws::AWSConfig, operation, args)
+function servicecatalog(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1243,10 +1243,10 @@ function servicecatalog(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-servicecatalog(operation, args) =
+servicecatalog(operation, args=[]) =
     servicecatalog(default_aws_config(), operation, args)
 
-function shield(aws::AWSConfig, operation, args)
+function shield(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1258,10 +1258,10 @@ function shield(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-shield(operation, args) =
+shield(operation, args=[]) =
     shield(default_aws_config(), operation, args)
 
-function sms(aws::AWSConfig, operation, args)
+function sms(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1273,10 +1273,10 @@ function sms(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-sms(operation, args) =
+sms(operation, args=[]) =
     sms(default_aws_config(), operation, args)
 
-function snowball(aws::AWSConfig, operation, args)
+function snowball(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1288,10 +1288,10 @@ function snowball(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-snowball(operation, args) =
+snowball(operation, args=[]) =
     snowball(default_aws_config(), operation, args)
 
-function sns(aws::AWSConfig, operation, args)
+function sns(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -1301,10 +1301,10 @@ function sns(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-sns(operation, args) =
+sns(operation, args=[]) =
     sns(default_aws_config(), operation, args)
 
-function sqs(aws::AWSConfig, operation, args)
+function sqs(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -1314,10 +1314,10 @@ function sqs(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-sqs(operation, args) =
+sqs(operation, args=[]) =
     sqs(default_aws_config(), operation, args)
 
-function ssm(aws::AWSConfig, operation, args)
+function ssm(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1329,10 +1329,10 @@ function ssm(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-ssm(operation, args) =
+ssm(operation, args=[]) =
     ssm(default_aws_config(), operation, args)
 
-function states(aws::AWSConfig, operation, args)
+function states(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1344,10 +1344,10 @@ function states(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-states(operation, args) =
+states(operation, args=[]) =
     states(default_aws_config(), operation, args)
 
-function storagegateway(aws::AWSConfig, operation, args)
+function storagegateway(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1359,10 +1359,10 @@ function storagegateway(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-storagegateway(operation, args) =
+storagegateway(operation, args=[]) =
     storagegateway(default_aws_config(), operation, args)
 
-function streams_dynamodb(aws::AWSConfig, operation, args)
+function streams_dynamodb(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1375,10 +1375,10 @@ function streams_dynamodb(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-streams_dynamodb(operation, args) =
+streams_dynamodb(operation, args=[]) =
     streams_dynamodb(default_aws_config(), operation, args)
 
-function sts(aws::AWSConfig, operation, args)
+function sts(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
         aws;
@@ -1388,10 +1388,10 @@ function sts(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-sts(operation, args) =
+sts(operation, args=[]) =
     sts(default_aws_config(), operation, args)
 
-function support(aws::AWSConfig, operation, args)
+function support(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1403,10 +1403,10 @@ function support(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-support(operation, args) =
+support(operation, args=[]) =
     support(default_aws_config(), operation, args)
 
-function swf(aws::AWSConfig, operation, args)
+function swf(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1418,10 +1418,10 @@ function swf(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-swf(operation, args) =
+swf(operation, args=[]) =
     swf(default_aws_config(), operation, args)
 
-function waf(aws::AWSConfig, operation, args)
+function waf(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1433,10 +1433,10 @@ function waf(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-waf(operation, args) =
+waf(operation, args=[]) =
     waf(default_aws_config(), operation, args)
 
-function waf_regional(aws::AWSConfig, operation, args)
+function waf_regional(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1448,10 +1448,10 @@ function waf_regional(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-waf_regional(operation, args) =
+waf_regional(operation, args=[]) =
     waf_regional(default_aws_config(), operation, args)
 
-function workdocs(aws::AWSConfig, verb, resource, args)
+function workdocs(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -1462,10 +1462,10 @@ function workdocs(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-workdocs(verb, resource, args) =
+workdocs(verb, resource, args=[]) =
     workdocs(default_aws_config(), verb, resource, args)
 
-function workspaces(aws::AWSConfig, operation, args)
+function workspaces(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
         aws;
@@ -1477,10 +1477,10 @@ function workspaces(aws::AWSConfig, operation, args)
         args         = args)
 end
 
-workspaces(operation, args) =
+workspaces(operation, args=[]) =
     workspaces(default_aws_config(), operation, args)
 
-function xray(aws::AWSConfig, verb, resource, args)
+function xray(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
@@ -1491,7 +1491,7 @@ function xray(aws::AWSConfig, verb, resource, args)
         args         = args)
 end
 
-xray(verb, resource, args) =
+xray(verb, resource, args=[]) =
     xray(default_aws_config(), verb, resource, args)
 
 
