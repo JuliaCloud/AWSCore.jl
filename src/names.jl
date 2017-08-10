@@ -162,7 +162,9 @@ function is_arn(arn)
     v = split(arn, ":")
     p = [is_arn_prefix, is_partition, is_service, is_region, is_account]
 
-    return length(v) >= 6 && all(v[1:5] .|> p)
+    #FIXME requires Julia > v0.5:
+    # return length(v) >= 6 && all(v[1:5] .|> p)
+    return length(v) >= 6 && all([f(x) for (f,x) in zip(p, v[1:5])])
 end
 
 arn_match(s, n, p) = ismatch(p, s) ||
