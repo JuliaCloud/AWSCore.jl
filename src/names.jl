@@ -10,7 +10,9 @@
 #==============================================================================#
 
 
-export aws_endpoint, arn, arn_region
+export aws_endpoint, arn, is_arn,
+       arn_service, arn_region, arn_account, arn_resource,
+       arn_iam_type, arn_iam_name
 
 
 
@@ -96,12 +98,82 @@ end
 
 
 """
-    arg_region(arn)
+    arn_service(arn)
+
+Extract service name from `arn`.
+"""
+
+arn_service(arn) = split(arn, ":")[3]
+
+
+"""
+    arn_region(arn)
 
 Extract region name from `arn`.
 """
 
 arn_region(arn) = split(arn, ":")[4]
+
+
+"""
+    arn_account(arn)
+
+Extract account number from `arn`.
+"""
+
+arn_account(arn) = split(arn, ":")[5]
+
+
+"""
+    arn_resource(arn)
+
+Extract resource name from `arn`.
+"""
+
+arn_resource(arn) = split(arn, ":")[6]
+
+
+"""
+    arn_iam_type
+
+Extract IAM resource type from `arn`.
+e.g. \"role\", \"policy\"...
+"""
+arn_iam_type(arn) = split(arn_resource(arn), "/")[1]
+
+
+"""
+    arn_iam_name
+
+Extract IAM resource name from `arn`.
+"""
+arn_iam_name(arn) = split(arn_resource(arn), "/")[end]
+
+
+"""
+    is_arn(arn)
+
+Is `arn` in the [correct format]?
+(http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+"""
+
+function is_arn(arn)
+
+    v = split(arn, ":")
+    p = [is_arn_prefix, is_partition, is_service, is_region, is_account]
+
+    return length(v) >= 6 && all(v[1:5] .|> p)
+end
+
+arn_match(s, n, p) = ismatch(p, s) ||
+                     (debug_level == 0 || warn("Bad ARN $n: \"$s\""); false)
+
+is_arn_prefix(s) = arn_match(s, "prefix",   r"^arn$")
+is_partition(s)  = arn_match(s, "partiton", r"^aws[a-z-]*$")
+is_service(s)    = arn_match(s, "service",  r"^[a-zA-Z0-9\-]+$")
+is_region(s)     = arn_match(s, "region",   r"^([a-z]{2}-[a-z]+-\d)?$")
+is_account(s)    = arn_match(s, "account",  r"^(\d{12})?$")
+
 
 
 #==============================================================================#
