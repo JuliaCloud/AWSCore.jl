@@ -174,12 +174,12 @@ function flatten_query(service, query, prefix="")
             for (i, x) in enumerate(v)
 
                 suffix = service == "ec2" ? "" : ".member"
-                k = "$prefix$k$suffix.$i"
+                pk = "$prefix$k$suffix.$i"
 
                 if typeof(x) <: Associative
-                    merge!(result, flatten_query(service, x, "$k."))
+                    merge!(result, flatten_query(service, x, "$pk."))
                 else
-                    result[k] = x
+                    result[pk] = x
                 end
             end
         else
@@ -234,7 +234,6 @@ function service_query(aws::AWSConfig; args...)
 
     request[:content] = format_query_str(flatten_query(request[:service],
                                                        request[:query]))
-
     do_request(merge(request, aws))
 end
 
@@ -313,7 +312,10 @@ Process request for AWS "rest_xml" service protocol.
 function service_rest_xml(aws::AWSConfig; args...)
 
     request = Dict{Symbol,Any}(args)
-    args = Dict(request[:args])
+    args = stringdict(request[:args])
+
+    request[:content] = get(args, "Body", "")
+    delete!(args, "Body")
 
     request[:resource] = rest_resource(request, args)
 
@@ -324,7 +326,6 @@ function service_rest_xml(aws::AWSConfig; args...)
 
     #FIXME deal with bucket prefix
     request[:url] = service_url(aws, request)
-    request[:content] = get(request, "Body", "")
 
     do_request(merge(request, aws))
 end
