@@ -5,7 +5,6 @@ XMLDict
 JSON
 IniFile
 URIParser 0.1.2
-Requests
+HTTP
 MbedTLS
-HttpCommon
 DataStructures

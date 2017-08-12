@@ -18,6 +18,8 @@ export AWSException, AWSConfig, AWSRequest,
 using Retry
 using SymDict
 using XMLDict
+using HTTP
+using URIParser: URI, query_params
 
 
 """
@@ -232,8 +234,8 @@ function service_query(aws::AWSConfig; args...)
         request[:query]["ContentType"] = "JSON"
     end
 
-    request[:content] = format_query_str(flatten_query(request[:service],
-                                                       request[:query]))
+    request[:content] = HTTP.escape(flatten_query(request[:service],
+                                    request[:query]))
     do_request(merge(request, aws))
 end
 
@@ -297,6 +299,7 @@ function service_rest_json(aws::AWSConfig; args...)
 
     request[:resource] = rest_resource(request, args)
     request[:url] = service_url(aws, request)
+    request[:headers] = Dict("Content-Type" => "application/json")
     request[:content] = json(aws_args_dict(args))
 
     do_request(merge(request, aws))
@@ -319,7 +322,8 @@ function service_rest_xml(aws::AWSConfig; args...)
 
     request[:resource] = rest_resource(request, args)
 
-    query_str  = format_query_str(args)
+    query_str  = HTTP.escape(args)
+
     if query_str  != ""
         request[:resource] *= "?$query_str"
     end
@@ -388,11 +392,8 @@ end
 include("sign.jl")
 
 
-const path_esc_chars = filter(c->c!='/', URIParser.unescaped)
-escape_path(path) = URIParser.escape_with(path, path_esc_chars)
-
-const resource_esc_chars = Vector{Char}(filter(c->!in(c, "/?=&%"),
-                                               URIParser.unescaped))
+pathencode(c) = c != UInt8('/') && HTTP.shouldencode(c)
+escape_path(path) = HTTP.escape(path, pathencode)
 
 
 """
@@ -403,8 +404,6 @@ Submit an API request, return the result.
 
 function do_request(r::AWSRequest)
 
-    @assert search(r[:resource], resource_esc_chars) == 0
-
     response = nothing
 
     # Try request 3 times to deal with possible Redirect and ExiredToken...
@@ -412,7 +411,7 @@ function do_request(r::AWSRequest)
 
         # Default headers...
         if !haskey(r, :headers)
-            r[:headers] = Dict()
+            r[:headers] = Dict{String,String}()
         end
         r[:headers]["User-Agent"] = "AWSCore.jl/0.0.0"
         r[:headers]["Host"]       = URI(r[:url]).host
@@ -456,37 +455,39 @@ function do_request(r::AWSRequest)
     end
 
     # If there is no reponse data, return raw response object...
-    if typeof(response) != Response || length(response.data) < 1
+    if length(HTTP.body(response)) < 1
         return response
     end
 
-    # Return raw data if requested...
-    if get(r, :return_raw, false)
-        return response.data
+    if get(r, :return_stream, false)
+        return HTTP.body(response)
     end
 
-    # Return raw data if there is no mimetype...
-    if !isnull(mimetype(response))
-        mime = get(mimetype(response))
-    else
-        if length(response.data) > 5 && String(response.data[1:5]) == "<?xml"
-            mime = "text/xml"
-        else
-            return response.data
-        end
+
+    # Return raw data if requested...
+    if get(r, :return_raw, false)
+        return take!(response)
     end
 
     # Parse response data according to mimetype...
-    if ismatch(r"/xml$", mime)
-        return parse_xml(String(response.data))
+    mime = get(HTTP.headers(response), "Content-Type", "")
+    if mime == ""
+        body = HTTP.body(response)
+        if length(body) > 5 && String(body)[1:5] == "<?xml"
+            mime = "text/xml"
+        end
+    end
+
+    if ismatch(r"/xml", mime)
+        return parse_xml(String(take!(response)))
     end
 
     if ismatch(r"/x-amz-json-1.[01]$", mime)
-        return JSON.parse(String(response.data))
+        return JSON.parse(String(take!(response)))
     end
 
     if ismatch(r"json$", mime)
-        info = JSON.parse(String(response.data))
+        info = JSON.parse(String(take!(response)))
         @protected try
             action = r[:query]["Action"]
             info = info[action * "Response"]
@@ -498,11 +499,11 @@ function do_request(r::AWSRequest)
     end
 
     if ismatch(r"^text/", mime)
-        return String(response.data)
+        return String(take!(response))
     end
 
     # Return raw data by default...
-    return response.data
+    return take!(response)
 end
 
 
