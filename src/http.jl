@@ -66,10 +66,10 @@ function http_request(request::AWSRequest)
 end
 
 
-function http_request(url::String)
+function http_request(host::String, resource::String)
 
     http_request(@SymDict(verb = "GET",
-                          url = "url",
+                          url = "$host$resource",
                           headers = Dict("Host" => host),
                           content = UInt8[]))
 end
