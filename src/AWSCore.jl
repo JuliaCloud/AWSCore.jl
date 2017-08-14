@@ -454,15 +454,10 @@ function do_request(r::AWSRequest)
         end
     end
 
-    # If there is no reponse data, return raw response object...
-    if length(HTTP.body(response)) < 1
-        return response
-    end
-
+    # Return response stream if requested...
     if get(r, :return_stream, false)
         return HTTP.body(response)
     end
-
 
     # Return raw data if requested...
     if get(r, :return_raw, false)
@@ -500,6 +495,11 @@ function do_request(r::AWSRequest)
 
     if ismatch(r"^text/", mime)
         return String(take!(response))
+    end
+
+    # If there is no reponse data, return raw response object...
+    if length(mime == "" && HTTP.body(response)) < 1
+        return response
     end
 
     # Return raw data by default...

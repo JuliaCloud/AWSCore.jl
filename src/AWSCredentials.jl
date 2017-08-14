@@ -78,6 +78,7 @@ function AWSCredentials()
 
     if debug_level > 0
         display(aws)
+        println()
     end
 
     return aws
