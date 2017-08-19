@@ -83,7 +83,7 @@ function start_node_server()
 
     atexit(() -> kill(server_process))
 
-    sleep(0.5)
+    sleep(2)
     server_started = true
 end
 
