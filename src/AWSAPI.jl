@@ -373,6 +373,8 @@ end
 
 $name($(verb)$(resource)$(operation)args=[]) =
     $name(default_aws_config(), $(verb)$(resource)$(operation)args)
+
+$name(a...; b...) = $name(a..., b)
 """
 end
 
