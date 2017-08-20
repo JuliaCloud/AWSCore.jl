@@ -19,7 +19,7 @@ using DataStructures
 using JSON
 
 
-api_module_name(service_name) = "Amazon$(service_name)"
+sdk_module_name(service_name) = "AWSSDK.$(service_name)"
 
 
 """
@@ -282,9 +282,9 @@ function service_operation(service, operation, info)
 
     """
     \"\"\"
-        using $mprefix$m
-        $m.$sig1
-        $m.$sig2
+        using $mprefix$m.$name
+        $sig1
+        $sig2
 
         using AWSCore.Services.$request
         $sig3
@@ -431,7 +431,7 @@ function service_documentation(service)
     m = meta["juliaModule"]
 
     """
-    # $m
+    # AWSSDK.$m
 
     $(html2md(get(service, "documentation", "")))
 
@@ -439,16 +439,12 @@ function service_documentation(service)
     [$(meta["sourceFile"])]($(meta["sourceURL"])).
     See [JuliaCloud/AWSCore.jl](https://github.com/JuliaCloud/AWSCore.jl).
 
-    ```@meta
-    CurrentModule = $m
-    ```
-
     ```@index
-    Pages = ["$m.md"]
+    Pages = ["AWSSDK.$m.md"]
     ```
 
     ```@autodocs
-    Modules = [$m]
+    Modules = [AWSSDK.$m]
     ```
     """
 
@@ -457,7 +453,7 @@ end
 function service_generate(name, definition)
 
     meta = definition["metadata"]
-    m = api_module_name(name)
+    m = "Amazon$(name)"
     meta["juliaModule"] = m
 
     println(meta["serviceFullName"])
@@ -470,7 +466,7 @@ function service_generate(name, definition)
     sdk_dir = joinpath(Pkg.dir(), "AWSSDK")
     src_path = joinpath(sdk_dir, "src", "$name.jl")
     mkpath(dirname(src_path))
-    meta["juliaModule"] = "$name"
+    meta["juliaModule"] = name
     write(src_path, service_interface(definition))
 
     write(joinpath(pkg_dir, "REQUIRE"),
@@ -503,7 +499,7 @@ function service_generate(name, definition)
        joinpath(pkg_dir, "LICENSE.md"),
        remove_destination=true)
 
-    write(joinpath(@__DIR__, "..", "docs", "src", "$m.md"),
+    write(joinpath(@__DIR__, "..", "..", "AWSCoreDoc", "src", "AWSSDK.$name.md"),
           service_documentation(definition))
 end
 
@@ -520,12 +516,12 @@ function generate_doc(services)
     """
 
     for s in services
-        doc *= "using $(api_module_name(s))\n"
+        doc *= "using $(sdk_module_name(s))\n"
     end
 
     doc *= """
     makedocs(modules = [AWSCore, AWSS3, AWSSES, AWSSQS, AWSSNS,
-                        $(join([api_module_name(s) for s in services], ","))],
+                        $(join([sdk_module_name(s) for s in services], ","))],
              format = :html,
              sitename = "AWSCore.jl",
              pages = ["AWSCore.jl" => "index.md",
@@ -534,7 +530,7 @@ function generate_doc(services)
                       "AWSSES.jl" => "AWSSES.md",
                       "AWSSNS.jl" => "AWSSNS.md",
                       $(join(["\"$m.jl\" => \"$m.md\""
-                              for m in map(api_module_name, services)], ","))
+                              for m in map(sdk_module_name, services)], ","))
              ])
     """
 
@@ -579,7 +575,8 @@ end # module Services
 #==============================================================================#
 """)
 
-    write(joinpath(@__DIR__, "..", "docs", "make.jl"), generate_doc(services))
+    write(joinpath(@__DIR__, "..", "..", "AWSCoreDoc", "make.jl"),
+          generate_doc(services))
 
     sdk_dir = joinpath(Pkg.dir(), "AWSSDK")
     src_path = joinpath(sdk_dir, "src", "AWSSDK.jl")
