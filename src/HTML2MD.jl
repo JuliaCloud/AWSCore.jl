@@ -103,7 +103,7 @@ function html2md(html)
     md = String(post(URI("http://localhost:$tcp_port"), html).data)
 
     # Work around for https://github.com/domchristie/to-markdown/issues/181
-    md = replace(md, "\\.", ".")
+    md = replace(md, r"([0-9])\\[.]", s"\1.")
 
     return md
 end

@@ -184,7 +184,15 @@ function pretty(v::Vector, dict, pad)
     "\n$pad]"
 end
 
-pretty(s::String, args...) = string("\"", replace(s, "\$", "\\\$"), "\"")
+function pretty(s::String, args...)
+    s = replace(s, "\$", "\\\$")
+
+    # Work around for https://github.com/JuliaLang/julia/pull/22800
+    s = replace(s, r"([^\\])\\([^ntrebfva\\'\"$`0-9])", s"\1\\\\\2")
+
+    return "\"$s\""
+end
+
 
 pretty(n, args...) = string(n)
 
