@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>AWSSDK.Pinpoint.jl · AWSCore.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link href="assets/highlightjs/default.css" rel="stylesheet" type="text/css"/><link href="assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>AWSCore.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="index.html">AWSCore.jl</a></li><li><a class="toctext" href="AWSS3.html">AWSS3.jl</a></li><li><a class="toctext" href="AWSSQS.html">AWSSQS.jl</a></li><li><a class="toctext" href="AWSSES.html">AWSSES.jl</a></li><li><a class="toctext" href="AWSSNS.html">AWSSNS.jl</a></li><li><a class="toctext" href="AWSSDK.ACM.html">AWSSDK.ACM.jl</a></li><li><a class="toctext" href="AWSSDK.APIGateway.html">AWSSDK.APIGateway.jl</a></li><li><a class="toctext" href="AWSSDK.ApplicationAutoScaling.html">AWSSDK.ApplicationAutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.AppStream.html">AWSSDK.AppStream.jl</a></li><li><a class="toctext" href="AWSSDK.Athena.html">AWSSDK.Athena.jl</a></li><li><a class="toctext" href="AWSSDK.AutoScaling.html">AWSSDK.AutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.Batch.html">AWSSDK.Batch.jl</a></li><li><a class="toctext" href="AWSSDK.Budgets.html">AWSSDK.Budgets.jl</a></li><li><a class="toctext" href="AWSSDK.CloudDirectory.html">AWSSDK.CloudDirectory.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFormation.html">AWSSDK.CloudFormation.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFront.html">AWSSDK.CloudFront.jl</a></li><li><a class="toctext" href="AWSSDK.CloudHSM.html">AWSSDK.CloudHSM.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearch.html">AWSSDK.CloudSearch.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearchDomain.html">AWSSDK.CloudSearchDomain.jl</a></li><li><a class="toctext" href="AWSSDK.CloudTrail.html">AWSSDK.CloudTrail.jl</a></li><li><a class="toctext" href="AWSSDK.CodeBuild.html">AWSSDK.CodeBuild.jl</a></li><li><a class="toctext" href="AWSSDK.CodeCommit.html">AWSSDK.CodeCommit.jl</a></li><li><a class="toctext" href="AWSSDK.CodeDeploy.html">AWSSDK.CodeDeploy.jl</a></li><li><a class="toctext" href="AWSSDK.CodePipeline.html">AWSSDK.CodePipeline.jl</a></li><li><a class="toctext" href="AWSSDK.CodeStar.html">AWSSDK.CodeStar.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentity.html">AWSSDK.CognitoIdentity.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentityServiceProvider.html">AWSSDK.CognitoIdentityServiceProvider.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoSync.html">AWSSDK.CognitoSync.jl</a></li><li><a class="toctext" href="AWSSDK.ConfigService.html">AWSSDK.ConfigService.jl</a></li><li><a class="toctext" href="AWSSDK.CUR.html">AWSSDK.CUR.jl</a></li><li><a class="toctext" href="AWSSDK.DataPipeline.html">AWSSDK.DataPipeline.jl</a></li><li><a class="toctext" href="AWSSDK.DAX.html">AWSSDK.DAX.jl</a></li><li><a class="toctext" href="AWSSDK.DeviceFarm.html">AWSSDK.DeviceFarm.jl</a></li><li><a class="toctext" href="AWSSDK.DirectConnect.html">AWSSDK.DirectConnect.jl</a></li><li><a class="toctext" href="AWSSDK.Discovery.html">AWSSDK.Discovery.jl</a></li><li><a class="toctext" href="AWSSDK.DMS.html">AWSSDK.DMS.jl</a></li><li><a class="toctext" href="AWSSDK.DirectoryService.html">AWSSDK.DirectoryService.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDB.html">AWSSDK.DynamoDB.jl</a></li><li><a class="toctext" href="AWSSDK.EC2.html">AWSSDK.EC2.jl</a></li><li><a class="toctext" href="AWSSDK.ECR.html">AWSSDK.ECR.jl</a></li><li><a class="toctext" href="AWSSDK.ECS.html">AWSSDK.ECS.jl</a></li><li><a class="toctext" href="AWSSDK.ElastiCache.html">AWSSDK.ElastiCache.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticBeanstalk.html">AWSSDK.ElasticBeanstalk.jl</a></li><li><a class="toctext" href="AWSSDK.EFS.html">AWSSDK.EFS.jl</a></li><li><a class="toctext" href="AWSSDK.ELB.html">AWSSDK.ELB.jl</a></li><li><a class="toctext" href="AWSSDK.ELBv2.html">AWSSDK.ELBv2.jl</a></li><li><a class="toctext" href="AWSSDK.EMR.html">AWSSDK.EMR.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticTranscoder.html">AWSSDK.ElasticTranscoder.jl</a></li><li><a class="toctext" href="AWSSDK.SES.html">AWSSDK.SES.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceEntitlementService.html">AWSSDK.MarketplaceEntitlementService.jl</a></li><li><a class="toctext" href="AWSSDK.ES.html">AWSSDK.ES.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchEvents.html">AWSSDK.CloudWatchEvents.jl</a></li><li><a class="toctext" href="AWSSDK.Firehose.html">AWSSDK.Firehose.jl</a></li><li><a class="toctext" href="AWSSDK.GameLift.html">AWSSDK.GameLift.jl</a></li><li><a class="toctext" href="AWSSDK.Glacier.html">AWSSDK.Glacier.jl</a></li><li><a class="toctext" href="AWSSDK.Greengrass.html">AWSSDK.Greengrass.jl</a></li><li><a class="toctext" href="AWSSDK.Health.html">AWSSDK.Health.jl</a></li><li><a class="toctext" href="AWSSDK.IAM.html">AWSSDK.IAM.jl</a></li><li><a class="toctext" href="AWSSDK.ImportExport.html">AWSSDK.ImportExport.jl</a></li><li><a class="toctext" href="AWSSDK.Inspector.html">AWSSDK.Inspector.jl</a></li><li><a class="toctext" href="AWSSDK.Iot.html">AWSSDK.Iot.jl</a></li><li><a class="toctext" href="AWSSDK.IotData.html">AWSSDK.IotData.jl</a></li><li><a class="toctext" href="AWSSDK.Kinesis.html">AWSSDK.Kinesis.jl</a></li><li><a class="toctext" href="AWSSDK.KinesisAnalytics.html">AWSSDK.KinesisAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.KMS.html">AWSSDK.KMS.jl</a></li><li><a class="toctext" href="AWSSDK.Lambda.html">AWSSDK.Lambda.jl</a></li><li><a class="toctext" href="AWSSDK.LexModelBuildingService.html">AWSSDK.LexModelBuildingService.jl</a></li><li><a class="toctext" href="AWSSDK.Lightsail.html">AWSSDK.Lightsail.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchLogs.html">AWSSDK.CloudWatchLogs.jl</a></li><li><a class="toctext" href="AWSSDK.MachineLearning.html">AWSSDK.MachineLearning.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceCommerceAnalytics.html">AWSSDK.MarketplaceCommerceAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceMetering.html">AWSSDK.MarketplaceMetering.jl</a></li><li><a class="toctext" href="AWSSDK.MobileAnalytics.html">AWSSDK.MobileAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatch.html">AWSSDK.CloudWatch.jl</a></li><li><a class="toctext" href="AWSSDK.MTurk.html">AWSSDK.MTurk.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorks.html">AWSSDK.OpsWorks.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorksCM.html">AWSSDK.OpsWorksCM.jl</a></li><li><a class="toctext" href="AWSSDK.Organizations.html">AWSSDK.Organizations.jl</a></li><li class="current"><a class="toctext" href="AWSSDK.Pinpoint.html">AWSSDK.Pinpoint.jl</a><ul class="internal"></ul></li><li><a class="toctext" href="AWSSDK.Polly.html">AWSSDK.Polly.jl</a></li><li><a class="toctext" href="AWSSDK.RDS.html">AWSSDK.RDS.jl</a></li><li><a class="toctext" href="AWSSDK.Redshift.html">AWSSDK.Redshift.jl</a></li><li><a class="toctext" href="AWSSDK.Rekognition.html">AWSSDK.Rekognition.jl</a></li><li><a class="toctext" href="AWSSDK.ResourceGroupsTaggingAPI.html">AWSSDK.ResourceGroupsTaggingAPI.jl</a></li><li><a class="toctext" href="AWSSDK.Route53.html">AWSSDK.Route53.jl</a></li><li><a class="toctext" href="AWSSDK.Route53Domains.html">AWSSDK.Route53Domains.jl</a></li><li><a class="toctext" href="AWSSDK.LexRuntime.html">AWSSDK.LexRuntime.jl</a></li><li><a class="toctext" href="AWSSDK.S3.html">AWSSDK.S3.jl</a></li><li><a class="toctext" href="AWSSDK.SimpleDB.html">AWSSDK.SimpleDB.jl</a></li><li><a class="toctext" href="AWSSDK.ServiceCatalog.html">AWSSDK.ServiceCatalog.jl</a></li><li><a class="toctext" href="AWSSDK.Shield.html">AWSSDK.Shield.jl</a></li><li><a class="toctext" href="AWSSDK.SMS.html">AWSSDK.SMS.jl</a></li><li><a class="toctext" href="AWSSDK.Snowball.html">AWSSDK.Snowball.jl</a></li><li><a class="toctext" href="AWSSDK.SNS.html">AWSSDK.SNS.jl</a></li><li><a class="toctext" href="AWSSDK.SQS.html">AWSSDK.SQS.jl</a></li><li><a class="toctext" href="AWSSDK.SSM.html">AWSSDK.SSM.jl</a></li><li><a class="toctext" href="AWSSDK.StepFunctions.html">AWSSDK.StepFunctions.jl</a></li><li><a class="toctext" href="AWSSDK.StorageGateway.html">AWSSDK.StorageGateway.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDBStreams.html">AWSSDK.DynamoDBStreams.jl</a></li><li><a class="toctext" href="AWSSDK.STS.html">AWSSDK.STS.jl</a></li><li><a class="toctext" href="AWSSDK.Support.html">AWSSDK.Support.jl</a></li><li><a class="toctext" href="AWSSDK.SWF.html">AWSSDK.SWF.jl</a></li><li><a class="toctext" href="AWSSDK.WAF.html">AWSSDK.WAF.jl</a></li><li><a class="toctext" href="AWSSDK.WAFRegional.html">AWSSDK.WAFRegional.jl</a></li><li><a class="toctext" href="AWSSDK.WorkDocs.html">AWSSDK.WorkDocs.jl</a></li><li><a class="toctext" href="AWSSDK.WorkSpaces.html">AWSSDK.WorkSpaces.jl</a></li><li><a class="toctext" href="AWSSDK.XRay.html">AWSSDK.XRay.jl</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href="AWSSDK.Pinpoint.html">AWSSDK.Pinpoint.jl</a></li></ul><a class="edit-page" href="https://github.com/JuliaCloud/AWSCore.jl/tree/1f93d72825dfa35b69cc2d48e9a3b9130a7ec269/src/AWSSDK.Pinpoint.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>AWSSDK.Pinpoint.jl</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="AWSSDK.Pinpoint-1" href="#AWSSDK.Pinpoint-1">AWSSDK.Pinpoint</a></h1><p>This document is generated from <a href="https://github.com/aws/aws-sdk-js/blob/master/apis/pinpoint-2016-12-01.normal.json">apis/pinpoint-2016-12-01.normal.json</a>. See <a href="https://github.com/JuliaCloud/AWSCore.jl">JuliaCloud/AWSCore.jl</a>.</p><ul><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.create_campaign"><code>AWSSDK.Pinpoint.create_campaign</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.create_import_job"><code>AWSSDK.Pinpoint.create_import_job</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.create_segment"><code>AWSSDK.Pinpoint.create_segment</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.delete_apns_channel"><code>AWSSDK.Pinpoint.delete_apns_channel</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.delete_apns_sandbox_channel"><code>AWSSDK.Pinpoint.delete_apns_sandbox_channel</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.delete_campaign"><code>AWSSDK.Pinpoint.delete_campaign</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.delete_email_channel"><code>AWSSDK.Pinpoint.delete_email_channel</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.delete_event_stream"><code>AWSSDK.Pinpoint.delete_event_stream</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.delete_gcm_channel"><code>AWSSDK.Pinpoint.delete_gcm_channel</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.delete_segment"><code>AWSSDK.Pinpoint.delete_segment</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.delete_sms_channel"><code>AWSSDK.Pinpoint.delete_sms_channel</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_apns_channel"><code>AWSSDK.Pinpoint.get_apns_channel</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_apns_sandbox_channel"><code>AWSSDK.Pinpoint.get_apns_sandbox_channel</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_application_settings"><code>AWSSDK.Pinpoint.get_application_settings</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_campaign"><code>AWSSDK.Pinpoint.get_campaign</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_campaign_activities"><code>AWSSDK.Pinpoint.get_campaign_activities</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_campaign_version"><code>AWSSDK.Pinpoint.get_campaign_version</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_campaign_versions"><code>AWSSDK.Pinpoint.get_campaign_versions</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_campaigns"><code>AWSSDK.Pinpoint.get_campaigns</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_email_channel"><code>AWSSDK.Pinpoint.get_email_channel</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_endpoint"><code>AWSSDK.Pinpoint.get_endpoint</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_event_stream"><code>AWSSDK.Pinpoint.get_event_stream</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_gcm_channel"><code>AWSSDK.Pinpoint.get_gcm_channel</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_import_job"><code>AWSSDK.Pinpoint.get_import_job</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_import_jobs"><code>AWSSDK.Pinpoint.get_import_jobs</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_segment"><code>AWSSDK.Pinpoint.get_segment</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_segment_import_jobs"><code>AWSSDK.Pinpoint.get_segment_import_jobs</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_segment_version"><code>AWSSDK.Pinpoint.get_segment_version</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_segment_versions"><code>AWSSDK.Pinpoint.get_segment_versions</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_segments"><code>AWSSDK.Pinpoint.get_segments</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.get_sms_channel"><code>AWSSDK.Pinpoint.get_sms_channel</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.put_event_stream"><code>AWSSDK.Pinpoint.put_event_stream</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.send_messages"><code>AWSSDK.Pinpoint.send_messages</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.update_apns_channel"><code>AWSSDK.Pinpoint.update_apns_channel</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.update_apns_sandbox_channel"><code>AWSSDK.Pinpoint.update_apns_sandbox_channel</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.update_application_settings"><code>AWSSDK.Pinpoint.update_application_settings</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.update_campaign"><code>AWSSDK.Pinpoint.update_campaign</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.update_email_channel"><code>AWSSDK.Pinpoint.update_email_channel</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.update_endpoint"><code>AWSSDK.Pinpoint.update_endpoint</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.update_endpoints_batch"><code>AWSSDK.Pinpoint.update_endpoints_batch</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.update_gcm_channel"><code>AWSSDK.Pinpoint.update_gcm_channel</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.update_segment"><code>AWSSDK.Pinpoint.update_segment</code></a></li><li><a href="AWSSDK.Pinpoint.html#AWSSDK.Pinpoint.update_sms_channel"><code>AWSSDK.Pinpoint.update_sms_channel</code></a></li></ul><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.create_campaign" href="#AWSSDK.Pinpoint.create_campaign"><code>AWSSDK.Pinpoint.create_campaign</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.create_campaign
+create_campaign([::AWSConfig], arguments::Dict)
+create_campaign([::AWSConfig]; application-id=, WriteCampaignRequest=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;POST&quot;, &quot;/v1/apps/{application-id}/campaigns&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;POST&quot;, &quot;/v1/apps/{application-id}/campaigns&quot;, application-id=, WriteCampaignRequest=)</code></pre><p><strong>CreateCampaign Operation</strong></p><p>Creates or updates a campaign.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>WriteCampaignRequest = [ ... ]</code> – <em>Required</em></strong></p><pre><code class="language-none"> WriteCampaignRequest = [
+        &quot;AdditionalTreatments&quot; =&gt;  [[
+            &quot;MessageConfiguration&quot; =&gt;  [
+                &quot;APNSMessage&quot; =&gt;  [
+                    &quot;Action&quot; =&gt;  &quot;OPEN_APP&quot;, &quot;DEEP_LINK&quot; or &quot;URL&quot;,
+                    &quot;Body&quot; =&gt;  ::String,
+                    &quot;ImageIconUrl&quot; =&gt;  ::String,
+                    &quot;ImageSmallIconUrl&quot; =&gt;  ::String,
+                    &quot;ImageUrl&quot; =&gt;  ::String,
+                    &quot;JsonBody&quot; =&gt;  ::String,
+                    &quot;MediaUrl&quot; =&gt;  ::String,
+                    &quot;SilentPush&quot; =&gt;  ::Bool,
+                    &quot;Title&quot; =&gt;  ::String,
+                    &quot;Url&quot; =&gt;  ::String
+                ],
+                &quot;DefaultMessage&quot; =&gt;  [
+                    &quot;Action&quot; =&gt;  &quot;OPEN_APP&quot;, &quot;DEEP_LINK&quot; or &quot;URL&quot;,
+                    &quot;Body&quot; =&gt;  ::String,
+                    &quot;ImageIconUrl&quot; =&gt;  ::String,
+                    &quot;ImageSmallIconUrl&quot; =&gt;  ::String,
+                    &quot;ImageUrl&quot; =&gt;  ::String,
+                    &quot;JsonBody&quot; =&gt;  ::String,
+                    &quot;MediaUrl&quot; =&gt;  ::String,
+                    &quot;SilentPush&quot; =&gt;  ::Bool,
+                    &quot;Title&quot; =&gt;  ::String,
+                    &quot;Url&quot; =&gt;  ::String
+                ],
+                &quot;EmailMessage&quot; =&gt;  [
+                    &quot;Body&quot; =&gt;  ::String,
+                    &quot;HtmlBody&quot; =&gt;  ::String,
+                    &quot;Title&quot; =&gt;  ::String
+                ],
+                &quot;GCMMessage&quot; =&gt;  [
+                    &quot;Action&quot; =&gt;  &quot;OPEN_APP&quot;, &quot;DEEP_LINK&quot; or &quot;URL&quot;,
+                    &quot;Body&quot; =&gt;  ::String,
+                    &quot;ImageIconUrl&quot; =&gt;  ::String,
+                    &quot;ImageSmallIconUrl&quot; =&gt;  ::String,
+                    &quot;ImageUrl&quot; =&gt;  ::String,
+                    &quot;JsonBody&quot; =&gt;  ::String,
+                    &quot;MediaUrl&quot; =&gt;  ::String,
+                    &quot;SilentPush&quot; =&gt;  ::Bool,
+                    &quot;Title&quot; =&gt;  ::String,
+                    &quot;Url&quot; =&gt;  ::String
+                ],
+                &quot;SMSMessage&quot; =&gt;  [
+                    &quot;Body&quot; =&gt;  ::String,
+                    &quot;MessageType&quot; =&gt;  &quot;TRANSACTIONAL&quot; or &quot;PROMOTIONAL&quot;,
+                    &quot;SenderId&quot; =&gt;  ::String
+                ]
+            ],
+            &quot;Schedule&quot; =&gt;  [
+                &quot;EndTime&quot; =&gt;  ::String,
+                &quot;Frequency&quot; =&gt;  &quot;ONCE&quot;, &quot;HOURLY&quot;, &quot;DAILY&quot;, &quot;WEEKLY&quot; or &quot;MONTHLY&quot;,
+                &quot;IsLocalTime&quot; =&gt;  ::Bool,
+                &quot;QuietTime&quot; =&gt;  [
+                    &quot;End&quot; =&gt;  ::String,
+                    &quot;Start&quot; =&gt;  ::String
+                ],
+                &quot;StartTime&quot; =&gt;  ::String,
+                &quot;Timezone&quot; =&gt;  ::String
+            ],
+            &quot;SizePercent&quot; =&gt;  ::Int,
+            &quot;TreatmentDescription&quot; =&gt;  ::String,
+            &quot;TreatmentName&quot; =&gt;  ::String
+        ], ...],
+        &quot;Description&quot; =&gt;  ::String,
+        &quot;HoldoutPercent&quot; =&gt;  ::Int,
+        &quot;IsPaused&quot; =&gt;  ::Bool,
+        &quot;Limits&quot; =&gt;  [
+            &quot;Daily&quot; =&gt;  ::Int,
+            &quot;Total&quot; =&gt;  ::Int
+        ],
+        &quot;MessageConfiguration&quot; =&gt;  [
+            &quot;APNSMessage&quot; =&gt;  [
+                &quot;Action&quot; =&gt;  &quot;OPEN_APP&quot;, &quot;DEEP_LINK&quot; or &quot;URL&quot;,
+                &quot;Body&quot; =&gt;  ::String,
+                &quot;ImageIconUrl&quot; =&gt;  ::String,
+                &quot;ImageSmallIconUrl&quot; =&gt;  ::String,
+                &quot;ImageUrl&quot; =&gt;  ::String,
+                &quot;JsonBody&quot; =&gt;  ::String,
+                &quot;MediaUrl&quot; =&gt;  ::String,
+                &quot;SilentPush&quot; =&gt;  ::Bool,
+                &quot;Title&quot; =&gt;  ::String,
+                &quot;Url&quot; =&gt;  ::String
+            ],
+            &quot;DefaultMessage&quot; =&gt;  [
+                &quot;Action&quot; =&gt;  &quot;OPEN_APP&quot;, &quot;DEEP_LINK&quot; or &quot;URL&quot;,
+                &quot;Body&quot; =&gt;  ::String,
+                &quot;ImageIconUrl&quot; =&gt;  ::String,
+                &quot;ImageSmallIconUrl&quot; =&gt;  ::String,
+                &quot;ImageUrl&quot; =&gt;  ::String,
+                &quot;JsonBody&quot; =&gt;  ::String,
+                &quot;MediaUrl&quot; =&gt;  ::String,
+                &quot;SilentPush&quot; =&gt;  ::Bool,
+                &quot;Title&quot; =&gt;  ::String,
+                &quot;Url&quot; =&gt;  ::String
+            ],
+            &quot;EmailMessage&quot; =&gt;  [
+                &quot;Body&quot; =&gt;  ::String,
+                &quot;HtmlBody&quot; =&gt;  ::String,
+                &quot;Title&quot; =&gt;  ::String
+            ],
+            &quot;GCMMessage&quot; =&gt;  [
+                &quot;Action&quot; =&gt;  &quot;OPEN_APP&quot;, &quot;DEEP_LINK&quot; or &quot;URL&quot;,
+                &quot;Body&quot; =&gt;  ::String,
+                &quot;ImageIconUrl&quot; =&gt;  ::String,
+                &quot;ImageSmallIconUrl&quot; =&gt;  ::String,
+                &quot;ImageUrl&quot; =&gt;  ::String,
+                &quot;JsonBody&quot; =&gt;  ::String,
+                &quot;MediaUrl&quot; =&gt;  ::String,
+                &quot;SilentPush&quot; =&gt;  ::Bool,
+                &quot;Title&quot; =&gt;  ::String,
+                &quot;Url&quot; =&gt;  ::String
+            ],
+            &quot;SMSMessage&quot; =&gt;  [
+                &quot;Body&quot; =&gt;  ::String,
+                &quot;MessageType&quot; =&gt;  &quot;TRANSACTIONAL&quot; or &quot;PROMOTIONAL&quot;,
+                &quot;SenderId&quot; =&gt;  ::String
+            ]
+        ],
+        &quot;Name&quot; =&gt;  ::String,
+        &quot;Schedule&quot; =&gt;  [
+            &quot;EndTime&quot; =&gt;  ::String,
+            &quot;Frequency&quot; =&gt;  &quot;ONCE&quot;, &quot;HOURLY&quot;, &quot;DAILY&quot;, &quot;WEEKLY&quot; or &quot;MONTHLY&quot;,
+            &quot;IsLocalTime&quot; =&gt;  ::Bool,
+            &quot;QuietTime&quot; =&gt;  [
+                &quot;End&quot; =&gt;  ::String,
+                &quot;Start&quot; =&gt;  ::String
+            ],
+            &quot;StartTime&quot; =&gt;  ::String,
+            &quot;Timezone&quot; =&gt;  ::String
+        ],
+        &quot;SegmentId&quot; =&gt;  ::String,
+        &quot;SegmentVersion&quot; =&gt;  ::Int,
+        &quot;TreatmentDescription&quot; =&gt;  ::String,
+        &quot;TreatmentName&quot; =&gt;  ::String
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreateCampaignResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreateCampaign">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.create_import_job" href="#AWSSDK.Pinpoint.create_import_job"><code>AWSSDK.Pinpoint.create_import_job</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.create_import_job
+create_import_job([::AWSConfig], arguments::Dict)
+create_import_job([::AWSConfig]; application-id=, ImportJobRequest=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;POST&quot;, &quot;/v1/apps/{application-id}/jobs/import&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;POST&quot;, &quot;/v1/apps/{application-id}/jobs/import&quot;, application-id=, ImportJobRequest=)</code></pre><p><strong>CreateImportJob Operation</strong></p><p>Creates or updates an import job.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>ImportJobRequest = [ ... ]</code> – <em>Required</em></strong></p><pre><code class="language-none"> ImportJobRequest = [
+        &quot;DefineSegment&quot; =&gt;  ::Bool,
+        &quot;ExternalId&quot; =&gt;  ::String,
+        &quot;Format&quot; =&gt;  &quot;CSV&quot; or &quot;JSON&quot;,
+        &quot;RegisterEndpoints&quot; =&gt;  ::Bool,
+        &quot;RoleArn&quot; =&gt;  ::String,
+        &quot;S3Url&quot; =&gt;  ::String,
+        &quot;SegmentId&quot; =&gt;  ::String,
+        &quot;SegmentName&quot; =&gt;  ::String
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreateImportJobResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreateImportJob">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.create_segment" href="#AWSSDK.Pinpoint.create_segment"><code>AWSSDK.Pinpoint.create_segment</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.create_segment
+create_segment([::AWSConfig], arguments::Dict)
+create_segment([::AWSConfig]; application-id=, WriteSegmentRequest=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;POST&quot;, &quot;/v1/apps/{application-id}/segments&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;POST&quot;, &quot;/v1/apps/{application-id}/segments&quot;, application-id=, WriteSegmentRequest=)</code></pre><p><strong>CreateSegment Operation</strong></p><p>Used to create or update a segment.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>WriteSegmentRequest = [ ... ]</code> – <em>Required</em></strong></p><pre><code class="language-none"> WriteSegmentRequest = [
+        &quot;Dimensions&quot; =&gt;  [
+            &quot;Attributes&quot; =&gt;  ::Dict{String,String},
+            &quot;Behavior&quot; =&gt;  [&quot;Recency&quot; =&gt;  [
+                    &quot;Duration&quot; =&gt;  &quot;HR_24&quot;, &quot;DAY_7&quot;, &quot;DAY_14&quot; or &quot;DAY_30&quot;,
+                    &quot;RecencyType&quot; =&gt;  &quot;ACTIVE&quot; or &quot;INACTIVE&quot;
+                ]],
+            &quot;Demographic&quot; =&gt;  [
+                &quot;AppVersion&quot; =&gt;  [
+                    &quot;DimensionType&quot; =&gt;  &quot;INCLUSIVE&quot; or &quot;EXCLUSIVE&quot;,
+                    &quot;Values&quot; =&gt;  [::String, ...]
+                ],
+                &quot;Channel&quot; =&gt;  [
+                    &quot;DimensionType&quot; =&gt;  &quot;INCLUSIVE&quot; or &quot;EXCLUSIVE&quot;,
+                    &quot;Values&quot; =&gt;  [::String, ...]
+                ],
+                &quot;DeviceType&quot; =&gt;  [
+                    &quot;DimensionType&quot; =&gt;  &quot;INCLUSIVE&quot; or &quot;EXCLUSIVE&quot;,
+                    &quot;Values&quot; =&gt;  [::String, ...]
+                ],
+                &quot;Make&quot; =&gt;  [
+                    &quot;DimensionType&quot; =&gt;  &quot;INCLUSIVE&quot; or &quot;EXCLUSIVE&quot;,
+                    &quot;Values&quot; =&gt;  [::String, ...]
+                ],
+                &quot;Model&quot; =&gt;  [
+                    &quot;DimensionType&quot; =&gt;  &quot;INCLUSIVE&quot; or &quot;EXCLUSIVE&quot;,
+                    &quot;Values&quot; =&gt;  [::String, ...]
+                ],
+                &quot;Platform&quot; =&gt;  [
+                    &quot;DimensionType&quot; =&gt;  &quot;INCLUSIVE&quot; or &quot;EXCLUSIVE&quot;,
+                    &quot;Values&quot; =&gt;  [::String, ...]
+                ]
+            ],
+            &quot;Location&quot; =&gt;  [&quot;Country&quot; =&gt;  [
+                    &quot;DimensionType&quot; =&gt;  &quot;INCLUSIVE&quot; or &quot;EXCLUSIVE&quot;,
+                    &quot;Values&quot; =&gt;  [::String, ...]
+                ]],
+            &quot;UserAttributes&quot; =&gt;  ::Dict{String,String}
+        ],
+        &quot;Name&quot; =&gt;  ::String
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreateSegmentResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/CreateSegment">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.delete_apns_channel" href="#AWSSDK.Pinpoint.delete_apns_channel"><code>AWSSDK.Pinpoint.delete_apns_channel</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.delete_apns_channel
+delete_apns_channel([::AWSConfig], arguments::Dict)
+delete_apns_channel([::AWSConfig]; application-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;DELETE&quot;, &quot;/v1/apps/{application-id}/channels/apns&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;DELETE&quot;, &quot;/v1/apps/{application-id}/channels/apns&quot;, application-id=)</code></pre><p><strong>DeleteApnsChannel Operation</strong></p><p>Deletes the APNs channel for an app.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>DeleteApnsChannelResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteApnsChannel">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.delete_apns_sandbox_channel" href="#AWSSDK.Pinpoint.delete_apns_sandbox_channel"><code>AWSSDK.Pinpoint.delete_apns_sandbox_channel</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.delete_apns_sandbox_channel
+delete_apns_sandbox_channel([::AWSConfig], arguments::Dict)
+delete_apns_sandbox_channel([::AWSConfig]; application-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;DELETE&quot;, &quot;/v1/apps/{application-id}/channels/apns_sandbox&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;DELETE&quot;, &quot;/v1/apps/{application-id}/channels/apns_sandbox&quot;, application-id=)</code></pre><p><strong>DeleteApnsSandboxChannel Operation</strong></p><p>Delete an APNS sandbox channel</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>DeleteApnsSandboxChannelResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteApnsSandboxChannel">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.delete_campaign" href="#AWSSDK.Pinpoint.delete_campaign"><code>AWSSDK.Pinpoint.delete_campaign</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.delete_campaign
+delete_campaign([::AWSConfig], arguments::Dict)
+delete_campaign([::AWSConfig]; application-id=, campaign-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;DELETE&quot;, &quot;/v1/apps/{application-id}/campaigns/{campaign-id}&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;DELETE&quot;, &quot;/v1/apps/{application-id}/campaigns/{campaign-id}&quot;, application-id=, campaign-id=)</code></pre><p><strong>DeleteCampaign Operation</strong></p><p>Deletes a campaign.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>campaign-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>DeleteCampaignResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteCampaign">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.delete_email_channel" href="#AWSSDK.Pinpoint.delete_email_channel"><code>AWSSDK.Pinpoint.delete_email_channel</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.delete_email_channel
+delete_email_channel([::AWSConfig], arguments::Dict)
+delete_email_channel([::AWSConfig]; application-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;DELETE&quot;, &quot;/v1/apps/{application-id}/channels/email&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;DELETE&quot;, &quot;/v1/apps/{application-id}/channels/email&quot;, application-id=)</code></pre><p><strong>DeleteEmailChannel Operation</strong></p><p>Delete an email channel</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>DeleteEmailChannelResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteEmailChannel">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.delete_event_stream" href="#AWSSDK.Pinpoint.delete_event_stream"><code>AWSSDK.Pinpoint.delete_event_stream</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.delete_event_stream
+delete_event_stream([::AWSConfig], arguments::Dict)
+delete_event_stream([::AWSConfig]; application-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;DELETE&quot;, &quot;/v1/apps/{application-id}/eventstream&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;DELETE&quot;, &quot;/v1/apps/{application-id}/eventstream&quot;, application-id=)</code></pre><p><strong>DeleteEventStream Operation</strong></p><p>Deletes the event stream for an app.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p>ApplicationId</p><p><strong>Returns</strong></p><p><code>DeleteEventStreamResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteEventStream">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.delete_gcm_channel" href="#AWSSDK.Pinpoint.delete_gcm_channel"><code>AWSSDK.Pinpoint.delete_gcm_channel</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.delete_gcm_channel
+delete_gcm_channel([::AWSConfig], arguments::Dict)
+delete_gcm_channel([::AWSConfig]; application-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;DELETE&quot;, &quot;/v1/apps/{application-id}/channels/gcm&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;DELETE&quot;, &quot;/v1/apps/{application-id}/channels/gcm&quot;, application-id=)</code></pre><p><strong>DeleteGcmChannel Operation</strong></p><p>Deletes the GCM channel for an app.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>DeleteGcmChannelResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteGcmChannel">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.delete_segment" href="#AWSSDK.Pinpoint.delete_segment"><code>AWSSDK.Pinpoint.delete_segment</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.delete_segment
+delete_segment([::AWSConfig], arguments::Dict)
+delete_segment([::AWSConfig]; application-id=, segment-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;DELETE&quot;, &quot;/v1/apps/{application-id}/segments/{segment-id}&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;DELETE&quot;, &quot;/v1/apps/{application-id}/segments/{segment-id}&quot;, application-id=, segment-id=)</code></pre><p><strong>DeleteSegment Operation</strong></p><p>Deletes a segment.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>segment-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>DeleteSegmentResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteSegment">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.delete_sms_channel" href="#AWSSDK.Pinpoint.delete_sms_channel"><code>AWSSDK.Pinpoint.delete_sms_channel</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.delete_sms_channel
+delete_sms_channel([::AWSConfig], arguments::Dict)
+delete_sms_channel([::AWSConfig]; application-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;DELETE&quot;, &quot;/v1/apps/{application-id}/channels/sms&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;DELETE&quot;, &quot;/v1/apps/{application-id}/channels/sms&quot;, application-id=)</code></pre><p><strong>DeleteSmsChannel Operation</strong></p><p>Delete an SMS channel</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>DeleteSmsChannelResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/DeleteSmsChannel">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_apns_channel" href="#AWSSDK.Pinpoint.get_apns_channel"><code>AWSSDK.Pinpoint.get_apns_channel</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_apns_channel
+get_apns_channel([::AWSConfig], arguments::Dict)
+get_apns_channel([::AWSConfig]; application-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/channels/apns&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/channels/apns&quot;, application-id=)</code></pre><p><strong>GetApnsChannel Operation</strong></p><p>Returns information about the APNs channel for an app.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>GetApnsChannelResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetApnsChannel">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_apns_sandbox_channel" href="#AWSSDK.Pinpoint.get_apns_sandbox_channel"><code>AWSSDK.Pinpoint.get_apns_sandbox_channel</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_apns_sandbox_channel
+get_apns_sandbox_channel([::AWSConfig], arguments::Dict)
+get_apns_sandbox_channel([::AWSConfig]; application-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/channels/apns_sandbox&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/channels/apns_sandbox&quot;, application-id=)</code></pre><p><strong>GetApnsSandboxChannel Operation</strong></p><p>Get an APNS sandbox channel</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>GetApnsSandboxChannelResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetApnsSandboxChannel">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_application_settings" href="#AWSSDK.Pinpoint.get_application_settings"><code>AWSSDK.Pinpoint.get_application_settings</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_application_settings
+get_application_settings([::AWSConfig], arguments::Dict)
+get_application_settings([::AWSConfig]; application-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/settings&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/settings&quot;, application-id=)</code></pre><p><strong>GetApplicationSettings Operation</strong></p><p>Used to request the settings for an app.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>GetApplicationSettingsResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetApplicationSettings">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_campaign" href="#AWSSDK.Pinpoint.get_campaign"><code>AWSSDK.Pinpoint.get_campaign</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_campaign
+get_campaign([::AWSConfig], arguments::Dict)
+get_campaign([::AWSConfig]; application-id=, campaign-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/campaigns/{campaign-id}&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/campaigns/{campaign-id}&quot;, application-id=, campaign-id=)</code></pre><p><strong>GetCampaign Operation</strong></p><p>Returns information about a campaign.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>campaign-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>GetCampaignResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetCampaign">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_campaign_activities" href="#AWSSDK.Pinpoint.get_campaign_activities"><code>AWSSDK.Pinpoint.get_campaign_activities</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_campaign_activities
+get_campaign_activities([::AWSConfig], arguments::Dict)
+get_campaign_activities([::AWSConfig]; application-id=, campaign-id=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/campaigns/{campaign-id}/activities&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/campaigns/{campaign-id}/activities&quot;, application-id=, campaign-id=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetCampaignActivities Operation</strong></p><p>Returns information about the activity performed by a campaign.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>campaign-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>page-size = ::String</code></strong></p><p><strong><code>token = ::String</code></strong></p><p><strong>Returns</strong></p><p><code>GetCampaignActivitiesResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetCampaignActivities">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_campaign_version" href="#AWSSDK.Pinpoint.get_campaign_version"><code>AWSSDK.Pinpoint.get_campaign_version</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_campaign_version
+get_campaign_version([::AWSConfig], arguments::Dict)
+get_campaign_version([::AWSConfig]; application-id=, campaign-id=, version=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/campaigns/{campaign-id}/versions/{version}&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/campaigns/{campaign-id}/versions/{version}&quot;, application-id=, campaign-id=, version=)</code></pre><p><strong>GetCampaignVersion Operation</strong></p><p>Returns information about a specific version of a campaign.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>campaign-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>version = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>GetCampaignVersionResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetCampaignVersion">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_campaign_versions" href="#AWSSDK.Pinpoint.get_campaign_versions"><code>AWSSDK.Pinpoint.get_campaign_versions</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_campaign_versions
+get_campaign_versions([::AWSConfig], arguments::Dict)
+get_campaign_versions([::AWSConfig]; application-id=, campaign-id=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/campaigns/{campaign-id}/versions&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/campaigns/{campaign-id}/versions&quot;, application-id=, campaign-id=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetCampaignVersions Operation</strong></p><p>Returns information about your campaign versions.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>campaign-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>page-size = ::String</code></strong></p><p><strong><code>token = ::String</code></strong></p><p><strong>Returns</strong></p><p><code>GetCampaignVersionsResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetCampaignVersions">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_campaigns" href="#AWSSDK.Pinpoint.get_campaigns"><code>AWSSDK.Pinpoint.get_campaigns</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_campaigns
+get_campaigns([::AWSConfig], arguments::Dict)
+get_campaigns([::AWSConfig]; application-id=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/campaigns&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/campaigns&quot;, application-id=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetCampaigns Operation</strong></p><p>Returns information about your campaigns.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>page-size = ::String</code></strong></p><p><strong><code>token = ::String</code></strong></p><p><strong>Returns</strong></p><p><code>GetCampaignsResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetCampaigns">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_email_channel" href="#AWSSDK.Pinpoint.get_email_channel"><code>AWSSDK.Pinpoint.get_email_channel</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_email_channel
+get_email_channel([::AWSConfig], arguments::Dict)
+get_email_channel([::AWSConfig]; application-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/channels/email&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/channels/email&quot;, application-id=)</code></pre><p><strong>GetEmailChannel Operation</strong></p><p>Get an email channel</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>GetEmailChannelResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetEmailChannel">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_endpoint" href="#AWSSDK.Pinpoint.get_endpoint"><code>AWSSDK.Pinpoint.get_endpoint</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_endpoint
+get_endpoint([::AWSConfig], arguments::Dict)
+get_endpoint([::AWSConfig]; application-id=, endpoint-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/endpoints/{endpoint-id}&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/endpoints/{endpoint-id}&quot;, application-id=, endpoint-id=)</code></pre><p><strong>GetEndpoint Operation</strong></p><p>Returns information about an endpoint.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>endpoint-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>GetEndpointResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetEndpoint">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_event_stream" href="#AWSSDK.Pinpoint.get_event_stream"><code>AWSSDK.Pinpoint.get_event_stream</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_event_stream
+get_event_stream([::AWSConfig], arguments::Dict)
+get_event_stream([::AWSConfig]; application-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/eventstream&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/eventstream&quot;, application-id=)</code></pre><p><strong>GetEventStream Operation</strong></p><p>Returns the event stream for an app.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p>ApplicationId</p><p><strong>Returns</strong></p><p><code>GetEventStreamResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetEventStream">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_gcm_channel" href="#AWSSDK.Pinpoint.get_gcm_channel"><code>AWSSDK.Pinpoint.get_gcm_channel</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_gcm_channel
+get_gcm_channel([::AWSConfig], arguments::Dict)
+get_gcm_channel([::AWSConfig]; application-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/channels/gcm&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/channels/gcm&quot;, application-id=)</code></pre><p><strong>GetGcmChannel Operation</strong></p><p>Returns information about the GCM channel for an app.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>GetGcmChannelResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetGcmChannel">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_import_job" href="#AWSSDK.Pinpoint.get_import_job"><code>AWSSDK.Pinpoint.get_import_job</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_import_job
+get_import_job([::AWSConfig], arguments::Dict)
+get_import_job([::AWSConfig]; application-id=, job-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/jobs/import/{job-id}&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/jobs/import/{job-id}&quot;, application-id=, job-id=)</code></pre><p><strong>GetImportJob Operation</strong></p><p>Returns information about an import job.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>job-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>GetImportJobResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetImportJob">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_import_jobs" href="#AWSSDK.Pinpoint.get_import_jobs"><code>AWSSDK.Pinpoint.get_import_jobs</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_import_jobs
+get_import_jobs([::AWSConfig], arguments::Dict)
+get_import_jobs([::AWSConfig]; application-id=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/jobs/import&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/jobs/import&quot;, application-id=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetImportJobs Operation</strong></p><p>Returns information about your import jobs.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>page-size = ::String</code></strong></p><p><strong><code>token = ::String</code></strong></p><p><strong>Returns</strong></p><p><code>GetImportJobsResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetImportJobs">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_segment" href="#AWSSDK.Pinpoint.get_segment"><code>AWSSDK.Pinpoint.get_segment</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_segment
+get_segment([::AWSConfig], arguments::Dict)
+get_segment([::AWSConfig]; application-id=, segment-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/segments/{segment-id}&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/segments/{segment-id}&quot;, application-id=, segment-id=)</code></pre><p><strong>GetSegment Operation</strong></p><p>Returns information about a segment.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>segment-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>GetSegmentResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetSegment">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_segment_import_jobs" href="#AWSSDK.Pinpoint.get_segment_import_jobs"><code>AWSSDK.Pinpoint.get_segment_import_jobs</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_segment_import_jobs
+get_segment_import_jobs([::AWSConfig], arguments::Dict)
+get_segment_import_jobs([::AWSConfig]; application-id=, segment-id=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/segments/{segment-id}/jobs/import&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/segments/{segment-id}/jobs/import&quot;, application-id=, segment-id=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetSegmentImportJobs Operation</strong></p><p>Returns a list of import jobs for a specific segment.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>page-size = ::String</code></strong></p><p><strong><code>segment-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>token = ::String</code></strong></p><p><strong>Returns</strong></p><p><code>GetSegmentImportJobsResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetSegmentImportJobs">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_segment_version" href="#AWSSDK.Pinpoint.get_segment_version"><code>AWSSDK.Pinpoint.get_segment_version</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_segment_version
+get_segment_version([::AWSConfig], arguments::Dict)
+get_segment_version([::AWSConfig]; application-id=, segment-id=, version=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/segments/{segment-id}/versions/{version}&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/segments/{segment-id}/versions/{version}&quot;, application-id=, segment-id=, version=)</code></pre><p><strong>GetSegmentVersion Operation</strong></p><p>Returns information about a segment version.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>segment-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>version = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>GetSegmentVersionResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetSegmentVersion">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_segment_versions" href="#AWSSDK.Pinpoint.get_segment_versions"><code>AWSSDK.Pinpoint.get_segment_versions</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_segment_versions
+get_segment_versions([::AWSConfig], arguments::Dict)
+get_segment_versions([::AWSConfig]; application-id=, segment-id=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/segments/{segment-id}/versions&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/segments/{segment-id}/versions&quot;, application-id=, segment-id=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetSegmentVersions Operation</strong></p><p>Returns information about your segment versions.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>page-size = ::String</code></strong></p><p><strong><code>segment-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>token = ::String</code></strong></p><p><strong>Returns</strong></p><p><code>GetSegmentVersionsResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetSegmentVersions">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_segments" href="#AWSSDK.Pinpoint.get_segments"><code>AWSSDK.Pinpoint.get_segments</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_segments
+get_segments([::AWSConfig], arguments::Dict)
+get_segments([::AWSConfig]; application-id=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/segments&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/segments&quot;, application-id=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetSegments Operation</strong></p><p>Used to get information about your segments.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>page-size = ::String</code></strong></p><p><strong><code>token = ::String</code></strong></p><p><strong>Returns</strong></p><p><code>GetSegmentsResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetSegments">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.get_sms_channel" href="#AWSSDK.Pinpoint.get_sms_channel"><code>AWSSDK.Pinpoint.get_sms_channel</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.get_sms_channel
+get_sms_channel([::AWSConfig], arguments::Dict)
+get_sms_channel([::AWSConfig]; application-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/channels/sms&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;GET&quot;, &quot;/v1/apps/{application-id}/channels/sms&quot;, application-id=)</code></pre><p><strong>GetSmsChannel Operation</strong></p><p>Get an SMS channel</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>GetSmsChannelResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/GetSmsChannel">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.put_event_stream" href="#AWSSDK.Pinpoint.put_event_stream"><code>AWSSDK.Pinpoint.put_event_stream</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.put_event_stream
+put_event_stream([::AWSConfig], arguments::Dict)
+put_event_stream([::AWSConfig]; application-id=, WriteEventStream=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;POST&quot;, &quot;/v1/apps/{application-id}/eventstream&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;POST&quot;, &quot;/v1/apps/{application-id}/eventstream&quot;, application-id=, WriteEventStream=)</code></pre><p><strong>PutEventStream Operation</strong></p><p>Use to create or update the event stream for an app.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p>ApplicationId</p><p><strong><code>WriteEventStream = [ ... ]</code> – <em>Required</em></strong></p><p>EventStream to write.</p><pre><code class="language-none"> WriteEventStream = [
+        &quot;DestinationStreamArn&quot; =&gt;  ::String,
+        &quot;ExternalId&quot; =&gt;  ::String,
+        &quot;RoleArn&quot; =&gt;  ::String
+    ]</code></pre><p><strong>Returns</strong></p><p><code>PutEventStreamResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/PutEventStream">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.send_messages" href="#AWSSDK.Pinpoint.send_messages"><code>AWSSDK.Pinpoint.send_messages</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.send_messages
+send_messages([::AWSConfig], arguments::Dict)
+send_messages([::AWSConfig]; application-id=, MessageRequest=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;POST&quot;, &quot;/v1/apps/{application-id}/messages&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;POST&quot;, &quot;/v1/apps/{application-id}/messages&quot;, application-id=, MessageRequest=)</code></pre><p><strong>SendMessages Operation</strong></p><p>Send a batch of messages</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>MessageRequest = [ ... ]</code> – <em>Required</em></strong></p><pre><code class="language-none"> MessageRequest = [
+        &quot;Addresses&quot; =&gt;  ::Dict{String,String},
+        &quot;Context&quot; =&gt;  ::Dict{String,String},
+        &quot;MessageConfiguration&quot; =&gt;  [
+            &quot;APNSMessage&quot; =&gt;  [
+                &quot;Action&quot; =&gt;  &quot;OPEN_APP&quot;, &quot;DEEP_LINK&quot; or &quot;URL&quot;,
+                &quot;Badge&quot; =&gt;  ::Int,
+                &quot;Body&quot; =&gt;  ::String,
+                &quot;Category&quot; =&gt;  ::String,
+                &quot;Data&quot; =&gt;  ::Dict{String,String},
+                &quot;MediaUrl&quot; =&gt;  ::String,
+                &quot;RawContent&quot; =&gt;  ::String,
+                &quot;SilentPush&quot; =&gt;  ::Bool,
+                &quot;Sound&quot; =&gt;  ::String,
+                &quot;Substitutions&quot; =&gt;  ::Dict{String,String},
+                &quot;ThreadId&quot; =&gt;  ::String,
+                &quot;Title&quot; =&gt;  ::String,
+                &quot;Url&quot; =&gt;  ::String
+            ],
+            &quot;DefaultMessage&quot; =&gt;  [
+                &quot;Body&quot; =&gt;  ::String,
+                &quot;Substitutions&quot; =&gt;  ::Dict{String,String}
+            ],
+            &quot;DefaultPushNotificationMessage&quot; =&gt;  [
+                &quot;Action&quot; =&gt;  &quot;OPEN_APP&quot;, &quot;DEEP_LINK&quot; or &quot;URL&quot;,
+                &quot;Body&quot; =&gt;  ::String,
+                &quot;Data&quot; =&gt;  ::Dict{String,String},
+                &quot;SilentPush&quot; =&gt;  ::Bool,
+                &quot;Substitutions&quot; =&gt;  ::Dict{String,String},
+                &quot;Title&quot; =&gt;  ::String,
+                &quot;Url&quot; =&gt;  ::String
+            ],
+            &quot;GCMMessage&quot; =&gt;  [
+                &quot;Action&quot; =&gt;  &quot;OPEN_APP&quot;, &quot;DEEP_LINK&quot; or &quot;URL&quot;,
+                &quot;Body&quot; =&gt;  ::String,
+                &quot;CollapseKey&quot; =&gt;  ::String,
+                &quot;Data&quot; =&gt;  ::Dict{String,String},
+                &quot;IconReference&quot; =&gt;  ::String,
+                &quot;ImageIconUrl&quot; =&gt;  ::String,
+                &quot;ImageUrl&quot; =&gt;  ::String,
+                &quot;RawContent&quot; =&gt;  ::String,
+                &quot;RestrictedPackageName&quot; =&gt;  ::String,
+                &quot;SilentPush&quot; =&gt;  ::Bool,
+                &quot;SmallImageIconUrl&quot; =&gt;  ::String,
+                &quot;Sound&quot; =&gt;  ::String,
+                &quot;Substitutions&quot; =&gt;  ::Dict{String,String},
+                &quot;Title&quot; =&gt;  ::String,
+                &quot;Url&quot; =&gt;  ::String
+            ],
+            &quot;SMSMessage&quot; =&gt;  [
+                &quot;Body&quot; =&gt;  ::String,
+                &quot;MessageType&quot; =&gt;  &quot;TRANSACTIONAL&quot; or &quot;PROMOTIONAL&quot;,
+                &quot;SenderId&quot; =&gt;  ::String,
+                &quot;Substitutions&quot; =&gt;  ::Dict{String,String}
+            ]
+        ]
+    ]</code></pre><p><strong>Returns</strong></p><p><code>SendMessagesResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/SendMessages">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.update_apns_channel" href="#AWSSDK.Pinpoint.update_apns_channel"><code>AWSSDK.Pinpoint.update_apns_channel</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.update_apns_channel
+update_apns_channel([::AWSConfig], arguments::Dict)
+update_apns_channel([::AWSConfig]; APNSChannelRequest=, application-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/channels/apns&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/channels/apns&quot;, APNSChannelRequest=, application-id=)</code></pre><p><strong>UpdateApnsChannel Operation</strong></p><p>Use to update the APNs channel for an app.</p><p><strong>Arguments</strong></p><p><strong><code>APNSChannelRequest = [ ... ]</code> – <em>Required</em></strong></p><pre><code class="language-none"> APNSChannelRequest = [
+        &quot;Certificate&quot; =&gt;  ::String,
+        &quot;Enabled&quot; =&gt;  ::Bool,
+        &quot;PrivateKey&quot; =&gt;  ::String
+    ]</code></pre><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>UpdateApnsChannelResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateApnsChannel">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.update_apns_sandbox_channel" href="#AWSSDK.Pinpoint.update_apns_sandbox_channel"><code>AWSSDK.Pinpoint.update_apns_sandbox_channel</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.update_apns_sandbox_channel
+update_apns_sandbox_channel([::AWSConfig], arguments::Dict)
+update_apns_sandbox_channel([::AWSConfig]; APNSSandboxChannelRequest=, application-id=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/channels/apns_sandbox&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/channels/apns_sandbox&quot;, APNSSandboxChannelRequest=, application-id=)</code></pre><p><strong>UpdateApnsSandboxChannel Operation</strong></p><p>Update an APNS sandbox channel</p><p><strong>Arguments</strong></p><p><strong><code>APNSSandboxChannelRequest = [ ... ]</code> – <em>Required</em></strong></p><pre><code class="language-none"> APNSSandboxChannelRequest = [
+        &quot;Certificate&quot; =&gt;  ::String,
+        &quot;Enabled&quot; =&gt;  ::Bool,
+        &quot;PrivateKey&quot; =&gt;  ::String
+    ]</code></pre><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>UpdateApnsSandboxChannelResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateApnsSandboxChannel">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.update_application_settings" href="#AWSSDK.Pinpoint.update_application_settings"><code>AWSSDK.Pinpoint.update_application_settings</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.update_application_settings
+update_application_settings([::AWSConfig], arguments::Dict)
+update_application_settings([::AWSConfig]; application-id=, WriteApplicationSettingsRequest=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/settings&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/settings&quot;, application-id=, WriteApplicationSettingsRequest=)</code></pre><p><strong>UpdateApplicationSettings Operation</strong></p><p>Used to update the settings for an app.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>WriteApplicationSettingsRequest = [ ... ]</code> – <em>Required</em></strong></p><pre><code class="language-none"> WriteApplicationSettingsRequest = [
+        &quot;Limits&quot; =&gt;  [
+            &quot;Daily&quot; =&gt;  ::Int,
+            &quot;Total&quot; =&gt;  ::Int
+        ],
+        &quot;QuietTime&quot; =&gt;  [
+            &quot;End&quot; =&gt;  ::String,
+            &quot;Start&quot; =&gt;  ::String
+        ]
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateApplicationSettingsResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateApplicationSettings">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.update_campaign" href="#AWSSDK.Pinpoint.update_campaign"><code>AWSSDK.Pinpoint.update_campaign</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.update_campaign
+update_campaign([::AWSConfig], arguments::Dict)
+update_campaign([::AWSConfig]; application-id=, campaign-id=, WriteCampaignRequest=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/campaigns/{campaign-id}&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/campaigns/{campaign-id}&quot;, application-id=, campaign-id=, WriteCampaignRequest=)</code></pre><p><strong>UpdateCampaign Operation</strong></p><p>Use to update a campaign.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>campaign-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>WriteCampaignRequest = [ ... ]</code> – <em>Required</em></strong></p><pre><code class="language-none"> WriteCampaignRequest = [
+        &quot;AdditionalTreatments&quot; =&gt;  [[
+            &quot;MessageConfiguration&quot; =&gt;  [
+                &quot;APNSMessage&quot; =&gt;  [
+                    &quot;Action&quot; =&gt;  &quot;OPEN_APP&quot;, &quot;DEEP_LINK&quot; or &quot;URL&quot;,
+                    &quot;Body&quot; =&gt;  ::String,
+                    &quot;ImageIconUrl&quot; =&gt;  ::String,
+                    &quot;ImageSmallIconUrl&quot; =&gt;  ::String,
+                    &quot;ImageUrl&quot; =&gt;  ::String,
+                    &quot;JsonBody&quot; =&gt;  ::String,
+                    &quot;MediaUrl&quot; =&gt;  ::String,
+                    &quot;SilentPush&quot; =&gt;  ::Bool,
+                    &quot;Title&quot; =&gt;  ::String,
+                    &quot;Url&quot; =&gt;  ::String
+                ],
+                &quot;DefaultMessage&quot; =&gt;  [
+                    &quot;Action&quot; =&gt;  &quot;OPEN_APP&quot;, &quot;DEEP_LINK&quot; or &quot;URL&quot;,
+                    &quot;Body&quot; =&gt;  ::String,
+                    &quot;ImageIconUrl&quot; =&gt;  ::String,
+                    &quot;ImageSmallIconUrl&quot; =&gt;  ::String,
+                    &quot;ImageUrl&quot; =&gt;  ::String,
+                    &quot;JsonBody&quot; =&gt;  ::String,
+                    &quot;MediaUrl&quot; =&gt;  ::String,
+                    &quot;SilentPush&quot; =&gt;  ::Bool,
+                    &quot;Title&quot; =&gt;  ::String,
+                    &quot;Url&quot; =&gt;  ::String
+                ],
+                &quot;EmailMessage&quot; =&gt;  [
+                    &quot;Body&quot; =&gt;  ::String,
+                    &quot;HtmlBody&quot; =&gt;  ::String,
+                    &quot;Title&quot; =&gt;  ::String
+                ],
+                &quot;GCMMessage&quot; =&gt;  [
+                    &quot;Action&quot; =&gt;  &quot;OPEN_APP&quot;, &quot;DEEP_LINK&quot; or &quot;URL&quot;,
+                    &quot;Body&quot; =&gt;  ::String,
+                    &quot;ImageIconUrl&quot; =&gt;  ::String,
+                    &quot;ImageSmallIconUrl&quot; =&gt;  ::String,
+                    &quot;ImageUrl&quot; =&gt;  ::String,
+                    &quot;JsonBody&quot; =&gt;  ::String,
+                    &quot;MediaUrl&quot; =&gt;  ::String,
+                    &quot;SilentPush&quot; =&gt;  ::Bool,
+                    &quot;Title&quot; =&gt;  ::String,
+                    &quot;Url&quot; =&gt;  ::String
+                ],
+                &quot;SMSMessage&quot; =&gt;  [
+                    &quot;Body&quot; =&gt;  ::String,
+                    &quot;MessageType&quot; =&gt;  &quot;TRANSACTIONAL&quot; or &quot;PROMOTIONAL&quot;,
+                    &quot;SenderId&quot; =&gt;  ::String
+                ]
+            ],
+            &quot;Schedule&quot; =&gt;  [
+                &quot;EndTime&quot; =&gt;  ::String,
+                &quot;Frequency&quot; =&gt;  &quot;ONCE&quot;, &quot;HOURLY&quot;, &quot;DAILY&quot;, &quot;WEEKLY&quot; or &quot;MONTHLY&quot;,
+                &quot;IsLocalTime&quot; =&gt;  ::Bool,
+                &quot;QuietTime&quot; =&gt;  [
+                    &quot;End&quot; =&gt;  ::String,
+                    &quot;Start&quot; =&gt;  ::String
+                ],
+                &quot;StartTime&quot; =&gt;  ::String,
+                &quot;Timezone&quot; =&gt;  ::String
+            ],
+            &quot;SizePercent&quot; =&gt;  ::Int,
+            &quot;TreatmentDescription&quot; =&gt;  ::String,
+            &quot;TreatmentName&quot; =&gt;  ::String
+        ], ...],
+        &quot;Description&quot; =&gt;  ::String,
+        &quot;HoldoutPercent&quot; =&gt;  ::Int,
+        &quot;IsPaused&quot; =&gt;  ::Bool,
+        &quot;Limits&quot; =&gt;  [
+            &quot;Daily&quot; =&gt;  ::Int,
+            &quot;Total&quot; =&gt;  ::Int
+        ],
+        &quot;MessageConfiguration&quot; =&gt;  [
+            &quot;APNSMessage&quot; =&gt;  [
+                &quot;Action&quot; =&gt;  &quot;OPEN_APP&quot;, &quot;DEEP_LINK&quot; or &quot;URL&quot;,
+                &quot;Body&quot; =&gt;  ::String,
+                &quot;ImageIconUrl&quot; =&gt;  ::String,
+                &quot;ImageSmallIconUrl&quot; =&gt;  ::String,
+                &quot;ImageUrl&quot; =&gt;  ::String,
+                &quot;JsonBody&quot; =&gt;  ::String,
+                &quot;MediaUrl&quot; =&gt;  ::String,
+                &quot;SilentPush&quot; =&gt;  ::Bool,
+                &quot;Title&quot; =&gt;  ::String,
+                &quot;Url&quot; =&gt;  ::String
+            ],
+            &quot;DefaultMessage&quot; =&gt;  [
+                &quot;Action&quot; =&gt;  &quot;OPEN_APP&quot;, &quot;DEEP_LINK&quot; or &quot;URL&quot;,
+                &quot;Body&quot; =&gt;  ::String,
+                &quot;ImageIconUrl&quot; =&gt;  ::String,
+                &quot;ImageSmallIconUrl&quot; =&gt;  ::String,
+                &quot;ImageUrl&quot; =&gt;  ::String,
+                &quot;JsonBody&quot; =&gt;  ::String,
+                &quot;MediaUrl&quot; =&gt;  ::String,
+                &quot;SilentPush&quot; =&gt;  ::Bool,
+                &quot;Title&quot; =&gt;  ::String,
+                &quot;Url&quot; =&gt;  ::String
+            ],
+            &quot;EmailMessage&quot; =&gt;  [
+                &quot;Body&quot; =&gt;  ::String,
+                &quot;HtmlBody&quot; =&gt;  ::String,
+                &quot;Title&quot; =&gt;  ::String
+            ],
+            &quot;GCMMessage&quot; =&gt;  [
+                &quot;Action&quot; =&gt;  &quot;OPEN_APP&quot;, &quot;DEEP_LINK&quot; or &quot;URL&quot;,
+                &quot;Body&quot; =&gt;  ::String,
+                &quot;ImageIconUrl&quot; =&gt;  ::String,
+                &quot;ImageSmallIconUrl&quot; =&gt;  ::String,
+                &quot;ImageUrl&quot; =&gt;  ::String,
+                &quot;JsonBody&quot; =&gt;  ::String,
+                &quot;MediaUrl&quot; =&gt;  ::String,
+                &quot;SilentPush&quot; =&gt;  ::Bool,
+                &quot;Title&quot; =&gt;  ::String,
+                &quot;Url&quot; =&gt;  ::String
+            ],
+            &quot;SMSMessage&quot; =&gt;  [
+                &quot;Body&quot; =&gt;  ::String,
+                &quot;MessageType&quot; =&gt;  &quot;TRANSACTIONAL&quot; or &quot;PROMOTIONAL&quot;,
+                &quot;SenderId&quot; =&gt;  ::String
+            ]
+        ],
+        &quot;Name&quot; =&gt;  ::String,
+        &quot;Schedule&quot; =&gt;  [
+            &quot;EndTime&quot; =&gt;  ::String,
+            &quot;Frequency&quot; =&gt;  &quot;ONCE&quot;, &quot;HOURLY&quot;, &quot;DAILY&quot;, &quot;WEEKLY&quot; or &quot;MONTHLY&quot;,
+            &quot;IsLocalTime&quot; =&gt;  ::Bool,
+            &quot;QuietTime&quot; =&gt;  [
+                &quot;End&quot; =&gt;  ::String,
+                &quot;Start&quot; =&gt;  ::String
+            ],
+            &quot;StartTime&quot; =&gt;  ::String,
+            &quot;Timezone&quot; =&gt;  ::String
+        ],
+        &quot;SegmentId&quot; =&gt;  ::String,
+        &quot;SegmentVersion&quot; =&gt;  ::Int,
+        &quot;TreatmentDescription&quot; =&gt;  ::String,
+        &quot;TreatmentName&quot; =&gt;  ::String
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateCampaignResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateCampaign">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.update_email_channel" href="#AWSSDK.Pinpoint.update_email_channel"><code>AWSSDK.Pinpoint.update_email_channel</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.update_email_channel
+update_email_channel([::AWSConfig], arguments::Dict)
+update_email_channel([::AWSConfig]; application-id=, EmailChannelRequest=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/channels/email&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/channels/email&quot;, application-id=, EmailChannelRequest=)</code></pre><p><strong>UpdateEmailChannel Operation</strong></p><p>Update an email channel</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>EmailChannelRequest = [ ... ]</code> – <em>Required</em></strong></p><pre><code class="language-none"> EmailChannelRequest = [
+        &quot;Enabled&quot; =&gt;  ::Bool,
+        &quot;FromAddress&quot; =&gt;  ::String,
+        &quot;Identity&quot; =&gt;  ::String,
+        &quot;RoleArn&quot; =&gt;  ::String
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateEmailChannelResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateEmailChannel">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.update_endpoint" href="#AWSSDK.Pinpoint.update_endpoint"><code>AWSSDK.Pinpoint.update_endpoint</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.update_endpoint
+update_endpoint([::AWSConfig], arguments::Dict)
+update_endpoint([::AWSConfig]; application-id=, endpoint-id=, EndpointRequest=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/endpoints/{endpoint-id}&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/endpoints/{endpoint-id}&quot;, application-id=, endpoint-id=, EndpointRequest=)</code></pre><p><strong>UpdateEndpoint Operation</strong></p><p>Use to update an endpoint.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>endpoint-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>EndpointRequest = [ ... ]</code> – <em>Required</em></strong></p><pre><code class="language-none"> EndpointRequest = [
+        &quot;Address&quot; =&gt;  ::String,
+        &quot;Attributes&quot; =&gt;  ::Dict{String,String},
+        &quot;ChannelType&quot; =&gt;  &quot;GCM&quot;, &quot;APNS&quot;, &quot;APNS_SANDBOX&quot;, &quot;ADM&quot;, &quot;SMS&quot; or &quot;EMAIL&quot;,
+        &quot;Demographic&quot; =&gt;  [
+            &quot;AppVersion&quot; =&gt;  ::String,
+            &quot;Locale&quot; =&gt;  ::String,
+            &quot;Make&quot; =&gt;  ::String,
+            &quot;Model&quot; =&gt;  ::String,
+            &quot;ModelVersion&quot; =&gt;  ::String,
+            &quot;Platform&quot; =&gt;  ::String,
+            &quot;PlatformVersion&quot; =&gt;  ::String,
+            &quot;Timezone&quot; =&gt;  ::String
+        ],
+        &quot;EffectiveDate&quot; =&gt;  ::String,
+        &quot;EndpointStatus&quot; =&gt;  ::String,
+        &quot;Location&quot; =&gt;  [
+            &quot;City&quot; =&gt;  ::String,
+            &quot;Country&quot; =&gt;  ::String,
+            &quot;Latitude&quot; =&gt;  double,
+            &quot;Longitude&quot; =&gt;  double,
+            &quot;PostalCode&quot; =&gt;  ::String,
+            &quot;Region&quot; =&gt;  ::String
+        ],
+        &quot;Metrics&quot; =&gt;  ::Dict{String,String},
+        &quot;OptOut&quot; =&gt;  ::String,
+        &quot;RequestId&quot; =&gt;  ::String,
+        &quot;User&quot; =&gt;  [
+            &quot;UserAttributes&quot; =&gt;  ::Dict{String,String},
+            &quot;UserId&quot; =&gt;  ::String
+        ]
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateEndpointResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateEndpoint">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.update_endpoints_batch" href="#AWSSDK.Pinpoint.update_endpoints_batch"><code>AWSSDK.Pinpoint.update_endpoints_batch</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.update_endpoints_batch
+update_endpoints_batch([::AWSConfig], arguments::Dict)
+update_endpoints_batch([::AWSConfig]; application-id=, EndpointBatchRequest=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/endpoints&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/endpoints&quot;, application-id=, EndpointBatchRequest=)</code></pre><p><strong>UpdateEndpointsBatch Operation</strong></p><p>Use to update a batch of endpoints.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>EndpointBatchRequest = [&quot;Item&quot; =&gt;  [[ ... ], ...]]</code> – <em>Required</em></strong></p><pre><code class="language-none"> EndpointBatchRequest = [&quot;Item&quot; =&gt;  [[
+            &quot;Address&quot; =&gt;  ::String,
+            &quot;Attributes&quot; =&gt;  ::Dict{String,String},
+            &quot;ChannelType&quot; =&gt;  &quot;GCM&quot;, &quot;APNS&quot;, &quot;APNS_SANDBOX&quot;, &quot;ADM&quot;, &quot;SMS&quot; or &quot;EMAIL&quot;,
+            &quot;Demographic&quot; =&gt;  [
+                &quot;AppVersion&quot; =&gt;  ::String,
+                &quot;Locale&quot; =&gt;  ::String,
+                &quot;Make&quot; =&gt;  ::String,
+                &quot;Model&quot; =&gt;  ::String,
+                &quot;ModelVersion&quot; =&gt;  ::String,
+                &quot;Platform&quot; =&gt;  ::String,
+                &quot;PlatformVersion&quot; =&gt;  ::String,
+                &quot;Timezone&quot; =&gt;  ::String
+            ],
+            &quot;EffectiveDate&quot; =&gt;  ::String,
+            &quot;EndpointStatus&quot; =&gt;  ::String,
+            &quot;Id&quot; =&gt;  ::String,
+            &quot;Location&quot; =&gt;  [
+                &quot;City&quot; =&gt;  ::String,
+                &quot;Country&quot; =&gt;  ::String,
+                &quot;Latitude&quot; =&gt;  double,
+                &quot;Longitude&quot; =&gt;  double,
+                &quot;PostalCode&quot; =&gt;  ::String,
+                &quot;Region&quot; =&gt;  ::String
+            ],
+            &quot;Metrics&quot; =&gt;  ::Dict{String,String},
+            &quot;OptOut&quot; =&gt;  ::String,
+            &quot;RequestId&quot; =&gt;  ::String,
+            &quot;User&quot; =&gt;  [
+                &quot;UserAttributes&quot; =&gt;  ::Dict{String,String},
+                &quot;UserId&quot; =&gt;  ::String
+            ]
+        ], ...]]</code></pre><p><strong>Returns</strong></p><p><code>UpdateEndpointsBatchResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateEndpointsBatch">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.update_gcm_channel" href="#AWSSDK.Pinpoint.update_gcm_channel"><code>AWSSDK.Pinpoint.update_gcm_channel</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.update_gcm_channel
+update_gcm_channel([::AWSConfig], arguments::Dict)
+update_gcm_channel([::AWSConfig]; application-id=, GCMChannelRequest=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/channels/gcm&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/channels/gcm&quot;, application-id=, GCMChannelRequest=)</code></pre><p><strong>UpdateGcmChannel Operation</strong></p><p>Use to update the GCM channel for an app.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>GCMChannelRequest = [ ... ]</code> – <em>Required</em></strong></p><pre><code class="language-none"> GCMChannelRequest = [
+        &quot;ApiKey&quot; =&gt;  ::String,
+        &quot;Enabled&quot; =&gt;  ::Bool
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateGcmChannelResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateGcmChannel">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.update_segment" href="#AWSSDK.Pinpoint.update_segment"><code>AWSSDK.Pinpoint.update_segment</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.update_segment
+update_segment([::AWSConfig], arguments::Dict)
+update_segment([::AWSConfig]; application-id=, segment-id=, WriteSegmentRequest=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/segments/{segment-id}&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/segments/{segment-id}&quot;, application-id=, segment-id=, WriteSegmentRequest=)</code></pre><p><strong>UpdateSegment Operation</strong></p><p>Use to update a segment.</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>segment-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>WriteSegmentRequest = [ ... ]</code> – <em>Required</em></strong></p><pre><code class="language-none"> WriteSegmentRequest = [
+        &quot;Dimensions&quot; =&gt;  [
+            &quot;Attributes&quot; =&gt;  ::Dict{String,String},
+            &quot;Behavior&quot; =&gt;  [&quot;Recency&quot; =&gt;  [
+                    &quot;Duration&quot; =&gt;  &quot;HR_24&quot;, &quot;DAY_7&quot;, &quot;DAY_14&quot; or &quot;DAY_30&quot;,
+                    &quot;RecencyType&quot; =&gt;  &quot;ACTIVE&quot; or &quot;INACTIVE&quot;
+                ]],
+            &quot;Demographic&quot; =&gt;  [
+                &quot;AppVersion&quot; =&gt;  [
+                    &quot;DimensionType&quot; =&gt;  &quot;INCLUSIVE&quot; or &quot;EXCLUSIVE&quot;,
+                    &quot;Values&quot; =&gt;  [::String, ...]
+                ],
+                &quot;Channel&quot; =&gt;  [
+                    &quot;DimensionType&quot; =&gt;  &quot;INCLUSIVE&quot; or &quot;EXCLUSIVE&quot;,
+                    &quot;Values&quot; =&gt;  [::String, ...]
+                ],
+                &quot;DeviceType&quot; =&gt;  [
+                    &quot;DimensionType&quot; =&gt;  &quot;INCLUSIVE&quot; or &quot;EXCLUSIVE&quot;,
+                    &quot;Values&quot; =&gt;  [::String, ...]
+                ],
+                &quot;Make&quot; =&gt;  [
+                    &quot;DimensionType&quot; =&gt;  &quot;INCLUSIVE&quot; or &quot;EXCLUSIVE&quot;,
+                    &quot;Values&quot; =&gt;  [::String, ...]
+                ],
+                &quot;Model&quot; =&gt;  [
+                    &quot;DimensionType&quot; =&gt;  &quot;INCLUSIVE&quot; or &quot;EXCLUSIVE&quot;,
+                    &quot;Values&quot; =&gt;  [::String, ...]
+                ],
+                &quot;Platform&quot; =&gt;  [
+                    &quot;DimensionType&quot; =&gt;  &quot;INCLUSIVE&quot; or &quot;EXCLUSIVE&quot;,
+                    &quot;Values&quot; =&gt;  [::String, ...]
+                ]
+            ],
+            &quot;Location&quot; =&gt;  [&quot;Country&quot; =&gt;  [
+                    &quot;DimensionType&quot; =&gt;  &quot;INCLUSIVE&quot; or &quot;EXCLUSIVE&quot;,
+                    &quot;Values&quot; =&gt;  [::String, ...]
+                ]],
+            &quot;UserAttributes&quot; =&gt;  ::Dict{String,String}
+        ],
+        &quot;Name&quot; =&gt;  ::String
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateSegmentResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateSegment">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Pinpoint.update_sms_channel" href="#AWSSDK.Pinpoint.update_sms_channel"><code>AWSSDK.Pinpoint.update_sms_channel</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Pinpoint.update_sms_channel
+update_sms_channel([::AWSConfig], arguments::Dict)
+update_sms_channel([::AWSConfig]; application-id=, SMSChannelRequest=)
+
+using AWSCore.Services.pinpoint
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/channels/sms&quot;, arguments::Dict)
+pinpoint([::AWSConfig], &quot;PUT&quot;, &quot;/v1/apps/{application-id}/channels/sms&quot;, application-id=, SMSChannelRequest=)</code></pre><p><strong>UpdateSmsChannel Operation</strong></p><p>Update an SMS channel</p><p><strong>Arguments</strong></p><p><strong><code>application-id = ::String</code> – <em>Required</em></strong></p><p><strong><code>SMSChannelRequest = [ ... ]</code> – <em>Required</em></strong></p><pre><code class="language-none"> SMSChannelRequest = [
+        &quot;Enabled&quot; =&gt;  ::Bool,
+        &quot;SenderId&quot; =&gt;  ::String
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateSmsChannelResponse</code></p><p><strong>Exceptions</strong></p><p><code>BadRequestException</code>, <code>InternalServerErrorException</code>, <code>ForbiddenException</code>, <code>NotFoundException</code>, <code>MethodNotAllowedException</code> or <code>TooManyRequestsException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/pinpoint-2016-12-01/UpdateSmsChannel">AWS API Documentation</a></p></div></section><footer><hr/><a class="previous" href="AWSSDK.Organizations.html"><span class="direction">Previous</span><span class="title">AWSSDK.Organizations.jl</span></a><a class="next" href="AWSSDK.Polly.html"><span class="direction">Next</span><span class="title">AWSSDK.Polly.jl</span></a></footer></article></body></html>

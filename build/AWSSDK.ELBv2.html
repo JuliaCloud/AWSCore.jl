@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>AWSSDK.ELBv2.jl · AWSCore.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link href="assets/highlightjs/default.css" rel="stylesheet" type="text/css"/><link href="assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>AWSCore.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="index.html">AWSCore.jl</a></li><li><a class="toctext" href="AWSS3.html">AWSS3.jl</a></li><li><a class="toctext" href="AWSSQS.html">AWSSQS.jl</a></li><li><a class="toctext" href="AWSSES.html">AWSSES.jl</a></li><li><a class="toctext" href="AWSSNS.html">AWSSNS.jl</a></li><li><a class="toctext" href="AWSSDK.ACM.html">AWSSDK.ACM.jl</a></li><li><a class="toctext" href="AWSSDK.APIGateway.html">AWSSDK.APIGateway.jl</a></li><li><a class="toctext" href="AWSSDK.ApplicationAutoScaling.html">AWSSDK.ApplicationAutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.AppStream.html">AWSSDK.AppStream.jl</a></li><li><a class="toctext" href="AWSSDK.Athena.html">AWSSDK.Athena.jl</a></li><li><a class="toctext" href="AWSSDK.AutoScaling.html">AWSSDK.AutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.Batch.html">AWSSDK.Batch.jl</a></li><li><a class="toctext" href="AWSSDK.Budgets.html">AWSSDK.Budgets.jl</a></li><li><a class="toctext" href="AWSSDK.CloudDirectory.html">AWSSDK.CloudDirectory.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFormation.html">AWSSDK.CloudFormation.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFront.html">AWSSDK.CloudFront.jl</a></li><li><a class="toctext" href="AWSSDK.CloudHSM.html">AWSSDK.CloudHSM.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearch.html">AWSSDK.CloudSearch.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearchDomain.html">AWSSDK.CloudSearchDomain.jl</a></li><li><a class="toctext" href="AWSSDK.CloudTrail.html">AWSSDK.CloudTrail.jl</a></li><li><a class="toctext" href="AWSSDK.CodeBuild.html">AWSSDK.CodeBuild.jl</a></li><li><a class="toctext" href="AWSSDK.CodeCommit.html">AWSSDK.CodeCommit.jl</a></li><li><a class="toctext" href="AWSSDK.CodeDeploy.html">AWSSDK.CodeDeploy.jl</a></li><li><a class="toctext" href="AWSSDK.CodePipeline.html">AWSSDK.CodePipeline.jl</a></li><li><a class="toctext" href="AWSSDK.CodeStar.html">AWSSDK.CodeStar.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentity.html">AWSSDK.CognitoIdentity.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentityServiceProvider.html">AWSSDK.CognitoIdentityServiceProvider.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoSync.html">AWSSDK.CognitoSync.jl</a></li><li><a class="toctext" href="AWSSDK.ConfigService.html">AWSSDK.ConfigService.jl</a></li><li><a class="toctext" href="AWSSDK.CUR.html">AWSSDK.CUR.jl</a></li><li><a class="toctext" href="AWSSDK.DataPipeline.html">AWSSDK.DataPipeline.jl</a></li><li><a class="toctext" href="AWSSDK.DAX.html">AWSSDK.DAX.jl</a></li><li><a class="toctext" href="AWSSDK.DeviceFarm.html">AWSSDK.DeviceFarm.jl</a></li><li><a class="toctext" href="AWSSDK.DirectConnect.html">AWSSDK.DirectConnect.jl</a></li><li><a class="toctext" href="AWSSDK.Discovery.html">AWSSDK.Discovery.jl</a></li><li><a class="toctext" href="AWSSDK.DMS.html">AWSSDK.DMS.jl</a></li><li><a class="toctext" href="AWSSDK.DirectoryService.html">AWSSDK.DirectoryService.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDB.html">AWSSDK.DynamoDB.jl</a></li><li><a class="toctext" href="AWSSDK.EC2.html">AWSSDK.EC2.jl</a></li><li><a class="toctext" href="AWSSDK.ECR.html">AWSSDK.ECR.jl</a></li><li><a class="toctext" href="AWSSDK.ECS.html">AWSSDK.ECS.jl</a></li><li><a class="toctext" href="AWSSDK.ElastiCache.html">AWSSDK.ElastiCache.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticBeanstalk.html">AWSSDK.ElasticBeanstalk.jl</a></li><li><a class="toctext" href="AWSSDK.EFS.html">AWSSDK.EFS.jl</a></li><li><a class="toctext" href="AWSSDK.ELB.html">AWSSDK.ELB.jl</a></li><li class="current"><a class="toctext" href="AWSSDK.ELBv2.html">AWSSDK.ELBv2.jl</a><ul class="internal"><li class="toplevel"><a class="toctext" href="#Elastic-Load-Balancing-1">Elastic Load Balancing</a></li></ul></li><li><a class="toctext" href="AWSSDK.EMR.html">AWSSDK.EMR.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticTranscoder.html">AWSSDK.ElasticTranscoder.jl</a></li><li><a class="toctext" href="AWSSDK.SES.html">AWSSDK.SES.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceEntitlementService.html">AWSSDK.MarketplaceEntitlementService.jl</a></li><li><a class="toctext" href="AWSSDK.ES.html">AWSSDK.ES.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchEvents.html">AWSSDK.CloudWatchEvents.jl</a></li><li><a class="toctext" href="AWSSDK.Firehose.html">AWSSDK.Firehose.jl</a></li><li><a class="toctext" href="AWSSDK.GameLift.html">AWSSDK.GameLift.jl</a></li><li><a class="toctext" href="AWSSDK.Glacier.html">AWSSDK.Glacier.jl</a></li><li><a class="toctext" href="AWSSDK.Greengrass.html">AWSSDK.Greengrass.jl</a></li><li><a class="toctext" href="AWSSDK.Health.html">AWSSDK.Health.jl</a></li><li><a class="toctext" href="AWSSDK.IAM.html">AWSSDK.IAM.jl</a></li><li><a class="toctext" href="AWSSDK.ImportExport.html">AWSSDK.ImportExport.jl</a></li><li><a class="toctext" href="AWSSDK.Inspector.html">AWSSDK.Inspector.jl</a></li><li><a class="toctext" href="AWSSDK.Iot.html">AWSSDK.Iot.jl</a></li><li><a class="toctext" href="AWSSDK.IotData.html">AWSSDK.IotData.jl</a></li><li><a class="toctext" href="AWSSDK.Kinesis.html">AWSSDK.Kinesis.jl</a></li><li><a class="toctext" href="AWSSDK.KinesisAnalytics.html">AWSSDK.KinesisAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.KMS.html">AWSSDK.KMS.jl</a></li><li><a class="toctext" href="AWSSDK.Lambda.html">AWSSDK.Lambda.jl</a></li><li><a class="toctext" href="AWSSDK.LexModelBuildingService.html">AWSSDK.LexModelBuildingService.jl</a></li><li><a class="toctext" href="AWSSDK.Lightsail.html">AWSSDK.Lightsail.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchLogs.html">AWSSDK.CloudWatchLogs.jl</a></li><li><a class="toctext" href="AWSSDK.MachineLearning.html">AWSSDK.MachineLearning.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceCommerceAnalytics.html">AWSSDK.MarketplaceCommerceAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceMetering.html">AWSSDK.MarketplaceMetering.jl</a></li><li><a class="toctext" href="AWSSDK.MobileAnalytics.html">AWSSDK.MobileAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatch.html">AWSSDK.CloudWatch.jl</a></li><li><a class="toctext" href="AWSSDK.MTurk.html">AWSSDK.MTurk.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorks.html">AWSSDK.OpsWorks.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorksCM.html">AWSSDK.OpsWorksCM.jl</a></li><li><a class="toctext" href="AWSSDK.Organizations.html">AWSSDK.Organizations.jl</a></li><li><a class="toctext" href="AWSSDK.Pinpoint.html">AWSSDK.Pinpoint.jl</a></li><li><a class="toctext" href="AWSSDK.Polly.html">AWSSDK.Polly.jl</a></li><li><a class="toctext" href="AWSSDK.RDS.html">AWSSDK.RDS.jl</a></li><li><a class="toctext" href="AWSSDK.Redshift.html">AWSSDK.Redshift.jl</a></li><li><a class="toctext" href="AWSSDK.Rekognition.html">AWSSDK.Rekognition.jl</a></li><li><a class="toctext" href="AWSSDK.ResourceGroupsTaggingAPI.html">AWSSDK.ResourceGroupsTaggingAPI.jl</a></li><li><a class="toctext" href="AWSSDK.Route53.html">AWSSDK.Route53.jl</a></li><li><a class="toctext" href="AWSSDK.Route53Domains.html">AWSSDK.Route53Domains.jl</a></li><li><a class="toctext" href="AWSSDK.LexRuntime.html">AWSSDK.LexRuntime.jl</a></li><li><a class="toctext" href="AWSSDK.S3.html">AWSSDK.S3.jl</a></li><li><a class="toctext" href="AWSSDK.SimpleDB.html">AWSSDK.SimpleDB.jl</a></li><li><a class="toctext" href="AWSSDK.ServiceCatalog.html">AWSSDK.ServiceCatalog.jl</a></li><li><a class="toctext" href="AWSSDK.Shield.html">AWSSDK.Shield.jl</a></li><li><a class="toctext" href="AWSSDK.SMS.html">AWSSDK.SMS.jl</a></li><li><a class="toctext" href="AWSSDK.Snowball.html">AWSSDK.Snowball.jl</a></li><li><a class="toctext" href="AWSSDK.SNS.html">AWSSDK.SNS.jl</a></li><li><a class="toctext" href="AWSSDK.SQS.html">AWSSDK.SQS.jl</a></li><li><a class="toctext" href="AWSSDK.SSM.html">AWSSDK.SSM.jl</a></li><li><a class="toctext" href="AWSSDK.StepFunctions.html">AWSSDK.StepFunctions.jl</a></li><li><a class="toctext" href="AWSSDK.StorageGateway.html">AWSSDK.StorageGateway.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDBStreams.html">AWSSDK.DynamoDBStreams.jl</a></li><li><a class="toctext" href="AWSSDK.STS.html">AWSSDK.STS.jl</a></li><li><a class="toctext" href="AWSSDK.Support.html">AWSSDK.Support.jl</a></li><li><a class="toctext" href="AWSSDK.SWF.html">AWSSDK.SWF.jl</a></li><li><a class="toctext" href="AWSSDK.WAF.html">AWSSDK.WAF.jl</a></li><li><a class="toctext" href="AWSSDK.WAFRegional.html">AWSSDK.WAFRegional.jl</a></li><li><a class="toctext" href="AWSSDK.WorkDocs.html">AWSSDK.WorkDocs.jl</a></li><li><a class="toctext" href="AWSSDK.WorkSpaces.html">AWSSDK.WorkSpaces.jl</a></li><li><a class="toctext" href="AWSSDK.XRay.html">AWSSDK.XRay.jl</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href="AWSSDK.ELBv2.html">AWSSDK.ELBv2.jl</a></li></ul><a class="edit-page" href="https://github.com/JuliaCloud/AWSCore.jl/tree/1f93d72825dfa35b69cc2d48e9a3b9130a7ec269/src/AWSSDK.ELBv2.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>AWSSDK.ELBv2.jl</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="AWSSDK.ELBv2-1" href="#AWSSDK.ELBv2-1">AWSSDK.ELBv2</a></h1><h1><a class="nav-anchor" id="Elastic-Load-Balancing-1" href="#Elastic-Load-Balancing-1">Elastic Load Balancing</a></h1><p>A load balancer distributes incoming traffic across targets, such as your EC2 instances. This enables you to increase the availability of your application. The load balancer also monitors the health of its registered targets and ensures that it routes traffic only to healthy targets. You configure your load balancer to accept incoming traffic by specifying one or more listeners, which are configured with a protocol and port number for connections from clients to the load balancer. You configure a target group with a protocol and port number for connections from the load balancer to the targets, and with health check settings to be used when checking the health status of the targets.</p><p>Elastic Load Balancing supports two types of load balancers: Classic Load Balancers and Application Load Balancers. A Classic Load Balancer makes routing and load balancing decisions either at the transport layer (TCP/SSL) or the application layer (HTTP/HTTPS), and supports either EC2-Classic or a VPC. An Application Load Balancer makes routing and load balancing decisions at the application layer (HTTP/HTTPS), supports path-based routing, and can route requests to one or more ports on each EC2 instance or container instance in your virtual private cloud (VPC). For more information, see the <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/">Elastic Load Balancing User Guide</a>.</p><p>This reference covers the 2015-12-01 API, which supports Application Load Balancers. The 2012-06-01 API supports Classic Load Balancers.</p><p>To get started, complete the following tasks:</p><ol><li><p>Create an Application Load Balancer using <a href="@ref">CreateLoadBalancer</a>.</p></li><li><p>Create a target group using <a href="@ref">CreateTargetGroup</a>.</p></li><li><p>Register targets for the target group using <a href="@ref">RegisterTargets</a>.</p></li><li><p>Create one or more listeners for your load balancer using <a href="@ref">CreateListener</a>.</p></li><li><p>(Optional) Create one or more rules for content routing based on URL using <a href="@ref">CreateRule</a>.</p></li></ol><p>To delete an Application Load Balancer and its related resources, complete the following tasks:</p><ol><li><p>Delete the load balancer using <a href="@ref">DeleteLoadBalancer</a>.</p></li><li><p>Delete the target group using <a href="@ref">DeleteTargetGroup</a>.</p></li></ol><p>All Elastic Load Balancing operations are idempotent, which means that they complete at most one time. If you repeat an operation, it succeeds.</p><p>This document is generated from <a href="https://github.com/aws/aws-sdk-js/blob/master/apis/elasticloadbalancingv2-2015-12-01.normal.json">apis/elasticloadbalancingv2-2015-12-01.normal.json</a>. See <a href="https://github.com/JuliaCloud/AWSCore.jl">JuliaCloud/AWSCore.jl</a>.</p><ul><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.add_tags"><code>AWSSDK.ELBv2.add_tags</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.create_listener"><code>AWSSDK.ELBv2.create_listener</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.create_load_balancer"><code>AWSSDK.ELBv2.create_load_balancer</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.create_rule"><code>AWSSDK.ELBv2.create_rule</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.create_target_group"><code>AWSSDK.ELBv2.create_target_group</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.delete_listener"><code>AWSSDK.ELBv2.delete_listener</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.delete_load_balancer"><code>AWSSDK.ELBv2.delete_load_balancer</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.delete_rule"><code>AWSSDK.ELBv2.delete_rule</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.delete_target_group"><code>AWSSDK.ELBv2.delete_target_group</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.deregister_targets"><code>AWSSDK.ELBv2.deregister_targets</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.describe_account_limits"><code>AWSSDK.ELBv2.describe_account_limits</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.describe_listeners"><code>AWSSDK.ELBv2.describe_listeners</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.describe_load_balancer_attributes"><code>AWSSDK.ELBv2.describe_load_balancer_attributes</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.describe_load_balancers"><code>AWSSDK.ELBv2.describe_load_balancers</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.describe_rules"><code>AWSSDK.ELBv2.describe_rules</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.describe_sslpolicies"><code>AWSSDK.ELBv2.describe_sslpolicies</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.describe_tags"><code>AWSSDK.ELBv2.describe_tags</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.describe_target_group_attributes"><code>AWSSDK.ELBv2.describe_target_group_attributes</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.describe_target_groups"><code>AWSSDK.ELBv2.describe_target_groups</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.describe_target_health"><code>AWSSDK.ELBv2.describe_target_health</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.modify_listener"><code>AWSSDK.ELBv2.modify_listener</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.modify_load_balancer_attributes"><code>AWSSDK.ELBv2.modify_load_balancer_attributes</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.modify_rule"><code>AWSSDK.ELBv2.modify_rule</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.modify_target_group"><code>AWSSDK.ELBv2.modify_target_group</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.modify_target_group_attributes"><code>AWSSDK.ELBv2.modify_target_group_attributes</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.register_targets"><code>AWSSDK.ELBv2.register_targets</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.remove_tags"><code>AWSSDK.ELBv2.remove_tags</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.set_ip_address_type"><code>AWSSDK.ELBv2.set_ip_address_type</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.set_rule_priorities"><code>AWSSDK.ELBv2.set_rule_priorities</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.set_security_groups"><code>AWSSDK.ELBv2.set_security_groups</code></a></li><li><a href="AWSSDK.ELBv2.html#AWSSDK.ELBv2.set_subnets"><code>AWSSDK.ELBv2.set_subnets</code></a></li></ul><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.add_tags" href="#AWSSDK.ELBv2.add_tags"><code>AWSSDK.ELBv2.add_tags</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.add_tags
+add_tags([::AWSConfig], arguments::Dict)
+add_tags([::AWSConfig]; ResourceArns=, Tags=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;AddTags&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;AddTags&quot;, ResourceArns=, Tags=)</code></pre><p><strong>AddTags Operation</strong></p><p>Adds the specified tags to the specified resource. You can tag your Application Load Balancers and your target groups.</p><p>Each tag consists of a key and an optional value. If a resource already has a tag with the same key, <code>AddTags</code> updates its value.</p><p>To list the current tags for your resources, use <a href="@ref">DescribeTags</a>. To remove tags from your resources, use <a href="@ref">RemoveTags</a>.</p><p><strong>Arguments</strong></p><p><strong><code>ResourceArns = [::String, ...]</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the resource.</p><p><strong><code>Tags = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>The tags. Each resource can have a maximum of 10 tags.</p><pre><code class="language-none"> Tags = [[
+        &quot;Key&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Value&quot; =&gt;  ::String
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>AddTagsOutput</code></p><p><strong>Exceptions</strong></p><p><code>DuplicateTagKeysException</code>, <code>TooManyTagsException</code>, <code>LoadBalancerNotFoundException</code> or <code>TargetGroupNotFoundException</code>.</p><p><strong>Example: To add tags to a load balancer</strong></p><p>This example adds the specified tags to the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;ResourceArns&quot; =&gt; [
+        &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;
+    ],
+    &quot;Tags&quot; =&gt; [
+        [
+            &quot;Key&quot; =&gt; &quot;project&quot;,
+            &quot;Value&quot; =&gt; &quot;lima&quot;
+        ],
+        [
+            &quot;Key&quot; =&gt; &quot;department&quot;,
+            &quot;Value&quot; =&gt; &quot;digital-media&quot;
+        ]
+    ]
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/AddTags">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.create_listener" href="#AWSSDK.ELBv2.create_listener"><code>AWSSDK.ELBv2.create_listener</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.create_listener
+create_listener([::AWSConfig], arguments::Dict)
+create_listener([::AWSConfig]; LoadBalancerArn=, Protocol=, Port=, DefaultActions=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;CreateListener&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;CreateListener&quot;, LoadBalancerArn=, Protocol=, Port=, DefaultActions=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateListener Operation</strong></p><p>Creates a listener for the specified Application Load Balancer.</p><p>You can create up to 10 listeners per load balancer.</p><p>To update a listener, use <a href="@ref">ModifyListener</a>. When you are finished with a listener, you can delete it using <a href="@ref">DeleteListener</a>. If you are finished with both the listener and the load balancer, you can delete them both using <a href="@ref">DeleteLoadBalancer</a>.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html">Listeners for Your Application Load Balancers</a> in the <em>Application Load Balancers Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the load balancer.</p><p><strong><code>Protocol = &quot;HTTP&quot; or &quot;HTTPS&quot;</code> – <em>Required</em></strong></p><p>The protocol for connections from clients to the load balancer.</p><p><strong><code>Port = ::Int</code> – <em>Required</em></strong></p><p>The port on which the load balancer is listening.</p><p><strong><code>SslPolicy = ::String</code></strong></p><p>The security policy that defines which ciphers and protocols are supported. The default is the current predefined security policy.</p><p><strong><code>Certificates = [[&quot;CertificateArn&quot; =&gt;  ::String], ...]</code></strong></p><p>The SSL server certificate. You must provide exactly one certificate if the protocol is HTTPS.</p><p><strong><code>DefaultActions = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>The default action for the listener.</p><pre><code class="language-none"> DefaultActions = [[
+        &quot;Type&quot; =&gt; &lt;required&gt; &quot;forward&quot;,
+        &quot;TargetGroupArn&quot; =&gt; &lt;required&gt; ::String
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>CreateListenerOutput</code></p><p><strong>Exceptions</strong></p><p><code>DuplicateListenerException</code>, <code>TooManyListenersException</code>, <code>TooManyCertificatesException</code>, <code>LoadBalancerNotFoundException</code>, <code>TargetGroupNotFoundException</code>, <code>TargetGroupAssociationLimitException</code>, <code>InvalidConfigurationRequestException</code>, <code>IncompatibleProtocolsException</code>, <code>SSLPolicyNotFoundException</code>, <code>CertificateNotFoundException</code>, <code>UnsupportedProtocolException</code> or <code>TooManyRegistrationsForTargetIdException</code>.</p><p><strong>Example: To create an HTTP listener</strong></p><p>This example creates an HTTP listener for the specified load balancer that forwards requests to the specified target group.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;DefaultActions&quot; =&gt; [
+        [
+            &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;,
+            &quot;Type&quot; =&gt; &quot;forward&quot;
+        ]
+    ],
+    &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;,
+    &quot;Port&quot; =&gt; 80,
+    &quot;Protocol&quot; =&gt; &quot;HTTP&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Listeners&quot; =&gt; [
+        Dict(
+            &quot;DefaultActions&quot; =&gt; [
+                Dict(
+                    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;,
+                    &quot;Type&quot; =&gt; &quot;forward&quot;
+                )
+            ],
+            &quot;ListenerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2&quot;,
+            &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;,
+            &quot;Port&quot; =&gt; 80,
+            &quot;Protocol&quot; =&gt; &quot;HTTP&quot;
+        )
+    ]
+)</code></pre><p><strong>Example: To create an HTTPS listener</strong></p><p>This example creates an HTTPS listener for the specified load balancer that forwards requests to the specified target group. Note that you must specify an SSL certificate for an HTTPS listener. You can create and manage certificates using AWS Certificate Manager (ACM). Alternatively, you can create a certificate using SSL/TLS tools, get the certificate signed by a certificate authority (CA), and upload the certificate to AWS Identity and Access Management (IAM).</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Certificates&quot; =&gt; [
+        [
+            &quot;CertificateArn&quot; =&gt; &quot;arn:aws:iam::123456789012:server-certificate/my-server-cert&quot;
+        ]
+    ],
+    &quot;DefaultActions&quot; =&gt; [
+        [
+            &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;,
+            &quot;Type&quot; =&gt; &quot;forward&quot;
+        ]
+    ],
+    &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;,
+    &quot;Port&quot; =&gt; 443,
+    &quot;Protocol&quot; =&gt; &quot;HTTPS&quot;,
+    &quot;SslPolicy&quot; =&gt; &quot;ELBSecurityPolicy-2015-05&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Listeners&quot; =&gt; [
+        Dict(
+            &quot;Certificates&quot; =&gt; [
+                Dict(
+                    &quot;CertificateArn&quot; =&gt; &quot;arn:aws:iam::123456789012:server-certificate/my-server-cert&quot;
+                )
+            ],
+            &quot;DefaultActions&quot; =&gt; [
+                Dict(
+                    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;,
+                    &quot;Type&quot; =&gt; &quot;forward&quot;
+                )
+            ],
+            &quot;ListenerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2&quot;,
+            &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;,
+            &quot;Port&quot; =&gt; 443,
+            &quot;Protocol&quot; =&gt; &quot;HTTPS&quot;,
+            &quot;SslPolicy&quot; =&gt; &quot;ELBSecurityPolicy-2015-05&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/CreateListener">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.create_load_balancer" href="#AWSSDK.ELBv2.create_load_balancer"><code>AWSSDK.ELBv2.create_load_balancer</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.create_load_balancer
+create_load_balancer([::AWSConfig], arguments::Dict)
+create_load_balancer([::AWSConfig]; Name=, Subnets=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;CreateLoadBalancer&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;CreateLoadBalancer&quot;, Name=, Subnets=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateLoadBalancer Operation</strong></p><p>Creates an Application Load Balancer.</p><p>When you create a load balancer, you can specify security groups, subnets, IP address type, and tags. Otherwise, you could do so later using <a href="@ref">SetSecurityGroups</a>, <a href="@ref">SetSubnets</a>, <a href="@ref">SetIpAddressType</a>, and <a href="@ref">AddTags</a>.</p><p>To create listeners for your load balancer, use <a href="@ref">CreateListener</a>. To describe your current load balancers, see <a href="@ref">DescribeLoadBalancers</a>. When you are finished with a load balancer, you can delete it using <a href="@ref">DeleteLoadBalancer</a>.</p><p>You can create up to 20 load balancers per region per account. You can request an increase for the number of load balancers for your account. For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-limits.html">Limits for Your Application Load Balancer</a> in the <em>Application Load Balancers Guide</em>.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancers.html">Application Load Balancers</a> in the <em>Application Load Balancers Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p>This name must be unique per region per account, can have a maximum of 32 characters, must contain only alphanumeric characters or hyphens, and must not begin or end with a hyphen.</p><p><strong><code>Subnets = [::String, ...]</code> – <em>Required</em></strong></p><p>The IDs of the subnets to attach to the load balancer. You can specify only one subnet per Availability Zone. You must specify subnets from at least two Availability Zones.</p><p><strong><code>SecurityGroups = [::String, ...]</code></strong></p><p>The IDs of the security groups to assign to the load balancer.</p><p><strong><code>Scheme = &quot;internet-facing&quot; or &quot;internal&quot;</code></strong></p><p>The nodes of an Internet-facing load balancer have public IP addresses. The DNS name of an Internet-facing load balancer is publicly resolvable to the public IP addresses of the nodes. Therefore, Internet-facing load balancers can route requests from clients over the Internet.</p><p>The nodes of an internal load balancer have only private IP addresses. The DNS name of an internal load balancer is publicly resolvable to the private IP addresses of the nodes. Therefore, internal load balancers can only route requests from clients with access to the VPC for the load balancer.</p><p>The default is an Internet-facing load balancer.</p><p><strong><code>Tags = [[ ... ], ...]</code></strong></p><p>One or more tags to assign to the load balancer.</p><pre><code class="language-none"> Tags = [[
+        &quot;Key&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Value&quot; =&gt;  ::String
+    ], ...]</code></pre><p><strong><code>IpAddressType = &quot;ipv4&quot; or &quot;dualstack&quot;</code></strong></p><p>The type of IP addresses used by the subnets for your load balancer. The possible values are <code>ipv4</code> (for IPv4 addresses) and <code>dualstack</code> (for IPv4 and IPv6 addresses). Internal load balancers must use <code>ipv4</code>.</p><p><strong>Returns</strong></p><p><code>CreateLoadBalancerOutput</code></p><p><strong>Exceptions</strong></p><p><code>DuplicateLoadBalancerNameException</code>, <code>TooManyLoadBalancersException</code>, <code>InvalidConfigurationRequestException</code>, <code>SubnetNotFoundException</code>, <code>InvalidSubnetException</code>, <code>InvalidSecurityGroupException</code>, <code>InvalidSchemeException</code>, <code>TooManyTagsException</code> or <code>DuplicateTagKeysException</code>.</p><p><strong>Example: To create an Internet-facing load balancer</strong></p><p>This example creates an Internet-facing load balancer and enables the Availability Zones for the specified subnets.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Name&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;Subnets&quot; =&gt; [
+        &quot;subnet-b7d581c0&quot;,
+        &quot;subnet-8360a9e7&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;LoadBalancers&quot; =&gt; [
+        Dict(
+            &quot;AvailabilityZones&quot; =&gt; [
+                Dict(
+                    &quot;SubnetId&quot; =&gt; &quot;subnet-8360a9e7&quot;,
+                    &quot;ZoneName&quot; =&gt; &quot;us-west-2a&quot;
+                ),
+                Dict(
+                    &quot;SubnetId&quot; =&gt; &quot;subnet-b7d581c0&quot;,
+                    &quot;ZoneName&quot; =&gt; &quot;us-west-2b&quot;
+                )
+            ],
+            &quot;CanonicalHostedZoneId&quot; =&gt; &quot;Z2P70J7EXAMPLE&quot;,
+            &quot;CreatedTime&quot; =&gt; &quot;2016-03-25T21:26:12.920Z&quot;,
+            &quot;DNSName&quot; =&gt; &quot;my-load-balancer-424835706.us-west-2.elb.amazonaws.com&quot;,
+            &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;,
+            &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+            &quot;Scheme&quot; =&gt; &quot;internet-facing&quot;,
+            &quot;SecurityGroups&quot; =&gt; [
+                &quot;sg-5943793c&quot;
+            ],
+            &quot;State&quot; =&gt; Dict(
+                &quot;Code&quot; =&gt; &quot;provisioning&quot;
+            ),
+            &quot;Type&quot; =&gt; &quot;application&quot;,
+            &quot;VpcId&quot; =&gt; &quot;vpc-3ac0fb5f&quot;
+        )
+    ]
+)</code></pre><p><strong>Example: To create an internal load balancer</strong></p><p>This example creates an internal load balancer and enables the Availability Zones for the specified subnets.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Name&quot; =&gt; &quot;my-internal-load-balancer&quot;,
+    &quot;Scheme&quot; =&gt; &quot;internal&quot;,
+    &quot;SecurityGroups&quot; =&gt; [
+
+    ],
+    &quot;Subnets&quot; =&gt; [
+        &quot;subnet-b7d581c0&quot;,
+        &quot;subnet-8360a9e7&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;LoadBalancers&quot; =&gt; [
+        Dict(
+            &quot;AvailabilityZones&quot; =&gt; [
+                Dict(
+                    &quot;SubnetId&quot; =&gt; &quot;subnet-8360a9e7&quot;,
+                    &quot;ZoneName&quot; =&gt; &quot;us-west-2a&quot;
+                ),
+                Dict(
+                    &quot;SubnetId&quot; =&gt; &quot;subnet-b7d581c0&quot;,
+                    &quot;ZoneName&quot; =&gt; &quot;us-west-2b&quot;
+                )
+            ],
+            &quot;CanonicalHostedZoneId&quot; =&gt; &quot;Z2P70J7EXAMPLE&quot;,
+            &quot;CreatedTime&quot; =&gt; &quot;2016-03-25T21:29:48.850Z&quot;,
+            &quot;DNSName&quot; =&gt; &quot;internal-my-internal-load-balancer-1529930873.us-west-2.elb.amazonaws.com&quot;,
+            &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-internal-load-balancer/5b49b8d4303115c2&quot;,
+            &quot;LoadBalancerName&quot; =&gt; &quot;my-internal-load-balancer&quot;,
+            &quot;Scheme&quot; =&gt; &quot;internal&quot;,
+            &quot;SecurityGroups&quot; =&gt; [
+                &quot;sg-5943793c&quot;
+            ],
+            &quot;State&quot; =&gt; Dict(
+                &quot;Code&quot; =&gt; &quot;provisioning&quot;
+            ),
+            &quot;Type&quot; =&gt; &quot;application&quot;,
+            &quot;VpcId&quot; =&gt; &quot;vpc-3ac0fb5f&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/CreateLoadBalancer">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.create_rule" href="#AWSSDK.ELBv2.create_rule"><code>AWSSDK.ELBv2.create_rule</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.create_rule
+create_rule([::AWSConfig], arguments::Dict)
+create_rule([::AWSConfig]; ListenerArn=, Conditions=, Priority=, Actions=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;CreateRule&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;CreateRule&quot;, ListenerArn=, Conditions=, Priority=, Actions=)</code></pre><p><strong>CreateRule Operation</strong></p><p>Creates a rule for the specified listener.</p><p>Each rule can have one action and one condition. Rules are evaluated in priority order, from the lowest value to the highest value. When the condition for a rule is met, the specified action is taken. If no conditions are met, the default action for the default rule is taken. For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-listeners.html#listener-rules">Listener Rules</a> in the <em>Application Load Balancers Guide</em>.</p><p>To view your current rules, use <a href="@ref">DescribeRules</a>. To update a rule, use <a href="@ref">ModifyRule</a>. To set the priorities of your rules, use <a href="@ref">SetRulePriorities</a>. To delete a rule, use <a href="@ref">DeleteRule</a>.</p><p><strong>Arguments</strong></p><p><strong><code>ListenerArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the listener.</p><p><strong><code>Conditions = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>A condition. Each condition specifies a field name and a single value.</p><p>If the field name is <code>host-header</code>, you can specify a single host name (for example, my.example.com). A host name is case insensitive, can be up to 128 characters in length, and can contain any of the following characters. Note that you can include up to three wildcard characters.</p><ul><li><p>A-Z, a-z, 0-9</p></li><li><ul><li><p>.</p></li></ul></li><li><ul><li><p>(matches 0 or more characters)</p></li></ul></li><li><p>? (matches exactly 1 character)</p></li></ul><p>If the field name is <code>path-pattern</code>, you can specify a single path pattern. A path pattern is case sensitive, can be up to 128 characters in length, and can contain any of the following characters. Note that you can include up to three wildcard characters.</p><ul><li><p>A-Z, a-z, 0-9</p></li><li><p>_ - . $ / ~ &quot; &#39; @ : +</p></li><li><p>&amp; (using &amp;amp;)</p></li><li><ul><li><p>(matches 0 or more characters)</p></li></ul></li><li><p>? (matches exactly 1 character)</p></li></ul><pre><code class="language-none"> Conditions = [[
+        &quot;Field&quot; =&gt;  ::String,
+        &quot;Values&quot; =&gt;  [::String, ...]
+    ], ...]</code></pre><p><strong><code>Priority = ::Int</code> – <em>Required</em></strong></p><p>The priority for the rule. A listener can&#39;t have multiple rules with the same priority.</p><p><strong><code>Actions = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>An action. Each action has the type <code>forward</code> and specifies a target group.</p><pre><code class="language-none"> Actions = [[
+        &quot;Type&quot; =&gt; &lt;required&gt; &quot;forward&quot;,
+        &quot;TargetGroupArn&quot; =&gt; &lt;required&gt; ::String
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>CreateRuleOutput</code></p><p><strong>Exceptions</strong></p><p><code>PriorityInUseException</code>, <code>TooManyTargetGroupsException</code>, <code>TooManyRulesException</code>, <code>TargetGroupAssociationLimitException</code>, <code>ListenerNotFoundException</code>, <code>TargetGroupNotFoundException</code>, <code>InvalidConfigurationRequestException</code> or <code>TooManyRegistrationsForTargetIdException</code>.</p><p><strong>Example: To create a rule</strong></p><p>This example creates a rule that forwards requests to the specified target group if the URL contains the specified pattern (for example, /img/*).</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Actions&quot; =&gt; [
+        [
+            &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;,
+            &quot;Type&quot; =&gt; &quot;forward&quot;
+        ]
+    ],
+    &quot;Conditions&quot; =&gt; [
+        [
+            &quot;Field&quot; =&gt; &quot;path-pattern&quot;,
+            &quot;Values&quot; =&gt; [
+                &quot;/img/*&quot;
+            ]
+        ]
+    ],
+    &quot;ListenerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2&quot;,
+    &quot;Priority&quot; =&gt; 10
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Rules&quot; =&gt; [
+        Dict(
+            &quot;Actions&quot; =&gt; [
+                Dict(
+                    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;,
+                    &quot;Type&quot; =&gt; &quot;forward&quot;
+                )
+            ],
+            &quot;Conditions&quot; =&gt; [
+                Dict(
+                    &quot;Field&quot; =&gt; &quot;path-pattern&quot;,
+                    &quot;Values&quot; =&gt; [
+                        &quot;/img/*&quot;
+                    ]
+                )
+            ],
+            &quot;IsDefault&quot; =&gt; false,
+            &quot;Priority&quot; =&gt; &quot;10&quot;,
+            &quot;RuleArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener-rule/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2/9683b2d02a6cabee&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/CreateRule">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.create_target_group" href="#AWSSDK.ELBv2.create_target_group"><code>AWSSDK.ELBv2.create_target_group</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.create_target_group
+create_target_group([::AWSConfig], arguments::Dict)
+create_target_group([::AWSConfig]; Name=, Protocol=, Port=, VpcId=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;CreateTargetGroup&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;CreateTargetGroup&quot;, Name=, Protocol=, Port=, VpcId=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateTargetGroup Operation</strong></p><p>Creates a target group.</p><p>To register targets with the target group, use <a href="@ref">RegisterTargets</a>. To update the health check settings for the target group, use <a href="@ref">ModifyTargetGroup</a>. To monitor the health of targets in the target group, use <a href="@ref">DescribeTargetHealth</a>.</p><p>To route traffic to the targets in a target group, specify the target group in an action using <a href="@ref">CreateListener</a> or <a href="@ref">CreateRule</a>.</p><p>To delete a target group, use <a href="@ref">DeleteTargetGroup</a>.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html">Target Groups for Your Application Load Balancers</a> in the <em>Application Load Balancers Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>The name of the target group.</p><p>This name must be unique per region per account, can have a maximum of 32 characters, must contain only alphanumeric characters or hyphens, and must not begin or end with a hyphen.</p><p><strong><code>Protocol = &quot;HTTP&quot; or &quot;HTTPS&quot;</code> – <em>Required</em></strong></p><p>The protocol to use for routing traffic to the targets.</p><p><strong><code>Port = ::Int</code> – <em>Required</em></strong></p><p>The port on which the targets receive traffic. This port is used unless you specify a port override when registering the target.</p><p><strong><code>VpcId = ::String</code> – <em>Required</em></strong></p><p>The identifier of the virtual private cloud (VPC).</p><p><strong><code>HealthCheckProtocol = &quot;HTTP&quot; or &quot;HTTPS&quot;</code></strong></p><p>The protocol the load balancer uses when performing health checks on targets. The default is the HTTP protocol.</p><p><strong><code>HealthCheckPort = ::String</code></strong></p><p>The port the load balancer uses when performing health checks on targets. The default is <code>traffic-port</code>, which indicates the port on which each target receives traffic from the load balancer.</p><p><strong><code>HealthCheckPath = ::String</code></strong></p><p>The ping path that is the destination on the targets for health checks. The default is /.</p><p><strong><code>HealthCheckIntervalSeconds = ::Int</code></strong></p><p>The approximate amount of time, in seconds, between health checks of an individual target. The default is 30 seconds.</p><p><strong><code>HealthCheckTimeoutSeconds = ::Int</code></strong></p><p>The amount of time, in seconds, during which no response from a target means a failed health check. The default is 5 seconds.</p><p><strong><code>HealthyThresholdCount = ::Int</code></strong></p><p>The number of consecutive health checks successes required before considering an unhealthy target healthy. The default is 5.</p><p><strong><code>UnhealthyThresholdCount = ::Int</code></strong></p><p>The number of consecutive health check failures required before considering a target unhealthy. The default is 2.</p><p><strong><code>Matcher = [&quot;HttpCode&quot; =&gt; &lt;required&gt; ::String]</code></strong></p><p>The HTTP codes to use when checking for a successful response from a target. The default is 200.</p><p><strong>Returns</strong></p><p><code>CreateTargetGroupOutput</code></p><p><strong>Exceptions</strong></p><p><code>DuplicateTargetGroupNameException</code> or <code>TooManyTargetGroupsException</code>.</p><p><strong>Example: To create a target group</strong></p><p>This example creates a target group that you can use to route traffic to targets using HTTP on port 80. This target group uses the default health check configuration.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Name&quot; =&gt; &quot;my-targets&quot;,
+    &quot;Port&quot; =&gt; 80,
+    &quot;Protocol&quot; =&gt; &quot;HTTP&quot;,
+    &quot;VpcId&quot; =&gt; &quot;vpc-3ac0fb5f&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;TargetGroups&quot; =&gt; [
+        Dict(
+            &quot;HealthCheckIntervalSeconds&quot; =&gt; 30,
+            &quot;HealthCheckPath&quot; =&gt; &quot;/&quot;,
+            &quot;HealthCheckPort&quot; =&gt; &quot;traffic-port&quot;,
+            &quot;HealthCheckProtocol&quot; =&gt; &quot;HTTP&quot;,
+            &quot;HealthCheckTimeoutSeconds&quot; =&gt; 5,
+            &quot;HealthyThresholdCount&quot; =&gt; 5,
+            &quot;Matcher&quot; =&gt; Dict(
+                &quot;HttpCode&quot; =&gt; &quot;200&quot;
+            ),
+            &quot;Port&quot; =&gt; 80,
+            &quot;Protocol&quot; =&gt; &quot;HTTP&quot;,
+            &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;,
+            &quot;TargetGroupName&quot; =&gt; &quot;my-targets&quot;,
+            &quot;UnhealthyThresholdCount&quot; =&gt; 2,
+            &quot;VpcId&quot; =&gt; &quot;vpc-3ac0fb5f&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/CreateTargetGroup">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.delete_listener" href="#AWSSDK.ELBv2.delete_listener"><code>AWSSDK.ELBv2.delete_listener</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.delete_listener
+delete_listener([::AWSConfig], arguments::Dict)
+delete_listener([::AWSConfig]; ListenerArn=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;DeleteListener&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;DeleteListener&quot;, ListenerArn=)</code></pre><p><strong>DeleteListener Operation</strong></p><p>Deletes the specified listener.</p><p>Alternatively, your listener is deleted when you delete the load balancer it is attached to using <a href="@ref">DeleteLoadBalancer</a>.</p><p><strong>Arguments</strong></p><p><strong><code>ListenerArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the listener.</p><p><strong>Returns</strong></p><p><code>DeleteListenerOutput</code></p><p><strong>Exceptions</strong></p><p><code>ListenerNotFoundException</code>.</p><p><strong>Example: To delete a listener</strong></p><p>This example deletes the specified listener.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;ListenerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:ua-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DeleteListener">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.delete_load_balancer" href="#AWSSDK.ELBv2.delete_load_balancer"><code>AWSSDK.ELBv2.delete_load_balancer</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.delete_load_balancer
+delete_load_balancer([::AWSConfig], arguments::Dict)
+delete_load_balancer([::AWSConfig]; LoadBalancerArn=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;DeleteLoadBalancer&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;DeleteLoadBalancer&quot;, LoadBalancerArn=)</code></pre><p><strong>DeleteLoadBalancer Operation</strong></p><p>Deletes the specified Application Load Balancer and its attached listeners.</p><p>You can&#39;t delete a load balancer if deletion protection is enabled. If the load balancer does not exist or has already been deleted, the call succeeds.</p><p>Deleting a load balancer does not affect its registered targets. For example, your EC2 instances continue to run and are still registered to their target groups. If you no longer need these EC2 instances, you can stop or terminate them.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the load balancer.</p><p><strong>Returns</strong></p><p><code>DeleteLoadBalancerOutput</code></p><p><strong>Exceptions</strong></p><p><code>LoadBalancerNotFoundException</code> or <code>OperationNotPermittedException</code>.</p><p><strong>Example: To delete a load balancer</strong></p><p>This example deletes the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DeleteLoadBalancer">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.delete_rule" href="#AWSSDK.ELBv2.delete_rule"><code>AWSSDK.ELBv2.delete_rule</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.delete_rule
+delete_rule([::AWSConfig], arguments::Dict)
+delete_rule([::AWSConfig]; RuleArn=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;DeleteRule&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;DeleteRule&quot;, RuleArn=)</code></pre><p><strong>DeleteRule Operation</strong></p><p>Deletes the specified rule.</p><p><strong>Arguments</strong></p><p><strong><code>RuleArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the rule.</p><p><strong>Returns</strong></p><p><code>DeleteRuleOutput</code></p><p><strong>Exceptions</strong></p><p><code>RuleNotFoundException</code> or <code>OperationNotPermittedException</code>.</p><p><strong>Example: To delete a rule</strong></p><p>This example deletes the specified rule.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;RuleArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener-rule/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2/1291d13826f405c3&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DeleteRule">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.delete_target_group" href="#AWSSDK.ELBv2.delete_target_group"><code>AWSSDK.ELBv2.delete_target_group</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.delete_target_group
+delete_target_group([::AWSConfig], arguments::Dict)
+delete_target_group([::AWSConfig]; TargetGroupArn=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;DeleteTargetGroup&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;DeleteTargetGroup&quot;, TargetGroupArn=)</code></pre><p><strong>DeleteTargetGroup Operation</strong></p><p>Deletes the specified target group.</p><p>You can delete a target group if it is not referenced by any actions. Deleting a target group also deletes any associated health checks.</p><p><strong>Arguments</strong></p><p><strong><code>TargetGroupArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the target group.</p><p><strong>Returns</strong></p><p><code>DeleteTargetGroupOutput</code></p><p><strong>Exceptions</strong></p><p><code>ResourceInUseException</code>.</p><p><strong>Example: To delete a target group</strong></p><p>This example deletes the specified target group.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DeleteTargetGroup">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.deregister_targets" href="#AWSSDK.ELBv2.deregister_targets"><code>AWSSDK.ELBv2.deregister_targets</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.deregister_targets
+deregister_targets([::AWSConfig], arguments::Dict)
+deregister_targets([::AWSConfig]; TargetGroupArn=, Targets=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;DeregisterTargets&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;DeregisterTargets&quot;, TargetGroupArn=, Targets=)</code></pre><p><strong>DeregisterTargets Operation</strong></p><p>Deregisters the specified targets from the specified target group. After the targets are deregistered, they no longer receive traffic from the load balancer.</p><p><strong>Arguments</strong></p><p><strong><code>TargetGroupArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the target group.</p><p><strong><code>Targets = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>The targets. If you specified a port override when you registered a target, you must specify both the target ID and the port when you deregister it.</p><pre><code class="language-none"> Targets = [[
+        &quot;Id&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Port&quot; =&gt;  ::Int
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>DeregisterTargetsOutput</code></p><p><strong>Exceptions</strong></p><p><code>TargetGroupNotFoundException</code> or <code>InvalidTargetException</code>.</p><p><strong>Example: To deregister a target from a target group</strong></p><p>This example deregisters the specified instance from the specified target group.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;,
+    &quot;Targets&quot; =&gt; [
+        [
+            &quot;Id&quot; =&gt; &quot;i-0f76fade&quot;
+        ]
+    ]
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DeregisterTargets">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.describe_account_limits" href="#AWSSDK.ELBv2.describe_account_limits"><code>AWSSDK.ELBv2.describe_account_limits</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.describe_account_limits
+describe_account_limits([::AWSConfig], arguments::Dict)
+describe_account_limits([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeAccountLimits&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeAccountLimits&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>DescribeAccountLimits Operation</strong></p><p>Describes the current Elastic Load Balancing resource limits for your AWS account.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-limits.html">Limits for Your Application Load Balancer</a> in the <em>Application Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>Marker = ::String</code></strong></p><p>The marker for the next set of results. (You received this marker from a previous call.)</p><p><strong><code>PageSize = ::Int</code></strong></p><p>The maximum number of results to return with this call.</p><p><strong>Returns</strong></p><p><code>DescribeAccountLimitsOutput</code></p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeAccountLimits">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.describe_listeners" href="#AWSSDK.ELBv2.describe_listeners"><code>AWSSDK.ELBv2.describe_listeners</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.describe_listeners
+describe_listeners([::AWSConfig], arguments::Dict)
+describe_listeners([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeListeners&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeListeners&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>DescribeListeners Operation</strong></p><p>Describes the specified listeners or the listeners for the specified Application Load Balancer. You must specify either a load balancer or one or more listeners.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerArn = ::String</code></strong></p><p>The Amazon Resource Name (ARN) of the load balancer.</p><p><strong><code>ListenerArns = [::String, ...]</code></strong></p><p>The Amazon Resource Names (ARN) of the listeners.</p><p><strong><code>Marker = ::String</code></strong></p><p>The marker for the next set of results. (You received this marker from a previous call.)</p><p><strong><code>PageSize = ::Int</code></strong></p><p>The maximum number of results to return with this call.</p><p><strong>Returns</strong></p><p><code>DescribeListenersOutput</code></p><p><strong>Exceptions</strong></p><p><code>ListenerNotFoundException</code> or <code>LoadBalancerNotFoundException</code>.</p><p><strong>Example: To describe a listener</strong></p><p>This example describes the specified listener.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;ListenerArns&quot; =&gt; [
+        &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Listeners&quot; =&gt; [
+        Dict(
+            &quot;DefaultActions&quot; =&gt; [
+                Dict(
+                    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;,
+                    &quot;Type&quot; =&gt; &quot;forward&quot;
+                )
+            ],
+            &quot;ListenerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2&quot;,
+            &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;,
+            &quot;Port&quot; =&gt; 80,
+            &quot;Protocol&quot; =&gt; &quot;HTTP&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeListeners">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.describe_load_balancer_attributes" href="#AWSSDK.ELBv2.describe_load_balancer_attributes"><code>AWSSDK.ELBv2.describe_load_balancer_attributes</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.describe_load_balancer_attributes
+describe_load_balancer_attributes([::AWSConfig], arguments::Dict)
+describe_load_balancer_attributes([::AWSConfig]; LoadBalancerArn=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeLoadBalancerAttributes&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeLoadBalancerAttributes&quot;, LoadBalancerArn=)</code></pre><p><strong>DescribeLoadBalancerAttributes Operation</strong></p><p>Describes the attributes for the specified Application Load Balancer.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the load balancer.</p><p><strong>Returns</strong></p><p><code>DescribeLoadBalancerAttributesOutput</code></p><p><strong>Exceptions</strong></p><p><code>LoadBalancerNotFoundException</code>.</p><p><strong>Example: To describe load balancer attributes</strong></p><p>This example describes the attributes of the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Attributes&quot; =&gt; [
+        Dict(
+            &quot;Key&quot; =&gt; &quot;access_logs.s3.enabled&quot;,
+            &quot;Value&quot; =&gt; &quot;false&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;idle_timeout.timeout_seconds&quot;,
+            &quot;Value&quot; =&gt; &quot;60&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;access_logs.s3.prefix&quot;,
+            &quot;Value&quot; =&gt; &quot;&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;deletion_protection.enabled&quot;,
+            &quot;Value&quot; =&gt; &quot;false&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;access_logs.s3.bucket&quot;,
+            &quot;Value&quot; =&gt; &quot;&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeLoadBalancerAttributes">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.describe_load_balancers" href="#AWSSDK.ELBv2.describe_load_balancers"><code>AWSSDK.ELBv2.describe_load_balancers</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.describe_load_balancers
+describe_load_balancers([::AWSConfig], arguments::Dict)
+describe_load_balancers([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeLoadBalancers&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeLoadBalancers&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>DescribeLoadBalancers Operation</strong></p><p>Describes the specified Application Load Balancers or all of your Application Load Balancers.</p><p>To describe the listeners for a load balancer, use <a href="@ref">DescribeListeners</a>. To describe the attributes for a load balancer, use <a href="@ref">DescribeLoadBalancerAttributes</a>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerArns = [::String, ...]</code></strong></p><p>The Amazon Resource Names (ARN) of the load balancers. You can specify up to 20 load balancers in a single call.</p><p><strong><code>Names = [::String, ...]</code></strong></p><p>The names of the load balancers.</p><p><strong><code>Marker = ::String</code></strong></p><p>The marker for the next set of results. (You received this marker from a previous call.)</p><p><strong><code>PageSize = ::Int</code></strong></p><p>The maximum number of results to return with this call.</p><p><strong>Returns</strong></p><p><code>DescribeLoadBalancersOutput</code></p><p><strong>Exceptions</strong></p><p><code>LoadBalancerNotFoundException</code>.</p><p><strong>Example: To describe a load balancer</strong></p><p>This example describes the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerArns&quot; =&gt; [
+        &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;LoadBalancers&quot; =&gt; [
+        Dict(
+            &quot;AvailabilityZones&quot; =&gt; [
+                Dict(
+                    &quot;SubnetId&quot; =&gt; &quot;subnet-8360a9e7&quot;,
+                    &quot;ZoneName&quot; =&gt; &quot;us-west-2a&quot;
+                ),
+                Dict(
+                    &quot;SubnetId&quot; =&gt; &quot;subnet-b7d581c0&quot;,
+                    &quot;ZoneName&quot; =&gt; &quot;us-west-2b&quot;
+                )
+            ],
+            &quot;CanonicalHostedZoneId&quot; =&gt; &quot;Z2P70J7EXAMPLE&quot;,
+            &quot;CreatedTime&quot; =&gt; &quot;2016-03-25T21:26:12.920Z&quot;,
+            &quot;DNSName&quot; =&gt; &quot;my-load-balancer-424835706.us-west-2.elb.amazonaws.com&quot;,
+            &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;,
+            &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+            &quot;Scheme&quot; =&gt; &quot;internet-facing&quot;,
+            &quot;SecurityGroups&quot; =&gt; [
+                &quot;sg-5943793c&quot;
+            ],
+            &quot;State&quot; =&gt; Dict(
+                &quot;Code&quot; =&gt; &quot;active&quot;
+            ),
+            &quot;Type&quot; =&gt; &quot;application&quot;,
+            &quot;VpcId&quot; =&gt; &quot;vpc-3ac0fb5f&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeLoadBalancers">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.describe_rules" href="#AWSSDK.ELBv2.describe_rules"><code>AWSSDK.ELBv2.describe_rules</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.describe_rules
+describe_rules([::AWSConfig], arguments::Dict)
+describe_rules([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeRules&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeRules&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>DescribeRules Operation</strong></p><p>Describes the specified rules or the rules for the specified listener. You must specify either a listener or one or more rules.</p><p><strong>Arguments</strong></p><p><strong><code>ListenerArn = ::String</code></strong></p><p>The Amazon Resource Name (ARN) of the listener.</p><p><strong><code>RuleArns = [::String, ...]</code></strong></p><p>The Amazon Resource Names (ARN) of the rules.</p><p><strong><code>Marker = ::String</code></strong></p><p>The marker for the next set of results. (You received this marker from a previous call.)</p><p><strong><code>PageSize = ::Int</code></strong></p><p>The maximum number of results to return with this call.</p><p><strong>Returns</strong></p><p><code>DescribeRulesOutput</code></p><p><strong>Exceptions</strong></p><p><code>ListenerNotFoundException</code> or <code>RuleNotFoundException</code>.</p><p><strong>Example: To describe a rule</strong></p><p>This example describes the specified rule.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;RuleArns&quot; =&gt; [
+        &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener-rule/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2/9683b2d02a6cabee&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Rules&quot; =&gt; [
+        Dict(
+            &quot;Actions&quot; =&gt; [
+                Dict(
+                    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;,
+                    &quot;Type&quot; =&gt; &quot;forward&quot;
+                )
+            ],
+            &quot;Conditions&quot; =&gt; [
+                Dict(
+                    &quot;Field&quot; =&gt; &quot;path-pattern&quot;,
+                    &quot;Values&quot; =&gt; [
+                        &quot;/img/*&quot;
+                    ]
+                )
+            ],
+            &quot;IsDefault&quot; =&gt; false,
+            &quot;Priority&quot; =&gt; &quot;10&quot;,
+            &quot;RuleArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener-rule/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2/9683b2d02a6cabee&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeRules">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.describe_sslpolicies" href="#AWSSDK.ELBv2.describe_sslpolicies"><code>AWSSDK.ELBv2.describe_sslpolicies</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.describe_sslpolicies
+describe_sslpolicies([::AWSConfig], arguments::Dict)
+describe_sslpolicies([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeSSLPolicies&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeSSLPolicies&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>DescribeSSLPolicies Operation</strong></p><p>Describes the specified policies or all policies used for SSL negotiation.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#describe-ssl-policies">Security Policies</a> in the <em>Application Load Balancers Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>Names = [::String, ...]</code></strong></p><p>The names of the policies.</p><p><strong><code>Marker = ::String</code></strong></p><p>The marker for the next set of results. (You received this marker from a previous call.)</p><p><strong><code>PageSize = ::Int</code></strong></p><p>The maximum number of results to return with this call.</p><p><strong>Returns</strong></p><p><code>DescribeSSLPoliciesOutput</code></p><p><strong>Exceptions</strong></p><p><code>SSLPolicyNotFoundException</code>.</p><p><strong>Example: To describe a policy used for SSL negotiation</strong></p><p>This example describes the specified policy used for SSL negotiation.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Names&quot; =&gt; [
+        &quot;ELBSecurityPolicy-2015-05&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;SslPolicies&quot; =&gt; [
+        Dict(
+            &quot;Ciphers&quot; =&gt; [
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;ECDHE-ECDSA-AES128-GCM-SHA256&quot;,
+                    &quot;Priority&quot; =&gt; 1
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;ECDHE-RSA-AES128-GCM-SHA256&quot;,
+                    &quot;Priority&quot; =&gt; 2
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;ECDHE-ECDSA-AES128-SHA256&quot;,
+                    &quot;Priority&quot; =&gt; 3
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;ECDHE-RSA-AES128-SHA256&quot;,
+                    &quot;Priority&quot; =&gt; 4
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;ECDHE-ECDSA-AES128-SHA&quot;,
+                    &quot;Priority&quot; =&gt; 5
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;ECDHE-RSA-AES128-SHA&quot;,
+                    &quot;Priority&quot; =&gt; 6
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;DHE-RSA-AES128-SHA&quot;,
+                    &quot;Priority&quot; =&gt; 7
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;ECDHE-ECDSA-AES256-GCM-SHA384&quot;,
+                    &quot;Priority&quot; =&gt; 8
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;ECDHE-RSA-AES256-GCM-SHA384&quot;,
+                    &quot;Priority&quot; =&gt; 9
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;ECDHE-ECDSA-AES256-SHA384&quot;,
+                    &quot;Priority&quot; =&gt; 10
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;ECDHE-RSA-AES256-SHA384&quot;,
+                    &quot;Priority&quot; =&gt; 11
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;ECDHE-RSA-AES256-SHA&quot;,
+                    &quot;Priority&quot; =&gt; 12
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;ECDHE-ECDSA-AES256-SHA&quot;,
+                    &quot;Priority&quot; =&gt; 13
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;AES128-GCM-SHA256&quot;,
+                    &quot;Priority&quot; =&gt; 14
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;AES128-SHA256&quot;,
+                    &quot;Priority&quot; =&gt; 15
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;AES128-SHA&quot;,
+                    &quot;Priority&quot; =&gt; 16
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;AES256-GCM-SHA384&quot;,
+                    &quot;Priority&quot; =&gt; 17
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;AES256-SHA256&quot;,
+                    &quot;Priority&quot; =&gt; 18
+                ),
+                Dict(
+                    &quot;Name&quot; =&gt; &quot;AES256-SHA&quot;,
+                    &quot;Priority&quot; =&gt; 19
+                )
+            ],
+            &quot;Name&quot; =&gt; &quot;ELBSecurityPolicy-2015-05&quot;,
+            &quot;SslProtocols&quot; =&gt; [
+                &quot;TLSv1&quot;,
+                &quot;TLSv1.1&quot;,
+                &quot;TLSv1.2&quot;
+            ]
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeSSLPolicies">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.describe_tags" href="#AWSSDK.ELBv2.describe_tags"><code>AWSSDK.ELBv2.describe_tags</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.describe_tags
+describe_tags([::AWSConfig], arguments::Dict)
+describe_tags([::AWSConfig]; ResourceArns=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeTags&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeTags&quot;, ResourceArns=)</code></pre><p><strong>DescribeTags Operation</strong></p><p>Describes the tags for the specified resources. You can describe the tags for one or more Application Load Balancers and target groups.</p><p><strong>Arguments</strong></p><p><strong><code>ResourceArns = [::String, ...]</code> – <em>Required</em></strong></p><p>The Amazon Resource Names (ARN) of the resources.</p><p><strong>Returns</strong></p><p><code>DescribeTagsOutput</code></p><p><strong>Exceptions</strong></p><p><code>LoadBalancerNotFoundException</code>, <code>TargetGroupNotFoundException</code>, <code>ListenerNotFoundException</code> or <code>RuleNotFoundException</code>.</p><p><strong>Example: To describe the tags assigned to a load balancer</strong></p><p>This example describes the tags assigned to the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;ResourceArns&quot; =&gt; [
+        &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;TagDescriptions&quot; =&gt; [
+        Dict(
+            &quot;ResourceArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;,
+            &quot;Tags&quot; =&gt; [
+                Dict(
+                    &quot;Key&quot; =&gt; &quot;project&quot;,
+                    &quot;Value&quot; =&gt; &quot;lima&quot;
+                ),
+                Dict(
+                    &quot;Key&quot; =&gt; &quot;department&quot;,
+                    &quot;Value&quot; =&gt; &quot;digital-media&quot;
+                )
+            ]
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeTags">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.describe_target_group_attributes" href="#AWSSDK.ELBv2.describe_target_group_attributes"><code>AWSSDK.ELBv2.describe_target_group_attributes</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.describe_target_group_attributes
+describe_target_group_attributes([::AWSConfig], arguments::Dict)
+describe_target_group_attributes([::AWSConfig]; TargetGroupArn=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeTargetGroupAttributes&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeTargetGroupAttributes&quot;, TargetGroupArn=)</code></pre><p><strong>DescribeTargetGroupAttributes Operation</strong></p><p>Describes the attributes for the specified target group.</p><p><strong>Arguments</strong></p><p><strong><code>TargetGroupArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the target group.</p><p><strong>Returns</strong></p><p><code>DescribeTargetGroupAttributesOutput</code></p><p><strong>Exceptions</strong></p><p><code>TargetGroupNotFoundException</code>.</p><p><strong>Example: To describe target group attributes</strong></p><p>This example describes the attributes of the specified target group.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Attributes&quot; =&gt; [
+        Dict(
+            &quot;Key&quot; =&gt; &quot;stickiness.enabled&quot;,
+            &quot;Value&quot; =&gt; &quot;false&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;deregistration_delay.timeout_seconds&quot;,
+            &quot;Value&quot; =&gt; &quot;300&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;stickiness.type&quot;,
+            &quot;Value&quot; =&gt; &quot;lb_cookie&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;stickiness.lb_cookie.duration_seconds&quot;,
+            &quot;Value&quot; =&gt; &quot;86400&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeTargetGroupAttributes">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.describe_target_groups" href="#AWSSDK.ELBv2.describe_target_groups"><code>AWSSDK.ELBv2.describe_target_groups</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.describe_target_groups
+describe_target_groups([::AWSConfig], arguments::Dict)
+describe_target_groups([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeTargetGroups&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeTargetGroups&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>DescribeTargetGroups Operation</strong></p><p>Describes the specified target groups or all of your target groups. By default, all target groups are described. Alternatively, you can specify one of the following to filter the results: the ARN of the load balancer, the names of one or more target groups, or the ARNs of one or more target groups.</p><p>To describe the targets for a target group, use <a href="@ref">DescribeTargetHealth</a>. To describe the attributes of a target group, use <a href="@ref">DescribeTargetGroupAttributes</a>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerArn = ::String</code></strong></p><p>The Amazon Resource Name (ARN) of the load balancer.</p><p><strong><code>TargetGroupArns = [::String, ...]</code></strong></p><p>The Amazon Resource Names (ARN) of the target groups.</p><p><strong><code>Names = [::String, ...]</code></strong></p><p>The names of the target groups.</p><p><strong><code>Marker = ::String</code></strong></p><p>The marker for the next set of results. (You received this marker from a previous call.)</p><p><strong><code>PageSize = ::Int</code></strong></p><p>The maximum number of results to return with this call.</p><p><strong>Returns</strong></p><p><code>DescribeTargetGroupsOutput</code></p><p><strong>Exceptions</strong></p><p><code>LoadBalancerNotFoundException</code> or <code>TargetGroupNotFoundException</code>.</p><p><strong>Example: To describe a target group</strong></p><p>This example describes the specified target group.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;TargetGroupArns&quot; =&gt; [
+        &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;TargetGroups&quot; =&gt; [
+        Dict(
+            &quot;HealthCheckIntervalSeconds&quot; =&gt; 30,
+            &quot;HealthCheckPath&quot; =&gt; &quot;/&quot;,
+            &quot;HealthCheckPort&quot; =&gt; &quot;traffic-port&quot;,
+            &quot;HealthCheckProtocol&quot; =&gt; &quot;HTTP&quot;,
+            &quot;HealthCheckTimeoutSeconds&quot; =&gt; 5,
+            &quot;HealthyThresholdCount&quot; =&gt; 5,
+            &quot;LoadBalancerArns&quot; =&gt; [
+                &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;
+            ],
+            &quot;Matcher&quot; =&gt; Dict(
+                &quot;HttpCode&quot; =&gt; &quot;200&quot;
+            ),
+            &quot;Port&quot; =&gt; 80,
+            &quot;Protocol&quot; =&gt; &quot;HTTP&quot;,
+            &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;,
+            &quot;TargetGroupName&quot; =&gt; &quot;my-targets&quot;,
+            &quot;UnhealthyThresholdCount&quot; =&gt; 2,
+            &quot;VpcId&quot; =&gt; &quot;vpc-3ac0fb5f&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeTargetGroups">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.describe_target_health" href="#AWSSDK.ELBv2.describe_target_health"><code>AWSSDK.ELBv2.describe_target_health</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.describe_target_health
+describe_target_health([::AWSConfig], arguments::Dict)
+describe_target_health([::AWSConfig]; TargetGroupArn=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeTargetHealth&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;DescribeTargetHealth&quot;, TargetGroupArn=, &lt;keyword arguments&gt;)</code></pre><p><strong>DescribeTargetHealth Operation</strong></p><p>Describes the health of the specified targets or all of your targets.</p><p><strong>Arguments</strong></p><p><strong><code>TargetGroupArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the target group.</p><p><strong><code>Targets = [[ ... ], ...]</code></strong></p><p>The targets.</p><pre><code class="language-none"> Targets = [[
+        &quot;Id&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Port&quot; =&gt;  ::Int
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>DescribeTargetHealthOutput</code></p><p><strong>Exceptions</strong></p><p><code>InvalidTargetException</code>, <code>TargetGroupNotFoundException</code> or <code>HealthUnavailableException</code>.</p><p><strong>Example: To describe the health of the targets for a target group</strong></p><p>This example describes the health of the targets for the specified target group. One target is healthy but the other is not specified in an action, so it can&#39;t receive traffic from the load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;TargetHealthDescriptions&quot; =&gt; [
+        Dict(
+            &quot;Target&quot; =&gt; Dict(
+                &quot;Id&quot; =&gt; &quot;i-0f76fade&quot;,
+                &quot;Port&quot; =&gt; 80
+            ),
+            &quot;TargetHealth&quot; =&gt; Dict(
+                &quot;Description&quot; =&gt; &quot;Given target group is not configured to receive traffic from ELB&quot;,
+                &quot;Reason&quot; =&gt; &quot;Target.NotInUse&quot;,
+                &quot;State&quot; =&gt; &quot;unused&quot;
+            )
+        ),
+        Dict(
+            &quot;HealthCheckPort&quot; =&gt; &quot;80&quot;,
+            &quot;Target&quot; =&gt; Dict(
+                &quot;Id&quot; =&gt; &quot;i-0f76fade&quot;,
+                &quot;Port&quot; =&gt; 80
+            ),
+            &quot;TargetHealth&quot; =&gt; Dict(
+                &quot;State&quot; =&gt; &quot;healthy&quot;
+            )
+        )
+    ]
+)</code></pre><p><strong>Example: To describe the health of a target</strong></p><p>This example describes the health of the specified target. This target is healthy.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;,
+    &quot;Targets&quot; =&gt; [
+        [
+            &quot;Id&quot; =&gt; &quot;i-0f76fade&quot;,
+            &quot;Port&quot; =&gt; 80
+        ]
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;TargetHealthDescriptions&quot; =&gt; [
+        Dict(
+            &quot;HealthCheckPort&quot; =&gt; &quot;80&quot;,
+            &quot;Target&quot; =&gt; Dict(
+                &quot;Id&quot; =&gt; &quot;i-0f76fade&quot;,
+                &quot;Port&quot; =&gt; 80
+            ),
+            &quot;TargetHealth&quot; =&gt; Dict(
+                &quot;State&quot; =&gt; &quot;healthy&quot;
+            )
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/DescribeTargetHealth">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.modify_listener" href="#AWSSDK.ELBv2.modify_listener"><code>AWSSDK.ELBv2.modify_listener</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.modify_listener
+modify_listener([::AWSConfig], arguments::Dict)
+modify_listener([::AWSConfig]; ListenerArn=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;ModifyListener&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;ModifyListener&quot;, ListenerArn=, &lt;keyword arguments&gt;)</code></pre><p><strong>ModifyListener Operation</strong></p><p>Modifies the specified properties of the specified listener.</p><p>Any properties that you do not specify retain their current values. However, changing the protocol from HTTPS to HTTP removes the security policy and SSL certificate properties. If you change the protocol from HTTP to HTTPS, you must add the security policy and server certificate.</p><p><strong>Arguments</strong></p><p><strong><code>ListenerArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the listener.</p><p><strong><code>Port = ::Int</code></strong></p><p>The port for connections from clients to the load balancer.</p><p><strong><code>Protocol = &quot;HTTP&quot; or &quot;HTTPS&quot;</code></strong></p><p>The protocol for connections from clients to the load balancer.</p><p><strong><code>SslPolicy = ::String</code></strong></p><p>The security policy that defines which protocols and ciphers are supported. For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/application/create-https-listener.html#describe-ssl-policies">Security Policies</a> in the <em>Application Load Balancers Guide</em>.</p><p><strong><code>Certificates = [[&quot;CertificateArn&quot; =&gt;  ::String], ...]</code></strong></p><p>The SSL server certificate.</p><p><strong><code>DefaultActions = [[ ... ], ...]</code></strong></p><p>The default actions.</p><pre><code class="language-none"> DefaultActions = [[
+        &quot;Type&quot; =&gt; &lt;required&gt; &quot;forward&quot;,
+        &quot;TargetGroupArn&quot; =&gt; &lt;required&gt; ::String
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>ModifyListenerOutput</code></p><p><strong>Exceptions</strong></p><p><code>DuplicateListenerException</code>, <code>TooManyListenersException</code>, <code>TooManyCertificatesException</code>, <code>ListenerNotFoundException</code>, <code>TargetGroupNotFoundException</code>, <code>TargetGroupAssociationLimitException</code>, <code>IncompatibleProtocolsException</code>, <code>SSLPolicyNotFoundException</code>, <code>CertificateNotFoundException</code>, <code>InvalidConfigurationRequestException</code>, <code>UnsupportedProtocolException</code> or <code>TooManyRegistrationsForTargetIdException</code>.</p><p><strong>Example: To change the default action for a listener</strong></p><p>This example changes the default action for the specified listener.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;DefaultActions&quot; =&gt; [
+        [
+            &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-new-targets/2453ed029918f21f&quot;,
+            &quot;Type&quot; =&gt; &quot;forward&quot;
+        ]
+    ],
+    &quot;ListenerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Listeners&quot; =&gt; [
+        Dict(
+            &quot;DefaultActions&quot; =&gt; [
+                Dict(
+                    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-new-targets/2453ed029918f21f&quot;,
+                    &quot;Type&quot; =&gt; &quot;forward&quot;
+                )
+            ],
+            &quot;ListenerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2&quot;,
+            &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;,
+            &quot;Port&quot; =&gt; 80,
+            &quot;Protocol&quot; =&gt; &quot;HTTP&quot;
+        )
+    ]
+)</code></pre><p><strong>Example: To change the server certificate</strong></p><p>This example changes the server certificate for the specified HTTPS listener.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Certificates&quot; =&gt; [
+        [
+            &quot;CertificateArn&quot; =&gt; &quot;arn:aws:iam::123456789012:server-certificate/my-new-server-cert&quot;
+        ]
+    ],
+    &quot;ListenerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/0467ef3c8400ae65&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Listeners&quot; =&gt; [
+        Dict(
+            &quot;Certificates&quot; =&gt; [
+                Dict(
+                    &quot;CertificateArn&quot; =&gt; &quot;arn:aws:iam::123456789012:server-certificate/my-new-server-cert&quot;
+                )
+            ],
+            &quot;DefaultActions&quot; =&gt; [
+                Dict(
+                    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;,
+                    &quot;Type&quot; =&gt; &quot;forward&quot;
+                )
+            ],
+            &quot;ListenerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener/app/my-load-balancer/50dc6c495c0c9188/0467ef3c8400ae65&quot;,
+            &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;,
+            &quot;Port&quot; =&gt; 443,
+            &quot;Protocol&quot; =&gt; &quot;HTTPS&quot;,
+            &quot;SslPolicy&quot; =&gt; &quot;ELBSecurityPolicy-2015-05&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/ModifyListener">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.modify_load_balancer_attributes" href="#AWSSDK.ELBv2.modify_load_balancer_attributes"><code>AWSSDK.ELBv2.modify_load_balancer_attributes</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.modify_load_balancer_attributes
+modify_load_balancer_attributes([::AWSConfig], arguments::Dict)
+modify_load_balancer_attributes([::AWSConfig]; LoadBalancerArn=, Attributes=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;ModifyLoadBalancerAttributes&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;ModifyLoadBalancerAttributes&quot;, LoadBalancerArn=, Attributes=)</code></pre><p><strong>ModifyLoadBalancerAttributes Operation</strong></p><p>Modifies the specified attributes of the specified Application Load Balancer.</p><p>If any of the specified attributes can&#39;t be modified as requested, the call fails. Any existing attributes that you do not modify retain their current values.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the load balancer.</p><p><strong><code>Attributes = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>The load balancer attributes.</p><pre><code class="language-none"> Attributes = [[
+        &quot;Key&quot; =&gt;  ::String,
+        &quot;Value&quot; =&gt;  ::String
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>ModifyLoadBalancerAttributesOutput</code></p><p><strong>Exceptions</strong></p><p><code>LoadBalancerNotFoundException</code> or <code>InvalidConfigurationRequestException</code>.</p><p><strong>Example: To enable deletion protection</strong></p><p>This example enables deletion protection for the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Attributes&quot; =&gt; [
+        [
+            &quot;Key&quot; =&gt; &quot;deletion_protection.enabled&quot;,
+            &quot;Value&quot; =&gt; &quot;true&quot;
+        ]
+    ],
+    &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Attributes&quot; =&gt; [
+        Dict(
+            &quot;Key&quot; =&gt; &quot;deletion_protection.enabled&quot;,
+            &quot;Value&quot; =&gt; &quot;true&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;access_logs.s3.enabled&quot;,
+            &quot;Value&quot; =&gt; &quot;false&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;idle_timeout.timeout_seconds&quot;,
+            &quot;Value&quot; =&gt; &quot;60&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;access_logs.s3.prefix&quot;,
+            &quot;Value&quot; =&gt; &quot;&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;access_logs.s3.bucket&quot;,
+            &quot;Value&quot; =&gt; &quot;&quot;
+        )
+    ]
+)</code></pre><p><strong>Example: To change the idle timeout</strong></p><p>This example changes the idle timeout value for the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Attributes&quot; =&gt; [
+        [
+            &quot;Key&quot; =&gt; &quot;idle_timeout.timeout_seconds&quot;,
+            &quot;Value&quot; =&gt; &quot;30&quot;
+        ]
+    ],
+    &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Attributes&quot; =&gt; [
+        Dict(
+            &quot;Key&quot; =&gt; &quot;idle_timeout.timeout_seconds&quot;,
+            &quot;Value&quot; =&gt; &quot;30&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;access_logs.s3.enabled&quot;,
+            &quot;Value&quot; =&gt; &quot;false&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;access_logs.s3.prefix&quot;,
+            &quot;Value&quot; =&gt; &quot;&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;deletion_protection.enabled&quot;,
+            &quot;Value&quot; =&gt; &quot;true&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;access_logs.s3.bucket&quot;,
+            &quot;Value&quot; =&gt; &quot;&quot;
+        )
+    ]
+)</code></pre><p><strong>Example: To enable access logs</strong></p><p>This example enables access logs for the specified load balancer. Note that the S3 bucket must exist in the same region as the load balancer and must have a policy attached that grants access to the Elastic Load Balancing service.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Attributes&quot; =&gt; [
+        [
+            &quot;Key&quot; =&gt; &quot;access_logs.s3.enabled&quot;,
+            &quot;Value&quot; =&gt; &quot;true&quot;
+        ],
+        [
+            &quot;Key&quot; =&gt; &quot;access_logs.s3.bucket&quot;,
+            &quot;Value&quot; =&gt; &quot;my-loadbalancer-logs&quot;
+        ],
+        [
+            &quot;Key&quot; =&gt; &quot;access_logs.s3.prefix&quot;,
+            &quot;Value&quot; =&gt; &quot;myapp&quot;
+        ]
+    ],
+    &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Attributes&quot; =&gt; [
+        Dict(
+            &quot;Key&quot; =&gt; &quot;access_logs.s3.enabled&quot;,
+            &quot;Value&quot; =&gt; &quot;true&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;access_logs.s3.bucket&quot;,
+            &quot;Value&quot; =&gt; &quot;my-load-balancer-logs&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;access_logs.s3.prefix&quot;,
+            &quot;Value&quot; =&gt; &quot;myapp&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;idle_timeout.timeout_seconds&quot;,
+            &quot;Value&quot; =&gt; &quot;60&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;deletion_protection.enabled&quot;,
+            &quot;Value&quot; =&gt; &quot;false&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/ModifyLoadBalancerAttributes">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.modify_rule" href="#AWSSDK.ELBv2.modify_rule"><code>AWSSDK.ELBv2.modify_rule</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.modify_rule
+modify_rule([::AWSConfig], arguments::Dict)
+modify_rule([::AWSConfig]; RuleArn=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;ModifyRule&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;ModifyRule&quot;, RuleArn=, &lt;keyword arguments&gt;)</code></pre><p><strong>ModifyRule Operation</strong></p><p>Modifies the specified rule.</p><p>Any existing properties that you do not modify retain their current values.</p><p>To modify the default action, use <a href="@ref">ModifyListener</a>.</p><p><strong>Arguments</strong></p><p><strong><code>RuleArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the rule.</p><p><strong><code>Conditions = [[ ... ], ...]</code></strong></p><p>The conditions.</p><pre><code class="language-none"> Conditions = [[
+        &quot;Field&quot; =&gt;  ::String,
+        &quot;Values&quot; =&gt;  [::String, ...]
+    ], ...]</code></pre><p><strong><code>Actions = [[ ... ], ...]</code></strong></p><p>The actions.</p><pre><code class="language-none"> Actions = [[
+        &quot;Type&quot; =&gt; &lt;required&gt; &quot;forward&quot;,
+        &quot;TargetGroupArn&quot; =&gt; &lt;required&gt; ::String
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>ModifyRuleOutput</code></p><p><strong>Exceptions</strong></p><p><code>TargetGroupAssociationLimitException</code>, <code>RuleNotFoundException</code>, <code>OperationNotPermittedException</code>, <code>TooManyRegistrationsForTargetIdException</code>, <code>TooManyTargetsException</code> or <code>TargetGroupNotFoundException</code>.</p><p><strong>Example: To modify a rule</strong></p><p>This example modifies the condition for the specified rule.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Conditions&quot; =&gt; [
+        [
+            &quot;Field&quot; =&gt; &quot;path-pattern&quot;,
+            &quot;Values&quot; =&gt; [
+                &quot;/images/*&quot;
+            ]
+        ]
+    ],
+    &quot;RuleArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener-rule/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2/9683b2d02a6cabee&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Rules&quot; =&gt; [
+        Dict(
+            &quot;Actions&quot; =&gt; [
+                Dict(
+                    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;,
+                    &quot;Type&quot; =&gt; &quot;forward&quot;
+                )
+            ],
+            &quot;Conditions&quot; =&gt; [
+                Dict(
+                    &quot;Field&quot; =&gt; &quot;path-pattern&quot;,
+                    &quot;Values&quot; =&gt; [
+                        &quot;/images/*&quot;
+                    ]
+                )
+            ],
+            &quot;IsDefault&quot; =&gt; false,
+            &quot;Priority&quot; =&gt; &quot;10&quot;,
+            &quot;RuleArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener-rule/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2/9683b2d02a6cabee&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/ModifyRule">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.modify_target_group" href="#AWSSDK.ELBv2.modify_target_group"><code>AWSSDK.ELBv2.modify_target_group</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.modify_target_group
+modify_target_group([::AWSConfig], arguments::Dict)
+modify_target_group([::AWSConfig]; TargetGroupArn=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;ModifyTargetGroup&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;ModifyTargetGroup&quot;, TargetGroupArn=, &lt;keyword arguments&gt;)</code></pre><p><strong>ModifyTargetGroup Operation</strong></p><p>Modifies the health checks used when evaluating the health state of the targets in the specified target group.</p><p>To monitor the health of the targets, use <a href="@ref">DescribeTargetHealth</a>.</p><p><strong>Arguments</strong></p><p><strong><code>TargetGroupArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the target group.</p><p><strong><code>HealthCheckProtocol = &quot;HTTP&quot; or &quot;HTTPS&quot;</code></strong></p><p>The protocol to use to connect with the target.</p><p><strong><code>HealthCheckPort = ::String</code></strong></p><p>The port to use to connect with the target.</p><p><strong><code>HealthCheckPath = ::String</code></strong></p><p>The ping path that is the destination for the health check request.</p><p><strong><code>HealthCheckIntervalSeconds = ::Int</code></strong></p><p>The approximate amount of time, in seconds, between health checks of an individual target.</p><p><strong><code>HealthCheckTimeoutSeconds = ::Int</code></strong></p><p>The amount of time, in seconds, during which no response means a failed health check.</p><p><strong><code>HealthyThresholdCount = ::Int</code></strong></p><p>The number of consecutive health checks successes required before considering an unhealthy target healthy.</p><p><strong><code>UnhealthyThresholdCount = ::Int</code></strong></p><p>The number of consecutive health check failures required before considering the target unhealthy.</p><p><strong><code>Matcher = [&quot;HttpCode&quot; =&gt; &lt;required&gt; ::String]</code></strong></p><p>The HTTP codes to use when checking for a successful response from a target.</p><p><strong>Returns</strong></p><p><code>ModifyTargetGroupOutput</code></p><p><strong>Exceptions</strong></p><p><code>TargetGroupNotFoundException</code>.</p><p><strong>Example: To modify the health check configuration for a target group</strong></p><p>This example changes the configuration of the health checks used to evaluate the health of the targets for the specified target group.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;HealthCheckPort&quot; =&gt; &quot;443&quot;,
+    &quot;HealthCheckProtocol&quot; =&gt; &quot;HTTPS&quot;,
+    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-https-targets/2453ed029918f21f&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;TargetGroups&quot; =&gt; [
+        Dict(
+            &quot;HealthCheckIntervalSeconds&quot; =&gt; 30,
+            &quot;HealthCheckPort&quot; =&gt; &quot;443&quot;,
+            &quot;HealthCheckProtocol&quot; =&gt; &quot;HTTPS&quot;,
+            &quot;HealthCheckTimeoutSeconds&quot; =&gt; 5,
+            &quot;HealthyThresholdCount&quot; =&gt; 5,
+            &quot;LoadBalancerArns&quot; =&gt; [
+                &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;
+            ],
+            &quot;Matcher&quot; =&gt; Dict(
+                &quot;HttpCode&quot; =&gt; &quot;200&quot;
+            ),
+            &quot;Port&quot; =&gt; 443,
+            &quot;Protocol&quot; =&gt; &quot;HTTPS&quot;,
+            &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-https-targets/2453ed029918f21f&quot;,
+            &quot;TargetGroupName&quot; =&gt; &quot;my-https-targets&quot;,
+            &quot;UnhealthyThresholdCount&quot; =&gt; 2,
+            &quot;VpcId&quot; =&gt; &quot;vpc-3ac0fb5f&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/ModifyTargetGroup">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.modify_target_group_attributes" href="#AWSSDK.ELBv2.modify_target_group_attributes"><code>AWSSDK.ELBv2.modify_target_group_attributes</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.modify_target_group_attributes
+modify_target_group_attributes([::AWSConfig], arguments::Dict)
+modify_target_group_attributes([::AWSConfig]; TargetGroupArn=, Attributes=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;ModifyTargetGroupAttributes&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;ModifyTargetGroupAttributes&quot;, TargetGroupArn=, Attributes=)</code></pre><p><strong>ModifyTargetGroupAttributes Operation</strong></p><p>Modifies the specified attributes of the specified target group.</p><p><strong>Arguments</strong></p><p><strong><code>TargetGroupArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the target group.</p><p><strong><code>Attributes = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>The attributes.</p><pre><code class="language-none"> Attributes = [[
+        &quot;Key&quot; =&gt;  ::String,
+        &quot;Value&quot; =&gt;  ::String
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>ModifyTargetGroupAttributesOutput</code></p><p><strong>Exceptions</strong></p><p><code>TargetGroupNotFoundException</code>.</p><p><strong>Example: To modify the deregistration delay timeout</strong></p><p>This example sets the deregistration delay timeout to the specified value for the specified target group.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Attributes&quot; =&gt; [
+        [
+            &quot;Key&quot; =&gt; &quot;deregistration_delay.timeout_seconds&quot;,
+            &quot;Value&quot; =&gt; &quot;600&quot;
+        ]
+    ],
+    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Attributes&quot; =&gt; [
+        Dict(
+            &quot;Key&quot; =&gt; &quot;stickiness.enabled&quot;,
+            &quot;Value&quot; =&gt; &quot;false&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;deregistration_delay.timeout_seconds&quot;,
+            &quot;Value&quot; =&gt; &quot;600&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;stickiness.type&quot;,
+            &quot;Value&quot; =&gt; &quot;lb_cookie&quot;
+        ),
+        Dict(
+            &quot;Key&quot; =&gt; &quot;stickiness.lb_cookie.duration_seconds&quot;,
+            &quot;Value&quot; =&gt; &quot;86400&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/ModifyTargetGroupAttributes">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.register_targets" href="#AWSSDK.ELBv2.register_targets"><code>AWSSDK.ELBv2.register_targets</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.register_targets
+register_targets([::AWSConfig], arguments::Dict)
+register_targets([::AWSConfig]; TargetGroupArn=, Targets=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;RegisterTargets&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;RegisterTargets&quot;, TargetGroupArn=, Targets=)</code></pre><p><strong>RegisterTargets Operation</strong></p><p>Registers the specified targets with the specified target group.</p><p>By default, the load balancer routes requests to registered targets using the protocol and port number for the target group. Alternatively, you can override the port for a target when you register it.</p><p>The target must be in the virtual private cloud (VPC) that you specified for the target group. If the target is an EC2 instance, it must be in the <code>running</code> state when you register it.</p><p>To remove a target from a target group, use <a href="@ref">DeregisterTargets</a>.</p><p><strong>Arguments</strong></p><p><strong><code>TargetGroupArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the target group.</p><p><strong><code>Targets = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>The targets. The default port for a target is the port for the target group. You can specify a port override. If a target is already registered, you can register it again using a different port.</p><pre><code class="language-none"> Targets = [[
+        &quot;Id&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Port&quot; =&gt;  ::Int
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>RegisterTargetsOutput</code></p><p><strong>Exceptions</strong></p><p><code>TargetGroupNotFoundException</code>, <code>TooManyTargetsException</code>, <code>InvalidTargetException</code> or <code>TooManyRegistrationsForTargetIdException</code>.</p><p><strong>Example: To register targets with a target group</strong></p><p>This example registers the specified instances with the specified target group.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;,
+    &quot;Targets&quot; =&gt; [
+        [
+            &quot;Id&quot; =&gt; &quot;i-80c8dd94&quot;
+        ],
+        [
+            &quot;Id&quot; =&gt; &quot;i-ceddcd4d&quot;
+        ]
+    ]
+]</code></pre><p><strong>Example: To register targets with a target group using port overrides</strong></p><p>This example registers the specified instance with the specified target group using multiple ports. This enables you to register ECS containers on the same instance as targets in the target group.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-new-targets/3bb63f11dfb0faf9&quot;,
+    &quot;Targets&quot; =&gt; [
+        [
+            &quot;Id&quot; =&gt; &quot;i-80c8dd94&quot;,
+            &quot;Port&quot; =&gt; 80
+        ],
+        [
+            &quot;Id&quot; =&gt; &quot;i-80c8dd94&quot;,
+            &quot;Port&quot; =&gt; 766
+        ]
+    ]
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/RegisterTargets">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.remove_tags" href="#AWSSDK.ELBv2.remove_tags"><code>AWSSDK.ELBv2.remove_tags</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.remove_tags
+remove_tags([::AWSConfig], arguments::Dict)
+remove_tags([::AWSConfig]; ResourceArns=, TagKeys=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;RemoveTags&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;RemoveTags&quot;, ResourceArns=, TagKeys=)</code></pre><p><strong>RemoveTags Operation</strong></p><p>Removes the specified tags from the specified resource.</p><p>To list the current tags for your resources, use <a href="@ref">DescribeTags</a>.</p><p><strong>Arguments</strong></p><p><strong><code>ResourceArns = [::String, ...]</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the resource.</p><p><strong><code>TagKeys = [::String, ...]</code> – <em>Required</em></strong></p><p>The tag keys for the tags to remove.</p><p><strong>Returns</strong></p><p><code>RemoveTagsOutput</code></p><p><strong>Exceptions</strong></p><p><code>LoadBalancerNotFoundException</code>, <code>TargetGroupNotFoundException</code>, <code>ListenerNotFoundException</code>, <code>RuleNotFoundException</code> or <code>TooManyTagsException</code>.</p><p><strong>Example: To remove tags from a load balancer</strong></p><p>This example removes the specified tags from the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;ResourceArns&quot; =&gt; [
+        &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;
+    ],
+    &quot;TagKeys&quot; =&gt; [
+        &quot;project&quot;,
+        &quot;department&quot;
+    ]
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/RemoveTags">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.set_ip_address_type" href="#AWSSDK.ELBv2.set_ip_address_type"><code>AWSSDK.ELBv2.set_ip_address_type</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.set_ip_address_type
+set_ip_address_type([::AWSConfig], arguments::Dict)
+set_ip_address_type([::AWSConfig]; LoadBalancerArn=, IpAddressType=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;SetIpAddressType&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;SetIpAddressType&quot;, LoadBalancerArn=, IpAddressType=)</code></pre><p><strong>SetIpAddressType Operation</strong></p><p>Sets the type of IP addresses used by the subnets of the specified Application Load Balancer.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the load balancer.</p><p><strong><code>IpAddressType = &quot;ipv4&quot; or &quot;dualstack&quot;</code> – <em>Required</em></strong></p><p>The IP address type. The possible values are <code>ipv4</code> (for IPv4 addresses) and <code>dualstack</code> (for IPv4 and IPv6 addresses). Internal load balancers must use <code>ipv4</code>.</p><p><strong>Returns</strong></p><p><code>SetIpAddressTypeOutput</code></p><p><strong>Exceptions</strong></p><p><code>LoadBalancerNotFoundException</code>, <code>InvalidConfigurationRequestException</code> or <code>InvalidSubnetException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/SetIpAddressType">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.set_rule_priorities" href="#AWSSDK.ELBv2.set_rule_priorities"><code>AWSSDK.ELBv2.set_rule_priorities</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.set_rule_priorities
+set_rule_priorities([::AWSConfig], arguments::Dict)
+set_rule_priorities([::AWSConfig]; RulePriorities=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;SetRulePriorities&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;SetRulePriorities&quot;, RulePriorities=)</code></pre><p><strong>SetRulePriorities Operation</strong></p><p>Sets the priorities of the specified rules.</p><p>You can reorder the rules as long as there are no priority conflicts in the new order. Any existing rules that you do not specify retain their current priority.</p><p><strong>Arguments</strong></p><p><strong><code>RulePriorities = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>The rule priorities.</p><pre><code class="language-none"> RulePriorities = [[
+        &quot;RuleArn&quot; =&gt;  ::String,
+        &quot;Priority&quot; =&gt;  ::Int
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>SetRulePrioritiesOutput</code></p><p><strong>Exceptions</strong></p><p><code>RuleNotFoundException</code>, <code>PriorityInUseException</code> or <code>OperationNotPermittedException</code>.</p><p><strong>Example: To set the rule priority</strong></p><p>This example sets the priority of the specified rule.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;RulePriorities&quot; =&gt; [
+        [
+            &quot;Priority&quot; =&gt; 5,
+            &quot;RuleArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener-rule/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2/1291d13826f405c3&quot;
+        ]
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Rules&quot; =&gt; [
+        Dict(
+            &quot;Actions&quot; =&gt; [
+                Dict(
+                    &quot;TargetGroupArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:targetgroup/my-targets/73e2d6bc24d8a067&quot;,
+                    &quot;Type&quot; =&gt; &quot;forward&quot;
+                )
+            ],
+            &quot;Conditions&quot; =&gt; [
+                Dict(
+                    &quot;Field&quot; =&gt; &quot;path-pattern&quot;,
+                    &quot;Values&quot; =&gt; [
+                        &quot;/img/*&quot;
+                    ]
+                )
+            ],
+            &quot;IsDefault&quot; =&gt; false,
+            &quot;Priority&quot; =&gt; &quot;5&quot;,
+            &quot;RuleArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:listener-rule/app/my-load-balancer/50dc6c495c0c9188/f2f7dc8efc522ab2/1291d13826f405c3&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/SetRulePriorities">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.set_security_groups" href="#AWSSDK.ELBv2.set_security_groups"><code>AWSSDK.ELBv2.set_security_groups</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.set_security_groups
+set_security_groups([::AWSConfig], arguments::Dict)
+set_security_groups([::AWSConfig]; LoadBalancerArn=, SecurityGroups=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;SetSecurityGroups&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;SetSecurityGroups&quot;, LoadBalancerArn=, SecurityGroups=)</code></pre><p><strong>SetSecurityGroups Operation</strong></p><p>Associates the specified security groups with the specified load balancer. The specified security groups override the previously associated security groups.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the load balancer.</p><p><strong><code>SecurityGroups = [::String, ...]</code> – <em>Required</em></strong></p><p>The IDs of the security groups.</p><p><strong>Returns</strong></p><p><code>SetSecurityGroupsOutput</code></p><p><strong>Exceptions</strong></p><p><code>LoadBalancerNotFoundException</code>, <code>InvalidConfigurationRequestException</code> or <code>InvalidSecurityGroupException</code>.</p><p><strong>Example: To associate a security group with a load balancer</strong></p><p>This example associates the specified security group with the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;,
+    &quot;SecurityGroups&quot; =&gt; [
+        &quot;sg-5943793c&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;SecurityGroupIds&quot; =&gt; [
+        &quot;sg-5943793c&quot;
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/SetSecurityGroups">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELBv2.set_subnets" href="#AWSSDK.ELBv2.set_subnets"><code>AWSSDK.ELBv2.set_subnets</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELBv2.set_subnets
+set_subnets([::AWSConfig], arguments::Dict)
+set_subnets([::AWSConfig]; LoadBalancerArn=, Subnets=)
+
+using AWSCore.Services.elasticloadbalancingv2
+elasticloadbalancingv2([::AWSConfig], &quot;SetSubnets&quot;, arguments::Dict)
+elasticloadbalancingv2([::AWSConfig], &quot;SetSubnets&quot;, LoadBalancerArn=, Subnets=)</code></pre><p><strong>SetSubnets Operation</strong></p><p>Enables the Availability Zone for the specified subnets for the specified load balancer. The specified subnets replace the previously enabled subnets.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerArn = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the load balancer.</p><p><strong><code>Subnets = [::String, ...]</code> – <em>Required</em></strong></p><p>The IDs of the subnets. You must specify at least two subnets. You can add only one subnet per Availability Zone.</p><p><strong>Returns</strong></p><p><code>SetSubnetsOutput</code></p><p><strong>Exceptions</strong></p><p><code>LoadBalancerNotFoundException</code>, <code>InvalidConfigurationRequestException</code>, <code>SubnetNotFoundException</code> or <code>InvalidSubnetException</code>.</p><p><strong>Example: To enable Availability Zones for a load balancer</strong></p><p>This example enables the Availability Zones for the specified subnets for the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerArn&quot; =&gt; &quot;arn:aws:elasticloadbalancing:us-west-2:123456789012:loadbalancer/app/my-load-balancer/50dc6c495c0c9188&quot;,
+    &quot;Subnets&quot; =&gt; [
+        &quot;subnet-8360a9e7&quot;,
+        &quot;subnet-b7d581c0&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;AvailabilityZones&quot; =&gt; [
+        Dict(
+            &quot;SubnetId&quot; =&gt; &quot;subnet-8360a9e7&quot;,
+            &quot;ZoneName&quot; =&gt; &quot;us-west-2a&quot;
+        ),
+        Dict(
+            &quot;SubnetId&quot; =&gt; &quot;subnet-b7d581c0&quot;,
+            &quot;ZoneName&quot; =&gt; &quot;us-west-2b&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancingv2-2015-12-01/SetSubnets">AWS API Documentation</a></p></div></section><footer><hr/><a class="previous" href="AWSSDK.ELB.html"><span class="direction">Previous</span><span class="title">AWSSDK.ELB.jl</span></a><a class="next" href="AWSSDK.EMR.html"><span class="direction">Next</span><span class="title">AWSSDK.EMR.jl</span></a></footer></article></body></html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>AWSSDK.Firehose.jl · AWSCore.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link href="assets/highlightjs/default.css" rel="stylesheet" type="text/css"/><link href="assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>AWSCore.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="index.html">AWSCore.jl</a></li><li><a class="toctext" href="AWSS3.html">AWSS3.jl</a></li><li><a class="toctext" href="AWSSQS.html">AWSSQS.jl</a></li><li><a class="toctext" href="AWSSES.html">AWSSES.jl</a></li><li><a class="toctext" href="AWSSNS.html">AWSSNS.jl</a></li><li><a class="toctext" href="AWSSDK.ACM.html">AWSSDK.ACM.jl</a></li><li><a class="toctext" href="AWSSDK.APIGateway.html">AWSSDK.APIGateway.jl</a></li><li><a class="toctext" href="AWSSDK.ApplicationAutoScaling.html">AWSSDK.ApplicationAutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.AppStream.html">AWSSDK.AppStream.jl</a></li><li><a class="toctext" href="AWSSDK.Athena.html">AWSSDK.Athena.jl</a></li><li><a class="toctext" href="AWSSDK.AutoScaling.html">AWSSDK.AutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.Batch.html">AWSSDK.Batch.jl</a></li><li><a class="toctext" href="AWSSDK.Budgets.html">AWSSDK.Budgets.jl</a></li><li><a class="toctext" href="AWSSDK.CloudDirectory.html">AWSSDK.CloudDirectory.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFormation.html">AWSSDK.CloudFormation.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFront.html">AWSSDK.CloudFront.jl</a></li><li><a class="toctext" href="AWSSDK.CloudHSM.html">AWSSDK.CloudHSM.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearch.html">AWSSDK.CloudSearch.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearchDomain.html">AWSSDK.CloudSearchDomain.jl</a></li><li><a class="toctext" href="AWSSDK.CloudTrail.html">AWSSDK.CloudTrail.jl</a></li><li><a class="toctext" href="AWSSDK.CodeBuild.html">AWSSDK.CodeBuild.jl</a></li><li><a class="toctext" href="AWSSDK.CodeCommit.html">AWSSDK.CodeCommit.jl</a></li><li><a class="toctext" href="AWSSDK.CodeDeploy.html">AWSSDK.CodeDeploy.jl</a></li><li><a class="toctext" href="AWSSDK.CodePipeline.html">AWSSDK.CodePipeline.jl</a></li><li><a class="toctext" href="AWSSDK.CodeStar.html">AWSSDK.CodeStar.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentity.html">AWSSDK.CognitoIdentity.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentityServiceProvider.html">AWSSDK.CognitoIdentityServiceProvider.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoSync.html">AWSSDK.CognitoSync.jl</a></li><li><a class="toctext" href="AWSSDK.ConfigService.html">AWSSDK.ConfigService.jl</a></li><li><a class="toctext" href="AWSSDK.CUR.html">AWSSDK.CUR.jl</a></li><li><a class="toctext" href="AWSSDK.DataPipeline.html">AWSSDK.DataPipeline.jl</a></li><li><a class="toctext" href="AWSSDK.DAX.html">AWSSDK.DAX.jl</a></li><li><a class="toctext" href="AWSSDK.DeviceFarm.html">AWSSDK.DeviceFarm.jl</a></li><li><a class="toctext" href="AWSSDK.DirectConnect.html">AWSSDK.DirectConnect.jl</a></li><li><a class="toctext" href="AWSSDK.Discovery.html">AWSSDK.Discovery.jl</a></li><li><a class="toctext" href="AWSSDK.DMS.html">AWSSDK.DMS.jl</a></li><li><a class="toctext" href="AWSSDK.DirectoryService.html">AWSSDK.DirectoryService.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDB.html">AWSSDK.DynamoDB.jl</a></li><li><a class="toctext" href="AWSSDK.EC2.html">AWSSDK.EC2.jl</a></li><li><a class="toctext" href="AWSSDK.ECR.html">AWSSDK.ECR.jl</a></li><li><a class="toctext" href="AWSSDK.ECS.html">AWSSDK.ECS.jl</a></li><li><a class="toctext" href="AWSSDK.ElastiCache.html">AWSSDK.ElastiCache.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticBeanstalk.html">AWSSDK.ElasticBeanstalk.jl</a></li><li><a class="toctext" href="AWSSDK.EFS.html">AWSSDK.EFS.jl</a></li><li><a class="toctext" href="AWSSDK.ELB.html">AWSSDK.ELB.jl</a></li><li><a class="toctext" href="AWSSDK.ELBv2.html">AWSSDK.ELBv2.jl</a></li><li><a class="toctext" href="AWSSDK.EMR.html">AWSSDK.EMR.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticTranscoder.html">AWSSDK.ElasticTranscoder.jl</a></li><li><a class="toctext" href="AWSSDK.SES.html">AWSSDK.SES.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceEntitlementService.html">AWSSDK.MarketplaceEntitlementService.jl</a></li><li><a class="toctext" href="AWSSDK.ES.html">AWSSDK.ES.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchEvents.html">AWSSDK.CloudWatchEvents.jl</a></li><li class="current"><a class="toctext" href="AWSSDK.Firehose.html">AWSSDK.Firehose.jl</a><ul class="internal"><li class="toplevel"><a class="toctext" href="#Amazon-Kinesis-Firehose-API-Reference-1">Amazon Kinesis Firehose API Reference</a></li></ul></li><li><a class="toctext" href="AWSSDK.GameLift.html">AWSSDK.GameLift.jl</a></li><li><a class="toctext" href="AWSSDK.Glacier.html">AWSSDK.Glacier.jl</a></li><li><a class="toctext" href="AWSSDK.Greengrass.html">AWSSDK.Greengrass.jl</a></li><li><a class="toctext" href="AWSSDK.Health.html">AWSSDK.Health.jl</a></li><li><a class="toctext" href="AWSSDK.IAM.html">AWSSDK.IAM.jl</a></li><li><a class="toctext" href="AWSSDK.ImportExport.html">AWSSDK.ImportExport.jl</a></li><li><a class="toctext" href="AWSSDK.Inspector.html">AWSSDK.Inspector.jl</a></li><li><a class="toctext" href="AWSSDK.Iot.html">AWSSDK.Iot.jl</a></li><li><a class="toctext" href="AWSSDK.IotData.html">AWSSDK.IotData.jl</a></li><li><a class="toctext" href="AWSSDK.Kinesis.html">AWSSDK.Kinesis.jl</a></li><li><a class="toctext" href="AWSSDK.KinesisAnalytics.html">AWSSDK.KinesisAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.KMS.html">AWSSDK.KMS.jl</a></li><li><a class="toctext" href="AWSSDK.Lambda.html">AWSSDK.Lambda.jl</a></li><li><a class="toctext" href="AWSSDK.LexModelBuildingService.html">AWSSDK.LexModelBuildingService.jl</a></li><li><a class="toctext" href="AWSSDK.Lightsail.html">AWSSDK.Lightsail.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchLogs.html">AWSSDK.CloudWatchLogs.jl</a></li><li><a class="toctext" href="AWSSDK.MachineLearning.html">AWSSDK.MachineLearning.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceCommerceAnalytics.html">AWSSDK.MarketplaceCommerceAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceMetering.html">AWSSDK.MarketplaceMetering.jl</a></li><li><a class="toctext" href="AWSSDK.MobileAnalytics.html">AWSSDK.MobileAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatch.html">AWSSDK.CloudWatch.jl</a></li><li><a class="toctext" href="AWSSDK.MTurk.html">AWSSDK.MTurk.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorks.html">AWSSDK.OpsWorks.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorksCM.html">AWSSDK.OpsWorksCM.jl</a></li><li><a class="toctext" href="AWSSDK.Organizations.html">AWSSDK.Organizations.jl</a></li><li><a class="toctext" href="AWSSDK.Pinpoint.html">AWSSDK.Pinpoint.jl</a></li><li><a class="toctext" href="AWSSDK.Polly.html">AWSSDK.Polly.jl</a></li><li><a class="toctext" href="AWSSDK.RDS.html">AWSSDK.RDS.jl</a></li><li><a class="toctext" href="AWSSDK.Redshift.html">AWSSDK.Redshift.jl</a></li><li><a class="toctext" href="AWSSDK.Rekognition.html">AWSSDK.Rekognition.jl</a></li><li><a class="toctext" href="AWSSDK.ResourceGroupsTaggingAPI.html">AWSSDK.ResourceGroupsTaggingAPI.jl</a></li><li><a class="toctext" href="AWSSDK.Route53.html">AWSSDK.Route53.jl</a></li><li><a class="toctext" href="AWSSDK.Route53Domains.html">AWSSDK.Route53Domains.jl</a></li><li><a class="toctext" href="AWSSDK.LexRuntime.html">AWSSDK.LexRuntime.jl</a></li><li><a class="toctext" href="AWSSDK.S3.html">AWSSDK.S3.jl</a></li><li><a class="toctext" href="AWSSDK.SimpleDB.html">AWSSDK.SimpleDB.jl</a></li><li><a class="toctext" href="AWSSDK.ServiceCatalog.html">AWSSDK.ServiceCatalog.jl</a></li><li><a class="toctext" href="AWSSDK.Shield.html">AWSSDK.Shield.jl</a></li><li><a class="toctext" href="AWSSDK.SMS.html">AWSSDK.SMS.jl</a></li><li><a class="toctext" href="AWSSDK.Snowball.html">AWSSDK.Snowball.jl</a></li><li><a class="toctext" href="AWSSDK.SNS.html">AWSSDK.SNS.jl</a></li><li><a class="toctext" href="AWSSDK.SQS.html">AWSSDK.SQS.jl</a></li><li><a class="toctext" href="AWSSDK.SSM.html">AWSSDK.SSM.jl</a></li><li><a class="toctext" href="AWSSDK.StepFunctions.html">AWSSDK.StepFunctions.jl</a></li><li><a class="toctext" href="AWSSDK.StorageGateway.html">AWSSDK.StorageGateway.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDBStreams.html">AWSSDK.DynamoDBStreams.jl</a></li><li><a class="toctext" href="AWSSDK.STS.html">AWSSDK.STS.jl</a></li><li><a class="toctext" href="AWSSDK.Support.html">AWSSDK.Support.jl</a></li><li><a class="toctext" href="AWSSDK.SWF.html">AWSSDK.SWF.jl</a></li><li><a class="toctext" href="AWSSDK.WAF.html">AWSSDK.WAF.jl</a></li><li><a class="toctext" href="AWSSDK.WAFRegional.html">AWSSDK.WAFRegional.jl</a></li><li><a class="toctext" href="AWSSDK.WorkDocs.html">AWSSDK.WorkDocs.jl</a></li><li><a class="toctext" href="AWSSDK.WorkSpaces.html">AWSSDK.WorkSpaces.jl</a></li><li><a class="toctext" href="AWSSDK.XRay.html">AWSSDK.XRay.jl</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href="AWSSDK.Firehose.html">AWSSDK.Firehose.jl</a></li></ul><a class="edit-page" href="https://github.com/JuliaCloud/AWSCore.jl/tree/1f93d72825dfa35b69cc2d48e9a3b9130a7ec269/src/AWSSDK.Firehose.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>AWSSDK.Firehose.jl</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="AWSSDK.Firehose-1" href="#AWSSDK.Firehose-1">AWSSDK.Firehose</a></h1><h1><a class="nav-anchor" id="Amazon-Kinesis-Firehose-API-Reference-1" href="#Amazon-Kinesis-Firehose-API-Reference-1">Amazon Kinesis Firehose API Reference</a></h1><p>Amazon Kinesis Firehose is a fully-managed service that delivers real-time streaming data to destinations such as Amazon Simple Storage Service (Amazon S3), Amazon Elasticsearch Service (Amazon ES), and Amazon Redshift.</p><p>This document is generated from <a href="https://github.com/aws/aws-sdk-js/blob/master/apis/firehose-2015-08-04.normal.json">apis/firehose-2015-08-04.normal.json</a>. See <a href="https://github.com/JuliaCloud/AWSCore.jl">JuliaCloud/AWSCore.jl</a>.</p><ul><li><a href="AWSSDK.Firehose.html#AWSSDK.Firehose.create_delivery_stream"><code>AWSSDK.Firehose.create_delivery_stream</code></a></li><li><a href="AWSSDK.Firehose.html#AWSSDK.Firehose.delete_delivery_stream"><code>AWSSDK.Firehose.delete_delivery_stream</code></a></li><li><a href="AWSSDK.Firehose.html#AWSSDK.Firehose.describe_delivery_stream"><code>AWSSDK.Firehose.describe_delivery_stream</code></a></li><li><a href="AWSSDK.Firehose.html#AWSSDK.Firehose.list_delivery_streams"><code>AWSSDK.Firehose.list_delivery_streams</code></a></li><li><a href="AWSSDK.Firehose.html#AWSSDK.Firehose.put_record"><code>AWSSDK.Firehose.put_record</code></a></li><li><a href="AWSSDK.Firehose.html#AWSSDK.Firehose.put_record_batch"><code>AWSSDK.Firehose.put_record_batch</code></a></li><li><a href="AWSSDK.Firehose.html#AWSSDK.Firehose.update_destination"><code>AWSSDK.Firehose.update_destination</code></a></li></ul><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Firehose.create_delivery_stream" href="#AWSSDK.Firehose.create_delivery_stream"><code>AWSSDK.Firehose.create_delivery_stream</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Firehose.create_delivery_stream
+create_delivery_stream([::AWSConfig], arguments::Dict)
+create_delivery_stream([::AWSConfig]; DeliveryStreamName=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.firehose
+firehose([::AWSConfig], &quot;CreateDeliveryStream&quot;, arguments::Dict)
+firehose([::AWSConfig], &quot;CreateDeliveryStream&quot;, DeliveryStreamName=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateDeliveryStream Operation</strong></p><p>Creates a delivery stream.</p><p>By default, you can create up to 20 delivery streams per region.</p><p>This is an asynchronous operation that immediately returns. The initial status of the delivery stream is <code>CREATING</code>. After the delivery stream is created, its status is <code>ACTIVE</code> and it now accepts data. Attempts to send data to a delivery stream that is not in the <code>ACTIVE</code> state cause an exception. To check the state of a delivery stream, use <a href="@ref">DescribeDeliveryStream</a>.</p><p>A delivery stream is configured with a single destination: Amazon S3, Amazon Elasticsearch Service, or Amazon Redshift. You must specify only one of the following destination configuration parameters: <strong>ExtendedS3DestinationConfiguration</strong>, <strong>S3DestinationConfiguration</strong>, <strong>ElasticsearchDestinationConfiguration</strong>, or <strong>RedshiftDestinationConfiguration</strong>.</p><p>When you specify <strong>S3DestinationConfiguration</strong>, you can also provide the following optional values: <strong>BufferingHints</strong>, <strong>EncryptionConfiguration</strong>, and <strong>CompressionFormat</strong>. By default, if no <strong>BufferingHints</strong> value is provided, Firehose buffers data up to 5 MB or for 5 minutes, whichever condition is satisfied first. Note that <strong>BufferingHints</strong> is a hint, so there are some cases where the service cannot adhere to these conditions strictly; for example, record boundaries are such that the size is a little over or under the configured buffering size. By default, no encryption is performed. We strongly recommend that you enable encryption to ensure secure data storage in Amazon S3.</p><p>A few notes about Amazon Redshift as a destination:</p><ul><li><p>An Amazon Redshift destination requires an S3 bucket as intermediate location, as Firehose first delivers data to S3 and then uses <code>COPY</code> syntax to load data into an Amazon Redshift table. This is specified in the <strong>RedshiftDestinationConfiguration.S3Configuration</strong> parameter.</p></li><li><p>The compression formats <code>SNAPPY</code> or <code>ZIP</code> cannot be specified in <strong>RedshiftDestinationConfiguration.S3Configuration</strong> because the Amazon Redshift <code>COPY</code> operation that reads from the S3 bucket doesn&#39;t support these compression formats.</p></li><li><p>We strongly recommend that you use the user name and password you provide exclusively with Firehose, and that the permissions for the account are restricted for Amazon Redshift <code>INSERT</code> permissions.</p></li></ul><p>Firehose assumes the IAM role that is configured as part of the destination. The role should allow the Firehose principal to assume the role, and the role should have permissions that allows the service to deliver the data. For more information, see <a href="http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3">Amazon S3 Bucket Access</a> in the <em>Amazon Kinesis Firehose Developer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>DeliveryStreamName = ::String</code> – <em>Required</em></strong></p><p>The name of the delivery stream. This name must be unique per AWS account in the same region. You can have multiple delivery streams with the same name if they are in different accounts or different regions.</p><p><strong><code>S3DestinationConfiguration = [ ... ]</code></strong></p><p>[Deprecated] The destination in Amazon S3. You can specify only one destination.</p><pre><code class="language-none"> S3DestinationConfiguration = [
+        &quot;RoleARN&quot; =&gt; &lt;required&gt; ::String,
+        &quot;BucketARN&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Prefix&quot; =&gt;  ::String,
+        &quot;BufferingHints&quot; =&gt;  [
+            &quot;SizeInMBs&quot; =&gt;  ::Int,
+            &quot;IntervalInSeconds&quot; =&gt;  ::Int
+        ],
+        &quot;CompressionFormat&quot; =&gt;  &quot;UNCOMPRESSED&quot;, &quot;GZIP&quot;, &quot;ZIP&quot; or &quot;Snappy&quot;,
+        &quot;EncryptionConfiguration&quot; =&gt;  [
+            &quot;NoEncryptionConfig&quot; =&gt;  &quot;NoEncryption&quot;,
+            &quot;KMSEncryptionConfig&quot; =&gt;  [&quot;AWSKMSKeyARN&quot; =&gt; &lt;required&gt; ::String]
+        ],
+        &quot;CloudWatchLoggingOptions&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt;  ::Bool,
+            &quot;LogGroupName&quot; =&gt;  ::String,
+            &quot;LogStreamName&quot; =&gt;  ::String
+        ]
+    ]</code></pre><p><strong><code>ExtendedS3DestinationConfiguration = [ ... ]</code></strong></p><p>The destination in Amazon S3. You can specify only one destination.</p><pre><code class="language-none"> ExtendedS3DestinationConfiguration = [
+        &quot;RoleARN&quot; =&gt; &lt;required&gt; ::String,
+        &quot;BucketARN&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Prefix&quot; =&gt;  ::String,
+        &quot;BufferingHints&quot; =&gt;  [
+            &quot;SizeInMBs&quot; =&gt;  ::Int,
+            &quot;IntervalInSeconds&quot; =&gt;  ::Int
+        ],
+        &quot;CompressionFormat&quot; =&gt;  &quot;UNCOMPRESSED&quot;, &quot;GZIP&quot;, &quot;ZIP&quot; or &quot;Snappy&quot;,
+        &quot;EncryptionConfiguration&quot; =&gt;  [
+            &quot;NoEncryptionConfig&quot; =&gt;  &quot;NoEncryption&quot;,
+            &quot;KMSEncryptionConfig&quot; =&gt;  [&quot;AWSKMSKeyARN&quot; =&gt; &lt;required&gt; ::String]
+        ],
+        &quot;CloudWatchLoggingOptions&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt;  ::Bool,
+            &quot;LogGroupName&quot; =&gt;  ::String,
+            &quot;LogStreamName&quot; =&gt;  ::String
+        ],
+        &quot;ProcessingConfiguration&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt;  ::Bool,
+            &quot;Processors&quot; =&gt;  [[
+                &quot;Type&quot; =&gt; &lt;required&gt; &quot;Lambda&quot;,
+                &quot;Parameters&quot; =&gt;  [[
+                    &quot;ParameterName&quot; =&gt; &lt;required&gt; &quot;LambdaArn&quot; or &quot;NumberOfRetries&quot;,
+                    &quot;ParameterValue&quot; =&gt; &lt;required&gt; ::String
+                ], ...]
+            ], ...]
+        ],
+        &quot;S3BackupMode&quot; =&gt;  &quot;Disabled&quot; or &quot;Enabled&quot;,
+        &quot;S3BackupConfiguration&quot; =&gt;  [
+            &quot;RoleARN&quot; =&gt; &lt;required&gt; ::String,
+            &quot;BucketARN&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Prefix&quot; =&gt;  ::String,
+            &quot;BufferingHints&quot; =&gt;  [
+                &quot;SizeInMBs&quot; =&gt;  ::Int,
+                &quot;IntervalInSeconds&quot; =&gt;  ::Int
+            ],
+            &quot;CompressionFormat&quot; =&gt;  &quot;UNCOMPRESSED&quot;, &quot;GZIP&quot;, &quot;ZIP&quot; or &quot;Snappy&quot;,
+            &quot;EncryptionConfiguration&quot; =&gt;  [
+                &quot;NoEncryptionConfig&quot; =&gt;  &quot;NoEncryption&quot;,
+                &quot;KMSEncryptionConfig&quot; =&gt;  [&quot;AWSKMSKeyARN&quot; =&gt; &lt;required&gt; ::String]
+            ],
+            &quot;CloudWatchLoggingOptions&quot; =&gt;  [
+                &quot;Enabled&quot; =&gt;  ::Bool,
+                &quot;LogGroupName&quot; =&gt;  ::String,
+                &quot;LogStreamName&quot; =&gt;  ::String
+            ]
+        ]
+    ]</code></pre><p><strong><code>RedshiftDestinationConfiguration = [ ... ]</code></strong></p><p>The destination in Amazon Redshift. You can specify only one destination.</p><pre><code class="language-none"> RedshiftDestinationConfiguration = [
+        &quot;RoleARN&quot; =&gt; &lt;required&gt; ::String,
+        &quot;ClusterJDBCURL&quot; =&gt; &lt;required&gt; ::String,
+        &quot;CopyCommand&quot; =&gt; &lt;required&gt; [
+            &quot;DataTableName&quot; =&gt; &lt;required&gt; ::String,
+            &quot;DataTableColumns&quot; =&gt;  ::String,
+            &quot;CopyOptions&quot; =&gt;  ::String
+        ],
+        &quot;Username&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Password&quot; =&gt; &lt;required&gt; ::String,
+        &quot;RetryOptions&quot; =&gt;  [&quot;DurationInSeconds&quot; =&gt;  ::Int],
+        &quot;S3Configuration&quot; =&gt; &lt;required&gt; [
+            &quot;RoleARN&quot; =&gt; &lt;required&gt; ::String,
+            &quot;BucketARN&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Prefix&quot; =&gt;  ::String,
+            &quot;BufferingHints&quot; =&gt;  [
+                &quot;SizeInMBs&quot; =&gt;  ::Int,
+                &quot;IntervalInSeconds&quot; =&gt;  ::Int
+            ],
+            &quot;CompressionFormat&quot; =&gt;  &quot;UNCOMPRESSED&quot;, &quot;GZIP&quot;, &quot;ZIP&quot; or &quot;Snappy&quot;,
+            &quot;EncryptionConfiguration&quot; =&gt;  [
+                &quot;NoEncryptionConfig&quot; =&gt;  &quot;NoEncryption&quot;,
+                &quot;KMSEncryptionConfig&quot; =&gt;  [&quot;AWSKMSKeyARN&quot; =&gt; &lt;required&gt; ::String]
+            ],
+            &quot;CloudWatchLoggingOptions&quot; =&gt;  [
+                &quot;Enabled&quot; =&gt;  ::Bool,
+                &quot;LogGroupName&quot; =&gt;  ::String,
+                &quot;LogStreamName&quot; =&gt;  ::String
+            ]
+        ],
+        &quot;ProcessingConfiguration&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt;  ::Bool,
+            &quot;Processors&quot; =&gt;  [[
+                &quot;Type&quot; =&gt; &lt;required&gt; &quot;Lambda&quot;,
+                &quot;Parameters&quot; =&gt;  [[
+                    &quot;ParameterName&quot; =&gt; &lt;required&gt; &quot;LambdaArn&quot; or &quot;NumberOfRetries&quot;,
+                    &quot;ParameterValue&quot; =&gt; &lt;required&gt; ::String
+                ], ...]
+            ], ...]
+        ],
+        &quot;S3BackupMode&quot; =&gt;  &quot;Disabled&quot; or &quot;Enabled&quot;,
+        &quot;S3BackupConfiguration&quot; =&gt;  [
+            &quot;RoleARN&quot; =&gt; &lt;required&gt; ::String,
+            &quot;BucketARN&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Prefix&quot; =&gt;  ::String,
+            &quot;BufferingHints&quot; =&gt;  [
+                &quot;SizeInMBs&quot; =&gt;  ::Int,
+                &quot;IntervalInSeconds&quot; =&gt;  ::Int
+            ],
+            &quot;CompressionFormat&quot; =&gt;  &quot;UNCOMPRESSED&quot;, &quot;GZIP&quot;, &quot;ZIP&quot; or &quot;Snappy&quot;,
+            &quot;EncryptionConfiguration&quot; =&gt;  [
+                &quot;NoEncryptionConfig&quot; =&gt;  &quot;NoEncryption&quot;,
+                &quot;KMSEncryptionConfig&quot; =&gt;  [&quot;AWSKMSKeyARN&quot; =&gt; &lt;required&gt; ::String]
+            ],
+            &quot;CloudWatchLoggingOptions&quot; =&gt;  [
+                &quot;Enabled&quot; =&gt;  ::Bool,
+                &quot;LogGroupName&quot; =&gt;  ::String,
+                &quot;LogStreamName&quot; =&gt;  ::String
+            ]
+        ],
+        &quot;CloudWatchLoggingOptions&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt;  ::Bool,
+            &quot;LogGroupName&quot; =&gt;  ::String,
+            &quot;LogStreamName&quot; =&gt;  ::String
+        ]
+    ]</code></pre><p><strong><code>ElasticsearchDestinationConfiguration = [ ... ]</code></strong></p><p>The destination in Amazon ES. You can specify only one destination.</p><pre><code class="language-none"> ElasticsearchDestinationConfiguration = [
+        &quot;RoleARN&quot; =&gt; &lt;required&gt; ::String,
+        &quot;DomainARN&quot; =&gt; &lt;required&gt; ::String,
+        &quot;IndexName&quot; =&gt; &lt;required&gt; ::String,
+        &quot;TypeName&quot; =&gt; &lt;required&gt; ::String,
+        &quot;IndexRotationPeriod&quot; =&gt;  &quot;NoRotation&quot;, &quot;OneHour&quot;, &quot;OneDay&quot;, &quot;OneWeek&quot; or &quot;OneMonth&quot;,
+        &quot;BufferingHints&quot; =&gt;  [
+            &quot;IntervalInSeconds&quot; =&gt;  ::Int,
+            &quot;SizeInMBs&quot; =&gt;  ::Int
+        ],
+        &quot;RetryOptions&quot; =&gt;  [&quot;DurationInSeconds&quot; =&gt;  ::Int],
+        &quot;S3BackupMode&quot; =&gt;  &quot;FailedDocumentsOnly&quot; or &quot;AllDocuments&quot;,
+        &quot;S3Configuration&quot; =&gt; &lt;required&gt; [
+            &quot;RoleARN&quot; =&gt; &lt;required&gt; ::String,
+            &quot;BucketARN&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Prefix&quot; =&gt;  ::String,
+            &quot;BufferingHints&quot; =&gt;  [
+                &quot;SizeInMBs&quot; =&gt;  ::Int,
+                &quot;IntervalInSeconds&quot; =&gt;  ::Int
+            ],
+            &quot;CompressionFormat&quot; =&gt;  &quot;UNCOMPRESSED&quot;, &quot;GZIP&quot;, &quot;ZIP&quot; or &quot;Snappy&quot;,
+            &quot;EncryptionConfiguration&quot; =&gt;  [
+                &quot;NoEncryptionConfig&quot; =&gt;  &quot;NoEncryption&quot;,
+                &quot;KMSEncryptionConfig&quot; =&gt;  [&quot;AWSKMSKeyARN&quot; =&gt; &lt;required&gt; ::String]
+            ],
+            &quot;CloudWatchLoggingOptions&quot; =&gt;  [
+                &quot;Enabled&quot; =&gt;  ::Bool,
+                &quot;LogGroupName&quot; =&gt;  ::String,
+                &quot;LogStreamName&quot; =&gt;  ::String
+            ]
+        ],
+        &quot;ProcessingConfiguration&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt;  ::Bool,
+            &quot;Processors&quot; =&gt;  [[
+                &quot;Type&quot; =&gt; &lt;required&gt; &quot;Lambda&quot;,
+                &quot;Parameters&quot; =&gt;  [[
+                    &quot;ParameterName&quot; =&gt; &lt;required&gt; &quot;LambdaArn&quot; or &quot;NumberOfRetries&quot;,
+                    &quot;ParameterValue&quot; =&gt; &lt;required&gt; ::String
+                ], ...]
+            ], ...]
+        ],
+        &quot;CloudWatchLoggingOptions&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt;  ::Bool,
+            &quot;LogGroupName&quot; =&gt;  ::String,
+            &quot;LogStreamName&quot; =&gt;  ::String
+        ]
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreateDeliveryStreamOutput</code></p><p><strong>Exceptions</strong></p><p><code>InvalidArgumentException</code>, <code>LimitExceededException</code> or <code>ResourceInUseException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/CreateDeliveryStream">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Firehose.delete_delivery_stream" href="#AWSSDK.Firehose.delete_delivery_stream"><code>AWSSDK.Firehose.delete_delivery_stream</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Firehose.delete_delivery_stream
+delete_delivery_stream([::AWSConfig], arguments::Dict)
+delete_delivery_stream([::AWSConfig]; DeliveryStreamName=)
+
+using AWSCore.Services.firehose
+firehose([::AWSConfig], &quot;DeleteDeliveryStream&quot;, arguments::Dict)
+firehose([::AWSConfig], &quot;DeleteDeliveryStream&quot;, DeliveryStreamName=)</code></pre><p><strong>DeleteDeliveryStream Operation</strong></p><p>Deletes a delivery stream and its data.</p><p>You can delete a delivery stream only if it is in <code>ACTIVE</code> or <code>DELETING</code> state, and not in the <code>CREATING</code> state. While the deletion request is in process, the delivery stream is in the <code>DELETING</code> state.</p><p>To check the state of a delivery stream, use <a href="@ref">DescribeDeliveryStream</a>.</p><p>While the delivery stream is <code>DELETING</code> state, the service may continue to accept the records, but the service doesn&#39;t make any guarantees with respect to delivering the data. Therefore, as a best practice, you should first stop any applications that are sending records before deleting a delivery stream.</p><p><strong>Arguments</strong></p><p><strong><code>DeliveryStreamName = ::String</code> – <em>Required</em></strong></p><p>The name of the delivery stream.</p><p><strong>Returns</strong></p><p><code>DeleteDeliveryStreamOutput</code></p><p><strong>Exceptions</strong></p><p><code>ResourceInUseException</code> or <code>ResourceNotFoundException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/DeleteDeliveryStream">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Firehose.describe_delivery_stream" href="#AWSSDK.Firehose.describe_delivery_stream"><code>AWSSDK.Firehose.describe_delivery_stream</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Firehose.describe_delivery_stream
+describe_delivery_stream([::AWSConfig], arguments::Dict)
+describe_delivery_stream([::AWSConfig]; DeliveryStreamName=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.firehose
+firehose([::AWSConfig], &quot;DescribeDeliveryStream&quot;, arguments::Dict)
+firehose([::AWSConfig], &quot;DescribeDeliveryStream&quot;, DeliveryStreamName=, &lt;keyword arguments&gt;)</code></pre><p><strong>DescribeDeliveryStream Operation</strong></p><p>Describes the specified delivery stream and gets the status. For example, after your delivery stream is created, call <a href="@ref">DescribeDeliveryStream</a> to see if the delivery stream is <code>ACTIVE</code> and therefore ready for data to be sent to it.</p><p><strong>Arguments</strong></p><p><strong><code>DeliveryStreamName = ::String</code> – <em>Required</em></strong></p><p>The name of the delivery stream.</p><p><strong><code>Limit = ::Int</code></strong></p><p>The limit on the number of destinations to return. Currently, you can have one destination per delivery stream.</p><p><strong><code>ExclusiveStartDestinationId = ::String</code></strong></p><p>The ID of the destination to start returning the destination information. Currently Firehose supports one destination per delivery stream.</p><p><strong>Returns</strong></p><p><code>DescribeDeliveryStreamOutput</code></p><p><strong>Exceptions</strong></p><p><code>ResourceNotFoundException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/DescribeDeliveryStream">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Firehose.list_delivery_streams" href="#AWSSDK.Firehose.list_delivery_streams"><code>AWSSDK.Firehose.list_delivery_streams</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Firehose.list_delivery_streams
+list_delivery_streams([::AWSConfig], arguments::Dict)
+list_delivery_streams([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.firehose
+firehose([::AWSConfig], &quot;ListDeliveryStreams&quot;, arguments::Dict)
+firehose([::AWSConfig], &quot;ListDeliveryStreams&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>ListDeliveryStreams Operation</strong></p><p>Lists your delivery streams.</p><p>The number of delivery streams might be too large to return using a single call to <a href="@ref">ListDeliveryStreams</a>. You can limit the number of delivery streams returned, using the <strong>Limit</strong> parameter. To determine whether there are more delivery streams to list, check the value of <strong>HasMoreDeliveryStreams</strong> in the output. If there are more delivery streams to list, you can request them by specifying the name of the last delivery stream returned in the call in the <strong>ExclusiveStartDeliveryStreamName</strong> parameter of a subsequent call.</p><p><strong>Arguments</strong></p><p><strong><code>Limit = ::Int</code></strong></p><p>The maximum number of delivery streams to list.</p><p><strong><code>ExclusiveStartDeliveryStreamName = ::String</code></strong></p><p>The name of the delivery stream to start the list with.</p><p><strong>Returns</strong></p><p><code>ListDeliveryStreamsOutput</code></p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/ListDeliveryStreams">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Firehose.put_record" href="#AWSSDK.Firehose.put_record"><code>AWSSDK.Firehose.put_record</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Firehose.put_record
+put_record([::AWSConfig], arguments::Dict)
+put_record([::AWSConfig]; DeliveryStreamName=, Record=)
+
+using AWSCore.Services.firehose
+firehose([::AWSConfig], &quot;PutRecord&quot;, arguments::Dict)
+firehose([::AWSConfig], &quot;PutRecord&quot;, DeliveryStreamName=, Record=)</code></pre><p><strong>PutRecord Operation</strong></p><p>Writes a single data record into an Amazon Kinesis Firehose delivery stream. To write multiple data records into a delivery stream, use <a href="@ref">PutRecordBatch</a>. Applications using these operations are referred to as producers.</p><p>By default, each delivery stream can take in up to 2,000 transactions per second, 5,000 records per second, or 5 MB per second. Note that if you use <a href="@ref">PutRecord</a> and <a href="@ref">PutRecordBatch</a>, the limits are an aggregate across these two operations for each delivery stream. For more information about limits and how to request an increase, see <a href="http://docs.aws.amazon.com/firehose/latest/dev/limits.html">Amazon Kinesis Firehose Limits</a>.</p><p>You must specify the name of the delivery stream and the data record when using <a href="@ref">PutRecord</a>. The data record consists of a data blob that can be up to 1,000 KB in size, and any kind of data, for example, a segment from a log file, geographic location data, web site clickstream data, etc.</p><p>Firehose buffers records before delivering them to the destination. To disambiguate the data blobs at the destination, a common solution is to use delimiters in the data, such as a newline (<code>\n</code>) or some other character unique within the data. This allows the consumer application(s) to parse individual data items when reading the data from the destination.</p><p>The <a href="@ref">PutRecord</a> operation returns a <strong>RecordId</strong>, which is a unique string assigned to each record. Producer applications can use this ID for purposes such as auditability and investigation.</p><p>If the <a href="@ref">PutRecord</a> operation throws a <strong>ServiceUnavailableException</strong>, back off and retry. If the exception persists, it is possible that the throughput limits have been exceeded for the delivery stream.</p><p>Data records sent to Firehose are stored for 24 hours from the time they are added to a delivery stream as it attempts to send the records to the destination. If the destination is unreachable for more than 24 hours, the data is no longer available.</p><p><strong>Arguments</strong></p><p><strong><code>DeliveryStreamName = ::String</code> – <em>Required</em></strong></p><p>The name of the delivery stream.</p><p><strong><code>Record = [&quot;Data&quot; =&gt; &lt;required&gt; blob]</code> – <em>Required</em></strong></p><p>The record.</p><p><strong>Returns</strong></p><p><code>PutRecordOutput</code></p><p><strong>Exceptions</strong></p><p><code>ResourceNotFoundException</code>, <code>InvalidArgumentException</code> or <code>ServiceUnavailableException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/PutRecord">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Firehose.put_record_batch" href="#AWSSDK.Firehose.put_record_batch"><code>AWSSDK.Firehose.put_record_batch</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Firehose.put_record_batch
+put_record_batch([::AWSConfig], arguments::Dict)
+put_record_batch([::AWSConfig]; DeliveryStreamName=, Records=)
+
+using AWSCore.Services.firehose
+firehose([::AWSConfig], &quot;PutRecordBatch&quot;, arguments::Dict)
+firehose([::AWSConfig], &quot;PutRecordBatch&quot;, DeliveryStreamName=, Records=)</code></pre><p><strong>PutRecordBatch Operation</strong></p><p>Writes multiple data records into a delivery stream in a single call, which can achieve higher throughput per producer than when writing single records. To write single data records into a delivery stream, use <a href="@ref">PutRecord</a>. Applications using these operations are referred to as producers.</p><p>By default, each delivery stream can take in up to 2,000 transactions per second, 5,000 records per second, or 5 MB per second. Note that if you use <a href="@ref">PutRecord</a> and <a href="@ref">PutRecordBatch</a>, the limits are an aggregate across these two operations for each delivery stream. For more information about limits, see <a href="http://docs.aws.amazon.com/firehose/latest/dev/limits.html">Amazon Kinesis Firehose Limits</a>.</p><p>Each <a href="@ref">PutRecordBatch</a> request supports up to 500 records. Each record in the request can be as large as 1,000 KB (before 64-bit encoding), up to a limit of 4 MB for the entire request. These limits cannot be changed.</p><p>You must specify the name of the delivery stream and the data record when using <a href="@ref">PutRecord</a>. The data record consists of a data blob that can be up to 1,000 KB in size, and any kind of data, for example, a segment from a log file, geographic location data, web site clickstream data, and so on.</p><p>Firehose buffers records before delivering them to the destination. To disambiguate the data blobs at the destination, a common solution is to use delimiters in the data, such as a newline (<code>\n</code>) or some other character unique within the data. This allows the consumer application(s) to parse individual data items when reading the data from the destination.</p><p>The <a href="@ref">PutRecordBatch</a> response includes a count of failed records, <strong>FailedPutCount</strong>, and an array of responses, <strong>RequestResponses</strong>. Each entry in the <strong>RequestResponses</strong> array provides additional information about the processed record, and directly correlates with a record in the request array using the same ordering, from the top to the bottom. The response array always includes the same number of records as the request array. <strong>RequestResponses</strong> includes both successfully and unsuccessfully processed records. Firehose attempts to process all records in each <a href="@ref">PutRecordBatch</a> request. A single record failure does not stop the processing of subsequent records.</p><p>A successfully processed record includes a <strong>RecordId</strong> value, which is unique for the record. An unsuccessfully processed record includes <strong>ErrorCode</strong> and <strong>ErrorMessage</strong> values. <strong>ErrorCode</strong> reflects the type of error, and is one of the following values: <code>ServiceUnavailable</code> or <code>InternalFailure</code>. <strong>ErrorMessage</strong> provides more detailed information about the error.</p><p>If there is an internal server error or a timeout, the write might have completed or it might have failed. If <strong>FailedPutCount</strong> is greater than 0, retry the request, resending only those records that might have failed processing. This minimizes the possible duplicate records and also reduces the total bytes sent (and corresponding charges). We recommend that you handle any duplicates at the destination.</p><p>If <a href="@ref">PutRecordBatch</a> throws <strong>ServiceUnavailableException</strong>, back off and retry. If the exception persists, it is possible that the throughput limits have been exceeded for the delivery stream.</p><p>Data records sent to Firehose are stored for 24 hours from the time they are added to a delivery stream as it attempts to send the records to the destination. If the destination is unreachable for more than 24 hours, the data is no longer available.</p><p><strong>Arguments</strong></p><p><strong><code>DeliveryStreamName = ::String</code> – <em>Required</em></strong></p><p>The name of the delivery stream.</p><p><strong><code>Records = [[&quot;Data&quot; =&gt; &lt;required&gt; blob], ...]</code> – <em>Required</em></strong></p><p>One or more records.</p><p><strong>Returns</strong></p><p><code>PutRecordBatchOutput</code></p><p><strong>Exceptions</strong></p><p><code>ResourceNotFoundException</code>, <code>InvalidArgumentException</code> or <code>ServiceUnavailableException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/PutRecordBatch">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Firehose.update_destination" href="#AWSSDK.Firehose.update_destination"><code>AWSSDK.Firehose.update_destination</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Firehose.update_destination
+update_destination([::AWSConfig], arguments::Dict)
+update_destination([::AWSConfig]; DeliveryStreamName=, CurrentDeliveryStreamVersionId=, DestinationId=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.firehose
+firehose([::AWSConfig], &quot;UpdateDestination&quot;, arguments::Dict)
+firehose([::AWSConfig], &quot;UpdateDestination&quot;, DeliveryStreamName=, CurrentDeliveryStreamVersionId=, DestinationId=, &lt;keyword arguments&gt;)</code></pre><p><strong>UpdateDestination Operation</strong></p><p>Updates the specified destination of the specified delivery stream.</p><p>You can use this operation to change the destination type (for example, to replace the Amazon S3 destination with Amazon Redshift) or change the parameters associated with a destination (for example, to change the bucket name of the Amazon S3 destination). The update might not occur immediately. The target delivery stream remains active while the configurations are updated, so data writes to the delivery stream can continue during this process. The updated configurations are usually effective within a few minutes.</p><p>Note that switching between Amazon ES and other services is not supported. For an Amazon ES destination, you can only update to another Amazon ES destination.</p><p>If the destination type is the same, Firehose merges the configuration parameters specified with the destination configuration that already exists on the delivery stream. If any of the parameters are not specified in the call, the existing values are retained. For example, in the Amazon S3 destination, if <a href="@ref">EncryptionConfiguration</a> is not specified then the existing <a href="@ref">EncryptionConfiguration</a> is maintained on the destination.</p><p>If the destination type is not the same, for example, changing the destination from Amazon S3 to Amazon Redshift, Firehose does not merge any parameters. In this case, all parameters must be specified.</p><p>Firehose uses <strong>CurrentDeliveryStreamVersionId</strong> to avoid race conditions and conflicting merges. This is a required field, and the service updates the configuration only if the existing configuration has a version ID that matches. After the update is applied successfully, the version ID is updated, and can be retrieved using <a href="@ref">DescribeDeliveryStream</a>. You should use the new version ID to set <strong>CurrentDeliveryStreamVersionId</strong> in the next call.</p><p><strong>Arguments</strong></p><p><strong><code>DeliveryStreamName = ::String</code> – <em>Required</em></strong></p><p>The name of the delivery stream.</p><p><strong><code>CurrentDeliveryStreamVersionId = ::String</code> – <em>Required</em></strong></p><p>Obtain this value from the <strong>VersionId</strong> result of <a href="@ref">DeliveryStreamDescription</a>. This value is required, and helps the service to perform conditional operations. For example, if there is a interleaving update and this value is null, then the update destination fails. After the update is successful, the <strong>VersionId</strong> value is updated. The service then performs a merge of the old configuration with the new configuration.</p><p><strong><code>DestinationId = ::String</code> – <em>Required</em></strong></p><p>The ID of the destination.</p><p><strong><code>S3DestinationUpdate = [ ... ]</code></strong></p><p>[Deprecated] Describes an update for a destination in Amazon S3.</p><pre><code class="language-none"> S3DestinationUpdate = [
+        &quot;RoleARN&quot; =&gt;  ::String,
+        &quot;BucketARN&quot; =&gt;  ::String,
+        &quot;Prefix&quot; =&gt;  ::String,
+        &quot;BufferingHints&quot; =&gt;  [
+            &quot;SizeInMBs&quot; =&gt;  ::Int,
+            &quot;IntervalInSeconds&quot; =&gt;  ::Int
+        ],
+        &quot;CompressionFormat&quot; =&gt;  &quot;UNCOMPRESSED&quot;, &quot;GZIP&quot;, &quot;ZIP&quot; or &quot;Snappy&quot;,
+        &quot;EncryptionConfiguration&quot; =&gt;  [
+            &quot;NoEncryptionConfig&quot; =&gt;  &quot;NoEncryption&quot;,
+            &quot;KMSEncryptionConfig&quot; =&gt;  [&quot;AWSKMSKeyARN&quot; =&gt; &lt;required&gt; ::String]
+        ],
+        &quot;CloudWatchLoggingOptions&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt;  ::Bool,
+            &quot;LogGroupName&quot; =&gt;  ::String,
+            &quot;LogStreamName&quot; =&gt;  ::String
+        ]
+    ]</code></pre><p><strong><code>ExtendedS3DestinationUpdate = [ ... ]</code></strong></p><p>Describes an update for a destination in Amazon S3.</p><pre><code class="language-none"> ExtendedS3DestinationUpdate = [
+        &quot;RoleARN&quot; =&gt;  ::String,
+        &quot;BucketARN&quot; =&gt;  ::String,
+        &quot;Prefix&quot; =&gt;  ::String,
+        &quot;BufferingHints&quot; =&gt;  [
+            &quot;SizeInMBs&quot; =&gt;  ::Int,
+            &quot;IntervalInSeconds&quot; =&gt;  ::Int
+        ],
+        &quot;CompressionFormat&quot; =&gt;  &quot;UNCOMPRESSED&quot;, &quot;GZIP&quot;, &quot;ZIP&quot; or &quot;Snappy&quot;,
+        &quot;EncryptionConfiguration&quot; =&gt;  [
+            &quot;NoEncryptionConfig&quot; =&gt;  &quot;NoEncryption&quot;,
+            &quot;KMSEncryptionConfig&quot; =&gt;  [&quot;AWSKMSKeyARN&quot; =&gt; &lt;required&gt; ::String]
+        ],
+        &quot;CloudWatchLoggingOptions&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt;  ::Bool,
+            &quot;LogGroupName&quot; =&gt;  ::String,
+            &quot;LogStreamName&quot; =&gt;  ::String
+        ],
+        &quot;ProcessingConfiguration&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt;  ::Bool,
+            &quot;Processors&quot; =&gt;  [[
+                &quot;Type&quot; =&gt; &lt;required&gt; &quot;Lambda&quot;,
+                &quot;Parameters&quot; =&gt;  [[
+                    &quot;ParameterName&quot; =&gt; &lt;required&gt; &quot;LambdaArn&quot; or &quot;NumberOfRetries&quot;,
+                    &quot;ParameterValue&quot; =&gt; &lt;required&gt; ::String
+                ], ...]
+            ], ...]
+        ],
+        &quot;S3BackupMode&quot; =&gt;  &quot;Disabled&quot; or &quot;Enabled&quot;,
+        &quot;S3BackupUpdate&quot; =&gt;  [
+            &quot;RoleARN&quot; =&gt;  ::String,
+            &quot;BucketARN&quot; =&gt;  ::String,
+            &quot;Prefix&quot; =&gt;  ::String,
+            &quot;BufferingHints&quot; =&gt;  [
+                &quot;SizeInMBs&quot; =&gt;  ::Int,
+                &quot;IntervalInSeconds&quot; =&gt;  ::Int
+            ],
+            &quot;CompressionFormat&quot; =&gt;  &quot;UNCOMPRESSED&quot;, &quot;GZIP&quot;, &quot;ZIP&quot; or &quot;Snappy&quot;,
+            &quot;EncryptionConfiguration&quot; =&gt;  [
+                &quot;NoEncryptionConfig&quot; =&gt;  &quot;NoEncryption&quot;,
+                &quot;KMSEncryptionConfig&quot; =&gt;  [&quot;AWSKMSKeyARN&quot; =&gt; &lt;required&gt; ::String]
+            ],
+            &quot;CloudWatchLoggingOptions&quot; =&gt;  [
+                &quot;Enabled&quot; =&gt;  ::Bool,
+                &quot;LogGroupName&quot; =&gt;  ::String,
+                &quot;LogStreamName&quot; =&gt;  ::String
+            ]
+        ]
+    ]</code></pre><p><strong><code>RedshiftDestinationUpdate = [ ... ]</code></strong></p><p>Describes an update for a destination in Amazon Redshift.</p><pre><code class="language-none"> RedshiftDestinationUpdate = [
+        &quot;RoleARN&quot; =&gt;  ::String,
+        &quot;ClusterJDBCURL&quot; =&gt;  ::String,
+        &quot;CopyCommand&quot; =&gt;  [
+            &quot;DataTableName&quot; =&gt; &lt;required&gt; ::String,
+            &quot;DataTableColumns&quot; =&gt;  ::String,
+            &quot;CopyOptions&quot; =&gt;  ::String
+        ],
+        &quot;Username&quot; =&gt;  ::String,
+        &quot;Password&quot; =&gt;  ::String,
+        &quot;RetryOptions&quot; =&gt;  [&quot;DurationInSeconds&quot; =&gt;  ::Int],
+        &quot;S3Update&quot; =&gt;  [
+            &quot;RoleARN&quot; =&gt;  ::String,
+            &quot;BucketARN&quot; =&gt;  ::String,
+            &quot;Prefix&quot; =&gt;  ::String,
+            &quot;BufferingHints&quot; =&gt;  [
+                &quot;SizeInMBs&quot; =&gt;  ::Int,
+                &quot;IntervalInSeconds&quot; =&gt;  ::Int
+            ],
+            &quot;CompressionFormat&quot; =&gt;  &quot;UNCOMPRESSED&quot;, &quot;GZIP&quot;, &quot;ZIP&quot; or &quot;Snappy&quot;,
+            &quot;EncryptionConfiguration&quot; =&gt;  [
+                &quot;NoEncryptionConfig&quot; =&gt;  &quot;NoEncryption&quot;,
+                &quot;KMSEncryptionConfig&quot; =&gt;  [&quot;AWSKMSKeyARN&quot; =&gt; &lt;required&gt; ::String]
+            ],
+            &quot;CloudWatchLoggingOptions&quot; =&gt;  [
+                &quot;Enabled&quot; =&gt;  ::Bool,
+                &quot;LogGroupName&quot; =&gt;  ::String,
+                &quot;LogStreamName&quot; =&gt;  ::String
+            ]
+        ],
+        &quot;ProcessingConfiguration&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt;  ::Bool,
+            &quot;Processors&quot; =&gt;  [[
+                &quot;Type&quot; =&gt; &lt;required&gt; &quot;Lambda&quot;,
+                &quot;Parameters&quot; =&gt;  [[
+                    &quot;ParameterName&quot; =&gt; &lt;required&gt; &quot;LambdaArn&quot; or &quot;NumberOfRetries&quot;,
+                    &quot;ParameterValue&quot; =&gt; &lt;required&gt; ::String
+                ], ...]
+            ], ...]
+        ],
+        &quot;S3BackupMode&quot; =&gt;  &quot;Disabled&quot; or &quot;Enabled&quot;,
+        &quot;S3BackupUpdate&quot; =&gt;  [
+            &quot;RoleARN&quot; =&gt;  ::String,
+            &quot;BucketARN&quot; =&gt;  ::String,
+            &quot;Prefix&quot; =&gt;  ::String,
+            &quot;BufferingHints&quot; =&gt;  [
+                &quot;SizeInMBs&quot; =&gt;  ::Int,
+                &quot;IntervalInSeconds&quot; =&gt;  ::Int
+            ],
+            &quot;CompressionFormat&quot; =&gt;  &quot;UNCOMPRESSED&quot;, &quot;GZIP&quot;, &quot;ZIP&quot; or &quot;Snappy&quot;,
+            &quot;EncryptionConfiguration&quot; =&gt;  [
+                &quot;NoEncryptionConfig&quot; =&gt;  &quot;NoEncryption&quot;,
+                &quot;KMSEncryptionConfig&quot; =&gt;  [&quot;AWSKMSKeyARN&quot; =&gt; &lt;required&gt; ::String]
+            ],
+            &quot;CloudWatchLoggingOptions&quot; =&gt;  [
+                &quot;Enabled&quot; =&gt;  ::Bool,
+                &quot;LogGroupName&quot; =&gt;  ::String,
+                &quot;LogStreamName&quot; =&gt;  ::String
+            ]
+        ],
+        &quot;CloudWatchLoggingOptions&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt;  ::Bool,
+            &quot;LogGroupName&quot; =&gt;  ::String,
+            &quot;LogStreamName&quot; =&gt;  ::String
+        ]
+    ]</code></pre><p><strong><code>ElasticsearchDestinationUpdate = [ ... ]</code></strong></p><p>Describes an update for a destination in Amazon ES.</p><pre><code class="language-none"> ElasticsearchDestinationUpdate = [
+        &quot;RoleARN&quot; =&gt;  ::String,
+        &quot;DomainARN&quot; =&gt;  ::String,
+        &quot;IndexName&quot; =&gt;  ::String,
+        &quot;TypeName&quot; =&gt;  ::String,
+        &quot;IndexRotationPeriod&quot; =&gt;  &quot;NoRotation&quot;, &quot;OneHour&quot;, &quot;OneDay&quot;, &quot;OneWeek&quot; or &quot;OneMonth&quot;,
+        &quot;BufferingHints&quot; =&gt;  [
+            &quot;IntervalInSeconds&quot; =&gt;  ::Int,
+            &quot;SizeInMBs&quot; =&gt;  ::Int
+        ],
+        &quot;RetryOptions&quot; =&gt;  [&quot;DurationInSeconds&quot; =&gt;  ::Int],
+        &quot;S3Update&quot; =&gt;  [
+            &quot;RoleARN&quot; =&gt;  ::String,
+            &quot;BucketARN&quot; =&gt;  ::String,
+            &quot;Prefix&quot; =&gt;  ::String,
+            &quot;BufferingHints&quot; =&gt;  [
+                &quot;SizeInMBs&quot; =&gt;  ::Int,
+                &quot;IntervalInSeconds&quot; =&gt;  ::Int
+            ],
+            &quot;CompressionFormat&quot; =&gt;  &quot;UNCOMPRESSED&quot;, &quot;GZIP&quot;, &quot;ZIP&quot; or &quot;Snappy&quot;,
+            &quot;EncryptionConfiguration&quot; =&gt;  [
+                &quot;NoEncryptionConfig&quot; =&gt;  &quot;NoEncryption&quot;,
+                &quot;KMSEncryptionConfig&quot; =&gt;  [&quot;AWSKMSKeyARN&quot; =&gt; &lt;required&gt; ::String]
+            ],
+            &quot;CloudWatchLoggingOptions&quot; =&gt;  [
+                &quot;Enabled&quot; =&gt;  ::Bool,
+                &quot;LogGroupName&quot; =&gt;  ::String,
+                &quot;LogStreamName&quot; =&gt;  ::String
+            ]
+        ],
+        &quot;ProcessingConfiguration&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt;  ::Bool,
+            &quot;Processors&quot; =&gt;  [[
+                &quot;Type&quot; =&gt; &lt;required&gt; &quot;Lambda&quot;,
+                &quot;Parameters&quot; =&gt;  [[
+                    &quot;ParameterName&quot; =&gt; &lt;required&gt; &quot;LambdaArn&quot; or &quot;NumberOfRetries&quot;,
+                    &quot;ParameterValue&quot; =&gt; &lt;required&gt; ::String
+                ], ...]
+            ], ...]
+        ],
+        &quot;CloudWatchLoggingOptions&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt;  ::Bool,
+            &quot;LogGroupName&quot; =&gt;  ::String,
+            &quot;LogStreamName&quot; =&gt;  ::String
+        ]
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateDestinationOutput</code></p><p><strong>Exceptions</strong></p><p><code>InvalidArgumentException</code>, <code>ResourceInUseException</code>, <code>ResourceNotFoundException</code> or <code>ConcurrentModificationException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/firehose-2015-08-04/UpdateDestination">AWS API Documentation</a></p></div></section><footer><hr/><a class="previous" href="AWSSDK.CloudWatchEvents.html"><span class="direction">Previous</span><span class="title">AWSSDK.CloudWatchEvents.jl</span></a><a class="next" href="AWSSDK.GameLift.html"><span class="direction">Next</span><span class="title">AWSSDK.GameLift.jl</span></a></footer></article></body></html>

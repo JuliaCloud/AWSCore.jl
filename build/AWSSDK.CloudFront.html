@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>AWSSDK.CloudFront.jl · AWSCore.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link href="assets/highlightjs/default.css" rel="stylesheet" type="text/css"/><link href="assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>AWSCore.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="index.html">AWSCore.jl</a></li><li><a class="toctext" href="AWSS3.html">AWSS3.jl</a></li><li><a class="toctext" href="AWSSQS.html">AWSSQS.jl</a></li><li><a class="toctext" href="AWSSES.html">AWSSES.jl</a></li><li><a class="toctext" href="AWSSNS.html">AWSSNS.jl</a></li><li><a class="toctext" href="AWSSDK.ACM.html">AWSSDK.ACM.jl</a></li><li><a class="toctext" href="AWSSDK.APIGateway.html">AWSSDK.APIGateway.jl</a></li><li><a class="toctext" href="AWSSDK.ApplicationAutoScaling.html">AWSSDK.ApplicationAutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.AppStream.html">AWSSDK.AppStream.jl</a></li><li><a class="toctext" href="AWSSDK.Athena.html">AWSSDK.Athena.jl</a></li><li><a class="toctext" href="AWSSDK.AutoScaling.html">AWSSDK.AutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.Batch.html">AWSSDK.Batch.jl</a></li><li><a class="toctext" href="AWSSDK.Budgets.html">AWSSDK.Budgets.jl</a></li><li><a class="toctext" href="AWSSDK.CloudDirectory.html">AWSSDK.CloudDirectory.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFormation.html">AWSSDK.CloudFormation.jl</a></li><li class="current"><a class="toctext" href="AWSSDK.CloudFront.html">AWSSDK.CloudFront.jl</a><ul class="internal"><li class="toplevel"><a class="toctext" href="#Amazon-CloudFront-1">Amazon CloudFront</a></li></ul></li><li><a class="toctext" href="AWSSDK.CloudHSM.html">AWSSDK.CloudHSM.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearch.html">AWSSDK.CloudSearch.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearchDomain.html">AWSSDK.CloudSearchDomain.jl</a></li><li><a class="toctext" href="AWSSDK.CloudTrail.html">AWSSDK.CloudTrail.jl</a></li><li><a class="toctext" href="AWSSDK.CodeBuild.html">AWSSDK.CodeBuild.jl</a></li><li><a class="toctext" href="AWSSDK.CodeCommit.html">AWSSDK.CodeCommit.jl</a></li><li><a class="toctext" href="AWSSDK.CodeDeploy.html">AWSSDK.CodeDeploy.jl</a></li><li><a class="toctext" href="AWSSDK.CodePipeline.html">AWSSDK.CodePipeline.jl</a></li><li><a class="toctext" href="AWSSDK.CodeStar.html">AWSSDK.CodeStar.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentity.html">AWSSDK.CognitoIdentity.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentityServiceProvider.html">AWSSDK.CognitoIdentityServiceProvider.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoSync.html">AWSSDK.CognitoSync.jl</a></li><li><a class="toctext" href="AWSSDK.ConfigService.html">AWSSDK.ConfigService.jl</a></li><li><a class="toctext" href="AWSSDK.CUR.html">AWSSDK.CUR.jl</a></li><li><a class="toctext" href="AWSSDK.DataPipeline.html">AWSSDK.DataPipeline.jl</a></li><li><a class="toctext" href="AWSSDK.DAX.html">AWSSDK.DAX.jl</a></li><li><a class="toctext" href="AWSSDK.DeviceFarm.html">AWSSDK.DeviceFarm.jl</a></li><li><a class="toctext" href="AWSSDK.DirectConnect.html">AWSSDK.DirectConnect.jl</a></li><li><a class="toctext" href="AWSSDK.Discovery.html">AWSSDK.Discovery.jl</a></li><li><a class="toctext" href="AWSSDK.DMS.html">AWSSDK.DMS.jl</a></li><li><a class="toctext" href="AWSSDK.DirectoryService.html">AWSSDK.DirectoryService.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDB.html">AWSSDK.DynamoDB.jl</a></li><li><a class="toctext" href="AWSSDK.EC2.html">AWSSDK.EC2.jl</a></li><li><a class="toctext" href="AWSSDK.ECR.html">AWSSDK.ECR.jl</a></li><li><a class="toctext" href="AWSSDK.ECS.html">AWSSDK.ECS.jl</a></li><li><a class="toctext" href="AWSSDK.ElastiCache.html">AWSSDK.ElastiCache.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticBeanstalk.html">AWSSDK.ElasticBeanstalk.jl</a></li><li><a class="toctext" href="AWSSDK.EFS.html">AWSSDK.EFS.jl</a></li><li><a class="toctext" href="AWSSDK.ELB.html">AWSSDK.ELB.jl</a></li><li><a class="toctext" href="AWSSDK.ELBv2.html">AWSSDK.ELBv2.jl</a></li><li><a class="toctext" href="AWSSDK.EMR.html">AWSSDK.EMR.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticTranscoder.html">AWSSDK.ElasticTranscoder.jl</a></li><li><a class="toctext" href="AWSSDK.SES.html">AWSSDK.SES.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceEntitlementService.html">AWSSDK.MarketplaceEntitlementService.jl</a></li><li><a class="toctext" href="AWSSDK.ES.html">AWSSDK.ES.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchEvents.html">AWSSDK.CloudWatchEvents.jl</a></li><li><a class="toctext" href="AWSSDK.Firehose.html">AWSSDK.Firehose.jl</a></li><li><a class="toctext" href="AWSSDK.GameLift.html">AWSSDK.GameLift.jl</a></li><li><a class="toctext" href="AWSSDK.Glacier.html">AWSSDK.Glacier.jl</a></li><li><a class="toctext" href="AWSSDK.Greengrass.html">AWSSDK.Greengrass.jl</a></li><li><a class="toctext" href="AWSSDK.Health.html">AWSSDK.Health.jl</a></li><li><a class="toctext" href="AWSSDK.IAM.html">AWSSDK.IAM.jl</a></li><li><a class="toctext" href="AWSSDK.ImportExport.html">AWSSDK.ImportExport.jl</a></li><li><a class="toctext" href="AWSSDK.Inspector.html">AWSSDK.Inspector.jl</a></li><li><a class="toctext" href="AWSSDK.Iot.html">AWSSDK.Iot.jl</a></li><li><a class="toctext" href="AWSSDK.IotData.html">AWSSDK.IotData.jl</a></li><li><a class="toctext" href="AWSSDK.Kinesis.html">AWSSDK.Kinesis.jl</a></li><li><a class="toctext" href="AWSSDK.KinesisAnalytics.html">AWSSDK.KinesisAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.KMS.html">AWSSDK.KMS.jl</a></li><li><a class="toctext" href="AWSSDK.Lambda.html">AWSSDK.Lambda.jl</a></li><li><a class="toctext" href="AWSSDK.LexModelBuildingService.html">AWSSDK.LexModelBuildingService.jl</a></li><li><a class="toctext" href="AWSSDK.Lightsail.html">AWSSDK.Lightsail.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchLogs.html">AWSSDK.CloudWatchLogs.jl</a></li><li><a class="toctext" href="AWSSDK.MachineLearning.html">AWSSDK.MachineLearning.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceCommerceAnalytics.html">AWSSDK.MarketplaceCommerceAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceMetering.html">AWSSDK.MarketplaceMetering.jl</a></li><li><a class="toctext" href="AWSSDK.MobileAnalytics.html">AWSSDK.MobileAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatch.html">AWSSDK.CloudWatch.jl</a></li><li><a class="toctext" href="AWSSDK.MTurk.html">AWSSDK.MTurk.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorks.html">AWSSDK.OpsWorks.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorksCM.html">AWSSDK.OpsWorksCM.jl</a></li><li><a class="toctext" href="AWSSDK.Organizations.html">AWSSDK.Organizations.jl</a></li><li><a class="toctext" href="AWSSDK.Pinpoint.html">AWSSDK.Pinpoint.jl</a></li><li><a class="toctext" href="AWSSDK.Polly.html">AWSSDK.Polly.jl</a></li><li><a class="toctext" href="AWSSDK.RDS.html">AWSSDK.RDS.jl</a></li><li><a class="toctext" href="AWSSDK.Redshift.html">AWSSDK.Redshift.jl</a></li><li><a class="toctext" href="AWSSDK.Rekognition.html">AWSSDK.Rekognition.jl</a></li><li><a class="toctext" href="AWSSDK.ResourceGroupsTaggingAPI.html">AWSSDK.ResourceGroupsTaggingAPI.jl</a></li><li><a class="toctext" href="AWSSDK.Route53.html">AWSSDK.Route53.jl</a></li><li><a class="toctext" href="AWSSDK.Route53Domains.html">AWSSDK.Route53Domains.jl</a></li><li><a class="toctext" href="AWSSDK.LexRuntime.html">AWSSDK.LexRuntime.jl</a></li><li><a class="toctext" href="AWSSDK.S3.html">AWSSDK.S3.jl</a></li><li><a class="toctext" href="AWSSDK.SimpleDB.html">AWSSDK.SimpleDB.jl</a></li><li><a class="toctext" href="AWSSDK.ServiceCatalog.html">AWSSDK.ServiceCatalog.jl</a></li><li><a class="toctext" href="AWSSDK.Shield.html">AWSSDK.Shield.jl</a></li><li><a class="toctext" href="AWSSDK.SMS.html">AWSSDK.SMS.jl</a></li><li><a class="toctext" href="AWSSDK.Snowball.html">AWSSDK.Snowball.jl</a></li><li><a class="toctext" href="AWSSDK.SNS.html">AWSSDK.SNS.jl</a></li><li><a class="toctext" href="AWSSDK.SQS.html">AWSSDK.SQS.jl</a></li><li><a class="toctext" href="AWSSDK.SSM.html">AWSSDK.SSM.jl</a></li><li><a class="toctext" href="AWSSDK.StepFunctions.html">AWSSDK.StepFunctions.jl</a></li><li><a class="toctext" href="AWSSDK.StorageGateway.html">AWSSDK.StorageGateway.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDBStreams.html">AWSSDK.DynamoDBStreams.jl</a></li><li><a class="toctext" href="AWSSDK.STS.html">AWSSDK.STS.jl</a></li><li><a class="toctext" href="AWSSDK.Support.html">AWSSDK.Support.jl</a></li><li><a class="toctext" href="AWSSDK.SWF.html">AWSSDK.SWF.jl</a></li><li><a class="toctext" href="AWSSDK.WAF.html">AWSSDK.WAF.jl</a></li><li><a class="toctext" href="AWSSDK.WAFRegional.html">AWSSDK.WAFRegional.jl</a></li><li><a class="toctext" href="AWSSDK.WorkDocs.html">AWSSDK.WorkDocs.jl</a></li><li><a class="toctext" href="AWSSDK.WorkSpaces.html">AWSSDK.WorkSpaces.jl</a></li><li><a class="toctext" href="AWSSDK.XRay.html">AWSSDK.XRay.jl</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href="AWSSDK.CloudFront.html">AWSSDK.CloudFront.jl</a></li></ul><a class="edit-page" href="https://github.com/JuliaCloud/AWSCore.jl/tree/1f93d72825dfa35b69cc2d48e9a3b9130a7ec269/src/AWSSDK.CloudFront.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>AWSSDK.CloudFront.jl</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="AWSSDK.CloudFront-1" href="#AWSSDK.CloudFront-1">AWSSDK.CloudFront</a></h1><h1><a class="nav-anchor" id="Amazon-CloudFront-1" href="#Amazon-CloudFront-1">Amazon CloudFront</a></h1><p>This is the <em>Amazon CloudFront API Reference</em>. This guide is for developers who need detailed information about the CloudFront API actions, data types, and errors. For detailed information about CloudFront features and their associated API calls, see the <em>Amazon CloudFront Developer Guide</em>.</p><p>This document is generated from <a href="https://github.com/aws/aws-sdk-js/blob/master/apis/cloudfront-2017-03-25.normal.json">apis/cloudfront-2017-03-25.normal.json</a>. See <a href="https://github.com/JuliaCloud/AWSCore.jl">JuliaCloud/AWSCore.jl</a>.</p><ul><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.create_cloud_front_origin_access_identity"><code>AWSSDK.CloudFront.create_cloud_front_origin_access_identity</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.create_distribution"><code>AWSSDK.CloudFront.create_distribution</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.create_distribution_with_tags"><code>AWSSDK.CloudFront.create_distribution_with_tags</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.create_invalidation"><code>AWSSDK.CloudFront.create_invalidation</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.create_streaming_distribution"><code>AWSSDK.CloudFront.create_streaming_distribution</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.create_streaming_distribution_with_tags"><code>AWSSDK.CloudFront.create_streaming_distribution_with_tags</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.delete_cloud_front_origin_access_identity"><code>AWSSDK.CloudFront.delete_cloud_front_origin_access_identity</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.delete_distribution"><code>AWSSDK.CloudFront.delete_distribution</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.delete_streaming_distribution"><code>AWSSDK.CloudFront.delete_streaming_distribution</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.get_cloud_front_origin_access_identity"><code>AWSSDK.CloudFront.get_cloud_front_origin_access_identity</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.get_cloud_front_origin_access_identity_config"><code>AWSSDK.CloudFront.get_cloud_front_origin_access_identity_config</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.get_distribution"><code>AWSSDK.CloudFront.get_distribution</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.get_distribution_config"><code>AWSSDK.CloudFront.get_distribution_config</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.get_invalidation"><code>AWSSDK.CloudFront.get_invalidation</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.get_streaming_distribution"><code>AWSSDK.CloudFront.get_streaming_distribution</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.get_streaming_distribution_config"><code>AWSSDK.CloudFront.get_streaming_distribution_config</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.list_cloud_front_origin_access_identities"><code>AWSSDK.CloudFront.list_cloud_front_origin_access_identities</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.list_distributions"><code>AWSSDK.CloudFront.list_distributions</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.list_distributions_by_web_aclid"><code>AWSSDK.CloudFront.list_distributions_by_web_aclid</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.list_invalidations"><code>AWSSDK.CloudFront.list_invalidations</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.list_streaming_distributions"><code>AWSSDK.CloudFront.list_streaming_distributions</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.list_tags_for_resource"><code>AWSSDK.CloudFront.list_tags_for_resource</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.tag_resource"><code>AWSSDK.CloudFront.tag_resource</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.untag_resource"><code>AWSSDK.CloudFront.untag_resource</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.update_cloud_front_origin_access_identity"><code>AWSSDK.CloudFront.update_cloud_front_origin_access_identity</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.update_distribution"><code>AWSSDK.CloudFront.update_distribution</code></a></li><li><a href="AWSSDK.CloudFront.html#AWSSDK.CloudFront.update_streaming_distribution"><code>AWSSDK.CloudFront.update_streaming_distribution</code></a></li></ul><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.create_cloud_front_origin_access_identity" href="#AWSSDK.CloudFront.create_cloud_front_origin_access_identity"><code>AWSSDK.CloudFront.create_cloud_front_origin_access_identity</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.create_cloud_front_origin_access_identity
+create_cloud_front_origin_access_identity([::AWSConfig], arguments::Dict)
+create_cloud_front_origin_access_identity([::AWSConfig]; CloudFrontOriginAccessIdentityConfig=)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;POST&quot;, &quot;/2017-03-25/origin-access-identity/cloudfront&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;POST&quot;, &quot;/2017-03-25/origin-access-identity/cloudfront&quot;, CloudFrontOriginAccessIdentityConfig=)</code></pre><p><strong>CreateCloudFrontOriginAccessIdentity Operation</strong></p><p>Creates a new origin access identity. If you&#39;re using Amazon S3 for your origin, you can use an origin access identity to require users to access your content using a CloudFront URL instead of the Amazon S3 URL. For more information about how to use origin access identities, see <a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html">Serving Private Content through CloudFront</a> in the <em>Amazon CloudFront Developer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>CloudFrontOriginAccessIdentityConfig = [ ... ]</code> – <em>Required</em></strong></p><p>The current configuration information for the identity.</p><pre><code class="language-none"> CloudFrontOriginAccessIdentityConfig = [
+        &quot;CallerReference&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Comment&quot; =&gt; &lt;required&gt; ::String
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreateCloudFrontOriginAccessIdentityResult</code></p><p><strong>Exceptions</strong></p><p><code>CloudFrontOriginAccessIdentityAlreadyExists</code>, <code>MissingBody</code>, <code>TooManyCloudFrontOriginAccessIdentities</code>, <code>InvalidArgument</code> or <code>InconsistentQuantities</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/CreateCloudFrontOriginAccessIdentity">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.create_distribution" href="#AWSSDK.CloudFront.create_distribution"><code>AWSSDK.CloudFront.create_distribution</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.create_distribution
+create_distribution([::AWSConfig], arguments::Dict)
+create_distribution([::AWSConfig]; DistributionConfig=)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;POST&quot;, &quot;/2017-03-25/distribution&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;POST&quot;, &quot;/2017-03-25/distribution&quot;, DistributionConfig=)</code></pre><p><strong>CreateDistribution Operation</strong></p><p>Creates a new web distribution. Send a <code>POST</code> request to the <code>/*CloudFront API version*/distribution</code>/<code>distribution ID</code> resource.</p><p><strong>Arguments</strong></p><p><strong><code>DistributionConfig = [ ... ]</code> – <em>Required</em></strong></p><p>The distribution&#39;s configuration information.</p><pre><code class="language-none"> DistributionConfig = [
+        &quot;CallerReference&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Aliases&quot; =&gt;  [
+            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+            &quot;Items&quot; =&gt;  [::String, ...]
+        ],
+        &quot;DefaultRootObject&quot; =&gt;  ::String,
+        &quot;Origins&quot; =&gt; &lt;required&gt; [
+            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+            &quot;Items&quot; =&gt;  [[
+                &quot;Id&quot; =&gt; &lt;required&gt; ::String,
+                &quot;DomainName&quot; =&gt; &lt;required&gt; ::String,
+                &quot;OriginPath&quot; =&gt;  ::String,
+                &quot;CustomHeaders&quot; =&gt;  [
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt;  [[
+                        &quot;HeaderName&quot; =&gt; &lt;required&gt; ::String,
+                        &quot;HeaderValue&quot; =&gt; &lt;required&gt; ::String
+                    ], ...]
+                ],
+                &quot;S3OriginConfig&quot; =&gt;  [&quot;OriginAccessIdentity&quot; =&gt; &lt;required&gt; ::String],
+                &quot;CustomOriginConfig&quot; =&gt;  [
+                    &quot;HTTPPort&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;HTTPSPort&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;OriginProtocolPolicy&quot; =&gt; &lt;required&gt; &quot;http-only&quot;, &quot;match-viewer&quot; or &quot;https-only&quot;,
+                    &quot;OriginSslProtocols&quot; =&gt;  [
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt; &lt;required&gt; [&quot;SSLv3&quot;, &quot;TLSv1&quot;, &quot;TLSv1.1&quot; or &quot;TLSv1.2&quot;, ...]
+                    ],
+                    &quot;OriginReadTimeout&quot; =&gt;  ::Int,
+                    &quot;OriginKeepaliveTimeout&quot; =&gt;  ::Int
+                ]
+            ], ...]
+        ],
+        &quot;DefaultCacheBehavior&quot; =&gt; &lt;required&gt; [
+            &quot;TargetOriginId&quot; =&gt; &lt;required&gt; ::String,
+            &quot;ForwardedValues&quot; =&gt; &lt;required&gt; [
+                &quot;QueryString&quot; =&gt; &lt;required&gt; ::Bool,
+                &quot;Cookies&quot; =&gt; &lt;required&gt; [
+                    &quot;Forward&quot; =&gt; &lt;required&gt; &quot;none&quot;, &quot;whitelist&quot; or &quot;all&quot;,
+                    &quot;WhitelistedNames&quot; =&gt;  [
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt;  [::String, ...]
+                    ]
+                ],
+                &quot;Headers&quot; =&gt;  [
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt;  [::String, ...]
+                ],
+                &quot;QueryStringCacheKeys&quot; =&gt;  [
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt;  [::String, ...]
+                ]
+            ],
+            &quot;TrustedSigners&quot; =&gt; &lt;required&gt; [
+                &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+                &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;Items&quot; =&gt;  [::String, ...]
+            ],
+            &quot;ViewerProtocolPolicy&quot; =&gt; &lt;required&gt; &quot;allow-all&quot;, &quot;https-only&quot; or &quot;redirect-to-https&quot;,
+            &quot;MinTTL&quot; =&gt; &lt;required&gt; ::Int,
+            &quot;AllowedMethods&quot; =&gt;  [
+                &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;Items&quot; =&gt; &lt;required&gt; [&quot;GET&quot;, &quot;HEAD&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;OPTIONS&quot; or &quot;DELETE&quot;, ...],
+                &quot;CachedMethods&quot; =&gt;  [
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt; &lt;required&gt; [&quot;GET&quot;, &quot;HEAD&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;OPTIONS&quot; or &quot;DELETE&quot;, ...]
+                ]
+            ],
+            &quot;SmoothStreaming&quot; =&gt;  ::Bool,
+            &quot;DefaultTTL&quot; =&gt;  ::Int,
+            &quot;MaxTTL&quot; =&gt;  ::Int,
+            &quot;Compress&quot; =&gt;  ::Bool,
+            &quot;LambdaFunctionAssociations&quot; =&gt;  [
+                &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;Items&quot; =&gt;  [[
+                    &quot;LambdaFunctionARN&quot; =&gt;  ::String,
+                    &quot;EventType&quot; =&gt;  &quot;viewer-request&quot;, &quot;viewer-response&quot;, &quot;origin-request&quot; or &quot;origin-response&quot;
+                ], ...]
+            ]
+        ],
+        &quot;CacheBehaviors&quot; =&gt;  [
+            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+            &quot;Items&quot; =&gt;  [[
+                &quot;PathPattern&quot; =&gt; &lt;required&gt; ::String,
+                &quot;TargetOriginId&quot; =&gt; &lt;required&gt; ::String,
+                &quot;ForwardedValues&quot; =&gt; &lt;required&gt; [
+                    &quot;QueryString&quot; =&gt; &lt;required&gt; ::Bool,
+                    &quot;Cookies&quot; =&gt; &lt;required&gt; [
+                        &quot;Forward&quot; =&gt; &lt;required&gt; &quot;none&quot;, &quot;whitelist&quot; or &quot;all&quot;,
+                        &quot;WhitelistedNames&quot; =&gt;  [
+                            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                            &quot;Items&quot; =&gt;  [::String, ...]
+                        ]
+                    ],
+                    &quot;Headers&quot; =&gt;  [
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt;  [::String, ...]
+                    ],
+                    &quot;QueryStringCacheKeys&quot; =&gt;  [
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt;  [::String, ...]
+                    ]
+                ],
+                &quot;TrustedSigners&quot; =&gt; &lt;required&gt; [
+                    &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt;  [::String, ...]
+                ],
+                &quot;ViewerProtocolPolicy&quot; =&gt; &lt;required&gt; &quot;allow-all&quot;, &quot;https-only&quot; or &quot;redirect-to-https&quot;,
+                &quot;MinTTL&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;AllowedMethods&quot; =&gt;  [
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt; &lt;required&gt; [&quot;GET&quot;, &quot;HEAD&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;OPTIONS&quot; or &quot;DELETE&quot;, ...],
+                    &quot;CachedMethods&quot; =&gt;  [
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt; &lt;required&gt; [&quot;GET&quot;, &quot;HEAD&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;OPTIONS&quot; or &quot;DELETE&quot;, ...]
+                    ]
+                ],
+                &quot;SmoothStreaming&quot; =&gt;  ::Bool,
+                &quot;DefaultTTL&quot; =&gt;  ::Int,
+                &quot;MaxTTL&quot; =&gt;  ::Int,
+                &quot;Compress&quot; =&gt;  ::Bool,
+                &quot;LambdaFunctionAssociations&quot; =&gt;  [
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt;  [[
+                        &quot;LambdaFunctionARN&quot; =&gt;  ::String,
+                        &quot;EventType&quot; =&gt;  &quot;viewer-request&quot;, &quot;viewer-response&quot;, &quot;origin-request&quot; or &quot;origin-response&quot;
+                    ], ...]
+                ]
+            ], ...]
+        ],
+        &quot;CustomErrorResponses&quot; =&gt;  [
+            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+            &quot;Items&quot; =&gt;  [[
+                &quot;ErrorCode&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;ResponsePagePath&quot; =&gt;  ::String,
+                &quot;ResponseCode&quot; =&gt;  ::String,
+                &quot;ErrorCachingMinTTL&quot; =&gt;  ::Int
+            ], ...]
+        ],
+        &quot;Comment&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Logging&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+            &quot;IncludeCookies&quot; =&gt; &lt;required&gt; ::Bool,
+            &quot;Bucket&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Prefix&quot; =&gt; &lt;required&gt; ::String
+        ],
+        &quot;PriceClass&quot; =&gt;  &quot;PriceClass_100&quot;, &quot;PriceClass_200&quot; or &quot;PriceClass_All&quot;,
+        &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+        &quot;ViewerCertificate&quot; =&gt;  [
+            &quot;CloudFrontDefaultCertificate&quot; =&gt;  ::Bool,
+            &quot;IAMCertificateId&quot; =&gt;  ::String,
+            &quot;ACMCertificateArn&quot; =&gt;  ::String,
+            &quot;SSLSupportMethod&quot; =&gt;  &quot;sni-only&quot; or &quot;vip&quot;,
+            &quot;MinimumProtocolVersion&quot; =&gt;  &quot;SSLv3&quot; or &quot;TLSv1&quot;,
+            &quot;Certificate&quot; =&gt;  ::String,
+            &quot;CertificateSource&quot; =&gt;  &quot;cloudfront&quot;, &quot;iam&quot; or &quot;acm&quot;
+        ],
+        &quot;Restrictions&quot; =&gt;  [&quot;GeoRestriction&quot; =&gt; &lt;required&gt; [
+                &quot;RestrictionType&quot; =&gt; &lt;required&gt; &quot;blacklist&quot;, &quot;whitelist&quot; or &quot;none&quot;,
+                &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;Items&quot; =&gt;  [::String, ...]
+            ]],
+        &quot;WebACLId&quot; =&gt;  ::String,
+        &quot;HttpVersion&quot; =&gt;  &quot;http1.1&quot; or &quot;http2&quot;,
+        &quot;IsIPV6Enabled&quot; =&gt;  ::Bool
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreateDistributionResult</code></p><p><strong>Exceptions</strong></p><p><code>CNAMEAlreadyExists</code>, <code>DistributionAlreadyExists</code>, <code>InvalidOrigin</code>, <code>InvalidOriginAccessIdentity</code>, <code>AccessDenied</code>, <code>TooManyTrustedSigners</code>, <code>TrustedSignerDoesNotExist</code>, <code>InvalidViewerCertificate</code>, <code>InvalidMinimumProtocolVersion</code>, <code>MissingBody</code>, <code>TooManyDistributionCNAMEs</code>, <code>TooManyDistributions</code>, <code>InvalidDefaultRootObject</code>, <code>InvalidRelativePath</code>, <code>InvalidErrorCode</code>, <code>InvalidResponseCode</code>, <code>InvalidArgument</code>, <code>InvalidRequiredProtocol</code>, <code>NoSuchOrigin</code>, <code>TooManyOrigins</code>, <code>TooManyCacheBehaviors</code>, <code>TooManyCookieNamesInWhiteList</code>, <code>InvalidForwardCookies</code>, <code>TooManyHeadersInForwardedValues</code>, <code>InvalidHeadersForS3Origin</code>, <code>InconsistentQuantities</code>, <code>TooManyCertificates</code>, <code>InvalidLocationCode</code>, <code>InvalidGeoRestrictionParameter</code>, <code>InvalidProtocolSettings</code>, <code>InvalidTTLOrder</code>, <code>InvalidWebACLId</code>, <code>TooManyOriginCustomHeaders</code>, <code>TooManyQueryStringParameters</code>, <code>InvalidQueryStringParameters</code>, <code>TooManyDistributionsWithLambdaAssociations</code>, <code>TooManyLambdaFunctionAssociations</code>, <code>InvalidLambdaFunctionAssociation</code>, <code>InvalidOriginReadTimeout</code> or <code>InvalidOriginKeepaliveTimeout</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/CreateDistribution">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.create_distribution_with_tags" href="#AWSSDK.CloudFront.create_distribution_with_tags"><code>AWSSDK.CloudFront.create_distribution_with_tags</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.create_distribution_with_tags
+create_distribution_with_tags([::AWSConfig], arguments::Dict)
+create_distribution_with_tags([::AWSConfig]; DistributionConfigWithTags=)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;POST&quot;, &quot;/2017-03-25/distribution?WithTags&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;POST&quot;, &quot;/2017-03-25/distribution?WithTags&quot;, DistributionConfigWithTags=)</code></pre><p><strong>CreateDistributionWithTags Operation</strong></p><p>Create a new distribution with tags.</p><p><strong>Arguments</strong></p><p><strong><code>DistributionConfigWithTags = [ ... ]</code> – <em>Required</em></strong></p><p>The distribution&#39;s configuration information.</p><pre><code class="language-none"> DistributionConfigWithTags = [
+        &quot;DistributionConfig&quot; =&gt; &lt;required&gt; [
+            &quot;CallerReference&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Aliases&quot; =&gt;  [
+                &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;Items&quot; =&gt;  [::String, ...]
+            ],
+            &quot;DefaultRootObject&quot; =&gt;  ::String,
+            &quot;Origins&quot; =&gt; &lt;required&gt; [
+                &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;Items&quot; =&gt;  [[
+                    &quot;Id&quot; =&gt; &lt;required&gt; ::String,
+                    &quot;DomainName&quot; =&gt; &lt;required&gt; ::String,
+                    &quot;OriginPath&quot; =&gt;  ::String,
+                    &quot;CustomHeaders&quot; =&gt;  [
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt;  [[
+                            &quot;HeaderName&quot; =&gt; &lt;required&gt; ::String,
+                            &quot;HeaderValue&quot; =&gt; &lt;required&gt; ::String
+                        ], ...]
+                    ],
+                    &quot;S3OriginConfig&quot; =&gt;  [&quot;OriginAccessIdentity&quot; =&gt; &lt;required&gt; ::String],
+                    &quot;CustomOriginConfig&quot; =&gt;  [
+                        &quot;HTTPPort&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;HTTPSPort&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;OriginProtocolPolicy&quot; =&gt; &lt;required&gt; &quot;http-only&quot;, &quot;match-viewer&quot; or &quot;https-only&quot;,
+                        &quot;OriginSslProtocols&quot; =&gt;  [
+                            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                            &quot;Items&quot; =&gt; &lt;required&gt; [&quot;SSLv3&quot;, &quot;TLSv1&quot;, &quot;TLSv1.1&quot; or &quot;TLSv1.2&quot;, ...]
+                        ],
+                        &quot;OriginReadTimeout&quot; =&gt;  ::Int,
+                        &quot;OriginKeepaliveTimeout&quot; =&gt;  ::Int
+                    ]
+                ], ...]
+            ],
+            &quot;DefaultCacheBehavior&quot; =&gt; &lt;required&gt; [
+                &quot;TargetOriginId&quot; =&gt; &lt;required&gt; ::String,
+                &quot;ForwardedValues&quot; =&gt; &lt;required&gt; [
+                    &quot;QueryString&quot; =&gt; &lt;required&gt; ::Bool,
+                    &quot;Cookies&quot; =&gt; &lt;required&gt; [
+                        &quot;Forward&quot; =&gt; &lt;required&gt; &quot;none&quot;, &quot;whitelist&quot; or &quot;all&quot;,
+                        &quot;WhitelistedNames&quot; =&gt;  [
+                            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                            &quot;Items&quot; =&gt;  [::String, ...]
+                        ]
+                    ],
+                    &quot;Headers&quot; =&gt;  [
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt;  [::String, ...]
+                    ],
+                    &quot;QueryStringCacheKeys&quot; =&gt;  [
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt;  [::String, ...]
+                    ]
+                ],
+                &quot;TrustedSigners&quot; =&gt; &lt;required&gt; [
+                    &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt;  [::String, ...]
+                ],
+                &quot;ViewerProtocolPolicy&quot; =&gt; &lt;required&gt; &quot;allow-all&quot;, &quot;https-only&quot; or &quot;redirect-to-https&quot;,
+                &quot;MinTTL&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;AllowedMethods&quot; =&gt;  [
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt; &lt;required&gt; [&quot;GET&quot;, &quot;HEAD&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;OPTIONS&quot; or &quot;DELETE&quot;, ...],
+                    &quot;CachedMethods&quot; =&gt;  [
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt; &lt;required&gt; [&quot;GET&quot;, &quot;HEAD&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;OPTIONS&quot; or &quot;DELETE&quot;, ...]
+                    ]
+                ],
+                &quot;SmoothStreaming&quot; =&gt;  ::Bool,
+                &quot;DefaultTTL&quot; =&gt;  ::Int,
+                &quot;MaxTTL&quot; =&gt;  ::Int,
+                &quot;Compress&quot; =&gt;  ::Bool,
+                &quot;LambdaFunctionAssociations&quot; =&gt;  [
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt;  [[
+                        &quot;LambdaFunctionARN&quot; =&gt;  ::String,
+                        &quot;EventType&quot; =&gt;  &quot;viewer-request&quot;, &quot;viewer-response&quot;, &quot;origin-request&quot; or &quot;origin-response&quot;
+                    ], ...]
+                ]
+            ],
+            &quot;CacheBehaviors&quot; =&gt;  [
+                &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;Items&quot; =&gt;  [[
+                    &quot;PathPattern&quot; =&gt; &lt;required&gt; ::String,
+                    &quot;TargetOriginId&quot; =&gt; &lt;required&gt; ::String,
+                    &quot;ForwardedValues&quot; =&gt; &lt;required&gt; [
+                        &quot;QueryString&quot; =&gt; &lt;required&gt; ::Bool,
+                        &quot;Cookies&quot; =&gt; &lt;required&gt; [
+                            &quot;Forward&quot; =&gt; &lt;required&gt; &quot;none&quot;, &quot;whitelist&quot; or &quot;all&quot;,
+                            &quot;WhitelistedNames&quot; =&gt;  [
+                                &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                                &quot;Items&quot; =&gt;  [::String, ...]
+                            ]
+                        ],
+                        &quot;Headers&quot; =&gt;  [
+                            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                            &quot;Items&quot; =&gt;  [::String, ...]
+                        ],
+                        &quot;QueryStringCacheKeys&quot; =&gt;  [
+                            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                            &quot;Items&quot; =&gt;  [::String, ...]
+                        ]
+                    ],
+                    &quot;TrustedSigners&quot; =&gt; &lt;required&gt; [
+                        &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt;  [::String, ...]
+                    ],
+                    &quot;ViewerProtocolPolicy&quot; =&gt; &lt;required&gt; &quot;allow-all&quot;, &quot;https-only&quot; or &quot;redirect-to-https&quot;,
+                    &quot;MinTTL&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;AllowedMethods&quot; =&gt;  [
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt; &lt;required&gt; [&quot;GET&quot;, &quot;HEAD&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;OPTIONS&quot; or &quot;DELETE&quot;, ...],
+                        &quot;CachedMethods&quot; =&gt;  [
+                            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                            &quot;Items&quot; =&gt; &lt;required&gt; [&quot;GET&quot;, &quot;HEAD&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;OPTIONS&quot; or &quot;DELETE&quot;, ...]
+                        ]
+                    ],
+                    &quot;SmoothStreaming&quot; =&gt;  ::Bool,
+                    &quot;DefaultTTL&quot; =&gt;  ::Int,
+                    &quot;MaxTTL&quot; =&gt;  ::Int,
+                    &quot;Compress&quot; =&gt;  ::Bool,
+                    &quot;LambdaFunctionAssociations&quot; =&gt;  [
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt;  [[
+                            &quot;LambdaFunctionARN&quot; =&gt;  ::String,
+                            &quot;EventType&quot; =&gt;  &quot;viewer-request&quot;, &quot;viewer-response&quot;, &quot;origin-request&quot; or &quot;origin-response&quot;
+                        ], ...]
+                    ]
+                ], ...]
+            ],
+            &quot;CustomErrorResponses&quot; =&gt;  [
+                &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;Items&quot; =&gt;  [[
+                    &quot;ErrorCode&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;ResponsePagePath&quot; =&gt;  ::String,
+                    &quot;ResponseCode&quot; =&gt;  ::String,
+                    &quot;ErrorCachingMinTTL&quot; =&gt;  ::Int
+                ], ...]
+            ],
+            &quot;Comment&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Logging&quot; =&gt;  [
+                &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+                &quot;IncludeCookies&quot; =&gt; &lt;required&gt; ::Bool,
+                &quot;Bucket&quot; =&gt; &lt;required&gt; ::String,
+                &quot;Prefix&quot; =&gt; &lt;required&gt; ::String
+            ],
+            &quot;PriceClass&quot; =&gt;  &quot;PriceClass_100&quot;, &quot;PriceClass_200&quot; or &quot;PriceClass_All&quot;,
+            &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+            &quot;ViewerCertificate&quot; =&gt;  [
+                &quot;CloudFrontDefaultCertificate&quot; =&gt;  ::Bool,
+                &quot;IAMCertificateId&quot; =&gt;  ::String,
+                &quot;ACMCertificateArn&quot; =&gt;  ::String,
+                &quot;SSLSupportMethod&quot; =&gt;  &quot;sni-only&quot; or &quot;vip&quot;,
+                &quot;MinimumProtocolVersion&quot; =&gt;  &quot;SSLv3&quot; or &quot;TLSv1&quot;,
+                &quot;Certificate&quot; =&gt;  ::String,
+                &quot;CertificateSource&quot; =&gt;  &quot;cloudfront&quot;, &quot;iam&quot; or &quot;acm&quot;
+            ],
+            &quot;Restrictions&quot; =&gt;  [&quot;GeoRestriction&quot; =&gt; &lt;required&gt; [
+                    &quot;RestrictionType&quot; =&gt; &lt;required&gt; &quot;blacklist&quot;, &quot;whitelist&quot; or &quot;none&quot;,
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt;  [::String, ...]
+                ]],
+            &quot;WebACLId&quot; =&gt;  ::String,
+            &quot;HttpVersion&quot; =&gt;  &quot;http1.1&quot; or &quot;http2&quot;,
+            &quot;IsIPV6Enabled&quot; =&gt;  ::Bool
+        ],
+        &quot;Tags&quot; =&gt; &lt;required&gt; [&quot;Items&quot; =&gt;  [[
+                &quot;Key&quot; =&gt; &lt;required&gt; ::String,
+                &quot;Value&quot; =&gt;  ::String
+            ], ...]]
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreateDistributionWithTagsResult</code></p><p><strong>Exceptions</strong></p><p><code>CNAMEAlreadyExists</code>, <code>DistributionAlreadyExists</code>, <code>InvalidOrigin</code>, <code>InvalidOriginAccessIdentity</code>, <code>AccessDenied</code>, <code>TooManyTrustedSigners</code>, <code>TrustedSignerDoesNotExist</code>, <code>InvalidViewerCertificate</code>, <code>InvalidMinimumProtocolVersion</code>, <code>MissingBody</code>, <code>TooManyDistributionCNAMEs</code>, <code>TooManyDistributions</code>, <code>InvalidDefaultRootObject</code>, <code>InvalidRelativePath</code>, <code>InvalidErrorCode</code>, <code>InvalidResponseCode</code>, <code>InvalidArgument</code>, <code>InvalidRequiredProtocol</code>, <code>NoSuchOrigin</code>, <code>TooManyOrigins</code>, <code>TooManyCacheBehaviors</code>, <code>TooManyCookieNamesInWhiteList</code>, <code>InvalidForwardCookies</code>, <code>TooManyHeadersInForwardedValues</code>, <code>InvalidHeadersForS3Origin</code>, <code>InconsistentQuantities</code>, <code>TooManyCertificates</code>, <code>InvalidLocationCode</code>, <code>InvalidGeoRestrictionParameter</code>, <code>InvalidProtocolSettings</code>, <code>InvalidTTLOrder</code>, <code>InvalidWebACLId</code>, <code>TooManyOriginCustomHeaders</code>, <code>InvalidTagging</code>, <code>TooManyQueryStringParameters</code>, <code>InvalidQueryStringParameters</code>, <code>TooManyDistributionsWithLambdaAssociations</code>, <code>TooManyLambdaFunctionAssociations</code>, <code>InvalidLambdaFunctionAssociation</code>, <code>InvalidOriginReadTimeout</code> or <code>InvalidOriginKeepaliveTimeout</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/CreateDistributionWithTags">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.create_invalidation" href="#AWSSDK.CloudFront.create_invalidation"><code>AWSSDK.CloudFront.create_invalidation</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.create_invalidation
+create_invalidation([::AWSConfig], arguments::Dict)
+create_invalidation([::AWSConfig]; DistributionId=, InvalidationBatch=)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;POST&quot;, &quot;/2017-03-25/distribution/{DistributionId}/invalidation&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;POST&quot;, &quot;/2017-03-25/distribution/{DistributionId}/invalidation&quot;, DistributionId=, InvalidationBatch=)</code></pre><p><strong>CreateInvalidation Operation</strong></p><p>Create a new invalidation.</p><p><strong>Arguments</strong></p><p><strong><code>DistributionId = ::String</code> – <em>Required</em></strong></p><p>The distribution&#39;s id.</p><p><strong><code>InvalidationBatch = [ ... ]</code> – <em>Required</em></strong></p><p>The batch information for the invalidation.</p><pre><code class="language-none"> InvalidationBatch = [
+        &quot;Paths&quot; =&gt; &lt;required&gt; [
+            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+            &quot;Items&quot; =&gt;  [::String, ...]
+        ],
+        &quot;CallerReference&quot; =&gt; &lt;required&gt; ::String
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreateInvalidationResult</code></p><p><strong>Exceptions</strong></p><p><code>AccessDenied</code>, <code>MissingBody</code>, <code>InvalidArgument</code>, <code>NoSuchDistribution</code>, <code>BatchTooLarge</code>, <code>TooManyInvalidationsInProgress</code> or <code>InconsistentQuantities</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/CreateInvalidation">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.create_streaming_distribution" href="#AWSSDK.CloudFront.create_streaming_distribution"><code>AWSSDK.CloudFront.create_streaming_distribution</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.create_streaming_distribution
+create_streaming_distribution([::AWSConfig], arguments::Dict)
+create_streaming_distribution([::AWSConfig]; StreamingDistributionConfig=)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;POST&quot;, &quot;/2017-03-25/streaming-distribution&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;POST&quot;, &quot;/2017-03-25/streaming-distribution&quot;, StreamingDistributionConfig=)</code></pre><p><strong>CreateStreamingDistribution Operation</strong></p><p>Creates a new RMTP distribution. An RTMP distribution is similar to a web distribution, but an RTMP distribution streams media files using the Adobe Real-Time Messaging Protocol (RTMP) instead of serving files using HTTP.</p><p>To create a new web distribution, submit a <code>POST</code> request to the <em>CloudFront API version</em>/distribution resource. The request body must include a document with a <em>StreamingDistributionConfig</em> element. The response echoes the <code>StreamingDistributionConfig</code> element and returns other information about the RTMP distribution.</p><p>To get the status of your request, use the <em>GET StreamingDistribution</em> API action. When the value of <code>Enabled</code> is <code>true</code> and the value of <code>Status</code> is <code>Deployed</code>, your distribution is ready. A distribution usually deploys in less than 15 minutes.</p><p>For more information about web distributions, see <a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-rtmp.html">Working with RTMP Distributions</a> in the <em>Amazon CloudFront Developer Guide</em>.</p><p><strong>Important</strong></p><blockquote><p>Beginning with the 2012-05-05 version of the CloudFront API, we made substantial changes to the format of the XML document that you include in the request body when you create or update a web distribution or an RTMP distribution, and when you invalidate objects. With previous versions of the API, we discovered that it was too easy to accidentally delete one or more values for an element that accepts multiple values, for example, CNAMEs and trusted signers. Our changes for the 2012-05-05 release are intended to prevent these accidental deletions and to notify you when there&#39;s a mismatch between the number of values you say you&#39;re specifying in the <code>Quantity</code> element and the number of values specified.</p></blockquote><p><strong>Arguments</strong></p><p><strong><code>StreamingDistributionConfig = [ ... ]</code> – <em>Required</em></strong></p><p>The streaming distribution&#39;s configuration information.</p><pre><code class="language-none"> StreamingDistributionConfig = [
+        &quot;CallerReference&quot; =&gt; &lt;required&gt; ::String,
+        &quot;S3Origin&quot; =&gt; &lt;required&gt; [
+            &quot;DomainName&quot; =&gt; &lt;required&gt; ::String,
+            &quot;OriginAccessIdentity&quot; =&gt; &lt;required&gt; ::String
+        ],
+        &quot;Aliases&quot; =&gt;  [
+            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+            &quot;Items&quot; =&gt;  [::String, ...]
+        ],
+        &quot;Comment&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Logging&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+            &quot;Bucket&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Prefix&quot; =&gt; &lt;required&gt; ::String
+        ],
+        &quot;TrustedSigners&quot; =&gt; &lt;required&gt; [
+            &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+            &quot;Items&quot; =&gt;  [::String, ...]
+        ],
+        &quot;PriceClass&quot; =&gt;  &quot;PriceClass_100&quot;, &quot;PriceClass_200&quot; or &quot;PriceClass_All&quot;,
+        &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreateStreamingDistributionResult</code></p><p><strong>Exceptions</strong></p><p><code>CNAMEAlreadyExists</code>, <code>StreamingDistributionAlreadyExists</code>, <code>InvalidOrigin</code>, <code>InvalidOriginAccessIdentity</code>, <code>AccessDenied</code>, <code>TooManyTrustedSigners</code>, <code>TrustedSignerDoesNotExist</code>, <code>MissingBody</code>, <code>TooManyStreamingDistributionCNAMEs</code>, <code>TooManyStreamingDistributions</code>, <code>InvalidArgument</code> or <code>InconsistentQuantities</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/CreateStreamingDistribution">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.create_streaming_distribution_with_tags" href="#AWSSDK.CloudFront.create_streaming_distribution_with_tags"><code>AWSSDK.CloudFront.create_streaming_distribution_with_tags</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.create_streaming_distribution_with_tags
+create_streaming_distribution_with_tags([::AWSConfig], arguments::Dict)
+create_streaming_distribution_with_tags([::AWSConfig]; StreamingDistributionConfigWithTags=)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;POST&quot;, &quot;/2017-03-25/streaming-distribution?WithTags&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;POST&quot;, &quot;/2017-03-25/streaming-distribution?WithTags&quot;, StreamingDistributionConfigWithTags=)</code></pre><p><strong>CreateStreamingDistributionWithTags Operation</strong></p><p>Create a new streaming distribution with tags.</p><p><strong>Arguments</strong></p><p><strong><code>StreamingDistributionConfigWithTags = [ ... ]</code> – <em>Required</em></strong></p><p>The streaming distribution&#39;s configuration information.</p><pre><code class="language-none"> StreamingDistributionConfigWithTags = [
+        &quot;StreamingDistributionConfig&quot; =&gt; &lt;required&gt; [
+            &quot;CallerReference&quot; =&gt; &lt;required&gt; ::String,
+            &quot;S3Origin&quot; =&gt; &lt;required&gt; [
+                &quot;DomainName&quot; =&gt; &lt;required&gt; ::String,
+                &quot;OriginAccessIdentity&quot; =&gt; &lt;required&gt; ::String
+            ],
+            &quot;Aliases&quot; =&gt;  [
+                &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;Items&quot; =&gt;  [::String, ...]
+            ],
+            &quot;Comment&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Logging&quot; =&gt;  [
+                &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+                &quot;Bucket&quot; =&gt; &lt;required&gt; ::String,
+                &quot;Prefix&quot; =&gt; &lt;required&gt; ::String
+            ],
+            &quot;TrustedSigners&quot; =&gt; &lt;required&gt; [
+                &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+                &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;Items&quot; =&gt;  [::String, ...]
+            ],
+            &quot;PriceClass&quot; =&gt;  &quot;PriceClass_100&quot;, &quot;PriceClass_200&quot; or &quot;PriceClass_All&quot;,
+            &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool
+        ],
+        &quot;Tags&quot; =&gt; &lt;required&gt; [&quot;Items&quot; =&gt;  [[
+                &quot;Key&quot; =&gt; &lt;required&gt; ::String,
+                &quot;Value&quot; =&gt;  ::String
+            ], ...]]
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreateStreamingDistributionWithTagsResult</code></p><p><strong>Exceptions</strong></p><p><code>CNAMEAlreadyExists</code>, <code>StreamingDistributionAlreadyExists</code>, <code>InvalidOrigin</code>, <code>InvalidOriginAccessIdentity</code>, <code>AccessDenied</code>, <code>TooManyTrustedSigners</code>, <code>TrustedSignerDoesNotExist</code>, <code>MissingBody</code>, <code>TooManyStreamingDistributionCNAMEs</code>, <code>TooManyStreamingDistributions</code>, <code>InvalidArgument</code>, <code>InconsistentQuantities</code> or <code>InvalidTagging</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/CreateStreamingDistributionWithTags">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.delete_cloud_front_origin_access_identity" href="#AWSSDK.CloudFront.delete_cloud_front_origin_access_identity"><code>AWSSDK.CloudFront.delete_cloud_front_origin_access_identity</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.delete_cloud_front_origin_access_identity
+delete_cloud_front_origin_access_identity([::AWSConfig], arguments::Dict)
+delete_cloud_front_origin_access_identity([::AWSConfig]; Id=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;DELETE&quot;, &quot;/2017-03-25/origin-access-identity/cloudfront/{Id}&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;DELETE&quot;, &quot;/2017-03-25/origin-access-identity/cloudfront/{Id}&quot;, Id=, &lt;keyword arguments&gt;)</code></pre><p><strong>DeleteCloudFrontOriginAccessIdentity Operation</strong></p><p>Delete an origin access identity.</p><p><strong>Arguments</strong></p><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The origin access identity&#39;s ID.</p><p><strong><code>If-Match = ::String</code></strong></p><p>The value of the <code>ETag</code> header you received from a previous <code>GET</code> or <code>PUT</code> request. For example: <code>E2QWRUHAPOMQZL</code>.</p><p><strong>Exceptions</strong></p><p><code>AccessDenied</code>, <code>InvalidIfMatchVersion</code>, <code>NoSuchCloudFrontOriginAccessIdentity</code>, <code>PreconditionFailed</code> or <code>CloudFrontOriginAccessIdentityInUse</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/DeleteCloudFrontOriginAccessIdentity">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.delete_distribution" href="#AWSSDK.CloudFront.delete_distribution"><code>AWSSDK.CloudFront.delete_distribution</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.delete_distribution
+delete_distribution([::AWSConfig], arguments::Dict)
+delete_distribution([::AWSConfig]; Id=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;DELETE&quot;, &quot;/2017-03-25/distribution/{Id}&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;DELETE&quot;, &quot;/2017-03-25/distribution/{Id}&quot;, Id=, &lt;keyword arguments&gt;)</code></pre><p><strong>DeleteDistribution Operation</strong></p><p>Delete a distribution.</p><p><strong>Arguments</strong></p><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The distribution ID.</p><p><strong><code>If-Match = ::String</code></strong></p><p>The value of the <code>ETag</code> header that you received when you disabled the distribution. For example: <code>E2QWRUHAPOMQZL</code>.</p><p><strong>Exceptions</strong></p><p><code>AccessDenied</code>, <code>DistributionNotDisabled</code>, <code>InvalidIfMatchVersion</code>, <code>NoSuchDistribution</code> or <code>PreconditionFailed</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/DeleteDistribution">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.delete_streaming_distribution" href="#AWSSDK.CloudFront.delete_streaming_distribution"><code>AWSSDK.CloudFront.delete_streaming_distribution</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.delete_streaming_distribution
+delete_streaming_distribution([::AWSConfig], arguments::Dict)
+delete_streaming_distribution([::AWSConfig]; Id=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;DELETE&quot;, &quot;/2017-03-25/streaming-distribution/{Id}&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;DELETE&quot;, &quot;/2017-03-25/streaming-distribution/{Id}&quot;, Id=, &lt;keyword arguments&gt;)</code></pre><p><strong>DeleteStreamingDistribution Operation</strong></p><p>Delete a streaming distribution. To delete an RTMP distribution using the CloudFront API, perform the following steps.</p><p><strong>To delete an RTMP distribution using the CloudFront API</strong>:</p><ol><li><p>Disable the RTMP distribution.</p></li><li><p>Submit a <code>GET Streaming Distribution Config</code> request to get the current configuration and the <code>Etag</code> header for the distribution.</p></li><li><p>Update the XML document that was returned in the response to your <code>GET Streaming Distribution Config</code> request to change the value of <code>Enabled</code> to <code>false</code>.</p></li><li><p>Submit a <code>PUT Streaming Distribution Config</code> request to update the configuration for your distribution. In the request body, include the XML document that you updated in Step 3. Then set the value of the HTTP <code>If-Match</code> header to the value of the <code>ETag</code> header that CloudFront returned when you submitted the <code>GET Streaming Distribution Config</code> request in Step 2.</p></li><li><p>Review the response to the <code>PUT Streaming Distribution Config</code> request to confirm that the distribution was successfully disabled.</p></li><li><p>Submit a <code>GET Streaming Distribution Config</code> request to confirm that your changes have propagated. When propagation is complete, the value of <code>Status</code> is <code>Deployed</code>.</p></li><li><p>Submit a <code>DELETE Streaming Distribution</code> request. Set the value of the HTTP <code>If-Match</code> header to the value of the <code>ETag</code> header that CloudFront returned when you submitted the <code>GET Streaming Distribution Config</code> request in Step 2.</p></li><li><p>Review the response to your <code>DELETE Streaming Distribution</code> request to confirm that the distribution was successfully deleted.</p></li></ol><p>For information about deleting a distribution using the CloudFront console, see <a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/HowToDeleteDistribution.html">Deleting a Distribution</a> in the <em>Amazon CloudFront Developer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The distribution ID.</p><p><strong><code>If-Match = ::String</code></strong></p><p>The value of the <code>ETag</code> header that you received when you disabled the streaming distribution. For example: <code>E2QWRUHAPOMQZL</code>.</p><p><strong>Exceptions</strong></p><p><code>AccessDenied</code>, <code>StreamingDistributionNotDisabled</code>, <code>InvalidIfMatchVersion</code>, <code>NoSuchStreamingDistribution</code> or <code>PreconditionFailed</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/DeleteStreamingDistribution">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.get_cloud_front_origin_access_identity" href="#AWSSDK.CloudFront.get_cloud_front_origin_access_identity"><code>AWSSDK.CloudFront.get_cloud_front_origin_access_identity</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.get_cloud_front_origin_access_identity
+get_cloud_front_origin_access_identity([::AWSConfig], arguments::Dict)
+get_cloud_front_origin_access_identity([::AWSConfig]; Id=)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/origin-access-identity/cloudfront/{Id}&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/origin-access-identity/cloudfront/{Id}&quot;, Id=)</code></pre><p><strong>GetCloudFrontOriginAccessIdentity Operation</strong></p><p>Get the information about an origin access identity.</p><p><strong>Arguments</strong></p><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The identity&#39;s ID.</p><p><strong>Returns</strong></p><p><code>GetCloudFrontOriginAccessIdentityResult</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchCloudFrontOriginAccessIdentity</code> or <code>AccessDenied</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/GetCloudFrontOriginAccessIdentity">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.get_cloud_front_origin_access_identity_config" href="#AWSSDK.CloudFront.get_cloud_front_origin_access_identity_config"><code>AWSSDK.CloudFront.get_cloud_front_origin_access_identity_config</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.get_cloud_front_origin_access_identity_config
+get_cloud_front_origin_access_identity_config([::AWSConfig], arguments::Dict)
+get_cloud_front_origin_access_identity_config([::AWSConfig]; Id=)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/origin-access-identity/cloudfront/{Id}/config&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/origin-access-identity/cloudfront/{Id}/config&quot;, Id=)</code></pre><p><strong>GetCloudFrontOriginAccessIdentityConfig Operation</strong></p><p>Get the configuration information about an origin access identity.</p><p><strong>Arguments</strong></p><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The identity&#39;s ID.</p><p><strong>Returns</strong></p><p><code>GetCloudFrontOriginAccessIdentityConfigResult</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchCloudFrontOriginAccessIdentity</code> or <code>AccessDenied</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/GetCloudFrontOriginAccessIdentityConfig">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.get_distribution" href="#AWSSDK.CloudFront.get_distribution"><code>AWSSDK.CloudFront.get_distribution</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.get_distribution
+get_distribution([::AWSConfig], arguments::Dict)
+get_distribution([::AWSConfig]; Id=)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/distribution/{Id}&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/distribution/{Id}&quot;, Id=)</code></pre><p><strong>GetDistribution Operation</strong></p><p>Get the information about a distribution.</p><p><strong>Arguments</strong></p><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The distribution&#39;s ID.</p><p><strong>Returns</strong></p><p><code>GetDistributionResult</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchDistribution</code> or <code>AccessDenied</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/GetDistribution">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.get_distribution_config" href="#AWSSDK.CloudFront.get_distribution_config"><code>AWSSDK.CloudFront.get_distribution_config</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.get_distribution_config
+get_distribution_config([::AWSConfig], arguments::Dict)
+get_distribution_config([::AWSConfig]; Id=)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/distribution/{Id}/config&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/distribution/{Id}/config&quot;, Id=)</code></pre><p><strong>GetDistributionConfig Operation</strong></p><p>Get the configuration information about a distribution.</p><p><strong>Arguments</strong></p><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The distribution&#39;s ID.</p><p><strong>Returns</strong></p><p><code>GetDistributionConfigResult</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchDistribution</code> or <code>AccessDenied</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/GetDistributionConfig">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.get_invalidation" href="#AWSSDK.CloudFront.get_invalidation"><code>AWSSDK.CloudFront.get_invalidation</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.get_invalidation
+get_invalidation([::AWSConfig], arguments::Dict)
+get_invalidation([::AWSConfig]; DistributionId=, Id=)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/distribution/{DistributionId}/invalidation/{Id}&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/distribution/{DistributionId}/invalidation/{Id}&quot;, DistributionId=, Id=)</code></pre><p><strong>GetInvalidation Operation</strong></p><p>Get the information about an invalidation.</p><p><strong>Arguments</strong></p><p><strong><code>DistributionId = ::String</code> – <em>Required</em></strong></p><p>The distribution&#39;s ID.</p><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The identifier for the invalidation request, for example, <code>IDFDVBD632BHDS5</code>.</p><p><strong>Returns</strong></p><p><code>GetInvalidationResult</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchInvalidation</code>, <code>NoSuchDistribution</code> or <code>AccessDenied</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/GetInvalidation">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.get_streaming_distribution" href="#AWSSDK.CloudFront.get_streaming_distribution"><code>AWSSDK.CloudFront.get_streaming_distribution</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.get_streaming_distribution
+get_streaming_distribution([::AWSConfig], arguments::Dict)
+get_streaming_distribution([::AWSConfig]; Id=)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/streaming-distribution/{Id}&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/streaming-distribution/{Id}&quot;, Id=)</code></pre><p><strong>GetStreamingDistribution Operation</strong></p><p>Gets information about a specified RTMP distribution, including the distribution configuration.</p><p><strong>Arguments</strong></p><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The streaming distribution&#39;s ID.</p><p><strong>Returns</strong></p><p><code>GetStreamingDistributionResult</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchStreamingDistribution</code> or <code>AccessDenied</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/GetStreamingDistribution">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.get_streaming_distribution_config" href="#AWSSDK.CloudFront.get_streaming_distribution_config"><code>AWSSDK.CloudFront.get_streaming_distribution_config</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.get_streaming_distribution_config
+get_streaming_distribution_config([::AWSConfig], arguments::Dict)
+get_streaming_distribution_config([::AWSConfig]; Id=)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/streaming-distribution/{Id}/config&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/streaming-distribution/{Id}/config&quot;, Id=)</code></pre><p><strong>GetStreamingDistributionConfig Operation</strong></p><p>Get the configuration information about a streaming distribution.</p><p><strong>Arguments</strong></p><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The streaming distribution&#39;s ID.</p><p><strong>Returns</strong></p><p><code>GetStreamingDistributionConfigResult</code></p><p><strong>Exceptions</strong></p><p><code>NoSuchStreamingDistribution</code> or <code>AccessDenied</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/GetStreamingDistributionConfig">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.list_cloud_front_origin_access_identities" href="#AWSSDK.CloudFront.list_cloud_front_origin_access_identities"><code>AWSSDK.CloudFront.list_cloud_front_origin_access_identities</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.list_cloud_front_origin_access_identities
+list_cloud_front_origin_access_identities([::AWSConfig], arguments::Dict)
+list_cloud_front_origin_access_identities([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/origin-access-identity/cloudfront&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/origin-access-identity/cloudfront&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>ListCloudFrontOriginAccessIdentities Operation</strong></p><p>Lists origin access identities.</p><p><strong>Arguments</strong></p><p><strong><code>Marker = ::String</code></strong></p><p>Use this when paginating results to indicate where to begin in your list of origin access identities. The results include identities in the list that occur after the marker. To get the next page of results, set the <code>Marker</code> to the value of the <code>NextMarker</code> from the current page&#39;s response (which is also the ID of the last identity on that page).</p><p><strong><code>MaxItems = ::String</code></strong></p><p>The maximum number of origin access identities you want in the response body.</p><p><strong>Returns</strong></p><p><code>ListCloudFrontOriginAccessIdentitiesResult</code></p><p><strong>Exceptions</strong></p><p><code>InvalidArgument</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/ListCloudFrontOriginAccessIdentities">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.list_distributions" href="#AWSSDK.CloudFront.list_distributions"><code>AWSSDK.CloudFront.list_distributions</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.list_distributions
+list_distributions([::AWSConfig], arguments::Dict)
+list_distributions([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/distribution&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/distribution&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>ListDistributions Operation</strong></p><p>List distributions.</p><p><strong>Arguments</strong></p><p><strong><code>Marker = ::String</code></strong></p><p>Use this when paginating results to indicate where to begin in your list of distributions. The results include distributions in the list that occur after the marker. To get the next page of results, set the <code>Marker</code> to the value of the <code>NextMarker</code> from the current page&#39;s response (which is also the ID of the last distribution on that page).</p><p><strong><code>MaxItems = ::String</code></strong></p><p>The maximum number of distributions you want in the response body.</p><p><strong>Returns</strong></p><p><code>ListDistributionsResult</code></p><p><strong>Exceptions</strong></p><p><code>InvalidArgument</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/ListDistributions">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.list_distributions_by_web_aclid" href="#AWSSDK.CloudFront.list_distributions_by_web_aclid"><code>AWSSDK.CloudFront.list_distributions_by_web_aclid</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.list_distributions_by_web_aclid
+list_distributions_by_web_aclid([::AWSConfig], arguments::Dict)
+list_distributions_by_web_aclid([::AWSConfig]; WebACLId=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/distributionsByWebACLId/{WebACLId}&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/distributionsByWebACLId/{WebACLId}&quot;, WebACLId=, &lt;keyword arguments&gt;)</code></pre><p><strong>ListDistributionsByWebACLId Operation</strong></p><p>List the distributions that are associated with a specified AWS WAF web ACL.</p><p><strong>Arguments</strong></p><p><strong><code>Marker = ::String</code></strong></p><p>Use <code>Marker</code> and <code>MaxItems</code> to control pagination of results. If you have more than <code>MaxItems</code> distributions that satisfy the request, the response includes a <code>NextMarker</code> element. To get the next page of results, submit another request. For the value of <code>Marker</code>, specify the value of <code>NextMarker</code> from the last response. (For the first request, omit <code>Marker</code>.)</p><p><strong><code>MaxItems = ::String</code></strong></p><p>The maximum number of distributions that you want CloudFront to return in the response body. The maximum and default values are both 100.</p><p><strong><code>WebACLId = ::String</code> – <em>Required</em></strong></p><p>The ID of the AWS WAF web ACL that you want to list the associated distributions. If you specify &quot;null&quot; for the ID, the request returns a list of the distributions that aren&#39;t associated with a web ACL.</p><p><strong>Returns</strong></p><p><code>ListDistributionsByWebACLIdResult</code></p><p><strong>Exceptions</strong></p><p><code>InvalidArgument</code> or <code>InvalidWebACLId</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/ListDistributionsByWebACLId">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.list_invalidations" href="#AWSSDK.CloudFront.list_invalidations"><code>AWSSDK.CloudFront.list_invalidations</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.list_invalidations
+list_invalidations([::AWSConfig], arguments::Dict)
+list_invalidations([::AWSConfig]; DistributionId=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/distribution/{DistributionId}/invalidation&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/distribution/{DistributionId}/invalidation&quot;, DistributionId=, &lt;keyword arguments&gt;)</code></pre><p><strong>ListInvalidations Operation</strong></p><p>Lists invalidation batches.</p><p><strong>Arguments</strong></p><p><strong><code>DistributionId = ::String</code> – <em>Required</em></strong></p><p>The distribution&#39;s ID.</p><p><strong><code>Marker = ::String</code></strong></p><p>Use this parameter when paginating results to indicate where to begin in your list of invalidation batches. Because the results are returned in decreasing order from most recent to oldest, the most recent results are on the first page, the second page will contain earlier results, and so on. To get the next page of results, set <code>Marker</code> to the value of the <code>NextMarker</code> from the current page&#39;s response. This value is the same as the ID of the last invalidation batch on that page.</p><p><strong><code>MaxItems = ::String</code></strong></p><p>The maximum number of invalidation batches that you want in the response body.</p><p><strong>Returns</strong></p><p><code>ListInvalidationsResult</code></p><p><strong>Exceptions</strong></p><p><code>InvalidArgument</code>, <code>NoSuchDistribution</code> or <code>AccessDenied</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/ListInvalidations">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.list_streaming_distributions" href="#AWSSDK.CloudFront.list_streaming_distributions"><code>AWSSDK.CloudFront.list_streaming_distributions</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.list_streaming_distributions
+list_streaming_distributions([::AWSConfig], arguments::Dict)
+list_streaming_distributions([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/streaming-distribution&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/streaming-distribution&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>ListStreamingDistributions Operation</strong></p><p>List streaming distributions.</p><p><strong>Arguments</strong></p><p><strong><code>Marker = ::String</code></strong></p><p>The value that you provided for the <code>Marker</code> request parameter.</p><p><strong><code>MaxItems = ::String</code></strong></p><p>The value that you provided for the <code>MaxItems</code> request parameter.</p><p><strong>Returns</strong></p><p><code>ListStreamingDistributionsResult</code></p><p><strong>Exceptions</strong></p><p><code>InvalidArgument</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/ListStreamingDistributions">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.list_tags_for_resource" href="#AWSSDK.CloudFront.list_tags_for_resource"><code>AWSSDK.CloudFront.list_tags_for_resource</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.list_tags_for_resource
+list_tags_for_resource([::AWSConfig], arguments::Dict)
+list_tags_for_resource([::AWSConfig]; Resource=)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/tagging&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;GET&quot;, &quot;/2017-03-25/tagging&quot;, Resource=)</code></pre><p><strong>ListTagsForResource Operation</strong></p><p>List tags for a CloudFront resource.</p><p><strong>Arguments</strong></p><p><strong><code>Resource = ::String</code> – <em>Required</em></strong></p><p>An ARN of a CloudFront resource.</p><p><strong>Returns</strong></p><p><code>ListTagsForResourceResult</code></p><p><strong>Exceptions</strong></p><p><code>AccessDenied</code>, <code>InvalidArgument</code>, <code>InvalidTagging</code> or <code>NoSuchResource</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/ListTagsForResource">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.tag_resource" href="#AWSSDK.CloudFront.tag_resource"><code>AWSSDK.CloudFront.tag_resource</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.tag_resource
+tag_resource([::AWSConfig], arguments::Dict)
+tag_resource([::AWSConfig]; Resource=, Tags=)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;POST&quot;, &quot;/2017-03-25/tagging?Operation=Tag&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;POST&quot;, &quot;/2017-03-25/tagging?Operation=Tag&quot;, Resource=, Tags=)</code></pre><p><strong>TagResource Operation</strong></p><p>Add tags to a CloudFront resource.</p><p><strong>Arguments</strong></p><p><strong><code>Resource = ::String</code> – <em>Required</em></strong></p><p>An ARN of a CloudFront resource.</p><p><strong><code>Tags = [&quot;Items&quot; =&gt;  [[ ... ], ...]]</code> – <em>Required</em></strong></p><p>A complex type that contains zero or more <code>Tag</code> elements.</p><pre><code class="language-none"> Tags = [&quot;Items&quot; =&gt;  [[
+            &quot;Key&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Value&quot; =&gt;  ::String
+        ], ...]]</code></pre><p><strong>Exceptions</strong></p><p><code>AccessDenied</code>, <code>InvalidArgument</code>, <code>InvalidTagging</code> or <code>NoSuchResource</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/TagResource">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.untag_resource" href="#AWSSDK.CloudFront.untag_resource"><code>AWSSDK.CloudFront.untag_resource</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.untag_resource
+untag_resource([::AWSConfig], arguments::Dict)
+untag_resource([::AWSConfig]; Resource=, TagKeys=)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;POST&quot;, &quot;/2017-03-25/tagging?Operation=Untag&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;POST&quot;, &quot;/2017-03-25/tagging?Operation=Untag&quot;, Resource=, TagKeys=)</code></pre><p><strong>UntagResource Operation</strong></p><p>Remove tags from a CloudFront resource.</p><p><strong>Arguments</strong></p><p><strong><code>Resource = ::String</code> – <em>Required</em></strong></p><p>An ARN of a CloudFront resource.</p><p><strong><code>TagKeys = [&quot;Items&quot; =&gt;  [::String, ...]]</code> – <em>Required</em></strong></p><p>A complex type that contains zero or more <code>Tag</code> key elements.</p><p><strong>Exceptions</strong></p><p><code>AccessDenied</code>, <code>InvalidArgument</code>, <code>InvalidTagging</code> or <code>NoSuchResource</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/UntagResource">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.update_cloud_front_origin_access_identity" href="#AWSSDK.CloudFront.update_cloud_front_origin_access_identity"><code>AWSSDK.CloudFront.update_cloud_front_origin_access_identity</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.update_cloud_front_origin_access_identity
+update_cloud_front_origin_access_identity([::AWSConfig], arguments::Dict)
+update_cloud_front_origin_access_identity([::AWSConfig]; CloudFrontOriginAccessIdentityConfig=, Id=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;PUT&quot;, &quot;/2017-03-25/origin-access-identity/cloudfront/{Id}/config&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;PUT&quot;, &quot;/2017-03-25/origin-access-identity/cloudfront/{Id}/config&quot;, CloudFrontOriginAccessIdentityConfig=, Id=, &lt;keyword arguments&gt;)</code></pre><p><strong>UpdateCloudFrontOriginAccessIdentity Operation</strong></p><p>Update an origin access identity.</p><p><strong>Arguments</strong></p><p><strong><code>CloudFrontOriginAccessIdentityConfig = [ ... ]</code> – <em>Required</em></strong></p><p>The identity&#39;s configuration information.</p><pre><code class="language-none"> CloudFrontOriginAccessIdentityConfig = [
+        &quot;CallerReference&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Comment&quot; =&gt; &lt;required&gt; ::String
+    ]</code></pre><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The identity&#39;s id.</p><p><strong><code>If-Match = ::String</code></strong></p><p>The value of the <code>ETag</code> header that you received when retrieving the identity&#39;s configuration. For example: <code>E2QWRUHAPOMQZL</code>.</p><p><strong>Returns</strong></p><p><code>UpdateCloudFrontOriginAccessIdentityResult</code></p><p><strong>Exceptions</strong></p><p><code>AccessDenied</code>, <code>IllegalUpdate</code>, <code>InvalidIfMatchVersion</code>, <code>MissingBody</code>, <code>NoSuchCloudFrontOriginAccessIdentity</code>, <code>PreconditionFailed</code>, <code>InvalidArgument</code> or <code>InconsistentQuantities</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/UpdateCloudFrontOriginAccessIdentity">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.update_distribution" href="#AWSSDK.CloudFront.update_distribution"><code>AWSSDK.CloudFront.update_distribution</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.update_distribution
+update_distribution([::AWSConfig], arguments::Dict)
+update_distribution([::AWSConfig]; DistributionConfig=, Id=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;PUT&quot;, &quot;/2017-03-25/distribution/{Id}/config&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;PUT&quot;, &quot;/2017-03-25/distribution/{Id}/config&quot;, DistributionConfig=, Id=, &lt;keyword arguments&gt;)</code></pre><p><strong>UpdateDistribution Operation</strong></p><p>Updates the configuration for a web distribution. Perform the following steps.</p><p>For information about updating a distribution using the CloudFront console, see <a href="http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-creating-console.html">Creating or Updating a Web Distribution Using the CloudFront Console</a> in the <em>Amazon CloudFront Developer Guide</em>.</p><p><strong>To update a web distribution using the CloudFront API</strong></p><ol><li><p>Submit a <a href="@ref">GetDistributionConfig</a> request to get the current configuration and an <code>Etag</code> header for the distribution.</p><p><strong>Note</strong></p><blockquote><p>If you update the distribution again, you need to get a new <code>Etag</code> header.</p></blockquote></li><li><p>Update the XML document that was returned in the response to your <code>GetDistributionConfig</code> request to include the desired changes. You can&#39;t change the value of <code>CallerReference</code>. If you try to change this value, CloudFront returns an <code>IllegalUpdate</code> error.</p><p><strong>Important</strong></p><blockquote><p>The new configuration replaces the existing configuration; the values that you specify in an <code>UpdateDistribution</code> request are not merged into the existing configuration. When you add, delete, or replace values in an element that allows multiple values (for example, <code>CNAME</code>), you must specify all of the values that you want to appear in the updated distribution. In addition, you must update the corresponding <code>Quantity</code> element.</p></blockquote></li><li><p>Submit an <code>UpdateDistribution</code> request to update the configuration for your distribution:</p><ul><li><p>In the request body, include the XML document that you updated in Step 2. The request body must include an XML document with a <code>DistributionConfig</code> element.</p></li><li><p>Set the value of the HTTP <code>If-Match</code> header to the value of the <code>ETag</code> header that CloudFront returned when you submitted the <code>GetDistributionConfig</code> request in Step 1.</p></li></ul></li><li><p>Review the response to the <code>UpdateDistribution</code> request to confirm that the configuration was successfully updated.</p></li><li><p>Optional: Submit a <a href="@ref">GetDistribution</a> request to confirm that your changes have propagated. When propagation is complete, the value of <code>Status</code> is <code>Deployed</code>.</p><p><strong>Important</strong></p><blockquote><p>Beginning with the 2012-05-05 version of the CloudFront API, we made substantial changes to the format of the XML document that you include in the request body when you create or update a distribution. With previous versions of the API, we discovered that it was too easy to accidentally delete one or more values for an element that accepts multiple values, for example, CNAMEs and trusted signers. Our changes for the 2012-05-05 release are intended to prevent these accidental deletions and to notify you when there&#39;s a mismatch between the number of values you say you&#39;re specifying in the <code>Quantity</code> element and the number of values you&#39;re actually specifying.</p></blockquote></li></ol><p><strong>Arguments</strong></p><p><strong><code>DistributionConfig = [ ... ]</code> – <em>Required</em></strong></p><p>The distribution&#39;s configuration information.</p><pre><code class="language-none"> DistributionConfig = [
+        &quot;CallerReference&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Aliases&quot; =&gt;  [
+            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+            &quot;Items&quot; =&gt;  [::String, ...]
+        ],
+        &quot;DefaultRootObject&quot; =&gt;  ::String,
+        &quot;Origins&quot; =&gt; &lt;required&gt; [
+            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+            &quot;Items&quot; =&gt;  [[
+                &quot;Id&quot; =&gt; &lt;required&gt; ::String,
+                &quot;DomainName&quot; =&gt; &lt;required&gt; ::String,
+                &quot;OriginPath&quot; =&gt;  ::String,
+                &quot;CustomHeaders&quot; =&gt;  [
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt;  [[
+                        &quot;HeaderName&quot; =&gt; &lt;required&gt; ::String,
+                        &quot;HeaderValue&quot; =&gt; &lt;required&gt; ::String
+                    ], ...]
+                ],
+                &quot;S3OriginConfig&quot; =&gt;  [&quot;OriginAccessIdentity&quot; =&gt; &lt;required&gt; ::String],
+                &quot;CustomOriginConfig&quot; =&gt;  [
+                    &quot;HTTPPort&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;HTTPSPort&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;OriginProtocolPolicy&quot; =&gt; &lt;required&gt; &quot;http-only&quot;, &quot;match-viewer&quot; or &quot;https-only&quot;,
+                    &quot;OriginSslProtocols&quot; =&gt;  [
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt; &lt;required&gt; [&quot;SSLv3&quot;, &quot;TLSv1&quot;, &quot;TLSv1.1&quot; or &quot;TLSv1.2&quot;, ...]
+                    ],
+                    &quot;OriginReadTimeout&quot; =&gt;  ::Int,
+                    &quot;OriginKeepaliveTimeout&quot; =&gt;  ::Int
+                ]
+            ], ...]
+        ],
+        &quot;DefaultCacheBehavior&quot; =&gt; &lt;required&gt; [
+            &quot;TargetOriginId&quot; =&gt; &lt;required&gt; ::String,
+            &quot;ForwardedValues&quot; =&gt; &lt;required&gt; [
+                &quot;QueryString&quot; =&gt; &lt;required&gt; ::Bool,
+                &quot;Cookies&quot; =&gt; &lt;required&gt; [
+                    &quot;Forward&quot; =&gt; &lt;required&gt; &quot;none&quot;, &quot;whitelist&quot; or &quot;all&quot;,
+                    &quot;WhitelistedNames&quot; =&gt;  [
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt;  [::String, ...]
+                    ]
+                ],
+                &quot;Headers&quot; =&gt;  [
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt;  [::String, ...]
+                ],
+                &quot;QueryStringCacheKeys&quot; =&gt;  [
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt;  [::String, ...]
+                ]
+            ],
+            &quot;TrustedSigners&quot; =&gt; &lt;required&gt; [
+                &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+                &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;Items&quot; =&gt;  [::String, ...]
+            ],
+            &quot;ViewerProtocolPolicy&quot; =&gt; &lt;required&gt; &quot;allow-all&quot;, &quot;https-only&quot; or &quot;redirect-to-https&quot;,
+            &quot;MinTTL&quot; =&gt; &lt;required&gt; ::Int,
+            &quot;AllowedMethods&quot; =&gt;  [
+                &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;Items&quot; =&gt; &lt;required&gt; [&quot;GET&quot;, &quot;HEAD&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;OPTIONS&quot; or &quot;DELETE&quot;, ...],
+                &quot;CachedMethods&quot; =&gt;  [
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt; &lt;required&gt; [&quot;GET&quot;, &quot;HEAD&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;OPTIONS&quot; or &quot;DELETE&quot;, ...]
+                ]
+            ],
+            &quot;SmoothStreaming&quot; =&gt;  ::Bool,
+            &quot;DefaultTTL&quot; =&gt;  ::Int,
+            &quot;MaxTTL&quot; =&gt;  ::Int,
+            &quot;Compress&quot; =&gt;  ::Bool,
+            &quot;LambdaFunctionAssociations&quot; =&gt;  [
+                &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;Items&quot; =&gt;  [[
+                    &quot;LambdaFunctionARN&quot; =&gt;  ::String,
+                    &quot;EventType&quot; =&gt;  &quot;viewer-request&quot;, &quot;viewer-response&quot;, &quot;origin-request&quot; or &quot;origin-response&quot;
+                ], ...]
+            ]
+        ],
+        &quot;CacheBehaviors&quot; =&gt;  [
+            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+            &quot;Items&quot; =&gt;  [[
+                &quot;PathPattern&quot; =&gt; &lt;required&gt; ::String,
+                &quot;TargetOriginId&quot; =&gt; &lt;required&gt; ::String,
+                &quot;ForwardedValues&quot; =&gt; &lt;required&gt; [
+                    &quot;QueryString&quot; =&gt; &lt;required&gt; ::Bool,
+                    &quot;Cookies&quot; =&gt; &lt;required&gt; [
+                        &quot;Forward&quot; =&gt; &lt;required&gt; &quot;none&quot;, &quot;whitelist&quot; or &quot;all&quot;,
+                        &quot;WhitelistedNames&quot; =&gt;  [
+                            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                            &quot;Items&quot; =&gt;  [::String, ...]
+                        ]
+                    ],
+                    &quot;Headers&quot; =&gt;  [
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt;  [::String, ...]
+                    ],
+                    &quot;QueryStringCacheKeys&quot; =&gt;  [
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt;  [::String, ...]
+                    ]
+                ],
+                &quot;TrustedSigners&quot; =&gt; &lt;required&gt; [
+                    &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt;  [::String, ...]
+                ],
+                &quot;ViewerProtocolPolicy&quot; =&gt; &lt;required&gt; &quot;allow-all&quot;, &quot;https-only&quot; or &quot;redirect-to-https&quot;,
+                &quot;MinTTL&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;AllowedMethods&quot; =&gt;  [
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt; &lt;required&gt; [&quot;GET&quot;, &quot;HEAD&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;OPTIONS&quot; or &quot;DELETE&quot;, ...],
+                    &quot;CachedMethods&quot; =&gt;  [
+                        &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                        &quot;Items&quot; =&gt; &lt;required&gt; [&quot;GET&quot;, &quot;HEAD&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;PATCH&quot;, &quot;OPTIONS&quot; or &quot;DELETE&quot;, ...]
+                    ]
+                ],
+                &quot;SmoothStreaming&quot; =&gt;  ::Bool,
+                &quot;DefaultTTL&quot; =&gt;  ::Int,
+                &quot;MaxTTL&quot; =&gt;  ::Int,
+                &quot;Compress&quot; =&gt;  ::Bool,
+                &quot;LambdaFunctionAssociations&quot; =&gt;  [
+                    &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                    &quot;Items&quot; =&gt;  [[
+                        &quot;LambdaFunctionARN&quot; =&gt;  ::String,
+                        &quot;EventType&quot; =&gt;  &quot;viewer-request&quot;, &quot;viewer-response&quot;, &quot;origin-request&quot; or &quot;origin-response&quot;
+                    ], ...]
+                ]
+            ], ...]
+        ],
+        &quot;CustomErrorResponses&quot; =&gt;  [
+            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+            &quot;Items&quot; =&gt;  [[
+                &quot;ErrorCode&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;ResponsePagePath&quot; =&gt;  ::String,
+                &quot;ResponseCode&quot; =&gt;  ::String,
+                &quot;ErrorCachingMinTTL&quot; =&gt;  ::Int
+            ], ...]
+        ],
+        &quot;Comment&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Logging&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+            &quot;IncludeCookies&quot; =&gt; &lt;required&gt; ::Bool,
+            &quot;Bucket&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Prefix&quot; =&gt; &lt;required&gt; ::String
+        ],
+        &quot;PriceClass&quot; =&gt;  &quot;PriceClass_100&quot;, &quot;PriceClass_200&quot; or &quot;PriceClass_All&quot;,
+        &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+        &quot;ViewerCertificate&quot; =&gt;  [
+            &quot;CloudFrontDefaultCertificate&quot; =&gt;  ::Bool,
+            &quot;IAMCertificateId&quot; =&gt;  ::String,
+            &quot;ACMCertificateArn&quot; =&gt;  ::String,
+            &quot;SSLSupportMethod&quot; =&gt;  &quot;sni-only&quot; or &quot;vip&quot;,
+            &quot;MinimumProtocolVersion&quot; =&gt;  &quot;SSLv3&quot; or &quot;TLSv1&quot;,
+            &quot;Certificate&quot; =&gt;  ::String,
+            &quot;CertificateSource&quot; =&gt;  &quot;cloudfront&quot;, &quot;iam&quot; or &quot;acm&quot;
+        ],
+        &quot;Restrictions&quot; =&gt;  [&quot;GeoRestriction&quot; =&gt; &lt;required&gt; [
+                &quot;RestrictionType&quot; =&gt; &lt;required&gt; &quot;blacklist&quot;, &quot;whitelist&quot; or &quot;none&quot;,
+                &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+                &quot;Items&quot; =&gt;  [::String, ...]
+            ]],
+        &quot;WebACLId&quot; =&gt;  ::String,
+        &quot;HttpVersion&quot; =&gt;  &quot;http1.1&quot; or &quot;http2&quot;,
+        &quot;IsIPV6Enabled&quot; =&gt;  ::Bool
+    ]</code></pre><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The distribution&#39;s id.</p><p><strong><code>If-Match = ::String</code></strong></p><p>The value of the <code>ETag</code> header that you received when retrieving the distribution&#39;s configuration. For example: <code>E2QWRUHAPOMQZL</code>.</p><p><strong>Returns</strong></p><p><code>UpdateDistributionResult</code></p><p><strong>Exceptions</strong></p><p><code>AccessDenied</code>, <code>CNAMEAlreadyExists</code>, <code>IllegalUpdate</code>, <code>InvalidIfMatchVersion</code>, <code>MissingBody</code>, <code>NoSuchDistribution</code>, <code>PreconditionFailed</code>, <code>TooManyDistributionCNAMEs</code>, <code>InvalidDefaultRootObject</code>, <code>InvalidRelativePath</code>, <code>InvalidErrorCode</code>, <code>InvalidResponseCode</code>, <code>InvalidArgument</code>, <code>InvalidOriginAccessIdentity</code>, <code>TooManyTrustedSigners</code>, <code>TrustedSignerDoesNotExist</code>, <code>InvalidViewerCertificate</code>, <code>InvalidMinimumProtocolVersion</code>, <code>InvalidRequiredProtocol</code>, <code>NoSuchOrigin</code>, <code>TooManyOrigins</code>, <code>TooManyCacheBehaviors</code>, <code>TooManyCookieNamesInWhiteList</code>, <code>InvalidForwardCookies</code>, <code>TooManyHeadersInForwardedValues</code>, <code>InvalidHeadersForS3Origin</code>, <code>InconsistentQuantities</code>, <code>TooManyCertificates</code>, <code>InvalidLocationCode</code>, <code>InvalidGeoRestrictionParameter</code>, <code>InvalidTTLOrder</code>, <code>InvalidWebACLId</code>, <code>TooManyOriginCustomHeaders</code>, <code>TooManyQueryStringParameters</code>, <code>InvalidQueryStringParameters</code>, <code>TooManyDistributionsWithLambdaAssociations</code>, <code>TooManyLambdaFunctionAssociations</code>, <code>InvalidLambdaFunctionAssociation</code>, <code>InvalidOriginReadTimeout</code> or <code>InvalidOriginKeepaliveTimeout</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/UpdateDistribution">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CloudFront.update_streaming_distribution" href="#AWSSDK.CloudFront.update_streaming_distribution"><code>AWSSDK.CloudFront.update_streaming_distribution</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CloudFront.update_streaming_distribution
+update_streaming_distribution([::AWSConfig], arguments::Dict)
+update_streaming_distribution([::AWSConfig]; StreamingDistributionConfig=, Id=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.cloudfront
+cloudfront([::AWSConfig], &quot;PUT&quot;, &quot;/2017-03-25/streaming-distribution/{Id}/config&quot;, arguments::Dict)
+cloudfront([::AWSConfig], &quot;PUT&quot;, &quot;/2017-03-25/streaming-distribution/{Id}/config&quot;, StreamingDistributionConfig=, Id=, &lt;keyword arguments&gt;)</code></pre><p><strong>UpdateStreamingDistribution Operation</strong></p><p>Update a streaming distribution.</p><p><strong>Arguments</strong></p><p><strong><code>StreamingDistributionConfig = [ ... ]</code> – <em>Required</em></strong></p><p>The streaming distribution&#39;s configuration information.</p><pre><code class="language-none"> StreamingDistributionConfig = [
+        &quot;CallerReference&quot; =&gt; &lt;required&gt; ::String,
+        &quot;S3Origin&quot; =&gt; &lt;required&gt; [
+            &quot;DomainName&quot; =&gt; &lt;required&gt; ::String,
+            &quot;OriginAccessIdentity&quot; =&gt; &lt;required&gt; ::String
+        ],
+        &quot;Aliases&quot; =&gt;  [
+            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+            &quot;Items&quot; =&gt;  [::String, ...]
+        ],
+        &quot;Comment&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Logging&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+            &quot;Bucket&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Prefix&quot; =&gt; &lt;required&gt; ::String
+        ],
+        &quot;TrustedSigners&quot; =&gt; &lt;required&gt; [
+            &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+            &quot;Quantity&quot; =&gt; &lt;required&gt; ::Int,
+            &quot;Items&quot; =&gt;  [::String, ...]
+        ],
+        &quot;PriceClass&quot; =&gt;  &quot;PriceClass_100&quot;, &quot;PriceClass_200&quot; or &quot;PriceClass_All&quot;,
+        &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool
+    ]</code></pre><p><strong><code>Id = ::String</code> – <em>Required</em></strong></p><p>The streaming distribution&#39;s id.</p><p><strong><code>If-Match = ::String</code></strong></p><p>The value of the <code>ETag</code> header that you received when retrieving the streaming distribution&#39;s configuration. For example: <code>E2QWRUHAPOMQZL</code>.</p><p><strong>Returns</strong></p><p><code>UpdateStreamingDistributionResult</code></p><p><strong>Exceptions</strong></p><p><code>AccessDenied</code>, <code>CNAMEAlreadyExists</code>, <code>IllegalUpdate</code>, <code>InvalidIfMatchVersion</code>, <code>MissingBody</code>, <code>NoSuchStreamingDistribution</code>, <code>PreconditionFailed</code>, <code>TooManyStreamingDistributionCNAMEs</code>, <code>InvalidArgument</code>, <code>InvalidOriginAccessIdentity</code>, <code>TooManyTrustedSigners</code>, <code>TrustedSignerDoesNotExist</code> or <code>InconsistentQuantities</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/cloudfront-2017-03-25/UpdateStreamingDistribution">AWS API Documentation</a></p></div></section><footer><hr/><a class="previous" href="AWSSDK.CloudFormation.html"><span class="direction">Previous</span><span class="title">AWSSDK.CloudFormation.jl</span></a><a class="next" href="AWSSDK.CloudHSM.html"><span class="direction">Next</span><span class="title">AWSSDK.CloudHSM.jl</span></a></footer></article></body></html>

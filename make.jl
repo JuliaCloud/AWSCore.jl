@@ -1,0 +1,119 @@
+    using Documenter
+    using AWSCore
+    using AWSS3
+    using AWSSES
+    using AWSSQS
+    using AWSSNS
+using AWSSDK.ACM
+using AWSSDK.APIGateway
+using AWSSDK.ApplicationAutoScaling
+using AWSSDK.AppStream
+using AWSSDK.Athena
+using AWSSDK.AutoScaling
+using AWSSDK.Batch
+using AWSSDK.Budgets
+using AWSSDK.CloudDirectory
+using AWSSDK.CloudFormation
+using AWSSDK.CloudFront
+using AWSSDK.CloudHSM
+using AWSSDK.CloudSearch
+using AWSSDK.CloudSearchDomain
+using AWSSDK.CloudTrail
+using AWSSDK.CodeBuild
+using AWSSDK.CodeCommit
+using AWSSDK.CodeDeploy
+using AWSSDK.CodePipeline
+using AWSSDK.CodeStar
+using AWSSDK.CognitoIdentity
+using AWSSDK.CognitoIdentityServiceProvider
+using AWSSDK.CognitoSync
+using AWSSDK.ConfigService
+using AWSSDK.CUR
+using AWSSDK.DataPipeline
+using AWSSDK.DAX
+using AWSSDK.DeviceFarm
+using AWSSDK.DirectConnect
+using AWSSDK.Discovery
+using AWSSDK.DMS
+using AWSSDK.DirectoryService
+using AWSSDK.DynamoDB
+using AWSSDK.EC2
+using AWSSDK.ECR
+using AWSSDK.ECS
+using AWSSDK.ElastiCache
+using AWSSDK.ElasticBeanstalk
+using AWSSDK.EFS
+using AWSSDK.ELB
+using AWSSDK.ELBv2
+using AWSSDK.EMR
+using AWSSDK.ElasticTranscoder
+using AWSSDK.SES
+using AWSSDK.MarketplaceEntitlementService
+using AWSSDK.ES
+using AWSSDK.CloudWatchEvents
+using AWSSDK.Firehose
+using AWSSDK.GameLift
+using AWSSDK.Glacier
+using AWSSDK.Greengrass
+using AWSSDK.Health
+using AWSSDK.IAM
+using AWSSDK.ImportExport
+using AWSSDK.Inspector
+using AWSSDK.Iot
+using AWSSDK.IotData
+using AWSSDK.Kinesis
+using AWSSDK.KinesisAnalytics
+using AWSSDK.KMS
+using AWSSDK.Lambda
+using AWSSDK.LexModelBuildingService
+using AWSSDK.Lightsail
+using AWSSDK.CloudWatchLogs
+using AWSSDK.MachineLearning
+using AWSSDK.MarketplaceCommerceAnalytics
+using AWSSDK.MarketplaceMetering
+using AWSSDK.MobileAnalytics
+using AWSSDK.CloudWatch
+using AWSSDK.MTurk
+using AWSSDK.OpsWorks
+using AWSSDK.OpsWorksCM
+using AWSSDK.Organizations
+using AWSSDK.Pinpoint
+using AWSSDK.Polly
+using AWSSDK.RDS
+using AWSSDK.Redshift
+using AWSSDK.Rekognition
+using AWSSDK.ResourceGroupsTaggingAPI
+using AWSSDK.Route53
+using AWSSDK.Route53Domains
+using AWSSDK.LexRuntime
+using AWSSDK.S3
+using AWSSDK.SimpleDB
+using AWSSDK.ServiceCatalog
+using AWSSDK.Shield
+using AWSSDK.SMS
+using AWSSDK.Snowball
+using AWSSDK.SNS
+using AWSSDK.SQS
+using AWSSDK.SSM
+using AWSSDK.StepFunctions
+using AWSSDK.StorageGateway
+using AWSSDK.DynamoDBStreams
+using AWSSDK.STS
+using AWSSDK.Support
+using AWSSDK.SWF
+using AWSSDK.WAF
+using AWSSDK.WAFRegional
+using AWSSDK.WorkDocs
+using AWSSDK.WorkSpaces
+using AWSSDK.XRay
+makedocs(modules = [AWSCore, AWSS3, AWSSES, AWSSQS, AWSSNS,
+                    AWSSDK.ACM,AWSSDK.APIGateway,AWSSDK.ApplicationAutoScaling,AWSSDK.AppStream,AWSSDK.Athena,AWSSDK.AutoScaling,AWSSDK.Batch,AWSSDK.Budgets,AWSSDK.CloudDirectory,AWSSDK.CloudFormation,AWSSDK.CloudFront,AWSSDK.CloudHSM,AWSSDK.CloudSearch,AWSSDK.CloudSearchDomain,AWSSDK.CloudTrail,AWSSDK.CodeBuild,AWSSDK.CodeCommit,AWSSDK.CodeDeploy,AWSSDK.CodePipeline,AWSSDK.CodeStar,AWSSDK.CognitoIdentity,AWSSDK.CognitoIdentityServiceProvider,AWSSDK.CognitoSync,AWSSDK.ConfigService,AWSSDK.CUR,AWSSDK.DataPipeline,AWSSDK.DAX,AWSSDK.DeviceFarm,AWSSDK.DirectConnect,AWSSDK.Discovery,AWSSDK.DMS,AWSSDK.DirectoryService,AWSSDK.DynamoDB,AWSSDK.EC2,AWSSDK.ECR,AWSSDK.ECS,AWSSDK.ElastiCache,AWSSDK.ElasticBeanstalk,AWSSDK.EFS,AWSSDK.ELB,AWSSDK.ELBv2,AWSSDK.EMR,AWSSDK.ElasticTranscoder,AWSSDK.SES,AWSSDK.MarketplaceEntitlementService,AWSSDK.ES,AWSSDK.CloudWatchEvents,AWSSDK.Firehose,AWSSDK.GameLift,AWSSDK.Glacier,AWSSDK.Greengrass,AWSSDK.Health,AWSSDK.IAM,AWSSDK.ImportExport,AWSSDK.Inspector,AWSSDK.Iot,AWSSDK.IotData,AWSSDK.Kinesis,AWSSDK.KinesisAnalytics,AWSSDK.KMS,AWSSDK.Lambda,AWSSDK.LexModelBuildingService,AWSSDK.Lightsail,AWSSDK.CloudWatchLogs,AWSSDK.MachineLearning,AWSSDK.MarketplaceCommerceAnalytics,AWSSDK.MarketplaceMetering,AWSSDK.MobileAnalytics,AWSSDK.CloudWatch,AWSSDK.MTurk,AWSSDK.OpsWorks,AWSSDK.OpsWorksCM,AWSSDK.Organizations,AWSSDK.Pinpoint,AWSSDK.Polly,AWSSDK.RDS,AWSSDK.Redshift,AWSSDK.Rekognition,AWSSDK.ResourceGroupsTaggingAPI,AWSSDK.Route53,AWSSDK.Route53Domains,AWSSDK.LexRuntime,AWSSDK.S3,AWSSDK.SimpleDB,AWSSDK.ServiceCatalog,AWSSDK.Shield,AWSSDK.SMS,AWSSDK.Snowball,AWSSDK.SNS,AWSSDK.SQS,AWSSDK.SSM,AWSSDK.StepFunctions,AWSSDK.StorageGateway,AWSSDK.DynamoDBStreams,AWSSDK.STS,AWSSDK.Support,AWSSDK.SWF,AWSSDK.WAF,AWSSDK.WAFRegional,AWSSDK.WorkDocs,AWSSDK.WorkSpaces,AWSSDK.XRay],
+         format = :html,
+         sitename = "AWSCore.jl",
+         pages = ["AWSCore.jl" => "index.md",
+                  "AWSS3.jl" => "AWSS3.md",
+                  "AWSSQS.jl" => "AWSSQS.md",
+                  "AWSSES.jl" => "AWSSES.md",
+                  "AWSSNS.jl" => "AWSSNS.md",
+                  "AWSSDK.ACM.jl" => "AWSSDK.ACM.md","AWSSDK.APIGateway.jl" => "AWSSDK.APIGateway.md","AWSSDK.ApplicationAutoScaling.jl" => "AWSSDK.ApplicationAutoScaling.md","AWSSDK.AppStream.jl" => "AWSSDK.AppStream.md","AWSSDK.Athena.jl" => "AWSSDK.Athena.md","AWSSDK.AutoScaling.jl" => "AWSSDK.AutoScaling.md","AWSSDK.Batch.jl" => "AWSSDK.Batch.md","AWSSDK.Budgets.jl" => "AWSSDK.Budgets.md","AWSSDK.CloudDirectory.jl" => "AWSSDK.CloudDirectory.md","AWSSDK.CloudFormation.jl" => "AWSSDK.CloudFormation.md","AWSSDK.CloudFront.jl" => "AWSSDK.CloudFront.md","AWSSDK.CloudHSM.jl" => "AWSSDK.CloudHSM.md","AWSSDK.CloudSearch.jl" => "AWSSDK.CloudSearch.md","AWSSDK.CloudSearchDomain.jl" => "AWSSDK.CloudSearchDomain.md","AWSSDK.CloudTrail.jl" => "AWSSDK.CloudTrail.md","AWSSDK.CodeBuild.jl" => "AWSSDK.CodeBuild.md","AWSSDK.CodeCommit.jl" => "AWSSDK.CodeCommit.md","AWSSDK.CodeDeploy.jl" => "AWSSDK.CodeDeploy.md","AWSSDK.CodePipeline.jl" => "AWSSDK.CodePipeline.md","AWSSDK.CodeStar.jl" => "AWSSDK.CodeStar.md","AWSSDK.CognitoIdentity.jl" => "AWSSDK.CognitoIdentity.md","AWSSDK.CognitoIdentityServiceProvider.jl" => "AWSSDK.CognitoIdentityServiceProvider.md","AWSSDK.CognitoSync.jl" => "AWSSDK.CognitoSync.md","AWSSDK.ConfigService.jl" => "AWSSDK.ConfigService.md","AWSSDK.CUR.jl" => "AWSSDK.CUR.md","AWSSDK.DataPipeline.jl" => "AWSSDK.DataPipeline.md","AWSSDK.DAX.jl" => "AWSSDK.DAX.md","AWSSDK.DeviceFarm.jl" => "AWSSDK.DeviceFarm.md","AWSSDK.DirectConnect.jl" => "AWSSDK.DirectConnect.md","AWSSDK.Discovery.jl" => "AWSSDK.Discovery.md","AWSSDK.DMS.jl" => "AWSSDK.DMS.md","AWSSDK.DirectoryService.jl" => "AWSSDK.DirectoryService.md","AWSSDK.DynamoDB.jl" => "AWSSDK.DynamoDB.md","AWSSDK.EC2.jl" => "AWSSDK.EC2.md","AWSSDK.ECR.jl" => "AWSSDK.ECR.md","AWSSDK.ECS.jl" => "AWSSDK.ECS.md","AWSSDK.ElastiCache.jl" => "AWSSDK.ElastiCache.md","AWSSDK.ElasticBeanstalk.jl" => "AWSSDK.ElasticBeanstalk.md","AWSSDK.EFS.jl" => "AWSSDK.EFS.md","AWSSDK.ELB.jl" => "AWSSDK.ELB.md","AWSSDK.ELBv2.jl" => "AWSSDK.ELBv2.md","AWSSDK.EMR.jl" => "AWSSDK.EMR.md","AWSSDK.ElasticTranscoder.jl" => "AWSSDK.ElasticTranscoder.md","AWSSDK.SES.jl" => "AWSSDK.SES.md","AWSSDK.MarketplaceEntitlementService.jl" => "AWSSDK.MarketplaceEntitlementService.md","AWSSDK.ES.jl" => "AWSSDK.ES.md","AWSSDK.CloudWatchEvents.jl" => "AWSSDK.CloudWatchEvents.md","AWSSDK.Firehose.jl" => "AWSSDK.Firehose.md","AWSSDK.GameLift.jl" => "AWSSDK.GameLift.md","AWSSDK.Glacier.jl" => "AWSSDK.Glacier.md","AWSSDK.Greengrass.jl" => "AWSSDK.Greengrass.md","AWSSDK.Health.jl" => "AWSSDK.Health.md","AWSSDK.IAM.jl" => "AWSSDK.IAM.md","AWSSDK.ImportExport.jl" => "AWSSDK.ImportExport.md","AWSSDK.Inspector.jl" => "AWSSDK.Inspector.md","AWSSDK.Iot.jl" => "AWSSDK.Iot.md","AWSSDK.IotData.jl" => "AWSSDK.IotData.md","AWSSDK.Kinesis.jl" => "AWSSDK.Kinesis.md","AWSSDK.KinesisAnalytics.jl" => "AWSSDK.KinesisAnalytics.md","AWSSDK.KMS.jl" => "AWSSDK.KMS.md","AWSSDK.Lambda.jl" => "AWSSDK.Lambda.md","AWSSDK.LexModelBuildingService.jl" => "AWSSDK.LexModelBuildingService.md","AWSSDK.Lightsail.jl" => "AWSSDK.Lightsail.md","AWSSDK.CloudWatchLogs.jl" => "AWSSDK.CloudWatchLogs.md","AWSSDK.MachineLearning.jl" => "AWSSDK.MachineLearning.md","AWSSDK.MarketplaceCommerceAnalytics.jl" => "AWSSDK.MarketplaceCommerceAnalytics.md","AWSSDK.MarketplaceMetering.jl" => "AWSSDK.MarketplaceMetering.md","AWSSDK.MobileAnalytics.jl" => "AWSSDK.MobileAnalytics.md","AWSSDK.CloudWatch.jl" => "AWSSDK.CloudWatch.md","AWSSDK.MTurk.jl" => "AWSSDK.MTurk.md","AWSSDK.OpsWorks.jl" => "AWSSDK.OpsWorks.md","AWSSDK.OpsWorksCM.jl" => "AWSSDK.OpsWorksCM.md","AWSSDK.Organizations.jl" => "AWSSDK.Organizations.md","AWSSDK.Pinpoint.jl" => "AWSSDK.Pinpoint.md","AWSSDK.Polly.jl" => "AWSSDK.Polly.md","AWSSDK.RDS.jl" => "AWSSDK.RDS.md","AWSSDK.Redshift.jl" => "AWSSDK.Redshift.md","AWSSDK.Rekognition.jl" => "AWSSDK.Rekognition.md","AWSSDK.ResourceGroupsTaggingAPI.jl" => "AWSSDK.ResourceGroupsTaggingAPI.md","AWSSDK.Route53.jl" => "AWSSDK.Route53.md","AWSSDK.Route53Domains.jl" => "AWSSDK.Route53Domains.md","AWSSDK.LexRuntime.jl" => "AWSSDK.LexRuntime.md","AWSSDK.S3.jl" => "AWSSDK.S3.md","AWSSDK.SimpleDB.jl" => "AWSSDK.SimpleDB.md","AWSSDK.ServiceCatalog.jl" => "AWSSDK.ServiceCatalog.md","AWSSDK.Shield.jl" => "AWSSDK.Shield.md","AWSSDK.SMS.jl" => "AWSSDK.SMS.md","AWSSDK.Snowball.jl" => "AWSSDK.Snowball.md","AWSSDK.SNS.jl" => "AWSSDK.SNS.md","AWSSDK.SQS.jl" => "AWSSDK.SQS.md","AWSSDK.SSM.jl" => "AWSSDK.SSM.md","AWSSDK.StepFunctions.jl" => "AWSSDK.StepFunctions.md","AWSSDK.StorageGateway.jl" => "AWSSDK.StorageGateway.md","AWSSDK.DynamoDBStreams.jl" => "AWSSDK.DynamoDBStreams.md","AWSSDK.STS.jl" => "AWSSDK.STS.md","AWSSDK.Support.jl" => "AWSSDK.Support.md","AWSSDK.SWF.jl" => "AWSSDK.SWF.md","AWSSDK.WAF.jl" => "AWSSDK.WAF.md","AWSSDK.WAFRegional.jl" => "AWSSDK.WAFRegional.md","AWSSDK.WorkDocs.jl" => "AWSSDK.WorkDocs.md","AWSSDK.WorkSpaces.jl" => "AWSSDK.WorkSpaces.md","AWSSDK.XRay.jl" => "AWSSDK.XRay.md"
+         ])

@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>AWSSDK.ELB.jl · AWSCore.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link href="assets/highlightjs/default.css" rel="stylesheet" type="text/css"/><link href="assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>AWSCore.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="index.html">AWSCore.jl</a></li><li><a class="toctext" href="AWSS3.html">AWSS3.jl</a></li><li><a class="toctext" href="AWSSQS.html">AWSSQS.jl</a></li><li><a class="toctext" href="AWSSES.html">AWSSES.jl</a></li><li><a class="toctext" href="AWSSNS.html">AWSSNS.jl</a></li><li><a class="toctext" href="AWSSDK.ACM.html">AWSSDK.ACM.jl</a></li><li><a class="toctext" href="AWSSDK.APIGateway.html">AWSSDK.APIGateway.jl</a></li><li><a class="toctext" href="AWSSDK.ApplicationAutoScaling.html">AWSSDK.ApplicationAutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.AppStream.html">AWSSDK.AppStream.jl</a></li><li><a class="toctext" href="AWSSDK.Athena.html">AWSSDK.Athena.jl</a></li><li><a class="toctext" href="AWSSDK.AutoScaling.html">AWSSDK.AutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.Batch.html">AWSSDK.Batch.jl</a></li><li><a class="toctext" href="AWSSDK.Budgets.html">AWSSDK.Budgets.jl</a></li><li><a class="toctext" href="AWSSDK.CloudDirectory.html">AWSSDK.CloudDirectory.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFormation.html">AWSSDK.CloudFormation.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFront.html">AWSSDK.CloudFront.jl</a></li><li><a class="toctext" href="AWSSDK.CloudHSM.html">AWSSDK.CloudHSM.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearch.html">AWSSDK.CloudSearch.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearchDomain.html">AWSSDK.CloudSearchDomain.jl</a></li><li><a class="toctext" href="AWSSDK.CloudTrail.html">AWSSDK.CloudTrail.jl</a></li><li><a class="toctext" href="AWSSDK.CodeBuild.html">AWSSDK.CodeBuild.jl</a></li><li><a class="toctext" href="AWSSDK.CodeCommit.html">AWSSDK.CodeCommit.jl</a></li><li><a class="toctext" href="AWSSDK.CodeDeploy.html">AWSSDK.CodeDeploy.jl</a></li><li><a class="toctext" href="AWSSDK.CodePipeline.html">AWSSDK.CodePipeline.jl</a></li><li><a class="toctext" href="AWSSDK.CodeStar.html">AWSSDK.CodeStar.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentity.html">AWSSDK.CognitoIdentity.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentityServiceProvider.html">AWSSDK.CognitoIdentityServiceProvider.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoSync.html">AWSSDK.CognitoSync.jl</a></li><li><a class="toctext" href="AWSSDK.ConfigService.html">AWSSDK.ConfigService.jl</a></li><li><a class="toctext" href="AWSSDK.CUR.html">AWSSDK.CUR.jl</a></li><li><a class="toctext" href="AWSSDK.DataPipeline.html">AWSSDK.DataPipeline.jl</a></li><li><a class="toctext" href="AWSSDK.DAX.html">AWSSDK.DAX.jl</a></li><li><a class="toctext" href="AWSSDK.DeviceFarm.html">AWSSDK.DeviceFarm.jl</a></li><li><a class="toctext" href="AWSSDK.DirectConnect.html">AWSSDK.DirectConnect.jl</a></li><li><a class="toctext" href="AWSSDK.Discovery.html">AWSSDK.Discovery.jl</a></li><li><a class="toctext" href="AWSSDK.DMS.html">AWSSDK.DMS.jl</a></li><li><a class="toctext" href="AWSSDK.DirectoryService.html">AWSSDK.DirectoryService.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDB.html">AWSSDK.DynamoDB.jl</a></li><li><a class="toctext" href="AWSSDK.EC2.html">AWSSDK.EC2.jl</a></li><li><a class="toctext" href="AWSSDK.ECR.html">AWSSDK.ECR.jl</a></li><li><a class="toctext" href="AWSSDK.ECS.html">AWSSDK.ECS.jl</a></li><li><a class="toctext" href="AWSSDK.ElastiCache.html">AWSSDK.ElastiCache.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticBeanstalk.html">AWSSDK.ElasticBeanstalk.jl</a></li><li><a class="toctext" href="AWSSDK.EFS.html">AWSSDK.EFS.jl</a></li><li class="current"><a class="toctext" href="AWSSDK.ELB.html">AWSSDK.ELB.jl</a><ul class="internal"><li class="toplevel"><a class="toctext" href="#Elastic-Load-Balancing-1">Elastic Load Balancing</a></li></ul></li><li><a class="toctext" href="AWSSDK.ELBv2.html">AWSSDK.ELBv2.jl</a></li><li><a class="toctext" href="AWSSDK.EMR.html">AWSSDK.EMR.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticTranscoder.html">AWSSDK.ElasticTranscoder.jl</a></li><li><a class="toctext" href="AWSSDK.SES.html">AWSSDK.SES.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceEntitlementService.html">AWSSDK.MarketplaceEntitlementService.jl</a></li><li><a class="toctext" href="AWSSDK.ES.html">AWSSDK.ES.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchEvents.html">AWSSDK.CloudWatchEvents.jl</a></li><li><a class="toctext" href="AWSSDK.Firehose.html">AWSSDK.Firehose.jl</a></li><li><a class="toctext" href="AWSSDK.GameLift.html">AWSSDK.GameLift.jl</a></li><li><a class="toctext" href="AWSSDK.Glacier.html">AWSSDK.Glacier.jl</a></li><li><a class="toctext" href="AWSSDK.Greengrass.html">AWSSDK.Greengrass.jl</a></li><li><a class="toctext" href="AWSSDK.Health.html">AWSSDK.Health.jl</a></li><li><a class="toctext" href="AWSSDK.IAM.html">AWSSDK.IAM.jl</a></li><li><a class="toctext" href="AWSSDK.ImportExport.html">AWSSDK.ImportExport.jl</a></li><li><a class="toctext" href="AWSSDK.Inspector.html">AWSSDK.Inspector.jl</a></li><li><a class="toctext" href="AWSSDK.Iot.html">AWSSDK.Iot.jl</a></li><li><a class="toctext" href="AWSSDK.IotData.html">AWSSDK.IotData.jl</a></li><li><a class="toctext" href="AWSSDK.Kinesis.html">AWSSDK.Kinesis.jl</a></li><li><a class="toctext" href="AWSSDK.KinesisAnalytics.html">AWSSDK.KinesisAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.KMS.html">AWSSDK.KMS.jl</a></li><li><a class="toctext" href="AWSSDK.Lambda.html">AWSSDK.Lambda.jl</a></li><li><a class="toctext" href="AWSSDK.LexModelBuildingService.html">AWSSDK.LexModelBuildingService.jl</a></li><li><a class="toctext" href="AWSSDK.Lightsail.html">AWSSDK.Lightsail.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchLogs.html">AWSSDK.CloudWatchLogs.jl</a></li><li><a class="toctext" href="AWSSDK.MachineLearning.html">AWSSDK.MachineLearning.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceCommerceAnalytics.html">AWSSDK.MarketplaceCommerceAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceMetering.html">AWSSDK.MarketplaceMetering.jl</a></li><li><a class="toctext" href="AWSSDK.MobileAnalytics.html">AWSSDK.MobileAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatch.html">AWSSDK.CloudWatch.jl</a></li><li><a class="toctext" href="AWSSDK.MTurk.html">AWSSDK.MTurk.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorks.html">AWSSDK.OpsWorks.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorksCM.html">AWSSDK.OpsWorksCM.jl</a></li><li><a class="toctext" href="AWSSDK.Organizations.html">AWSSDK.Organizations.jl</a></li><li><a class="toctext" href="AWSSDK.Pinpoint.html">AWSSDK.Pinpoint.jl</a></li><li><a class="toctext" href="AWSSDK.Polly.html">AWSSDK.Polly.jl</a></li><li><a class="toctext" href="AWSSDK.RDS.html">AWSSDK.RDS.jl</a></li><li><a class="toctext" href="AWSSDK.Redshift.html">AWSSDK.Redshift.jl</a></li><li><a class="toctext" href="AWSSDK.Rekognition.html">AWSSDK.Rekognition.jl</a></li><li><a class="toctext" href="AWSSDK.ResourceGroupsTaggingAPI.html">AWSSDK.ResourceGroupsTaggingAPI.jl</a></li><li><a class="toctext" href="AWSSDK.Route53.html">AWSSDK.Route53.jl</a></li><li><a class="toctext" href="AWSSDK.Route53Domains.html">AWSSDK.Route53Domains.jl</a></li><li><a class="toctext" href="AWSSDK.LexRuntime.html">AWSSDK.LexRuntime.jl</a></li><li><a class="toctext" href="AWSSDK.S3.html">AWSSDK.S3.jl</a></li><li><a class="toctext" href="AWSSDK.SimpleDB.html">AWSSDK.SimpleDB.jl</a></li><li><a class="toctext" href="AWSSDK.ServiceCatalog.html">AWSSDK.ServiceCatalog.jl</a></li><li><a class="toctext" href="AWSSDK.Shield.html">AWSSDK.Shield.jl</a></li><li><a class="toctext" href="AWSSDK.SMS.html">AWSSDK.SMS.jl</a></li><li><a class="toctext" href="AWSSDK.Snowball.html">AWSSDK.Snowball.jl</a></li><li><a class="toctext" href="AWSSDK.SNS.html">AWSSDK.SNS.jl</a></li><li><a class="toctext" href="AWSSDK.SQS.html">AWSSDK.SQS.jl</a></li><li><a class="toctext" href="AWSSDK.SSM.html">AWSSDK.SSM.jl</a></li><li><a class="toctext" href="AWSSDK.StepFunctions.html">AWSSDK.StepFunctions.jl</a></li><li><a class="toctext" href="AWSSDK.StorageGateway.html">AWSSDK.StorageGateway.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDBStreams.html">AWSSDK.DynamoDBStreams.jl</a></li><li><a class="toctext" href="AWSSDK.STS.html">AWSSDK.STS.jl</a></li><li><a class="toctext" href="AWSSDK.Support.html">AWSSDK.Support.jl</a></li><li><a class="toctext" href="AWSSDK.SWF.html">AWSSDK.SWF.jl</a></li><li><a class="toctext" href="AWSSDK.WAF.html">AWSSDK.WAF.jl</a></li><li><a class="toctext" href="AWSSDK.WAFRegional.html">AWSSDK.WAFRegional.jl</a></li><li><a class="toctext" href="AWSSDK.WorkDocs.html">AWSSDK.WorkDocs.jl</a></li><li><a class="toctext" href="AWSSDK.WorkSpaces.html">AWSSDK.WorkSpaces.jl</a></li><li><a class="toctext" href="AWSSDK.XRay.html">AWSSDK.XRay.jl</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href="AWSSDK.ELB.html">AWSSDK.ELB.jl</a></li></ul><a class="edit-page" href="https://github.com/JuliaCloud/AWSCore.jl/tree/1f93d72825dfa35b69cc2d48e9a3b9130a7ec269/src/AWSSDK.ELB.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>AWSSDK.ELB.jl</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="AWSSDK.ELB-1" href="#AWSSDK.ELB-1">AWSSDK.ELB</a></h1><h1><a class="nav-anchor" id="Elastic-Load-Balancing-1" href="#Elastic-Load-Balancing-1">Elastic Load Balancing</a></h1><p>A load balancer distributes incoming traffic across your EC2 instances. This enables you to increase the availability of your application. The load balancer also monitors the health of its registered instances and ensures that it routes traffic only to healthy instances. You configure your load balancer to accept incoming traffic by specifying one or more listeners, which are configured with a protocol and port number for connections from clients to the load balancer and a protocol and port number for connections from the load balancer to the instances.</p><p>Elastic Load Balancing supports two types of load balancers: Classic Load Balancers and Application Load Balancers (new). A Classic Load Balancer makes routing and load balancing decisions either at the transport layer (TCP/SSL) or the application layer (HTTP/HTTPS), and supports either EC2-Classic or a VPC. An Application Load Balancer makes routing and load balancing decisions at the application layer (HTTP/HTTPS), supports path-based routing, and can route requests to one or more ports on each EC2 instance or container instance in your virtual private cloud (VPC). For more information, see the <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/what-is-load-balancing.html">Elastic Load Balancing User Guide</a>.</p><p>This reference covers the 2012-06-01 API, which supports Classic Load Balancers. The 2015-12-01 API supports Application Load Balancers.</p><p>To get started, create a load balancer with one or more listeners using <a href="@ref">CreateLoadBalancer</a>. Register your instances with the load balancer using <a href="@ref">RegisterInstancesWithLoadBalancer</a>.</p><p>All Elastic Load Balancing operations are <em>idempotent</em>, which means that they complete at most one time. If you repeat an operation, it succeeds with a 200 OK response code.</p><p>This document is generated from <a href="https://github.com/aws/aws-sdk-js/blob/master/apis/elasticloadbalancing-2012-06-01.normal.json">apis/elasticloadbalancing-2012-06-01.normal.json</a>. See <a href="https://github.com/JuliaCloud/AWSCore.jl">JuliaCloud/AWSCore.jl</a>.</p><ul><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.add_tags"><code>AWSSDK.ELB.add_tags</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.apply_security_groups_to_load_balancer"><code>AWSSDK.ELB.apply_security_groups_to_load_balancer</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.attach_load_balancer_to_subnets"><code>AWSSDK.ELB.attach_load_balancer_to_subnets</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.configure_health_check"><code>AWSSDK.ELB.configure_health_check</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.create_app_cookie_stickiness_policy"><code>AWSSDK.ELB.create_app_cookie_stickiness_policy</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.create_lbcookie_stickiness_policy"><code>AWSSDK.ELB.create_lbcookie_stickiness_policy</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.create_load_balancer"><code>AWSSDK.ELB.create_load_balancer</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.create_load_balancer_listeners"><code>AWSSDK.ELB.create_load_balancer_listeners</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.create_load_balancer_policy"><code>AWSSDK.ELB.create_load_balancer_policy</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.delete_load_balancer"><code>AWSSDK.ELB.delete_load_balancer</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.delete_load_balancer_listeners"><code>AWSSDK.ELB.delete_load_balancer_listeners</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.delete_load_balancer_policy"><code>AWSSDK.ELB.delete_load_balancer_policy</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.deregister_instances_from_load_balancer"><code>AWSSDK.ELB.deregister_instances_from_load_balancer</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.describe_account_limits"><code>AWSSDK.ELB.describe_account_limits</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.describe_instance_health"><code>AWSSDK.ELB.describe_instance_health</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.describe_load_balancer_attributes"><code>AWSSDK.ELB.describe_load_balancer_attributes</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.describe_load_balancer_policies"><code>AWSSDK.ELB.describe_load_balancer_policies</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.describe_load_balancer_policy_types"><code>AWSSDK.ELB.describe_load_balancer_policy_types</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.describe_load_balancers"><code>AWSSDK.ELB.describe_load_balancers</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.describe_tags"><code>AWSSDK.ELB.describe_tags</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.detach_load_balancer_from_subnets"><code>AWSSDK.ELB.detach_load_balancer_from_subnets</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.disable_availability_zones_for_load_balancer"><code>AWSSDK.ELB.disable_availability_zones_for_load_balancer</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.enable_availability_zones_for_load_balancer"><code>AWSSDK.ELB.enable_availability_zones_for_load_balancer</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.modify_load_balancer_attributes"><code>AWSSDK.ELB.modify_load_balancer_attributes</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.register_instances_with_load_balancer"><code>AWSSDK.ELB.register_instances_with_load_balancer</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.remove_tags"><code>AWSSDK.ELB.remove_tags</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.set_load_balancer_listener_sslcertificate"><code>AWSSDK.ELB.set_load_balancer_listener_sslcertificate</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.set_load_balancer_policies_for_backend_server"><code>AWSSDK.ELB.set_load_balancer_policies_for_backend_server</code></a></li><li><a href="AWSSDK.ELB.html#AWSSDK.ELB.set_load_balancer_policies_of_listener"><code>AWSSDK.ELB.set_load_balancer_policies_of_listener</code></a></li></ul><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.add_tags" href="#AWSSDK.ELB.add_tags"><code>AWSSDK.ELB.add_tags</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.add_tags
+add_tags([::AWSConfig], arguments::Dict)
+add_tags([::AWSConfig]; LoadBalancerNames=, Tags=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;AddTags&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;AddTags&quot;, LoadBalancerNames=, Tags=)</code></pre><p><strong>AddTags Operation</strong></p><p>Adds the specified tags to the specified load balancer. Each load balancer can have a maximum of 10 tags.</p><p>Each tag consists of a key and an optional value. If a tag with the same key is already associated with the load balancer, <code>AddTags</code> updates its value.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/add-remove-tags.html">Tag Your Classic Load Balancer</a> in the <em>Classic Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerNames = [::String, ...]</code> – <em>Required</em></strong></p><p>The name of the load balancer. You can specify one load balancer only.</p><p><strong><code>Tags = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>The tags.</p><pre><code class="language-none"> Tags = [[
+        &quot;Key&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Value&quot; =&gt;  ::String
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>AddTagsOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code>, <code>TooManyTagsException</code> or <code>DuplicateTagKeysException</code>.</p><p><strong>Example: To add tags to a load balancer</strong></p><p>This example adds two tags to the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerNames&quot; =&gt; [
+        &quot;my-load-balancer&quot;
+    ],
+    &quot;Tags&quot; =&gt; [
+        [
+            &quot;Key&quot; =&gt; &quot;project&quot;,
+            &quot;Value&quot; =&gt; &quot;lima&quot;
+        ],
+        [
+            &quot;Key&quot; =&gt; &quot;department&quot;,
+            &quot;Value&quot; =&gt; &quot;digital-media&quot;
+        ]
+    ]
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/AddTags">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.apply_security_groups_to_load_balancer" href="#AWSSDK.ELB.apply_security_groups_to_load_balancer"><code>AWSSDK.ELB.apply_security_groups_to_load_balancer</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.apply_security_groups_to_load_balancer
+apply_security_groups_to_load_balancer([::AWSConfig], arguments::Dict)
+apply_security_groups_to_load_balancer([::AWSConfig]; LoadBalancerName=, SecurityGroups=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;ApplySecurityGroupsToLoadBalancer&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;ApplySecurityGroupsToLoadBalancer&quot;, LoadBalancerName=, SecurityGroups=)</code></pre><p><strong>ApplySecurityGroupsToLoadBalancer Operation</strong></p><p>Associates one or more security groups with your load balancer in a virtual private cloud (VPC). The specified security groups override the previously associated security groups.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-groups.html#elb-vpc-security-groups">Security Groups for Load Balancers in a VPC</a> in the <em>Classic Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>SecurityGroups = [::String, ...]</code> – <em>Required</em></strong></p><p>The IDs of the security groups to associate with the load balancer. Note that you cannot specify the name of the security group.</p><p><strong>Returns</strong></p><p><code>ApplySecurityGroupsToLoadBalancerOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code>, <code>InvalidConfigurationRequestException</code> or <code>InvalidSecurityGroupException</code>.</p><p><strong>Example: To associate a security group with a load balancer in a VPC</strong></p><p>This example associates a security group with the specified load balancer in a VPC.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;SecurityGroups&quot; =&gt; [
+        &quot;sg-fc448899&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;SecurityGroups&quot; =&gt; [
+        &quot;sg-fc448899&quot;
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/ApplySecurityGroupsToLoadBalancer">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.attach_load_balancer_to_subnets" href="#AWSSDK.ELB.attach_load_balancer_to_subnets"><code>AWSSDK.ELB.attach_load_balancer_to_subnets</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.attach_load_balancer_to_subnets
+attach_load_balancer_to_subnets([::AWSConfig], arguments::Dict)
+attach_load_balancer_to_subnets([::AWSConfig]; LoadBalancerName=, Subnets=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;AttachLoadBalancerToSubnets&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;AttachLoadBalancerToSubnets&quot;, LoadBalancerName=, Subnets=)</code></pre><p><strong>AttachLoadBalancerToSubnets Operation</strong></p><p>Adds one or more subnets to the set of configured subnets for the specified load balancer.</p><p>The load balancer evenly distributes requests across all registered subnets. For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-manage-subnets.html">Add or Remove Subnets for Your Load Balancer in a VPC</a> in the <em>Classic Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>Subnets = [::String, ...]</code> – <em>Required</em></strong></p><p>The IDs of the subnets to add. You can add only one subnet per Availability Zone.</p><p><strong>Returns</strong></p><p><code>AttachLoadBalancerToSubnetsOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code>, <code>InvalidConfigurationRequestException</code>, <code>SubnetNotFoundException</code> or <code>InvalidSubnetException</code>.</p><p><strong>Example: To attach subnets to a load balancer</strong></p><p>This example adds the specified subnet to the set of configured subnets for the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;Subnets&quot; =&gt; [
+        &quot;subnet-0ecac448&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Subnets&quot; =&gt; [
+        &quot;subnet-15aaab61&quot;,
+        &quot;subnet-0ecac448&quot;
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/AttachLoadBalancerToSubnets">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.configure_health_check" href="#AWSSDK.ELB.configure_health_check"><code>AWSSDK.ELB.configure_health_check</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.configure_health_check
+configure_health_check([::AWSConfig], arguments::Dict)
+configure_health_check([::AWSConfig]; LoadBalancerName=, HealthCheck=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;ConfigureHealthCheck&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;ConfigureHealthCheck&quot;, LoadBalancerName=, HealthCheck=)</code></pre><p><strong>ConfigureHealthCheck Operation</strong></p><p>Specifies the health check settings to use when evaluating the health state of your EC2 instances.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-healthchecks.html">Configure Health Checks for Your Load Balancer</a> in the <em>Classic Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>HealthCheck = [ ... ]</code> – <em>Required</em></strong></p><p>The configuration information.</p><pre><code class="language-none"> HealthCheck = [
+        &quot;Target&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Interval&quot; =&gt; &lt;required&gt; ::Int,
+        &quot;Timeout&quot; =&gt; &lt;required&gt; ::Int,
+        &quot;UnhealthyThreshold&quot; =&gt; &lt;required&gt; ::Int,
+        &quot;HealthyThreshold&quot; =&gt; &lt;required&gt; ::Int
+    ]</code></pre><p><strong>Returns</strong></p><p><code>ConfigureHealthCheckOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code>.</p><p><strong>Example: To specify the health check settings for your backend EC2 instances</strong></p><p>This example specifies the health check settings used to evaluate the health of your backend EC2 instances.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;HealthCheck&quot; =&gt; [
+        &quot;HealthyThreshold&quot; =&gt; 2,
+        &quot;Interval&quot; =&gt; 30,
+        &quot;Target&quot; =&gt; &quot;HTTP:80/png&quot;,
+        &quot;Timeout&quot; =&gt; 3,
+        &quot;UnhealthyThreshold&quot; =&gt; 2
+    ],
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;HealthCheck&quot; =&gt; Dict(
+        &quot;HealthyThreshold&quot; =&gt; 2,
+        &quot;Interval&quot; =&gt; 30,
+        &quot;Target&quot; =&gt; &quot;HTTP:80/png&quot;,
+        &quot;Timeout&quot; =&gt; 3,
+        &quot;UnhealthyThreshold&quot; =&gt; 2
+    )
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/ConfigureHealthCheck">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.create_app_cookie_stickiness_policy" href="#AWSSDK.ELB.create_app_cookie_stickiness_policy"><code>AWSSDK.ELB.create_app_cookie_stickiness_policy</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.create_app_cookie_stickiness_policy
+create_app_cookie_stickiness_policy([::AWSConfig], arguments::Dict)
+create_app_cookie_stickiness_policy([::AWSConfig]; LoadBalancerName=, PolicyName=, CookieName=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;CreateAppCookieStickinessPolicy&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;CreateAppCookieStickinessPolicy&quot;, LoadBalancerName=, PolicyName=, CookieName=)</code></pre><p><strong>CreateAppCookieStickinessPolicy Operation</strong></p><p>Generates a stickiness policy with sticky session lifetimes that follow that of an application-generated cookie. This policy can be associated only with HTTP/HTTPS listeners.</p><p>This policy is similar to the policy created by <a href="@ref">CreateLBCookieStickinessPolicy</a>, except that the lifetime of the special Elastic Load Balancing cookie, <code>AWSELB</code>, follows the lifetime of the application-generated cookie specified in the policy configuration. The load balancer only inserts a new stickiness cookie when the application response includes a new application cookie.</p><p>If the application cookie is explicitly removed or expires, the session stops being sticky until a new application cookie is issued.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html#enable-sticky-sessions-application">Application-Controlled Session Stickiness</a> in the <em>Classic Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>PolicyName = ::String</code> – <em>Required</em></strong></p><p>The name of the policy being created. Policy names must consist of alphanumeric characters and dashes (-). This name must be unique within the set of policies for this load balancer.</p><p><strong><code>CookieName = ::String</code> – <em>Required</em></strong></p><p>The name of the application cookie used for stickiness.</p><p><strong>Returns</strong></p><p><code>CreateAppCookieStickinessPolicyOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code>, <code>DuplicatePolicyNameException</code>, <code>TooManyPoliciesException</code> or <code>InvalidConfigurationRequestException</code>.</p><p><strong>Example: To generate a stickiness policy for your load balancer</strong></p><p>This example generates a stickiness policy that follows the sticky session lifetimes of the application-generated cookie.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;CookieName&quot; =&gt; &quot;my-app-cookie&quot;,
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;PolicyName&quot; =&gt; &quot;my-app-cookie-policy&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/CreateAppCookieStickinessPolicy">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.create_lbcookie_stickiness_policy" href="#AWSSDK.ELB.create_lbcookie_stickiness_policy"><code>AWSSDK.ELB.create_lbcookie_stickiness_policy</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.create_lbcookie_stickiness_policy
+create_lbcookie_stickiness_policy([::AWSConfig], arguments::Dict)
+create_lbcookie_stickiness_policy([::AWSConfig]; LoadBalancerName=, PolicyName=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;CreateLBCookieStickinessPolicy&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;CreateLBCookieStickinessPolicy&quot;, LoadBalancerName=, PolicyName=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateLBCookieStickinessPolicy Operation</strong></p><p>Generates a stickiness policy with sticky session lifetimes controlled by the lifetime of the browser (user-agent) or a specified expiration period. This policy can be associated only with HTTP/HTTPS listeners.</p><p>When a load balancer implements this policy, the load balancer uses a special cookie to track the instance for each request. When the load balancer receives a request, it first checks to see if this cookie is present in the request. If so, the load balancer sends the request to the application server specified in the cookie. If not, the load balancer sends the request to a server that is chosen based on the existing load-balancing algorithm.</p><p>A cookie is inserted into the response for binding subsequent requests from the same user to that server. The validity of the cookie is based on the cookie expiration time, which is specified in the policy configuration.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html#enable-sticky-sessions-duration">Duration-Based Session Stickiness</a> in the <em>Classic Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>PolicyName = ::String</code> – <em>Required</em></strong></p><p>The name of the policy being created. Policy names must consist of alphanumeric characters and dashes (-). This name must be unique within the set of policies for this load balancer.</p><p><strong><code>CookieExpirationPeriod = ::Int</code></strong></p><p>The time period, in seconds, after which the cookie should be considered stale. If you do not specify this parameter, the default value is 0, which indicates that the sticky session should last for the duration of the browser session.</p><p><strong>Returns</strong></p><p><code>CreateLBCookieStickinessPolicyOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code>, <code>DuplicatePolicyNameException</code>, <code>TooManyPoliciesException</code> or <code>InvalidConfigurationRequestException</code>.</p><p><strong>Example: To generate a duration-based stickiness policy for your load balancer</strong></p><p>This example generates a stickiness policy with sticky session lifetimes controlled by the specified expiration period.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;CookieExpirationPeriod&quot; =&gt; 60,
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;PolicyName&quot; =&gt; &quot;my-duration-cookie-policy&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/CreateLBCookieStickinessPolicy">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.create_load_balancer" href="#AWSSDK.ELB.create_load_balancer"><code>AWSSDK.ELB.create_load_balancer</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.create_load_balancer
+create_load_balancer([::AWSConfig], arguments::Dict)
+create_load_balancer([::AWSConfig]; LoadBalancerName=, Listeners=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;CreateLoadBalancer&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;CreateLoadBalancer&quot;, LoadBalancerName=, Listeners=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateLoadBalancer Operation</strong></p><p>Creates a Classic Load Balancer.</p><p>You can add listeners, security groups, subnets, and tags when you create your load balancer, or you can add them later using <a href="@ref">CreateLoadBalancerListeners</a>, <a href="@ref">ApplySecurityGroupsToLoadBalancer</a>, <a href="@ref">AttachLoadBalancerToSubnets</a>, and <a href="@ref">AddTags</a>.</p><p>To describe your current load balancers, see <a href="@ref">DescribeLoadBalancers</a>. When you are finished with a load balancer, you can delete it using <a href="@ref">DeleteLoadBalancer</a>.</p><p>You can create up to 20 load balancers per region per account. You can request an increase for the number of load balancers for your account. For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-limits.html">Limits for Your Classic Load Balancer</a> in the <em>Classic Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p>This name must be unique within your set of load balancers for the region, must have a maximum of 32 characters, must contain only alphanumeric characters or hyphens, and cannot begin or end with a hyphen.</p><p><strong><code>Listeners = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>The listeners.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-listener-config.html">Listeners for Your Classic Load Balancer</a> in the <em>Classic Load Balancer Guide</em>.</p><pre><code class="language-none"> Listeners = [[
+        &quot;Protocol&quot; =&gt; &lt;required&gt; ::String,
+        &quot;LoadBalancerPort&quot; =&gt; &lt;required&gt; ::Int,
+        &quot;InstanceProtocol&quot; =&gt;  ::String,
+        &quot;InstancePort&quot; =&gt; &lt;required&gt; ::Int,
+        &quot;SSLCertificateId&quot; =&gt;  ::String
+    ], ...]</code></pre><p><strong><code>AvailabilityZones = [::String, ...]</code></strong></p><p>One or more Availability Zones from the same region as the load balancer.</p><p>You must specify at least one Availability Zone.</p><p>You can add more Availability Zones after you create the load balancer using <a href="@ref">EnableAvailabilityZonesForLoadBalancer</a>.</p><p><strong><code>Subnets = [::String, ...]</code></strong></p><p>The IDs of the subnets in your VPC to attach to the load balancer. Specify one subnet per Availability Zone specified in <code>AvailabilityZones</code>.</p><p><strong><code>SecurityGroups = [::String, ...]</code></strong></p><p>The IDs of the security groups to assign to the load balancer.</p><p><strong><code>Scheme = ::String</code></strong></p><p>The type of a load balancer. Valid only for load balancers in a VPC.</p><p>By default, Elastic Load Balancing creates an Internet-facing load balancer with a DNS name that resolves to public IP addresses. For more information about Internet-facing and Internal load balancers, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#load-balancer-scheme">Load Balancer Scheme</a> in the <em>Elastic Load Balancing User Guide</em>.</p><p>Specify <code>internal</code> to create a load balancer with a DNS name that resolves to private IP addresses.</p><p><strong><code>Tags = [[ ... ], ...]</code></strong></p><p>A list of tags to assign to the load balancer.</p><p>For more information about tagging your load balancer, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/add-remove-tags.html">Tag Your Classic Load Balancer</a> in the <em>Classic Load Balancer Guide</em>.</p><pre><code class="language-none"> Tags = [[
+        &quot;Key&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Value&quot; =&gt;  ::String
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>CreateAccessPointOutput</code></p><p><strong>Exceptions</strong></p><p><code>DuplicateAccessPointNameException</code>, <code>TooManyAccessPointsException</code>, <code>CertificateNotFoundException</code>, <code>InvalidConfigurationRequestException</code>, <code>SubnetNotFoundException</code>, <code>InvalidSubnetException</code>, <code>InvalidSecurityGroupException</code>, <code>InvalidSchemeException</code>, <code>TooManyTagsException</code>, <code>DuplicateTagKeysException</code> or <code>UnsupportedProtocolException</code>.</p><p><strong>Example: To create an HTTP load balancer in a VPC</strong></p><p>This example creates a load balancer with an HTTP listener in a VPC.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Listeners&quot; =&gt; [
+        [
+            &quot;InstancePort&quot; =&gt; 80,
+            &quot;InstanceProtocol&quot; =&gt; &quot;HTTP&quot;,
+            &quot;LoadBalancerPort&quot; =&gt; 80,
+            &quot;Protocol&quot; =&gt; &quot;HTTP&quot;
+        ]
+    ],
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;SecurityGroups&quot; =&gt; [
+        &quot;sg-a61988c3&quot;
+    ],
+    &quot;Subnets&quot; =&gt; [
+        &quot;subnet-15aaab61&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;DNSName&quot; =&gt; &quot;my-load-balancer-1234567890.us-west-2.elb.amazonaws.com&quot;
+)</code></pre><p><strong>Example: To create an HTTP load balancer in EC2-Classic</strong></p><p>This example creates a load balancer with an HTTP listener in EC2-Classic.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;AvailabilityZones&quot; =&gt; [
+        &quot;us-west-2a&quot;
+    ],
+    &quot;Listeners&quot; =&gt; [
+        [
+            &quot;InstancePort&quot; =&gt; 80,
+            &quot;InstanceProtocol&quot; =&gt; &quot;HTTP&quot;,
+            &quot;LoadBalancerPort&quot; =&gt; 80,
+            &quot;Protocol&quot; =&gt; &quot;HTTP&quot;
+        ]
+    ],
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;DNSName&quot; =&gt; &quot;my-load-balancer-123456789.us-west-2.elb.amazonaws.com&quot;
+)</code></pre><p><strong>Example: To create an HTTPS load balancer in a VPC</strong></p><p>This example creates a load balancer with an HTTPS listener in a VPC.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Listeners&quot; =&gt; [
+        [
+            &quot;InstancePort&quot; =&gt; 80,
+            &quot;InstanceProtocol&quot; =&gt; &quot;HTTP&quot;,
+            &quot;LoadBalancerPort&quot; =&gt; 80,
+            &quot;Protocol&quot; =&gt; &quot;HTTP&quot;
+        ],
+        [
+            &quot;InstancePort&quot; =&gt; 80,
+            &quot;InstanceProtocol&quot; =&gt; &quot;HTTP&quot;,
+            &quot;LoadBalancerPort&quot; =&gt; 443,
+            &quot;Protocol&quot; =&gt; &quot;HTTPS&quot;,
+            &quot;SSLCertificateId&quot; =&gt; &quot;arn:aws:iam::123456789012:server-certificate/my-server-cert&quot;
+        ]
+    ],
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;SecurityGroups&quot; =&gt; [
+        &quot;sg-a61988c3&quot;
+    ],
+    &quot;Subnets&quot; =&gt; [
+        &quot;subnet-15aaab61&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;DNSName&quot; =&gt; &quot;my-load-balancer-1234567890.us-west-2.elb.amazonaws.com&quot;
+)</code></pre><p><strong>Example: To create an HTTPS load balancer in EC2-Classic</strong></p><p>This example creates a load balancer with an HTTPS listener in EC2-Classic.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;AvailabilityZones&quot; =&gt; [
+        &quot;us-west-2a&quot;
+    ],
+    &quot;Listeners&quot; =&gt; [
+        [
+            &quot;InstancePort&quot; =&gt; 80,
+            &quot;InstanceProtocol&quot; =&gt; &quot;HTTP&quot;,
+            &quot;LoadBalancerPort&quot; =&gt; 80,
+            &quot;Protocol&quot; =&gt; &quot;HTTP&quot;
+        ],
+        [
+            &quot;InstancePort&quot; =&gt; 80,
+            &quot;InstanceProtocol&quot; =&gt; &quot;HTTP&quot;,
+            &quot;LoadBalancerPort&quot; =&gt; 443,
+            &quot;Protocol&quot; =&gt; &quot;HTTPS&quot;,
+            &quot;SSLCertificateId&quot; =&gt; &quot;arn:aws:iam::123456789012:server-certificate/my-server-cert&quot;
+        ]
+    ],
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;DNSName&quot; =&gt; &quot;my-load-balancer-123456789.us-west-2.elb.amazonaws.com&quot;
+)</code></pre><p><strong>Example: To create an internal load balancer</strong></p><p>This example creates an internal load balancer with an HTTP listener in a VPC.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Listeners&quot; =&gt; [
+        [
+            &quot;InstancePort&quot; =&gt; 80,
+            &quot;InstanceProtocol&quot; =&gt; &quot;HTTP&quot;,
+            &quot;LoadBalancerPort&quot; =&gt; 80,
+            &quot;Protocol&quot; =&gt; &quot;HTTP&quot;
+        ]
+    ],
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;Scheme&quot; =&gt; &quot;internal&quot;,
+    &quot;SecurityGroups&quot; =&gt; [
+        &quot;sg-a61988c3&quot;
+    ],
+    &quot;Subnets&quot; =&gt; [
+        &quot;subnet-15aaab61&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;DNSName&quot; =&gt; &quot;internal-my-load-balancer-123456789.us-west-2.elb.amazonaws.com&quot;
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/CreateLoadBalancer">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.create_load_balancer_listeners" href="#AWSSDK.ELB.create_load_balancer_listeners"><code>AWSSDK.ELB.create_load_balancer_listeners</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.create_load_balancer_listeners
+create_load_balancer_listeners([::AWSConfig], arguments::Dict)
+create_load_balancer_listeners([::AWSConfig]; LoadBalancerName=, Listeners=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;CreateLoadBalancerListeners&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;CreateLoadBalancerListeners&quot;, LoadBalancerName=, Listeners=)</code></pre><p><strong>CreateLoadBalancerListeners Operation</strong></p><p>Creates one or more listeners for the specified load balancer. If a listener with the specified port does not already exist, it is created; otherwise, the properties of the new listener must match the properties of the existing listener.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-listener-config.html">Listeners for Your Classic Load Balancer</a> in the <em>Classic Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>Listeners = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>The listeners.</p><pre><code class="language-none"> Listeners = [[
+        &quot;Protocol&quot; =&gt; &lt;required&gt; ::String,
+        &quot;LoadBalancerPort&quot; =&gt; &lt;required&gt; ::Int,
+        &quot;InstanceProtocol&quot; =&gt;  ::String,
+        &quot;InstancePort&quot; =&gt; &lt;required&gt; ::Int,
+        &quot;SSLCertificateId&quot; =&gt;  ::String
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>CreateLoadBalancerListenerOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code>, <code>DuplicateListenerException</code>, <code>CertificateNotFoundException</code>, <code>InvalidConfigurationRequestException</code> or <code>UnsupportedProtocolException</code>.</p><p><strong>Example: To create an HTTP listener for a load balancer</strong></p><p>This example creates a listener for your load balancer at port 80 using the HTTP protocol.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Listeners&quot; =&gt; [
+        [
+            &quot;InstancePort&quot; =&gt; 80,
+            &quot;InstanceProtocol&quot; =&gt; &quot;HTTP&quot;,
+            &quot;LoadBalancerPort&quot; =&gt; 80,
+            &quot;Protocol&quot; =&gt; &quot;HTTP&quot;
+        ]
+    ],
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;
+]</code></pre><p><strong>Example: To create an HTTPS listener for a load balancer</strong></p><p>This example creates a listener for your load balancer at port 443 using the HTTPS protocol.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Listeners&quot; =&gt; [
+        [
+            &quot;InstancePort&quot; =&gt; 80,
+            &quot;InstanceProtocol&quot; =&gt; &quot;HTTP&quot;,
+            &quot;LoadBalancerPort&quot; =&gt; 443,
+            &quot;Protocol&quot; =&gt; &quot;HTTPS&quot;,
+            &quot;SSLCertificateId&quot; =&gt; &quot;arn:aws:iam::123456789012:server-certificate/my-server-cert&quot;
+        ]
+    ],
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/CreateLoadBalancerListeners">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.create_load_balancer_policy" href="#AWSSDK.ELB.create_load_balancer_policy"><code>AWSSDK.ELB.create_load_balancer_policy</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.create_load_balancer_policy
+create_load_balancer_policy([::AWSConfig], arguments::Dict)
+create_load_balancer_policy([::AWSConfig]; LoadBalancerName=, PolicyName=, PolicyTypeName=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;CreateLoadBalancerPolicy&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;CreateLoadBalancerPolicy&quot;, LoadBalancerName=, PolicyName=, PolicyTypeName=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateLoadBalancerPolicy Operation</strong></p><p>Creates a policy with the specified attributes for the specified load balancer.</p><p>Policies are settings that are saved for your load balancer and that can be applied to the listener or the application server, depending on the policy type.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>PolicyName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer policy to be created. This name must be unique within the set of policies for this load balancer.</p><p><strong><code>PolicyTypeName = ::String</code> – <em>Required</em></strong></p><p>The name of the base policy type. To get the list of policy types, use <a href="@ref">DescribeLoadBalancerPolicyTypes</a>.</p><p><strong><code>PolicyAttributes = [[ ... ], ...]</code></strong></p><p>The policy attributes.</p><pre><code class="language-none"> PolicyAttributes = [[
+        &quot;AttributeName&quot; =&gt;  ::String,
+        &quot;AttributeValue&quot; =&gt;  ::String
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>CreateLoadBalancerPolicyOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code>, <code>PolicyTypeNotFoundException</code>, <code>DuplicatePolicyNameException</code>, <code>TooManyPoliciesException</code> or <code>InvalidConfigurationRequestException</code>.</p><p><strong>Example: To create a policy that enables Proxy Protocol on a load balancer</strong></p><p>This example creates a policy that enables Proxy Protocol on the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;PolicyAttributes&quot; =&gt; [
+        [
+            &quot;AttributeName&quot; =&gt; &quot;ProxyProtocol&quot;,
+            &quot;AttributeValue&quot; =&gt; &quot;true&quot;
+        ]
+    ],
+    &quot;PolicyName&quot; =&gt; &quot;my-ProxyProtocol-policy&quot;,
+    &quot;PolicyTypeName&quot; =&gt; &quot;ProxyProtocolPolicyType&quot;
+]</code></pre><p><strong>Example: To create a public key policy</strong></p><p>This example creates a public key policy.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;PolicyAttributes&quot; =&gt; [
+        [
+            &quot;AttributeName&quot; =&gt; &quot;PublicKey&quot;,
+            &quot;AttributeValue&quot; =&gt; &quot;MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwAYUjnfyEyXr1pxjhFWBpMlggUcqoi3kl+dS74kj//c6x7ROtusUaeQCTgIUkayttRDWchuqo1pHC1u+n5xxXnBBe2ejbb2WRsKIQ5rXEeixsjFpFsojpSQKkzhVGI6mJVZBJDVKSHmswnwLBdofLhzvllpovBPTHe+o4haAWvDBALJU0pkSI1FecPHcs2hwxf14zHoXy1e2k36A64nXW43wtfx5qcVSIxtCEOjnYRg7RPvybaGfQ+v6Iaxb/+7J5kEvZhTFQId+bSiJImF1FSUT1W1xwzBZPUbcUkkXDj45vC2s3Z8E+Lk7a3uZhvsQHLZnrfuWjBWGWvZ/MhZYgEXAMPLE&quot;
+        ]
+    ],
+    &quot;PolicyName&quot; =&gt; &quot;my-PublicKey-policy&quot;,
+    &quot;PolicyTypeName&quot; =&gt; &quot;PublicKeyPolicyType&quot;
+]</code></pre><p><strong>Example: To create a backend server authentication policy</strong></p><p>This example creates a backend server authentication policy that enables authentication on your backend instance using a public key policy.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;PolicyAttributes&quot; =&gt; [
+        [
+            &quot;AttributeName&quot; =&gt; &quot;PublicKeyPolicyName&quot;,
+            &quot;AttributeValue&quot; =&gt; &quot;my-PublicKey-policy&quot;
+        ]
+    ],
+    &quot;PolicyName&quot; =&gt; &quot;my-authentication-policy&quot;,
+    &quot;PolicyTypeName&quot; =&gt; &quot;BackendServerAuthenticationPolicyType&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/CreateLoadBalancerPolicy">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.delete_load_balancer" href="#AWSSDK.ELB.delete_load_balancer"><code>AWSSDK.ELB.delete_load_balancer</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.delete_load_balancer
+delete_load_balancer([::AWSConfig], arguments::Dict)
+delete_load_balancer([::AWSConfig]; LoadBalancerName=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;DeleteLoadBalancer&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;DeleteLoadBalancer&quot;, LoadBalancerName=)</code></pre><p><strong>DeleteLoadBalancer Operation</strong></p><p>Deletes the specified load balancer.</p><p>If you are attempting to recreate a load balancer, you must reconfigure all settings. The DNS name associated with a deleted load balancer are no longer usable. The name and associated DNS record of the deleted load balancer no longer exist and traffic sent to any of its IP addresses is no longer delivered to your instances.</p><p>If the load balancer does not exist or has already been deleted, the call to <code>DeleteLoadBalancer</code> still succeeds.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong>Returns</strong></p><p><code>DeleteAccessPointOutput</code></p><p><strong>Example: To delete a load balancer</strong></p><p>This example deletes the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/DeleteLoadBalancer">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.delete_load_balancer_listeners" href="#AWSSDK.ELB.delete_load_balancer_listeners"><code>AWSSDK.ELB.delete_load_balancer_listeners</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.delete_load_balancer_listeners
+delete_load_balancer_listeners([::AWSConfig], arguments::Dict)
+delete_load_balancer_listeners([::AWSConfig]; LoadBalancerName=, LoadBalancerPorts=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;DeleteLoadBalancerListeners&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;DeleteLoadBalancerListeners&quot;, LoadBalancerName=, LoadBalancerPorts=)</code></pre><p><strong>DeleteLoadBalancerListeners Operation</strong></p><p>Deletes the specified listeners from the specified load balancer.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>LoadBalancerPorts = [::Int, ...]</code> – <em>Required</em></strong></p><p>The client port numbers of the listeners.</p><p><strong>Returns</strong></p><p><code>DeleteLoadBalancerListenerOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code>.</p><p><strong>Example: To delete a listener from your load balancer</strong></p><p>This example deletes the listener for the specified port from the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;LoadBalancerPorts&quot; =&gt; [
+        80
+    ]
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/DeleteLoadBalancerListeners">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.delete_load_balancer_policy" href="#AWSSDK.ELB.delete_load_balancer_policy"><code>AWSSDK.ELB.delete_load_balancer_policy</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.delete_load_balancer_policy
+delete_load_balancer_policy([::AWSConfig], arguments::Dict)
+delete_load_balancer_policy([::AWSConfig]; LoadBalancerName=, PolicyName=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;DeleteLoadBalancerPolicy&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;DeleteLoadBalancerPolicy&quot;, LoadBalancerName=, PolicyName=)</code></pre><p><strong>DeleteLoadBalancerPolicy Operation</strong></p><p>Deletes the specified policy from the specified load balancer. This policy must not be enabled for any listeners.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>PolicyName = ::String</code> – <em>Required</em></strong></p><p>The name of the policy.</p><p><strong>Returns</strong></p><p><code>DeleteLoadBalancerPolicyOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code> or <code>InvalidConfigurationRequestException</code>.</p><p><strong>Example: To delete a policy from your load balancer</strong></p><p>This example deletes the specified policy from the specified load balancer. The policy must not be enabled on any listener.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;PolicyName&quot; =&gt; &quot;my-duration-cookie-policy&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/DeleteLoadBalancerPolicy">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.deregister_instances_from_load_balancer" href="#AWSSDK.ELB.deregister_instances_from_load_balancer"><code>AWSSDK.ELB.deregister_instances_from_load_balancer</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.deregister_instances_from_load_balancer
+deregister_instances_from_load_balancer([::AWSConfig], arguments::Dict)
+deregister_instances_from_load_balancer([::AWSConfig]; LoadBalancerName=, Instances=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;DeregisterInstancesFromLoadBalancer&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;DeregisterInstancesFromLoadBalancer&quot;, LoadBalancerName=, Instances=)</code></pre><p><strong>DeregisterInstancesFromLoadBalancer Operation</strong></p><p>Deregisters the specified instances from the specified load balancer. After the instance is deregistered, it no longer receives traffic from the load balancer.</p><p>You can use <a href="@ref">DescribeLoadBalancers</a> to verify that the instance is deregistered from the load balancer.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-deregister-register-instances.html">Register or De-Register EC2 Instances</a> in the <em>Classic Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>Instances = [[&quot;InstanceId&quot; =&gt;  ::String], ...]</code> – <em>Required</em></strong></p><p>The IDs of the instances.</p><p><strong>Returns</strong></p><p><code>DeregisterEndPointsOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code> or <code>InvalidEndPointException</code>.</p><p><strong>Example: To deregister instances from a load balancer</strong></p><p>This example deregisters the specified instance from the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Instances&quot; =&gt; [
+        [
+            &quot;InstanceId&quot; =&gt; &quot;i-d6f6fae3&quot;
+        ]
+    ],
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Instances&quot; =&gt; [
+        Dict(
+            &quot;InstanceId&quot; =&gt; &quot;i-207d9717&quot;
+        ),
+        Dict(
+            &quot;InstanceId&quot; =&gt; &quot;i-afefb49b&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/DeregisterInstancesFromLoadBalancer">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.describe_account_limits" href="#AWSSDK.ELB.describe_account_limits"><code>AWSSDK.ELB.describe_account_limits</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.describe_account_limits
+describe_account_limits([::AWSConfig], arguments::Dict)
+describe_account_limits([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;DescribeAccountLimits&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;DescribeAccountLimits&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>DescribeAccountLimits Operation</strong></p><p>Describes the current Elastic Load Balancing resource limits for your AWS account.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-limits.html">Limits for Your Classic Load Balancer</a> in the <em>Classic Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>Marker = ::String</code></strong></p><p>The marker for the next set of results. (You received this marker from a previous call.)</p><p><strong><code>PageSize = ::Int</code></strong></p><p>The maximum number of results to return with this call.</p><p><strong>Returns</strong></p><p><code>DescribeAccountLimitsOutput</code></p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/DescribeAccountLimits">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.describe_instance_health" href="#AWSSDK.ELB.describe_instance_health"><code>AWSSDK.ELB.describe_instance_health</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.describe_instance_health
+describe_instance_health([::AWSConfig], arguments::Dict)
+describe_instance_health([::AWSConfig]; LoadBalancerName=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;DescribeInstanceHealth&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;DescribeInstanceHealth&quot;, LoadBalancerName=, &lt;keyword arguments&gt;)</code></pre><p><strong>DescribeInstanceHealth Operation</strong></p><p>Describes the state of the specified instances with respect to the specified load balancer. If no instances are specified, the call describes the state of all instances that are currently registered with the load balancer. If instances are specified, their state is returned even if they are no longer registered with the load balancer. The state of terminated instances is not returned.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>Instances = [[&quot;InstanceId&quot; =&gt;  ::String], ...]</code></strong></p><p>The IDs of the instances.</p><p><strong>Returns</strong></p><p><code>DescribeEndPointStateOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code> or <code>InvalidEndPointException</code>.</p><p><strong>Example: To describe the health of the instances for a load balancer</strong></p><p>This example describes the health of the instances for the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;InstanceStates&quot; =&gt; [
+        Dict(
+            &quot;Description&quot; =&gt; &quot;N/A&quot;,
+            &quot;InstanceId&quot; =&gt; &quot;i-207d9717&quot;,
+            &quot;ReasonCode&quot; =&gt; &quot;N/A&quot;,
+            &quot;State&quot; =&gt; &quot;InService&quot;
+        ),
+        Dict(
+            &quot;Description&quot; =&gt; &quot;N/A&quot;,
+            &quot;InstanceId&quot; =&gt; &quot;i-afefb49b&quot;,
+            &quot;ReasonCode&quot; =&gt; &quot;N/A&quot;,
+            &quot;State&quot; =&gt; &quot;InService&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/DescribeInstanceHealth">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.describe_load_balancer_attributes" href="#AWSSDK.ELB.describe_load_balancer_attributes"><code>AWSSDK.ELB.describe_load_balancer_attributes</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.describe_load_balancer_attributes
+describe_load_balancer_attributes([::AWSConfig], arguments::Dict)
+describe_load_balancer_attributes([::AWSConfig]; LoadBalancerName=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;DescribeLoadBalancerAttributes&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;DescribeLoadBalancerAttributes&quot;, LoadBalancerName=)</code></pre><p><strong>DescribeLoadBalancerAttributes Operation</strong></p><p>Describes the attributes for the specified load balancer.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong>Returns</strong></p><p><code>DescribeLoadBalancerAttributesOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code> or <code>LoadBalancerAttributeNotFoundException</code>.</p><p><strong>Example: To describe the attributes of a load balancer</strong></p><p>This example describes the attributes of the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;LoadBalancerAttributes&quot; =&gt; Dict(
+        &quot;AccessLog&quot; =&gt; Dict(
+            &quot;Enabled&quot; =&gt; false
+        ),
+        &quot;ConnectionDraining&quot; =&gt; Dict(
+            &quot;Enabled&quot; =&gt; false,
+            &quot;Timeout&quot; =&gt; 300
+        ),
+        &quot;ConnectionSettings&quot; =&gt; Dict(
+            &quot;IdleTimeout&quot; =&gt; 60
+        ),
+        &quot;CrossZoneLoadBalancing&quot; =&gt; Dict(
+            &quot;Enabled&quot; =&gt; false
+        )
+    )
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/DescribeLoadBalancerAttributes">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.describe_load_balancer_policies" href="#AWSSDK.ELB.describe_load_balancer_policies"><code>AWSSDK.ELB.describe_load_balancer_policies</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.describe_load_balancer_policies
+describe_load_balancer_policies([::AWSConfig], arguments::Dict)
+describe_load_balancer_policies([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;DescribeLoadBalancerPolicies&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;DescribeLoadBalancerPolicies&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>DescribeLoadBalancerPolicies Operation</strong></p><p>Describes the specified policies.</p><p>If you specify a load balancer name, the action returns the descriptions of all policies created for the load balancer. If you specify a policy name associated with your load balancer, the action returns the description of that policy. If you don&#39;t specify a load balancer name, the action returns descriptions of the specified sample policies, or descriptions of all sample policies. The names of the sample policies have the <code>ELBSample-</code> prefix.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code></strong></p><p>The name of the load balancer.</p><p><strong><code>PolicyNames = [::String, ...]</code></strong></p><p>The names of the policies.</p><p><strong>Returns</strong></p><p><code>DescribeLoadBalancerPoliciesOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code> or <code>PolicyNotFoundException</code>.</p><p><strong>Example: To describe a policy associated with a load balancer</strong></p><p>This example describes the specified policy associated with the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;PolicyNames&quot; =&gt; [
+        &quot;my-authentication-policy&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;PolicyDescriptions&quot; =&gt; [
+        Dict(
+            &quot;PolicyAttributeDescriptions&quot; =&gt; [
+                Dict(
+                    &quot;AttributeName&quot; =&gt; &quot;PublicKeyPolicyName&quot;,
+                    &quot;AttributeValue&quot; =&gt; &quot;my-PublicKey-policy&quot;
+                )
+            ],
+            &quot;PolicyName&quot; =&gt; &quot;my-authentication-policy&quot;,
+            &quot;PolicyTypeName&quot; =&gt; &quot;BackendServerAuthenticationPolicyType&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/DescribeLoadBalancerPolicies">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.describe_load_balancer_policy_types" href="#AWSSDK.ELB.describe_load_balancer_policy_types"><code>AWSSDK.ELB.describe_load_balancer_policy_types</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.describe_load_balancer_policy_types
+describe_load_balancer_policy_types([::AWSConfig], arguments::Dict)
+describe_load_balancer_policy_types([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;DescribeLoadBalancerPolicyTypes&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;DescribeLoadBalancerPolicyTypes&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>DescribeLoadBalancerPolicyTypes Operation</strong></p><p>Describes the specified load balancer policy types or all load balancer policy types.</p><p>The description of each type indicates how it can be used. For example, some policies can be used only with layer 7 listeners, some policies can be used only with layer 4 listeners, and some policies can be used only with your EC2 instances.</p><p>You can use <a href="@ref">CreateLoadBalancerPolicy</a> to create a policy configuration for any of these policy types. Then, depending on the policy type, use either <a href="@ref">SetLoadBalancerPoliciesOfListener</a> or <a href="@ref">SetLoadBalancerPoliciesForBackendServer</a> to set the policy.</p><p><strong>Arguments</strong></p><p><strong><code>PolicyTypeNames = [::String, ...]</code></strong></p><p>The names of the policy types. If no names are specified, describes all policy types defined by Elastic Load Balancing.</p><p><strong>Returns</strong></p><p><code>DescribeLoadBalancerPolicyTypesOutput</code></p><p><strong>Exceptions</strong></p><p><code>PolicyTypeNotFoundException</code>.</p><p><strong>Example: To describe a load balancer policy type defined by Elastic Load Balancing</strong></p><p>This example describes the specified load balancer policy type.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;PolicyTypeNames&quot; =&gt; [
+        &quot;ProxyProtocolPolicyType&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;PolicyTypeDescriptions&quot; =&gt; [
+        Dict(
+            &quot;Description&quot; =&gt; &quot;Policy that controls whether to include the IP address and port of the originating request for TCP messages. This policy operates on TCP listeners only.&quot;,
+            &quot;PolicyAttributeTypeDescriptions&quot; =&gt; [
+                Dict(
+                    &quot;AttributeName&quot; =&gt; &quot;ProxyProtocol&quot;,
+                    &quot;AttributeType&quot; =&gt; &quot;Boolean&quot;,
+                    &quot;Cardinality&quot; =&gt; &quot;ONE&quot;
+                )
+            ],
+            &quot;PolicyTypeName&quot; =&gt; &quot;ProxyProtocolPolicyType&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/DescribeLoadBalancerPolicyTypes">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.describe_load_balancers" href="#AWSSDK.ELB.describe_load_balancers"><code>AWSSDK.ELB.describe_load_balancers</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.describe_load_balancers
+describe_load_balancers([::AWSConfig], arguments::Dict)
+describe_load_balancers([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;DescribeLoadBalancers&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;DescribeLoadBalancers&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>DescribeLoadBalancers Operation</strong></p><p>Describes the specified the load balancers. If no load balancers are specified, the call describes all of your load balancers.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerNames = [::String, ...]</code></strong></p><p>The names of the load balancers.</p><p><strong><code>Marker = ::String</code></strong></p><p>The marker for the next set of results. (You received this marker from a previous call.)</p><p><strong><code>PageSize = ::Int</code></strong></p><p>The maximum number of results to return with this call (a number from 1 to 400). The default is 400.</p><p><strong>Returns</strong></p><p><code>DescribeAccessPointsOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code> or <code>DependencyThrottleException</code>.</p><p><strong>Example: To describe one of your load balancers</strong></p><p>This example describes the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerNames&quot; =&gt; [
+        &quot;my-load-balancer&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;LoadBalancerDescriptions&quot; =&gt; [
+        Dict(
+            &quot;AvailabilityZones&quot; =&gt; [
+                &quot;us-west-2a&quot;
+            ],
+            &quot;BackendServerDescriptions&quot; =&gt; [
+                Dict(
+                    &quot;InstancePort&quot; =&gt; 80,
+                    &quot;PolicyNames&quot; =&gt; [
+                        &quot;my-ProxyProtocol-policy&quot;
+                    ]
+                )
+            ],
+            &quot;CanonicalHostedZoneName&quot; =&gt; &quot;my-load-balancer-1234567890.us-west-2.elb.amazonaws.com&quot;,
+            &quot;CanonicalHostedZoneNameID&quot; =&gt; &quot;Z3DZXE0EXAMPLE&quot;,
+            &quot;CreatedTime&quot; =&gt; &quot;2015-03-19T03:24:02.650Z&quot;,
+            &quot;DNSName&quot; =&gt; &quot;my-load-balancer-1234567890.us-west-2.elb.amazonaws.com&quot;,
+            &quot;HealthCheck&quot; =&gt; Dict(
+                &quot;HealthyThreshold&quot; =&gt; 2,
+                &quot;Interval&quot; =&gt; 30,
+                &quot;Target&quot; =&gt; &quot;HTTP:80/png&quot;,
+                &quot;Timeout&quot; =&gt; 3,
+                &quot;UnhealthyThreshold&quot; =&gt; 2
+            ),
+            &quot;Instances&quot; =&gt; [
+                Dict(
+                    &quot;InstanceId&quot; =&gt; &quot;i-207d9717&quot;
+                ),
+                Dict(
+                    &quot;InstanceId&quot; =&gt; &quot;i-afefb49b&quot;
+                )
+            ],
+            &quot;ListenerDescriptions&quot; =&gt; [
+                Dict(
+                    &quot;Listener&quot; =&gt; Dict(
+                        &quot;InstancePort&quot; =&gt; 80,
+                        &quot;InstanceProtocol&quot; =&gt; &quot;HTTP&quot;,
+                        &quot;LoadBalancerPort&quot; =&gt; 80,
+                        &quot;Protocol&quot; =&gt; &quot;HTTP&quot;
+                    ),
+                    &quot;PolicyNames&quot; =&gt; [
+
+                    ]
+                ),
+                Dict(
+                    &quot;Listener&quot; =&gt; Dict(
+                        &quot;InstancePort&quot; =&gt; 443,
+                        &quot;InstanceProtocol&quot; =&gt; &quot;HTTPS&quot;,
+                        &quot;LoadBalancerPort&quot; =&gt; 443,
+                        &quot;Protocol&quot; =&gt; &quot;HTTPS&quot;,
+                        &quot;SSLCertificateId&quot; =&gt; &quot;arn:aws:iam::123456789012:server-certificate/my-server-cert&quot;
+                    ),
+                    &quot;PolicyNames&quot; =&gt; [
+                        &quot;ELBSecurityPolicy-2015-03&quot;
+                    ]
+                )
+            ],
+            &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+            &quot;Policies&quot; =&gt; Dict(
+                &quot;AppCookieStickinessPolicies&quot; =&gt; [
+
+                ],
+                &quot;LBCookieStickinessPolicies&quot; =&gt; [
+                    Dict(
+                        &quot;CookieExpirationPeriod&quot; =&gt; 60,
+                        &quot;PolicyName&quot; =&gt; &quot;my-duration-cookie-policy&quot;
+                    )
+                ],
+                &quot;OtherPolicies&quot; =&gt; [
+                    &quot;my-PublicKey-policy&quot;,
+                    &quot;my-authentication-policy&quot;,
+                    &quot;my-SSLNegotiation-policy&quot;,
+                    &quot;my-ProxyProtocol-policy&quot;,
+                    &quot;ELBSecurityPolicy-2015-03&quot;
+                ]
+            ),
+            &quot;Scheme&quot; =&gt; &quot;internet-facing&quot;,
+            &quot;SecurityGroups&quot; =&gt; [
+                &quot;sg-a61988c3&quot;
+            ],
+            &quot;SourceSecurityGroup&quot; =&gt; Dict(
+                &quot;GroupName&quot; =&gt; &quot;my-elb-sg&quot;,
+                &quot;OwnerAlias&quot; =&gt; &quot;123456789012&quot;
+            ),
+            &quot;Subnets&quot; =&gt; [
+                &quot;subnet-15aaab61&quot;
+            ],
+            &quot;VPCId&quot; =&gt; &quot;vpc-a01106c2&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/DescribeLoadBalancers">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.describe_tags" href="#AWSSDK.ELB.describe_tags"><code>AWSSDK.ELB.describe_tags</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.describe_tags
+describe_tags([::AWSConfig], arguments::Dict)
+describe_tags([::AWSConfig]; LoadBalancerNames=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;DescribeTags&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;DescribeTags&quot;, LoadBalancerNames=)</code></pre><p><strong>DescribeTags Operation</strong></p><p>Describes the tags associated with the specified load balancers.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerNames = [::String, ...]</code> – <em>Required</em></strong></p><p>The names of the load balancers.</p><p><strong>Returns</strong></p><p><code>DescribeTagsOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code>.</p><p><strong>Example: To describe the tags for a load balancer</strong></p><p>This example describes the tags for the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerNames&quot; =&gt; [
+        &quot;my-load-balancer&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;TagDescriptions&quot; =&gt; [
+        Dict(
+            &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+            &quot;Tags&quot; =&gt; [
+                Dict(
+                    &quot;Key&quot; =&gt; &quot;project&quot;,
+                    &quot;Value&quot; =&gt; &quot;lima&quot;
+                ),
+                Dict(
+                    &quot;Key&quot; =&gt; &quot;department&quot;,
+                    &quot;Value&quot; =&gt; &quot;digital-media&quot;
+                )
+            ]
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/DescribeTags">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.detach_load_balancer_from_subnets" href="#AWSSDK.ELB.detach_load_balancer_from_subnets"><code>AWSSDK.ELB.detach_load_balancer_from_subnets</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.detach_load_balancer_from_subnets
+detach_load_balancer_from_subnets([::AWSConfig], arguments::Dict)
+detach_load_balancer_from_subnets([::AWSConfig]; LoadBalancerName=, Subnets=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;DetachLoadBalancerFromSubnets&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;DetachLoadBalancerFromSubnets&quot;, LoadBalancerName=, Subnets=)</code></pre><p><strong>DetachLoadBalancerFromSubnets Operation</strong></p><p>Removes the specified subnets from the set of configured subnets for the load balancer.</p><p>After a subnet is removed, all EC2 instances registered with the load balancer in the removed subnet go into the <code>OutOfService</code> state. Then, the load balancer balances the traffic among the remaining routable subnets.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>Subnets = [::String, ...]</code> – <em>Required</em></strong></p><p>The IDs of the subnets.</p><p><strong>Returns</strong></p><p><code>DetachLoadBalancerFromSubnetsOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code> or <code>InvalidConfigurationRequestException</code>.</p><p><strong>Example: To detach a load balancer from a subnet</strong></p><p>This example detaches the specified load balancer from the specified subnet.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;Subnets&quot; =&gt; [
+        &quot;subnet-0ecac448&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Subnets&quot; =&gt; [
+        &quot;subnet-15aaab61&quot;
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/DetachLoadBalancerFromSubnets">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.disable_availability_zones_for_load_balancer" href="#AWSSDK.ELB.disable_availability_zones_for_load_balancer"><code>AWSSDK.ELB.disable_availability_zones_for_load_balancer</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.disable_availability_zones_for_load_balancer
+disable_availability_zones_for_load_balancer([::AWSConfig], arguments::Dict)
+disable_availability_zones_for_load_balancer([::AWSConfig]; LoadBalancerName=, AvailabilityZones=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;DisableAvailabilityZonesForLoadBalancer&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;DisableAvailabilityZonesForLoadBalancer&quot;, LoadBalancerName=, AvailabilityZones=)</code></pre><p><strong>DisableAvailabilityZonesForLoadBalancer Operation</strong></p><p>Removes the specified Availability Zones from the set of Availability Zones for the specified load balancer.</p><p>There must be at least one Availability Zone registered with a load balancer at all times. After an Availability Zone is removed, all instances registered with the load balancer that are in the removed Availability Zone go into the <code>OutOfService</code> state. Then, the load balancer attempts to equally balance the traffic among its remaining Availability Zones.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-disable-az.html">Add or Remove Availability Zones</a> in the <em>Classic Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>AvailabilityZones = [::String, ...]</code> – <em>Required</em></strong></p><p>The Availability Zones.</p><p><strong>Returns</strong></p><p><code>RemoveAvailabilityZonesOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code> or <code>InvalidConfigurationRequestException</code>.</p><p><strong>Example: To disable an Availability Zone for a load balancer</strong></p><p>This example removes the specified Availability Zone from the set of Availability Zones for the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;AvailabilityZones&quot; =&gt; [
+        &quot;us-west-2a&quot;
+    ],
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;AvailabilityZones&quot; =&gt; [
+        &quot;us-west-2b&quot;
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/DisableAvailabilityZonesForLoadBalancer">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.enable_availability_zones_for_load_balancer" href="#AWSSDK.ELB.enable_availability_zones_for_load_balancer"><code>AWSSDK.ELB.enable_availability_zones_for_load_balancer</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.enable_availability_zones_for_load_balancer
+enable_availability_zones_for_load_balancer([::AWSConfig], arguments::Dict)
+enable_availability_zones_for_load_balancer([::AWSConfig]; LoadBalancerName=, AvailabilityZones=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;EnableAvailabilityZonesForLoadBalancer&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;EnableAvailabilityZonesForLoadBalancer&quot;, LoadBalancerName=, AvailabilityZones=)</code></pre><p><strong>EnableAvailabilityZonesForLoadBalancer Operation</strong></p><p>Adds the specified Availability Zones to the set of Availability Zones for the specified load balancer.</p><p>The load balancer evenly distributes requests across all its registered Availability Zones that contain instances.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-disable-az.html">Add or Remove Availability Zones</a> in the <em>Classic Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>AvailabilityZones = [::String, ...]</code> – <em>Required</em></strong></p><p>The Availability Zones. These must be in the same region as the load balancer.</p><p><strong>Returns</strong></p><p><code>AddAvailabilityZonesOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code>.</p><p><strong>Example: To enable an Availability Zone for a load balancer</strong></p><p>This example adds the specified Availability Zone to the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;AvailabilityZones&quot; =&gt; [
+        &quot;us-west-2b&quot;
+    ],
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;AvailabilityZones&quot; =&gt; [
+        &quot;us-west-2a&quot;,
+        &quot;us-west-2b&quot;
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/EnableAvailabilityZonesForLoadBalancer">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.modify_load_balancer_attributes" href="#AWSSDK.ELB.modify_load_balancer_attributes"><code>AWSSDK.ELB.modify_load_balancer_attributes</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.modify_load_balancer_attributes
+modify_load_balancer_attributes([::AWSConfig], arguments::Dict)
+modify_load_balancer_attributes([::AWSConfig]; LoadBalancerName=, LoadBalancerAttributes=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;ModifyLoadBalancerAttributes&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;ModifyLoadBalancerAttributes&quot;, LoadBalancerName=, LoadBalancerAttributes=)</code></pre><p><strong>ModifyLoadBalancerAttributes Operation</strong></p><p>Modifies the attributes of the specified load balancer.</p><p>You can modify the load balancer attributes, such as <code>AccessLogs</code>, <code>ConnectionDraining</code>, and <code>CrossZoneLoadBalancing</code> by either enabling or disabling them. Or, you can modify the load balancer attribute <code>ConnectionSettings</code> by specifying an idle connection timeout value for your load balancer.</p><p>For more information, see the following in the <em>Classic Load Balancer Guide</em>:</p><ul><li><p><a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-disable-crosszone-lb.html">Cross-Zone Load Balancing</a></p></li><li><p><a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/config-conn-drain.html">Connection Draining</a></p></li><li><p><a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/access-log-collection.html">Access Logs</a></p></li><li><p><a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/config-idle-timeout.html">Idle Connection Timeout</a></p></li></ul><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>LoadBalancerAttributes = [ ... ]</code> – <em>Required</em></strong></p><p>The attributes for the load balancer.</p><pre><code class="language-none"> LoadBalancerAttributes = [
+        &quot;CrossZoneLoadBalancing&quot; =&gt;  [&quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool],
+        &quot;AccessLog&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+            &quot;S3BucketName&quot; =&gt;  ::String,
+            &quot;EmitInterval&quot; =&gt;  ::Int,
+            &quot;S3BucketPrefix&quot; =&gt;  ::String
+        ],
+        &quot;ConnectionDraining&quot; =&gt;  [
+            &quot;Enabled&quot; =&gt; &lt;required&gt; ::Bool,
+            &quot;Timeout&quot; =&gt;  ::Int
+        ],
+        &quot;ConnectionSettings&quot; =&gt;  [&quot;IdleTimeout&quot; =&gt; &lt;required&gt; ::Int],
+        &quot;AdditionalAttributes&quot; =&gt;  [[
+            &quot;Key&quot; =&gt;  ::String,
+            &quot;Value&quot; =&gt;  ::String
+        ], ...]
+    ]</code></pre><p><strong>Returns</strong></p><p><code>ModifyLoadBalancerAttributesOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code>, <code>LoadBalancerAttributeNotFoundException</code> or <code>InvalidConfigurationRequestException</code>.</p><p><strong>Example: To enable cross-zone load balancing</strong></p><p>This example enables cross-zone load balancing for the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerAttributes&quot; =&gt; [
+        &quot;CrossZoneLoadBalancing&quot; =&gt; [
+            &quot;Enabled&quot; =&gt; true
+        ]
+    ],
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;LoadBalancerAttributes&quot; =&gt; Dict(
+        &quot;CrossZoneLoadBalancing&quot; =&gt; Dict(
+            &quot;Enabled&quot; =&gt; true
+        )
+    ),
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;
+)</code></pre><p><strong>Example: To enable connection draining</strong></p><p>This example enables connection draining for the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerAttributes&quot; =&gt; [
+        &quot;ConnectionDraining&quot; =&gt; [
+            &quot;Enabled&quot; =&gt; true,
+            &quot;Timeout&quot; =&gt; 300
+        ]
+    ],
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;LoadBalancerAttributes&quot; =&gt; Dict(
+        &quot;ConnectionDraining&quot; =&gt; Dict(
+            &quot;Enabled&quot; =&gt; true,
+            &quot;Timeout&quot; =&gt; 300
+        )
+    ),
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/ModifyLoadBalancerAttributes">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.register_instances_with_load_balancer" href="#AWSSDK.ELB.register_instances_with_load_balancer"><code>AWSSDK.ELB.register_instances_with_load_balancer</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.register_instances_with_load_balancer
+register_instances_with_load_balancer([::AWSConfig], arguments::Dict)
+register_instances_with_load_balancer([::AWSConfig]; LoadBalancerName=, Instances=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;RegisterInstancesWithLoadBalancer&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;RegisterInstancesWithLoadBalancer&quot;, LoadBalancerName=, Instances=)</code></pre><p><strong>RegisterInstancesWithLoadBalancer Operation</strong></p><p>Adds the specified instances to the specified load balancer.</p><p>The instance must be a running instance in the same network as the load balancer (EC2-Classic or the same VPC). If you have EC2-Classic instances and a load balancer in a VPC with ClassicLink enabled, you can link the EC2-Classic instances to that VPC and then register the linked EC2-Classic instances with the load balancer in the VPC.</p><p>Note that <code>RegisterInstanceWithLoadBalancer</code> completes when the request has been registered. Instance registration takes a little time to complete. To check the state of the registered instances, use <a href="@ref">DescribeLoadBalancers</a> or <a href="@ref">DescribeInstanceHealth</a>.</p><p>After the instance is registered, it starts receiving traffic and requests from the load balancer. Any instance that is not in one of the Availability Zones registered for the load balancer is moved to the <code>OutOfService</code> state. If an Availability Zone is added to the load balancer later, any instances registered with the load balancer move to the <code>InService</code> state.</p><p>To deregister instances from a load balancer, use <a href="@ref">DeregisterInstancesFromLoadBalancer</a>.</p><p>For more information, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-deregister-register-instances.html">Register or De-Register EC2 Instances</a> in the <em>Classic Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>Instances = [[&quot;InstanceId&quot; =&gt;  ::String], ...]</code> – <em>Required</em></strong></p><p>The IDs of the instances.</p><p><strong>Returns</strong></p><p><code>RegisterEndPointsOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code> or <code>InvalidEndPointException</code>.</p><p><strong>Example: To register instances with a load balancer</strong></p><p>This example registers the specified instance with the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;Instances&quot; =&gt; [
+        [
+            &quot;InstanceId&quot; =&gt; &quot;i-d6f6fae3&quot;
+        ]
+    ],
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;Instances&quot; =&gt; [
+        Dict(
+            &quot;InstanceId&quot; =&gt; &quot;i-d6f6fae3&quot;
+        ),
+        Dict(
+            &quot;InstanceId&quot; =&gt; &quot;i-207d9717&quot;
+        ),
+        Dict(
+            &quot;InstanceId&quot; =&gt; &quot;i-afefb49b&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/RegisterInstancesWithLoadBalancer">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.remove_tags" href="#AWSSDK.ELB.remove_tags"><code>AWSSDK.ELB.remove_tags</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.remove_tags
+remove_tags([::AWSConfig], arguments::Dict)
+remove_tags([::AWSConfig]; LoadBalancerNames=, Tags=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;RemoveTags&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;RemoveTags&quot;, LoadBalancerNames=, Tags=)</code></pre><p><strong>RemoveTags Operation</strong></p><p>Removes one or more tags from the specified load balancer.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerNames = [::String, ...]</code> – <em>Required</em></strong></p><p>The name of the load balancer. You can specify a maximum of one load balancer name.</p><p><strong><code>Tags = [[&quot;Key&quot; =&gt;  ::String], ...]</code> – <em>Required</em></strong></p><p>The list of tag keys to remove.</p><p><strong>Returns</strong></p><p><code>RemoveTagsOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code>.</p><p><strong>Example: To remove tags from a load balancer</strong></p><p>This example removes the specified tag from the specified load balancer.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerNames&quot; =&gt; [
+        &quot;my-load-balancer&quot;
+    ],
+    &quot;Tags&quot; =&gt; [
+        [
+            &quot;Key&quot; =&gt; &quot;project&quot;
+        ]
+    ]
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/RemoveTags">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.set_load_balancer_listener_sslcertificate" href="#AWSSDK.ELB.set_load_balancer_listener_sslcertificate"><code>AWSSDK.ELB.set_load_balancer_listener_sslcertificate</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.set_load_balancer_listener_sslcertificate
+set_load_balancer_listener_sslcertificate([::AWSConfig], arguments::Dict)
+set_load_balancer_listener_sslcertificate([::AWSConfig]; LoadBalancerName=, LoadBalancerPort=, SSLCertificateId=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;SetLoadBalancerListenerSSLCertificate&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;SetLoadBalancerListenerSSLCertificate&quot;, LoadBalancerName=, LoadBalancerPort=, SSLCertificateId=)</code></pre><p><strong>SetLoadBalancerListenerSSLCertificate Operation</strong></p><p>Sets the certificate that terminates the specified listener&#39;s SSL connections. The specified certificate replaces any prior certificate that was used on the same load balancer and port.</p><p>For more information about updating your SSL certificate, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-update-ssl-cert.html">Replace the SSL Certificate for Your Load Balancer</a> in the <em>Classic Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>LoadBalancerPort = ::Int</code> – <em>Required</em></strong></p><p>The port that uses the specified SSL certificate.</p><p><strong><code>SSLCertificateId = ::String</code> – <em>Required</em></strong></p><p>The Amazon Resource Name (ARN) of the SSL certificate.</p><p><strong>Returns</strong></p><p><code>SetLoadBalancerListenerSSLCertificateOutput</code></p><p><strong>Exceptions</strong></p><p><code>CertificateNotFoundException</code>, <code>AccessPointNotFoundException</code>, <code>ListenerNotFoundException</code>, <code>InvalidConfigurationRequestException</code> or <code>UnsupportedProtocolException</code>.</p><p><strong>Example: To update the SSL certificate for an HTTPS listener</strong></p><p>This example replaces the existing SSL certificate for the specified HTTPS listener.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;LoadBalancerPort&quot; =&gt; 443,
+    &quot;SSLCertificateId&quot; =&gt; &quot;arn:aws:iam::123456789012:server-certificate/new-server-cert&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/SetLoadBalancerListenerSSLCertificate">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.set_load_balancer_policies_for_backend_server" href="#AWSSDK.ELB.set_load_balancer_policies_for_backend_server"><code>AWSSDK.ELB.set_load_balancer_policies_for_backend_server</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.set_load_balancer_policies_for_backend_server
+set_load_balancer_policies_for_backend_server([::AWSConfig], arguments::Dict)
+set_load_balancer_policies_for_backend_server([::AWSConfig]; LoadBalancerName=, InstancePort=, PolicyNames=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;SetLoadBalancerPoliciesForBackendServer&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;SetLoadBalancerPoliciesForBackendServer&quot;, LoadBalancerName=, InstancePort=, PolicyNames=)</code></pre><p><strong>SetLoadBalancerPoliciesForBackendServer Operation</strong></p><p>Replaces the set of policies associated with the specified port on which the EC2 instance is listening with a new set of policies. At this time, only the back-end server authentication policy type can be applied to the instance ports; this policy type is composed of multiple public key policies.</p><p>Each time you use <code>SetLoadBalancerPoliciesForBackendServer</code> to enable the policies, use the <code>PolicyNames</code> parameter to list the policies that you want to enable.</p><p>You can use <a href="@ref">DescribeLoadBalancers</a> or <a href="@ref">DescribeLoadBalancerPolicies</a> to verify that the policy is associated with the EC2 instance.</p><p>For more information about enabling back-end instance authentication, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-create-https-ssl-load-balancer.html#configure_backendauth_clt">Configure Back-end Instance Authentication</a> in the <em>Classic Load Balancer Guide</em>. For more information about Proxy Protocol, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-proxy-protocol.html">Configure Proxy Protocol Support</a> in the <em>Classic Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>InstancePort = ::Int</code> – <em>Required</em></strong></p><p>The port number associated with the EC2 instance.</p><p><strong><code>PolicyNames = [::String, ...]</code> – <em>Required</em></strong></p><p>The names of the policies. If the list is empty, then all current polices are removed from the EC2 instance.</p><p><strong>Returns</strong></p><p><code>SetLoadBalancerPoliciesForBackendServerOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code>, <code>PolicyNotFoundException</code> or <code>InvalidConfigurationRequestException</code>.</p><p><strong>Example: To replace the policies associated with a port for a backend instance</strong></p><p>This example replaces the policies that are currently associated with the specified port.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;InstancePort&quot; =&gt; 80,
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;PolicyNames&quot; =&gt; [
+        &quot;my-ProxyProtocol-policy&quot;
+    ]
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/SetLoadBalancerPoliciesForBackendServer">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.ELB.set_load_balancer_policies_of_listener" href="#AWSSDK.ELB.set_load_balancer_policies_of_listener"><code>AWSSDK.ELB.set_load_balancer_policies_of_listener</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.ELB.set_load_balancer_policies_of_listener
+set_load_balancer_policies_of_listener([::AWSConfig], arguments::Dict)
+set_load_balancer_policies_of_listener([::AWSConfig]; LoadBalancerName=, LoadBalancerPort=, PolicyNames=)
+
+using AWSCore.Services.elasticloadbalancing
+elasticloadbalancing([::AWSConfig], &quot;SetLoadBalancerPoliciesOfListener&quot;, arguments::Dict)
+elasticloadbalancing([::AWSConfig], &quot;SetLoadBalancerPoliciesOfListener&quot;, LoadBalancerName=, LoadBalancerPort=, PolicyNames=)</code></pre><p><strong>SetLoadBalancerPoliciesOfListener Operation</strong></p><p>Replaces the current set of policies for the specified load balancer port with the specified set of policies.</p><p>To enable back-end server authentication, use <a href="@ref">SetLoadBalancerPoliciesForBackendServer</a>.</p><p>For more information about setting policies, see <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/ssl-config-update.html">Update the SSL Negotiation Configuration</a>, <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html#enable-sticky-sessions-duration">Duration-Based Session Stickiness</a>, and <a href="http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html#enable-sticky-sessions-application">Application-Controlled Session Stickiness</a> in the <em>Classic Load Balancer Guide</em>.</p><p><strong>Arguments</strong></p><p><strong><code>LoadBalancerName = ::String</code> – <em>Required</em></strong></p><p>The name of the load balancer.</p><p><strong><code>LoadBalancerPort = ::Int</code> – <em>Required</em></strong></p><p>The external port of the load balancer.</p><p><strong><code>PolicyNames = [::String, ...]</code> – <em>Required</em></strong></p><p>The names of the policies. This list must include all policies to be enabled. If you omit a policy that is currently enabled, it is disabled. If the list is empty, all current policies are disabled.</p><p><strong>Returns</strong></p><p><code>SetLoadBalancerPoliciesOfListenerOutput</code></p><p><strong>Exceptions</strong></p><p><code>AccessPointNotFoundException</code>, <code>PolicyNotFoundException</code>, <code>ListenerNotFoundException</code> or <code>InvalidConfigurationRequestException</code>.</p><p><strong>Example: To replace the policies associated with a listener</strong></p><p>This example replaces the policies that are currently associated with the specified listener.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;LoadBalancerName&quot; =&gt; &quot;my-load-balancer&quot;,
+    &quot;LoadBalancerPort&quot; =&gt; 80,
+    &quot;PolicyNames&quot; =&gt; [
+        &quot;my-SSLNegotiation-policy&quot;
+    ]
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/elasticloadbalancing-2012-06-01/SetLoadBalancerPoliciesOfListener">AWS API Documentation</a></p></div></section><footer><hr/><a class="previous" href="AWSSDK.EFS.html"><span class="direction">Previous</span><span class="title">AWSSDK.EFS.jl</span></a><a class="next" href="AWSSDK.ELBv2.html"><span class="direction">Next</span><span class="title">AWSSDK.ELBv2.jl</span></a></footer></article></body></html>

@@ -1,0 +1,2 @@
+all:
+	julia make.jl

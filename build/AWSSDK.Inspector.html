@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>AWSSDK.Inspector.jl · AWSCore.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link href="assets/highlightjs/default.css" rel="stylesheet" type="text/css"/><link href="assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>AWSCore.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="index.html">AWSCore.jl</a></li><li><a class="toctext" href="AWSS3.html">AWSS3.jl</a></li><li><a class="toctext" href="AWSSQS.html">AWSSQS.jl</a></li><li><a class="toctext" href="AWSSES.html">AWSSES.jl</a></li><li><a class="toctext" href="AWSSNS.html">AWSSNS.jl</a></li><li><a class="toctext" href="AWSSDK.ACM.html">AWSSDK.ACM.jl</a></li><li><a class="toctext" href="AWSSDK.APIGateway.html">AWSSDK.APIGateway.jl</a></li><li><a class="toctext" href="AWSSDK.ApplicationAutoScaling.html">AWSSDK.ApplicationAutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.AppStream.html">AWSSDK.AppStream.jl</a></li><li><a class="toctext" href="AWSSDK.Athena.html">AWSSDK.Athena.jl</a></li><li><a class="toctext" href="AWSSDK.AutoScaling.html">AWSSDK.AutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.Batch.html">AWSSDK.Batch.jl</a></li><li><a class="toctext" href="AWSSDK.Budgets.html">AWSSDK.Budgets.jl</a></li><li><a class="toctext" href="AWSSDK.CloudDirectory.html">AWSSDK.CloudDirectory.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFormation.html">AWSSDK.CloudFormation.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFront.html">AWSSDK.CloudFront.jl</a></li><li><a class="toctext" href="AWSSDK.CloudHSM.html">AWSSDK.CloudHSM.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearch.html">AWSSDK.CloudSearch.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearchDomain.html">AWSSDK.CloudSearchDomain.jl</a></li><li><a class="toctext" href="AWSSDK.CloudTrail.html">AWSSDK.CloudTrail.jl</a></li><li><a class="toctext" href="AWSSDK.CodeBuild.html">AWSSDK.CodeBuild.jl</a></li><li><a class="toctext" href="AWSSDK.CodeCommit.html">AWSSDK.CodeCommit.jl</a></li><li><a class="toctext" href="AWSSDK.CodeDeploy.html">AWSSDK.CodeDeploy.jl</a></li><li><a class="toctext" href="AWSSDK.CodePipeline.html">AWSSDK.CodePipeline.jl</a></li><li><a class="toctext" href="AWSSDK.CodeStar.html">AWSSDK.CodeStar.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentity.html">AWSSDK.CognitoIdentity.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentityServiceProvider.html">AWSSDK.CognitoIdentityServiceProvider.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoSync.html">AWSSDK.CognitoSync.jl</a></li><li><a class="toctext" href="AWSSDK.ConfigService.html">AWSSDK.ConfigService.jl</a></li><li><a class="toctext" href="AWSSDK.CUR.html">AWSSDK.CUR.jl</a></li><li><a class="toctext" href="AWSSDK.DataPipeline.html">AWSSDK.DataPipeline.jl</a></li><li><a class="toctext" href="AWSSDK.DAX.html">AWSSDK.DAX.jl</a></li><li><a class="toctext" href="AWSSDK.DeviceFarm.html">AWSSDK.DeviceFarm.jl</a></li><li><a class="toctext" href="AWSSDK.DirectConnect.html">AWSSDK.DirectConnect.jl</a></li><li><a class="toctext" href="AWSSDK.Discovery.html">AWSSDK.Discovery.jl</a></li><li><a class="toctext" href="AWSSDK.DMS.html">AWSSDK.DMS.jl</a></li><li><a class="toctext" href="AWSSDK.DirectoryService.html">AWSSDK.DirectoryService.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDB.html">AWSSDK.DynamoDB.jl</a></li><li><a class="toctext" href="AWSSDK.EC2.html">AWSSDK.EC2.jl</a></li><li><a class="toctext" href="AWSSDK.ECR.html">AWSSDK.ECR.jl</a></li><li><a class="toctext" href="AWSSDK.ECS.html">AWSSDK.ECS.jl</a></li><li><a class="toctext" href="AWSSDK.ElastiCache.html">AWSSDK.ElastiCache.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticBeanstalk.html">AWSSDK.ElasticBeanstalk.jl</a></li><li><a class="toctext" href="AWSSDK.EFS.html">AWSSDK.EFS.jl</a></li><li><a class="toctext" href="AWSSDK.ELB.html">AWSSDK.ELB.jl</a></li><li><a class="toctext" href="AWSSDK.ELBv2.html">AWSSDK.ELBv2.jl</a></li><li><a class="toctext" href="AWSSDK.EMR.html">AWSSDK.EMR.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticTranscoder.html">AWSSDK.ElasticTranscoder.jl</a></li><li><a class="toctext" href="AWSSDK.SES.html">AWSSDK.SES.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceEntitlementService.html">AWSSDK.MarketplaceEntitlementService.jl</a></li><li><a class="toctext" href="AWSSDK.ES.html">AWSSDK.ES.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchEvents.html">AWSSDK.CloudWatchEvents.jl</a></li><li><a class="toctext" href="AWSSDK.Firehose.html">AWSSDK.Firehose.jl</a></li><li><a class="toctext" href="AWSSDK.GameLift.html">AWSSDK.GameLift.jl</a></li><li><a class="toctext" href="AWSSDK.Glacier.html">AWSSDK.Glacier.jl</a></li><li><a class="toctext" href="AWSSDK.Greengrass.html">AWSSDK.Greengrass.jl</a></li><li><a class="toctext" href="AWSSDK.Health.html">AWSSDK.Health.jl</a></li><li><a class="toctext" href="AWSSDK.IAM.html">AWSSDK.IAM.jl</a></li><li><a class="toctext" href="AWSSDK.ImportExport.html">AWSSDK.ImportExport.jl</a></li><li class="current"><a class="toctext" href="AWSSDK.Inspector.html">AWSSDK.Inspector.jl</a><ul class="internal"><li class="toplevel"><a class="toctext" href="#Amazon-Inspector-1">Amazon Inspector</a></li></ul></li><li><a class="toctext" href="AWSSDK.Iot.html">AWSSDK.Iot.jl</a></li><li><a class="toctext" href="AWSSDK.IotData.html">AWSSDK.IotData.jl</a></li><li><a class="toctext" href="AWSSDK.Kinesis.html">AWSSDK.Kinesis.jl</a></li><li><a class="toctext" href="AWSSDK.KinesisAnalytics.html">AWSSDK.KinesisAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.KMS.html">AWSSDK.KMS.jl</a></li><li><a class="toctext" href="AWSSDK.Lambda.html">AWSSDK.Lambda.jl</a></li><li><a class="toctext" href="AWSSDK.LexModelBuildingService.html">AWSSDK.LexModelBuildingService.jl</a></li><li><a class="toctext" href="AWSSDK.Lightsail.html">AWSSDK.Lightsail.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchLogs.html">AWSSDK.CloudWatchLogs.jl</a></li><li><a class="toctext" href="AWSSDK.MachineLearning.html">AWSSDK.MachineLearning.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceCommerceAnalytics.html">AWSSDK.MarketplaceCommerceAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceMetering.html">AWSSDK.MarketplaceMetering.jl</a></li><li><a class="toctext" href="AWSSDK.MobileAnalytics.html">AWSSDK.MobileAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatch.html">AWSSDK.CloudWatch.jl</a></li><li><a class="toctext" href="AWSSDK.MTurk.html">AWSSDK.MTurk.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorks.html">AWSSDK.OpsWorks.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorksCM.html">AWSSDK.OpsWorksCM.jl</a></li><li><a class="toctext" href="AWSSDK.Organizations.html">AWSSDK.Organizations.jl</a></li><li><a class="toctext" href="AWSSDK.Pinpoint.html">AWSSDK.Pinpoint.jl</a></li><li><a class="toctext" href="AWSSDK.Polly.html">AWSSDK.Polly.jl</a></li><li><a class="toctext" href="AWSSDK.RDS.html">AWSSDK.RDS.jl</a></li><li><a class="toctext" href="AWSSDK.Redshift.html">AWSSDK.Redshift.jl</a></li><li><a class="toctext" href="AWSSDK.Rekognition.html">AWSSDK.Rekognition.jl</a></li><li><a class="toctext" href="AWSSDK.ResourceGroupsTaggingAPI.html">AWSSDK.ResourceGroupsTaggingAPI.jl</a></li><li><a class="toctext" href="AWSSDK.Route53.html">AWSSDK.Route53.jl</a></li><li><a class="toctext" href="AWSSDK.Route53Domains.html">AWSSDK.Route53Domains.jl</a></li><li><a class="toctext" href="AWSSDK.LexRuntime.html">AWSSDK.LexRuntime.jl</a></li><li><a class="toctext" href="AWSSDK.S3.html">AWSSDK.S3.jl</a></li><li><a class="toctext" href="AWSSDK.SimpleDB.html">AWSSDK.SimpleDB.jl</a></li><li><a class="toctext" href="AWSSDK.ServiceCatalog.html">AWSSDK.ServiceCatalog.jl</a></li><li><a class="toctext" href="AWSSDK.Shield.html">AWSSDK.Shield.jl</a></li><li><a class="toctext" href="AWSSDK.SMS.html">AWSSDK.SMS.jl</a></li><li><a class="toctext" href="AWSSDK.Snowball.html">AWSSDK.Snowball.jl</a></li><li><a class="toctext" href="AWSSDK.SNS.html">AWSSDK.SNS.jl</a></li><li><a class="toctext" href="AWSSDK.SQS.html">AWSSDK.SQS.jl</a></li><li><a class="toctext" href="AWSSDK.SSM.html">AWSSDK.SSM.jl</a></li><li><a class="toctext" href="AWSSDK.StepFunctions.html">AWSSDK.StepFunctions.jl</a></li><li><a class="toctext" href="AWSSDK.StorageGateway.html">AWSSDK.StorageGateway.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDBStreams.html">AWSSDK.DynamoDBStreams.jl</a></li><li><a class="toctext" href="AWSSDK.STS.html">AWSSDK.STS.jl</a></li><li><a class="toctext" href="AWSSDK.Support.html">AWSSDK.Support.jl</a></li><li><a class="toctext" href="AWSSDK.SWF.html">AWSSDK.SWF.jl</a></li><li><a class="toctext" href="AWSSDK.WAF.html">AWSSDK.WAF.jl</a></li><li><a class="toctext" href="AWSSDK.WAFRegional.html">AWSSDK.WAFRegional.jl</a></li><li><a class="toctext" href="AWSSDK.WorkDocs.html">AWSSDK.WorkDocs.jl</a></li><li><a class="toctext" href="AWSSDK.WorkSpaces.html">AWSSDK.WorkSpaces.jl</a></li><li><a class="toctext" href="AWSSDK.XRay.html">AWSSDK.XRay.jl</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href="AWSSDK.Inspector.html">AWSSDK.Inspector.jl</a></li></ul><a class="edit-page" href="https://github.com/JuliaCloud/AWSCore.jl/tree/1f93d72825dfa35b69cc2d48e9a3b9130a7ec269/src/AWSSDK.Inspector.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>AWSSDK.Inspector.jl</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="AWSSDK.Inspector-1" href="#AWSSDK.Inspector-1">AWSSDK.Inspector</a></h1><h1><a class="nav-anchor" id="Amazon-Inspector-1" href="#Amazon-Inspector-1">Amazon Inspector</a></h1><p>Amazon Inspector enables you to analyze the behavior of your AWS resources and to identify potential security issues. For more information, see <a href="http://docs.aws.amazon.com/inspector/latest/userguide/inspector_introduction.html">Amazon Inspector User Guide</a>.</p><p>This document is generated from <a href="https://github.com/aws/aws-sdk-js/blob/master/apis/inspector-2016-02-16.normal.json">apis/inspector-2016-02-16.normal.json</a>. See <a href="https://github.com/JuliaCloud/AWSCore.jl">JuliaCloud/AWSCore.jl</a>.</p><ul><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.add_attributes_to_findings"><code>AWSSDK.Inspector.add_attributes_to_findings</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.create_assessment_target"><code>AWSSDK.Inspector.create_assessment_target</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.create_assessment_template"><code>AWSSDK.Inspector.create_assessment_template</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.create_resource_group"><code>AWSSDK.Inspector.create_resource_group</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.delete_assessment_run"><code>AWSSDK.Inspector.delete_assessment_run</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.delete_assessment_target"><code>AWSSDK.Inspector.delete_assessment_target</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.delete_assessment_template"><code>AWSSDK.Inspector.delete_assessment_template</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.describe_assessment_runs"><code>AWSSDK.Inspector.describe_assessment_runs</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.describe_assessment_targets"><code>AWSSDK.Inspector.describe_assessment_targets</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.describe_assessment_templates"><code>AWSSDK.Inspector.describe_assessment_templates</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.describe_cross_account_access_role"><code>AWSSDK.Inspector.describe_cross_account_access_role</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.describe_findings"><code>AWSSDK.Inspector.describe_findings</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.describe_resource_groups"><code>AWSSDK.Inspector.describe_resource_groups</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.describe_rules_packages"><code>AWSSDK.Inspector.describe_rules_packages</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.get_assessment_report"><code>AWSSDK.Inspector.get_assessment_report</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.get_telemetry_metadata"><code>AWSSDK.Inspector.get_telemetry_metadata</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.list_assessment_run_agents"><code>AWSSDK.Inspector.list_assessment_run_agents</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.list_assessment_runs"><code>AWSSDK.Inspector.list_assessment_runs</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.list_assessment_targets"><code>AWSSDK.Inspector.list_assessment_targets</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.list_assessment_templates"><code>AWSSDK.Inspector.list_assessment_templates</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.list_event_subscriptions"><code>AWSSDK.Inspector.list_event_subscriptions</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.list_findings"><code>AWSSDK.Inspector.list_findings</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.list_rules_packages"><code>AWSSDK.Inspector.list_rules_packages</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.list_tags_for_resource"><code>AWSSDK.Inspector.list_tags_for_resource</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.preview_agents"><code>AWSSDK.Inspector.preview_agents</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.register_cross_account_access_role"><code>AWSSDK.Inspector.register_cross_account_access_role</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.remove_attributes_from_findings"><code>AWSSDK.Inspector.remove_attributes_from_findings</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.set_tags_for_resource"><code>AWSSDK.Inspector.set_tags_for_resource</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.start_assessment_run"><code>AWSSDK.Inspector.start_assessment_run</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.stop_assessment_run"><code>AWSSDK.Inspector.stop_assessment_run</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.subscribe_to_event"><code>AWSSDK.Inspector.subscribe_to_event</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.unsubscribe_from_event"><code>AWSSDK.Inspector.unsubscribe_from_event</code></a></li><li><a href="AWSSDK.Inspector.html#AWSSDK.Inspector.update_assessment_target"><code>AWSSDK.Inspector.update_assessment_target</code></a></li></ul><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.add_attributes_to_findings" href="#AWSSDK.Inspector.add_attributes_to_findings"><code>AWSSDK.Inspector.add_attributes_to_findings</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.add_attributes_to_findings
+add_attributes_to_findings([::AWSConfig], arguments::Dict)
+add_attributes_to_findings([::AWSConfig]; findingArns=, attributes=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;AddAttributesToFindings&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;AddAttributesToFindings&quot;, findingArns=, attributes=)</code></pre><p><strong>AddAttributesToFindings Operation</strong></p><p>Assigns attributes (key and value pairs) to the findings that are specified by the ARNs of the findings.</p><p><strong>Arguments</strong></p><p><strong><code>findingArns = [::String, ...]</code> – <em>Required</em></strong></p><p>The ARNs that specify the findings that you want to assign attributes to.</p><p><strong><code>attributes = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>The array of attributes that you want to assign to specified findings.</p><pre><code class="language-none"> attributes = [[
+        &quot;key&quot; =&gt; &lt;required&gt; ::String,
+        &quot;value&quot; =&gt;  ::String
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>AddAttributesToFindingsResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: Add attributes to findings</strong></p><p>Assigns attributes (key and value pairs) to the findings that are specified by the ARNs of the findings.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;attributes&quot; =&gt; [
+        [
+            &quot;key&quot; =&gt; &quot;Example&quot;,
+            &quot;value&quot; =&gt; &quot;example&quot;
+        ]
+    ],
+    &quot;findingArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-8l1VIE0D/run/0-Z02cjjug/finding/0-T8yM9mEU&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;failedItems&quot; =&gt; Dict(
+
+    )
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/AddAttributesToFindings">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.create_assessment_target" href="#AWSSDK.Inspector.create_assessment_target"><code>AWSSDK.Inspector.create_assessment_target</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.create_assessment_target
+create_assessment_target([::AWSConfig], arguments::Dict)
+create_assessment_target([::AWSConfig]; assessmentTargetName=, resourceGroupArn=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;CreateAssessmentTarget&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;CreateAssessmentTarget&quot;, assessmentTargetName=, resourceGroupArn=)</code></pre><p><strong>CreateAssessmentTarget Operation</strong></p><p>Creates a new assessment target using the ARN of the resource group that is generated by <a href="@ref">CreateResourceGroup</a>. You can create up to 50 assessment targets per AWS account. You can run up to 500 concurrent agents per AWS account. For more information, see <a href="http://docs.aws.amazon.com/inspector/latest/userguide/inspector_applications.html">Amazon Inspector Assessment Targets</a>.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentTargetName = ::String</code> – <em>Required</em></strong></p><p>The user-defined name that identifies the assessment target that you want to create. The name must be unique within the AWS account.</p><p><strong><code>resourceGroupArn = ::String</code> – <em>Required</em></strong></p><p>The ARN that specifies the resource group that is used to create the assessment target.</p><p><strong>Returns</strong></p><p><code>CreateAssessmentTargetResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>LimitExceededException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: Create assessment target</strong></p><p>Creates a new assessment target using the ARN of the resource group that is generated by CreateResourceGroup. You can create up to 50 assessment targets per AWS account. You can run up to 500 concurrent agents per AWS account.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;assessmentTargetName&quot; =&gt; &quot;ExampleAssessmentTarget&quot;,
+    &quot;resourceGroupArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:resourcegroup/0-AB6DMKnv&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;assessmentTargetArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-nvgVhaxX&quot;
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/CreateAssessmentTarget">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.create_assessment_template" href="#AWSSDK.Inspector.create_assessment_template"><code>AWSSDK.Inspector.create_assessment_template</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.create_assessment_template
+create_assessment_template([::AWSConfig], arguments::Dict)
+create_assessment_template([::AWSConfig]; assessmentTargetArn=, assessmentTemplateName=, durationInSeconds=, rulesPackageArns=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;CreateAssessmentTemplate&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;CreateAssessmentTemplate&quot;, assessmentTargetArn=, assessmentTemplateName=, durationInSeconds=, rulesPackageArns=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateAssessmentTemplate Operation</strong></p><p>Creates an assessment template for the assessment target that is specified by the ARN of the assessment target.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentTargetArn = ::String</code> – <em>Required</em></strong></p><p>The ARN that specifies the assessment target for which you want to create the assessment template.</p><p><strong><code>assessmentTemplateName = ::String</code> – <em>Required</em></strong></p><p>The user-defined name that identifies the assessment template that you want to create. You can create several assessment templates for an assessment target. The names of the assessment templates that correspond to a particular assessment target must be unique.</p><p><strong><code>durationInSeconds = ::Int</code> – <em>Required</em></strong></p><p>The duration of the assessment run in seconds. The default value is 3600 seconds (one hour).</p><p><strong><code>rulesPackageArns = [::String, ...]</code> – <em>Required</em></strong></p><p>The ARNs that specify the rules packages that you want to attach to the assessment template.</p><p><strong><code>userAttributesForFindings = [[ ... ], ...]</code></strong></p><p>The user-defined attributes that are assigned to every finding that is generated by the assessment run that uses this assessment template.</p><pre><code class="language-none"> userAttributesForFindings = [[
+        &quot;key&quot; =&gt; &lt;required&gt; ::String,
+        &quot;value&quot; =&gt;  ::String
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>CreateAssessmentTemplateResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>LimitExceededException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: Create assessment template</strong></p><p>Creates an assessment template for the assessment target that is specified by the ARN of the assessment target.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;assessmentTargetArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-nvgVhaxX&quot;,
+    &quot;assessmentTemplateName&quot; =&gt; &quot;ExampleAssessmentTemplate&quot;,
+    &quot;durationInSeconds&quot; =&gt; 180,
+    &quot;rulesPackageArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:758058086616:rulespackage/0-11B9DBXp&quot;
+    ],
+    &quot;userAttributesForFindings&quot; =&gt; [
+        [
+            &quot;key&quot; =&gt; &quot;Example&quot;,
+            &quot;value&quot; =&gt; &quot;example&quot;
+        ]
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;assessmentTemplateArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-nvgVhaxX/template/0-it5r2S4T&quot;
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/CreateAssessmentTemplate">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.create_resource_group" href="#AWSSDK.Inspector.create_resource_group"><code>AWSSDK.Inspector.create_resource_group</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.create_resource_group
+create_resource_group([::AWSConfig], arguments::Dict)
+create_resource_group([::AWSConfig]; resourceGroupTags=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;CreateResourceGroup&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;CreateResourceGroup&quot;, resourceGroupTags=)</code></pre><p><strong>CreateResourceGroup Operation</strong></p><p>Creates a resource group using the specified set of tags (key and value pairs) that are used to select the EC2 instances to be included in an Amazon Inspector assessment target. The created resource group is then used to create an Amazon Inspector assessment target. For more information, see <a href="@ref">CreateAssessmentTarget</a>.</p><p><strong>Arguments</strong></p><p><strong><code>resourceGroupTags = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>A collection of keys and an array of possible values, &#39;[{&quot;key&quot;:&quot;key1&quot;,&quot;values&quot;:[&quot;Value1&quot;,&quot;Value2&quot;]},{&quot;key&quot;:&quot;Key2&quot;,&quot;values&quot;:[&quot;Value3&quot;]}]&#39;.</p><p>For example,&#39;[{&quot;key&quot;:&quot;Name&quot;,&quot;values&quot;:[&quot;TestEC2Instance&quot;]}]&#39;.</p><pre><code class="language-none"> resourceGroupTags = [[
+        &quot;key&quot; =&gt; &lt;required&gt; ::String,
+        &quot;value&quot; =&gt;  ::String
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>CreateResourceGroupResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>LimitExceededException</code> or <code>AccessDeniedException</code>.</p><p><strong>Example: Create resource group</strong></p><p>Creates a resource group using the specified set of tags (key and value pairs) that are used to select the EC2 instances to be included in an Amazon Inspector assessment target. The created resource group is then used to create an Amazon Inspector assessment target. </p><p>Input:</p><pre><code class="language-none">[
+    &quot;resourceGroupTags&quot; =&gt; [
+        [
+            &quot;key&quot; =&gt; &quot;Name&quot;,
+            &quot;value&quot; =&gt; &quot;example&quot;
+        ]
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;resourceGroupArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:resourcegroup/0-AB6DMKnv&quot;
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/CreateResourceGroup">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.delete_assessment_run" href="#AWSSDK.Inspector.delete_assessment_run"><code>AWSSDK.Inspector.delete_assessment_run</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.delete_assessment_run
+delete_assessment_run([::AWSConfig], arguments::Dict)
+delete_assessment_run([::AWSConfig]; assessmentRunArn=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;DeleteAssessmentRun&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;DeleteAssessmentRun&quot;, assessmentRunArn=)</code></pre><p><strong>DeleteAssessmentRun Operation</strong></p><p>Deletes the assessment run that is specified by the ARN of the assessment run.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentRunArn = ::String</code> – <em>Required</em></strong></p><p>The ARN that specifies the assessment run that you want to delete.</p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AssessmentRunInProgressException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: Delete assessment run</strong></p><p>Deletes the assessment run that is specified by the ARN of the assessment run.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;assessmentRunArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-nvgVhaxX/template/0-it5r2S4T/run/0-11LMTAVe&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/DeleteAssessmentRun">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.delete_assessment_target" href="#AWSSDK.Inspector.delete_assessment_target"><code>AWSSDK.Inspector.delete_assessment_target</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.delete_assessment_target
+delete_assessment_target([::AWSConfig], arguments::Dict)
+delete_assessment_target([::AWSConfig]; assessmentTargetArn=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;DeleteAssessmentTarget&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;DeleteAssessmentTarget&quot;, assessmentTargetArn=)</code></pre><p><strong>DeleteAssessmentTarget Operation</strong></p><p>Deletes the assessment target that is specified by the ARN of the assessment target.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentTargetArn = ::String</code> – <em>Required</em></strong></p><p>The ARN that specifies the assessment target that you want to delete.</p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AssessmentRunInProgressException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: Delete assessment target</strong></p><p>Deletes the assessment target that is specified by the ARN of the assessment target.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;assessmentTargetArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/DeleteAssessmentTarget">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.delete_assessment_template" href="#AWSSDK.Inspector.delete_assessment_template"><code>AWSSDK.Inspector.delete_assessment_template</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.delete_assessment_template
+delete_assessment_template([::AWSConfig], arguments::Dict)
+delete_assessment_template([::AWSConfig]; assessmentTemplateArn=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;DeleteAssessmentTemplate&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;DeleteAssessmentTemplate&quot;, assessmentTemplateArn=)</code></pre><p><strong>DeleteAssessmentTemplate Operation</strong></p><p>Deletes the assessment template that is specified by the ARN of the assessment template.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentTemplateArn = ::String</code> – <em>Required</em></strong></p><p>The ARN that specifies the assessment template that you want to delete.</p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AssessmentRunInProgressException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: Delete assessment template</strong></p><p>Deletes the assessment template that is specified by the ARN of the assessment template.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;assessmentTemplateArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-nvgVhaxX/template/0-it5r2S4T&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/DeleteAssessmentTemplate">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.describe_assessment_runs" href="#AWSSDK.Inspector.describe_assessment_runs"><code>AWSSDK.Inspector.describe_assessment_runs</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.describe_assessment_runs
+describe_assessment_runs([::AWSConfig], arguments::Dict)
+describe_assessment_runs([::AWSConfig]; assessmentRunArns=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;DescribeAssessmentRuns&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;DescribeAssessmentRuns&quot;, assessmentRunArns=)</code></pre><p><strong>DescribeAssessmentRuns Operation</strong></p><p>Describes the assessment runs that are specified by the ARNs of the assessment runs.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentRunArns = [::String, ...]</code> – <em>Required</em></strong></p><p>The ARN that specifies the assessment run that you want to describe.</p><p><strong>Returns</strong></p><p><code>DescribeAssessmentRunsResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code> or <code>InvalidInputException</code>.</p><p><strong>Example: Describte assessment runs</strong></p><p>Describes the assessment runs that are specified by the ARNs of the assessment runs.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;assessmentRunArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;assessmentRuns&quot; =&gt; [
+        Dict(
+            &quot;name&quot; =&gt; &quot;Run 1 for ExampleAssessmentTemplate&quot;,
+            &quot;arn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE&quot;,
+            &quot;assessmentTemplateArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw&quot;,
+            &quot;completedAt&quot; =&gt; &quot;1458680301.4&quot;,
+            &quot;createdAt&quot; =&gt; &quot;1458680170.035&quot;,
+            &quot;dataCollected&quot; =&gt; true,
+            &quot;durationInSeconds&quot; =&gt; 3600,
+            &quot;findingCounts&quot; =&gt; Dict(
+                &quot;High&quot; =&gt; 14,
+                &quot;Informational&quot; =&gt; 0,
+                &quot;Low&quot; =&gt; 0,
+                &quot;Medium&quot; =&gt; 2,
+                &quot;Undefined&quot; =&gt; 0
+            ),
+            &quot;notifications&quot; =&gt; [
+
+            ],
+            &quot;rulesPackageArns&quot; =&gt; [
+                &quot;arn:aws:inspector:us-west-2:758058086616:rulespackage/0-X1KXtawP&quot;
+            ],
+            &quot;startedAt&quot; =&gt; &quot;1458680170.161&quot;,
+            &quot;state&quot; =&gt; &quot;COMPLETED&quot;,
+            &quot;stateChangedAt&quot; =&gt; &quot;1458680301.4&quot;,
+            &quot;stateChanges&quot; =&gt; [
+                Dict(
+                    &quot;state&quot; =&gt; &quot;CREATED&quot;,
+                    &quot;stateChangedAt&quot; =&gt; &quot;1458680170.035&quot;
+                ),
+                Dict(
+                    &quot;state&quot; =&gt; &quot;START_DATA_COLLECTION_PENDING&quot;,
+                    &quot;stateChangedAt&quot; =&gt; &quot;1458680170.065&quot;
+                ),
+                Dict(
+                    &quot;state&quot; =&gt; &quot;START_DATA_COLLECTION_IN_PROGRESS&quot;,
+                    &quot;stateChangedAt&quot; =&gt; &quot;1458680170.096&quot;
+                ),
+                Dict(
+                    &quot;state&quot; =&gt; &quot;COLLECTING_DATA&quot;,
+                    &quot;stateChangedAt&quot; =&gt; &quot;1458680170.161&quot;
+                ),
+                Dict(
+                    &quot;state&quot; =&gt; &quot;STOP_DATA_COLLECTION_PENDING&quot;,
+                    &quot;stateChangedAt&quot; =&gt; &quot;1458680239.883&quot;
+                ),
+                Dict(
+                    &quot;state&quot; =&gt; &quot;DATA_COLLECTED&quot;,
+                    &quot;stateChangedAt&quot; =&gt; &quot;1458680299.847&quot;
+                ),
+                Dict(
+                    &quot;state&quot; =&gt; &quot;EVALUATING_RULES&quot;,
+                    &quot;stateChangedAt&quot; =&gt; &quot;1458680300.099&quot;
+                ),
+                Dict(
+                    &quot;state&quot; =&gt; &quot;COMPLETED&quot;,
+                    &quot;stateChangedAt&quot; =&gt; &quot;1458680301.4&quot;
+                )
+            ],
+            &quot;userAttributesForFindings&quot; =&gt; [
+
+            ]
+        )
+    ],
+    &quot;failedItems&quot; =&gt; Dict(
+
+    )
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/DescribeAssessmentRuns">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.describe_assessment_targets" href="#AWSSDK.Inspector.describe_assessment_targets"><code>AWSSDK.Inspector.describe_assessment_targets</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.describe_assessment_targets
+describe_assessment_targets([::AWSConfig], arguments::Dict)
+describe_assessment_targets([::AWSConfig]; assessmentTargetArns=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;DescribeAssessmentTargets&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;DescribeAssessmentTargets&quot;, assessmentTargetArns=)</code></pre><p><strong>DescribeAssessmentTargets Operation</strong></p><p>Describes the assessment targets that are specified by the ARNs of the assessment targets.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentTargetArns = [::String, ...]</code> – <em>Required</em></strong></p><p>The ARNs that specifies the assessment targets that you want to describe.</p><p><strong>Returns</strong></p><p><code>DescribeAssessmentTargetsResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code> or <code>InvalidInputException</code>.</p><p><strong>Example: Describte assessment targets</strong></p><p>Describes the assessment targets that are specified by the ARNs of the assessment targets.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;assessmentTargetArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;assessmentTargets&quot; =&gt; [
+        Dict(
+            &quot;name&quot; =&gt; &quot;ExampleAssessmentTarget&quot;,
+            &quot;arn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq&quot;,
+            &quot;createdAt&quot; =&gt; &quot;1458074191.459&quot;,
+            &quot;resourceGroupArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:resourcegroup/0-PyGXopAI&quot;,
+            &quot;updatedAt&quot; =&gt; &quot;1458074191.459&quot;
+        )
+    ],
+    &quot;failedItems&quot; =&gt; Dict(
+
+    )
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/DescribeAssessmentTargets">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.describe_assessment_templates" href="#AWSSDK.Inspector.describe_assessment_templates"><code>AWSSDK.Inspector.describe_assessment_templates</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.describe_assessment_templates
+describe_assessment_templates([::AWSConfig], arguments::Dict)
+describe_assessment_templates([::AWSConfig]; assessmentTemplateArns=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;DescribeAssessmentTemplates&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;DescribeAssessmentTemplates&quot;, assessmentTemplateArns=)</code></pre><p><strong>DescribeAssessmentTemplates Operation</strong></p><p>Describes the assessment templates that are specified by the ARNs of the assessment templates.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentTemplateArns = [::String, ...]</code> – <em>Required</em></strong></p><p><strong>Returns</strong></p><p><code>DescribeAssessmentTemplatesResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code> or <code>InvalidInputException</code>.</p><p><strong>Example: Describte assessment templates</strong></p><p>Describes the assessment templates that are specified by the ARNs of the assessment templates.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;assessmentTemplateArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;assessmentTemplates&quot; =&gt; [
+        Dict(
+            &quot;name&quot; =&gt; &quot;ExampleAssessmentTemplate&quot;,
+            &quot;arn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw&quot;,
+            &quot;assessmentTargetArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq&quot;,
+            &quot;createdAt&quot; =&gt; &quot;1458074191.844&quot;,
+            &quot;durationInSeconds&quot; =&gt; 3600,
+            &quot;rulesPackageArns&quot; =&gt; [
+                &quot;arn:aws:inspector:us-west-2:758058086616:rulespackage/0-X1KXtawP&quot;
+            ],
+            &quot;userAttributesForFindings&quot; =&gt; [
+
+            ]
+        )
+    ],
+    &quot;failedItems&quot; =&gt; Dict(
+
+    )
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/DescribeAssessmentTemplates">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.describe_cross_account_access_role" href="#AWSSDK.Inspector.describe_cross_account_access_role"><code>AWSSDK.Inspector.describe_cross_account_access_role</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.describe_cross_account_access_role
+describe_cross_account_access_role([::AWSConfig])
+
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;DescribeCrossAccountAccessRole&quot;,)</code></pre><p><strong>DescribeCrossAccountAccessRole Operation</strong></p><p>Describes the IAM role that enables Amazon Inspector to access your AWS account.</p><p><strong>Returns</strong></p><p><code>DescribeCrossAccountAccessRoleResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>.</p><p><strong>Example: Describte cross account access role</strong></p><p>Describes the IAM role that enables Amazon Inspector to access your AWS account.</p><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;registeredAt&quot; =&gt; &quot;1458069182.826&quot;,
+    &quot;roleArn&quot; =&gt; &quot;arn:aws:iam::123456789012:role/inspector&quot;,
+    &quot;valid&quot; =&gt; true
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/DescribeCrossAccountAccessRole">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.describe_findings" href="#AWSSDK.Inspector.describe_findings"><code>AWSSDK.Inspector.describe_findings</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.describe_findings
+describe_findings([::AWSConfig], arguments::Dict)
+describe_findings([::AWSConfig]; findingArns=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;DescribeFindings&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;DescribeFindings&quot;, findingArns=, &lt;keyword arguments&gt;)</code></pre><p><strong>DescribeFindings Operation</strong></p><p>Describes the findings that are specified by the ARNs of the findings.</p><p><strong>Arguments</strong></p><p><strong><code>findingArns = [::String, ...]</code> – <em>Required</em></strong></p><p>The ARN that specifies the finding that you want to describe.</p><p><strong><code>locale = &quot;EN_US&quot;</code></strong></p><p>The locale into which you want to translate a finding description, recommendation, and the short description that identifies the finding.</p><p><strong>Returns</strong></p><p><code>DescribeFindingsResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code> or <code>InvalidInputException</code>.</p><p><strong>Example: Describe findings</strong></p><p>Describes the findings that are specified by the ARNs of the findings.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;findingArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE/finding/0-HwPnsDm4&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;failedItems&quot; =&gt; Dict(
+
+    ),
+    &quot;findings&quot; =&gt; [
+        Dict(
+            &quot;arn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE/finding/0-HwPnsDm4&quot;,
+            &quot;assetAttributes&quot; =&gt; Dict(
+                &quot;ipv4Addresses&quot; =&gt; [
+
+                ],
+                &quot;schemaVersion&quot; =&gt; 1
+            ),
+            &quot;assetType&quot; =&gt; &quot;ec2-instance&quot;,
+            &quot;attributes&quot; =&gt; [
+
+            ],
+            &quot;confidence&quot; =&gt; 10,
+            &quot;createdAt&quot; =&gt; &quot;1458680301.37&quot;,
+            &quot;description&quot; =&gt; &quot;Amazon Inspector did not find any potential security issues during this assessment.&quot;,
+            &quot;indicatorOfCompromise&quot; =&gt; false,
+            &quot;numericSeverity&quot; =&gt; 0,
+            &quot;recommendation&quot; =&gt; &quot;No remediation needed.&quot;,
+            &quot;schemaVersion&quot; =&gt; 1,
+            &quot;service&quot; =&gt; &quot;Inspector&quot;,
+            &quot;serviceAttributes&quot; =&gt; Dict(
+                &quot;assessmentRunArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE&quot;,
+                &quot;rulesPackageArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:758058086616:rulespackage/0-X1KXtawP&quot;,
+                &quot;schemaVersion&quot; =&gt; 1
+            ),
+            &quot;severity&quot; =&gt; &quot;Informational&quot;,
+            &quot;title&quot; =&gt; &quot;No potential security issues found&quot;,
+            &quot;updatedAt&quot; =&gt; &quot;1458680301.37&quot;,
+            &quot;userAttributes&quot; =&gt; [
+
+            ]
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/DescribeFindings">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.describe_resource_groups" href="#AWSSDK.Inspector.describe_resource_groups"><code>AWSSDK.Inspector.describe_resource_groups</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.describe_resource_groups
+describe_resource_groups([::AWSConfig], arguments::Dict)
+describe_resource_groups([::AWSConfig]; resourceGroupArns=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;DescribeResourceGroups&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;DescribeResourceGroups&quot;, resourceGroupArns=)</code></pre><p><strong>DescribeResourceGroups Operation</strong></p><p>Describes the resource groups that are specified by the ARNs of the resource groups.</p><p><strong>Arguments</strong></p><p><strong><code>resourceGroupArns = [::String, ...]</code> – <em>Required</em></strong></p><p>The ARN that specifies the resource group that you want to describe.</p><p><strong>Returns</strong></p><p><code>DescribeResourceGroupsResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code> or <code>InvalidInputException</code>.</p><p><strong>Example: Describe resource groups</strong></p><p>Describes the resource groups that are specified by the ARNs of the resource groups.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;resourceGroupArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:123456789012:resourcegroup/0-PyGXopAI&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;failedItems&quot; =&gt; Dict(
+
+    ),
+    &quot;resourceGroups&quot; =&gt; [
+        Dict(
+            &quot;arn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:resourcegroup/0-PyGXopAI&quot;,
+            &quot;createdAt&quot; =&gt; &quot;1458074191.098&quot;,
+            &quot;tags&quot; =&gt; [
+                Dict(
+                    &quot;key&quot; =&gt; &quot;Name&quot;,
+                    &quot;value&quot; =&gt; &quot;example&quot;
+                )
+            ]
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/DescribeResourceGroups">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.describe_rules_packages" href="#AWSSDK.Inspector.describe_rules_packages"><code>AWSSDK.Inspector.describe_rules_packages</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.describe_rules_packages
+describe_rules_packages([::AWSConfig], arguments::Dict)
+describe_rules_packages([::AWSConfig]; rulesPackageArns=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;DescribeRulesPackages&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;DescribeRulesPackages&quot;, rulesPackageArns=, &lt;keyword arguments&gt;)</code></pre><p><strong>DescribeRulesPackages Operation</strong></p><p>Describes the rules packages that are specified by the ARNs of the rules packages.</p><p><strong>Arguments</strong></p><p><strong><code>rulesPackageArns = [::String, ...]</code> – <em>Required</em></strong></p><p>The ARN that specifies the rules package that you want to describe.</p><p><strong><code>locale = &quot;EN_US&quot;</code></strong></p><p>The locale that you want to translate a rules package description into.</p><p><strong>Returns</strong></p><p><code>DescribeRulesPackagesResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code> or <code>InvalidInputException</code>.</p><p><strong>Example: Describe rules packages</strong></p><p>Describes the rules packages that are specified by the ARNs of the rules packages.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;rulesPackageArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:758058086616:rulespackage/0-JJOtZiqQ&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;failedItems&quot; =&gt; Dict(
+
+    ),
+    &quot;rulesPackages&quot; =&gt; [
+        Dict(
+            &quot;version&quot; =&gt; &quot;1.1&quot;,
+            &quot;name&quot; =&gt; &quot;Security Best Practices&quot;,
+            &quot;arn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:758058086616:rulespackage/0-JJOtZiqQ&quot;,
+            &quot;description&quot; =&gt; &quot;The rules in this package help determine whether your systems are configured securely.&quot;,
+            &quot;provider&quot; =&gt; &quot;Amazon Web Services, Inc.&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/DescribeRulesPackages">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.get_assessment_report" href="#AWSSDK.Inspector.get_assessment_report"><code>AWSSDK.Inspector.get_assessment_report</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.get_assessment_report
+get_assessment_report([::AWSConfig], arguments::Dict)
+get_assessment_report([::AWSConfig]; assessmentRunArn=, reportFileFormat=, reportType=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;GetAssessmentReport&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;GetAssessmentReport&quot;, assessmentRunArn=, reportFileFormat=, reportType=)</code></pre><p><strong>GetAssessmentReport Operation</strong></p><p>Produces an assessment report that includes detailed and comprehensive results of a specified assessment run.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentRunArn = ::String</code> – <em>Required</em></strong></p><p>The ARN that specifies the assessment run for which you want to generate a report.</p><p><strong><code>reportFileFormat = &quot;HTML&quot; or &quot;PDF&quot;</code> – <em>Required</em></strong></p><p>Specifies the file format (html or pdf) of the assessment report that you want to generate.</p><p><strong><code>reportType = &quot;FINDING&quot; or &quot;FULL&quot;</code> – <em>Required</em></strong></p><p>Specifies the type of the assessment report that you want to generate. There are two types of assessment reports: a finding report and a full report. For more information, see <a href="http://docs.aws.amazon.com/inspector/latest/userguide/inspector_reports.html">Assessment Reports</a>.</p><p><strong>Returns</strong></p><p><code>GetAssessmentReportResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AccessDeniedException</code>, <code>NoSuchEntityException</code>, <code>AssessmentRunInProgressException</code> or <code>UnsupportedFeatureException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/GetAssessmentReport">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.get_telemetry_metadata" href="#AWSSDK.Inspector.get_telemetry_metadata"><code>AWSSDK.Inspector.get_telemetry_metadata</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.get_telemetry_metadata
+get_telemetry_metadata([::AWSConfig], arguments::Dict)
+get_telemetry_metadata([::AWSConfig]; assessmentRunArn=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;GetTelemetryMetadata&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;GetTelemetryMetadata&quot;, assessmentRunArn=)</code></pre><p><strong>GetTelemetryMetadata Operation</strong></p><p>Information about the data that is collected for the specified assessment run.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentRunArn = ::String</code> – <em>Required</em></strong></p><p>The ARN that specifies the assessment run that has the telemetry data that you want to obtain.</p><p><strong>Returns</strong></p><p><code>GetTelemetryMetadataResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: Get telemetry metadata</strong></p><p>Information about the data that is collected for the specified assessment run.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;assessmentRunArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;telemetryMetadata&quot; =&gt; [
+        Dict(
+            &quot;count&quot; =&gt; 2,
+            &quot;dataSize&quot; =&gt; 345,
+            &quot;messageType&quot; =&gt; &quot;InspectorDuplicateProcess&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 3,
+            &quot;dataSize&quot; =&gt; 255,
+            &quot;messageType&quot; =&gt; &quot;InspectorTimeEventMsg&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 4,
+            &quot;dataSize&quot; =&gt; 1082,
+            &quot;messageType&quot; =&gt; &quot;InspectorNetworkInterface&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 2,
+            &quot;dataSize&quot; =&gt; 349,
+            &quot;messageType&quot; =&gt; &quot;InspectorDnsEntry&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 11,
+            &quot;dataSize&quot; =&gt; 2514,
+            &quot;messageType&quot; =&gt; &quot;InspectorDirectoryInfoMsg&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 1,
+            &quot;dataSize&quot; =&gt; 179,
+            &quot;messageType&quot; =&gt; &quot;InspectorTcpV6ListeningPort&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 101,
+            &quot;dataSize&quot; =&gt; 10949,
+            &quot;messageType&quot; =&gt; &quot;InspectorTerminal&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 26,
+            &quot;dataSize&quot; =&gt; 5916,
+            &quot;messageType&quot; =&gt; &quot;InspectorUser&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 282,
+            &quot;dataSize&quot; =&gt; 32148,
+            &quot;messageType&quot; =&gt; &quot;InspectorDynamicallyLoadedCodeModule&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 18,
+            &quot;dataSize&quot; =&gt; 10172,
+            &quot;messageType&quot; =&gt; &quot;InspectorCreateProcess&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 3,
+            &quot;dataSize&quot; =&gt; 8001,
+            &quot;messageType&quot; =&gt; &quot;InspectorProcessPerformance&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 1,
+            &quot;dataSize&quot; =&gt; 360,
+            &quot;messageType&quot; =&gt; &quot;InspectorOperatingSystem&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 6,
+            &quot;dataSize&quot; =&gt; 546,
+            &quot;messageType&quot; =&gt; &quot;InspectorStopProcess&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 1,
+            &quot;dataSize&quot; =&gt; 1553,
+            &quot;messageType&quot; =&gt; &quot;InspectorInstanceMetaData&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 2,
+            &quot;dataSize&quot; =&gt; 434,
+            &quot;messageType&quot; =&gt; &quot;InspectorTcpV4Connection&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 474,
+            &quot;dataSize&quot; =&gt; 2960322,
+            &quot;messageType&quot; =&gt; &quot;InspectorPackageInfo&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 3,
+            &quot;dataSize&quot; =&gt; 2235,
+            &quot;messageType&quot; =&gt; &quot;InspectorSystemPerformance&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 105,
+            &quot;dataSize&quot; =&gt; 46048,
+            &quot;messageType&quot; =&gt; &quot;InspectorCodeModule&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 1,
+            &quot;dataSize&quot; =&gt; 182,
+            &quot;messageType&quot; =&gt; &quot;InspectorUdpV6ListeningPort&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 2,
+            &quot;dataSize&quot; =&gt; 371,
+            &quot;messageType&quot; =&gt; &quot;InspectorUdpV4ListeningPort&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 18,
+            &quot;dataSize&quot; =&gt; 8362,
+            &quot;messageType&quot; =&gt; &quot;InspectorKernelModule&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 29,
+            &quot;dataSize&quot; =&gt; 48788,
+            &quot;messageType&quot; =&gt; &quot;InspectorConfigurationInfo&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 1,
+            &quot;dataSize&quot; =&gt; 79,
+            &quot;messageType&quot; =&gt; &quot;InspectorMonitoringStart&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 5,
+            &quot;dataSize&quot; =&gt; 0,
+            &quot;messageType&quot; =&gt; &quot;InspectorSplitMsgBegin&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 51,
+            &quot;dataSize&quot; =&gt; 4593,
+            &quot;messageType&quot; =&gt; &quot;InspectorGroup&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 1,
+            &quot;dataSize&quot; =&gt; 184,
+            &quot;messageType&quot; =&gt; &quot;InspectorTcpV4ListeningPort&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 1159,
+            &quot;dataSize&quot; =&gt; 3146579,
+            &quot;messageType&quot; =&gt; &quot;Total&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 5,
+            &quot;dataSize&quot; =&gt; 0,
+            &quot;messageType&quot; =&gt; &quot;InspectorSplitMsgEnd&quot;
+        ),
+        Dict(
+            &quot;count&quot; =&gt; 1,
+            &quot;dataSize&quot; =&gt; 612,
+            &quot;messageType&quot; =&gt; &quot;InspectorLoadImageInProcess&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/GetTelemetryMetadata">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.list_assessment_run_agents" href="#AWSSDK.Inspector.list_assessment_run_agents"><code>AWSSDK.Inspector.list_assessment_run_agents</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.list_assessment_run_agents
+list_assessment_run_agents([::AWSConfig], arguments::Dict)
+list_assessment_run_agents([::AWSConfig]; assessmentRunArn=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;ListAssessmentRunAgents&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;ListAssessmentRunAgents&quot;, assessmentRunArn=, &lt;keyword arguments&gt;)</code></pre><p><strong>ListAssessmentRunAgents Operation</strong></p><p>Lists the agents of the assessment runs that are specified by the ARNs of the assessment runs.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentRunArn = ::String</code> – <em>Required</em></strong></p><p>The ARN that specifies the assessment run whose agents you want to list.</p><p><strong><code>filter = [ ... ]</code></strong></p><p>You can use this parameter to specify a subset of data to be included in the action&#39;s response.</p><p>For a record to match a filter, all specified filter attributes must match. When multiple values are specified for a filter attribute, any of the values can match.</p><pre><code class="language-none"> filter = [
+        &quot;agentHealths&quot; =&gt; &lt;required&gt; [&quot;HEALTHY&quot; or &quot;UNHEALTHY&quot;, ...],
+        &quot;agentHealthCodes&quot; =&gt; &lt;required&gt; [&quot;IDLE&quot;, &quot;RUNNING&quot;, &quot;SHUTDOWN&quot;, &quot;UNHEALTHY&quot;, &quot;THROTTLED&quot; or &quot;UNKNOWN&quot;, ...]
+    ]</code></pre><p><strong><code>nextToken = ::String</code></strong></p><p>You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the <strong>ListAssessmentRunAgents</strong> action. Subsequent calls to the action fill <strong>nextToken</strong> in the request with the value of <strong>NextToken</strong> from the previous response to continue listing data.</p><p><strong><code>maxResults = ::Int</code></strong></p><p>You can use this parameter to indicate the maximum number of items that you want in the response. The default value is 10. The maximum value is 500.</p><p><strong>Returns</strong></p><p><code>ListAssessmentRunAgentsResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: List assessment run agents</strong></p><p>Lists the agents of the assessment runs that are specified by the ARNs of the assessment runs.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;assessmentRunArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE&quot;,
+    &quot;maxResults&quot; =&gt; 123
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;assessmentRunAgents&quot; =&gt; [
+        Dict(
+            &quot;agentHealth&quot; =&gt; &quot;HEALTHY&quot;,
+            &quot;agentHealthCode&quot; =&gt; &quot;RUNNING&quot;,
+            &quot;agentId&quot; =&gt; &quot;i-49113b93&quot;,
+            &quot;assessmentRunArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE&quot;,
+            &quot;telemetryMetadata&quot; =&gt; [
+                Dict(
+                    &quot;count&quot; =&gt; 2,
+                    &quot;dataSize&quot; =&gt; 345,
+                    &quot;messageType&quot; =&gt; &quot;InspectorDuplicateProcess&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 3,
+                    &quot;dataSize&quot; =&gt; 255,
+                    &quot;messageType&quot; =&gt; &quot;InspectorTimeEventMsg&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 4,
+                    &quot;dataSize&quot; =&gt; 1082,
+                    &quot;messageType&quot; =&gt; &quot;InspectorNetworkInterface&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 2,
+                    &quot;dataSize&quot; =&gt; 349,
+                    &quot;messageType&quot; =&gt; &quot;InspectorDnsEntry&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 11,
+                    &quot;dataSize&quot; =&gt; 2514,
+                    &quot;messageType&quot; =&gt; &quot;InspectorDirectoryInfoMsg&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 1,
+                    &quot;dataSize&quot; =&gt; 179,
+                    &quot;messageType&quot; =&gt; &quot;InspectorTcpV6ListeningPort&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 101,
+                    &quot;dataSize&quot; =&gt; 10949,
+                    &quot;messageType&quot; =&gt; &quot;InspectorTerminal&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 26,
+                    &quot;dataSize&quot; =&gt; 5916,
+                    &quot;messageType&quot; =&gt; &quot;InspectorUser&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 282,
+                    &quot;dataSize&quot; =&gt; 32148,
+                    &quot;messageType&quot; =&gt; &quot;InspectorDynamicallyLoadedCodeModule&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 18,
+                    &quot;dataSize&quot; =&gt; 10172,
+                    &quot;messageType&quot; =&gt; &quot;InspectorCreateProcess&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 3,
+                    &quot;dataSize&quot; =&gt; 8001,
+                    &quot;messageType&quot; =&gt; &quot;InspectorProcessPerformance&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 1,
+                    &quot;dataSize&quot; =&gt; 360,
+                    &quot;messageType&quot; =&gt; &quot;InspectorOperatingSystem&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 6,
+                    &quot;dataSize&quot; =&gt; 546,
+                    &quot;messageType&quot; =&gt; &quot;InspectorStopProcess&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 1,
+                    &quot;dataSize&quot; =&gt; 1553,
+                    &quot;messageType&quot; =&gt; &quot;InspectorInstanceMetaData&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 2,
+                    &quot;dataSize&quot; =&gt; 434,
+                    &quot;messageType&quot; =&gt; &quot;InspectorTcpV4Connection&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 474,
+                    &quot;dataSize&quot; =&gt; 2960322,
+                    &quot;messageType&quot; =&gt; &quot;InspectorPackageInfo&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 3,
+                    &quot;dataSize&quot; =&gt; 2235,
+                    &quot;messageType&quot; =&gt; &quot;InspectorSystemPerformance&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 105,
+                    &quot;dataSize&quot; =&gt; 46048,
+                    &quot;messageType&quot; =&gt; &quot;InspectorCodeModule&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 1,
+                    &quot;dataSize&quot; =&gt; 182,
+                    &quot;messageType&quot; =&gt; &quot;InspectorUdpV6ListeningPort&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 2,
+                    &quot;dataSize&quot; =&gt; 371,
+                    &quot;messageType&quot; =&gt; &quot;InspectorUdpV4ListeningPort&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 18,
+                    &quot;dataSize&quot; =&gt; 8362,
+                    &quot;messageType&quot; =&gt; &quot;InspectorKernelModule&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 29,
+                    &quot;dataSize&quot; =&gt; 48788,
+                    &quot;messageType&quot; =&gt; &quot;InspectorConfigurationInfo&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 1,
+                    &quot;dataSize&quot; =&gt; 79,
+                    &quot;messageType&quot; =&gt; &quot;InspectorMonitoringStart&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 5,
+                    &quot;dataSize&quot; =&gt; 0,
+                    &quot;messageType&quot; =&gt; &quot;InspectorSplitMsgBegin&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 51,
+                    &quot;dataSize&quot; =&gt; 4593,
+                    &quot;messageType&quot; =&gt; &quot;InspectorGroup&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 1,
+                    &quot;dataSize&quot; =&gt; 184,
+                    &quot;messageType&quot; =&gt; &quot;InspectorTcpV4ListeningPort&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 1159,
+                    &quot;dataSize&quot; =&gt; 3146579,
+                    &quot;messageType&quot; =&gt; &quot;Total&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 5,
+                    &quot;dataSize&quot; =&gt; 0,
+                    &quot;messageType&quot; =&gt; &quot;InspectorSplitMsgEnd&quot;
+                ),
+                Dict(
+                    &quot;count&quot; =&gt; 1,
+                    &quot;dataSize&quot; =&gt; 612,
+                    &quot;messageType&quot; =&gt; &quot;InspectorLoadImageInProcess&quot;
+                )
+            ]
+        )
+    ],
+    &quot;nextToken&quot; =&gt; &quot;1&quot;
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/ListAssessmentRunAgents">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.list_assessment_runs" href="#AWSSDK.Inspector.list_assessment_runs"><code>AWSSDK.Inspector.list_assessment_runs</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.list_assessment_runs
+list_assessment_runs([::AWSConfig], arguments::Dict)
+list_assessment_runs([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;ListAssessmentRuns&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;ListAssessmentRuns&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>ListAssessmentRuns Operation</strong></p><p>Lists the assessment runs that correspond to the assessment templates that are specified by the ARNs of the assessment templates.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentTemplateArns = [::String, ...]</code></strong></p><p>The ARNs that specify the assessment templates whose assessment runs you want to list.</p><p><strong><code>filter = [ ... ]</code></strong></p><p>You can use this parameter to specify a subset of data to be included in the action&#39;s response.</p><p>For a record to match a filter, all specified filter attributes must match. When multiple values are specified for a filter attribute, any of the values can match.</p><pre><code class="language-none"> filter = [
+        &quot;namePattern&quot; =&gt;  ::String,
+        &quot;states&quot; =&gt;  [&quot;CREATED&quot;, &quot;START_DATA_COLLECTION_PENDING&quot;, &quot;START_DATA_COLLECTION_IN_PROGRESS&quot;, &quot;COLLECTING_DATA&quot;, &quot;STOP_DATA_COLLECTION_PENDING&quot;, &quot;DATA_COLLECTED&quot;, &quot;START_EVALUATING_RULES_PENDING&quot;, &quot;EVALUATING_RULES&quot;, &quot;FAILED&quot;, &quot;ERROR&quot;, &quot;COMPLETED&quot; or &quot;COMPLETED_WITH_ERRORS&quot;, ...],
+        &quot;durationRange&quot; =&gt;  [
+            &quot;minSeconds&quot; =&gt;  ::Int,
+            &quot;maxSeconds&quot; =&gt;  ::Int
+        ],
+        &quot;rulesPackageArns&quot; =&gt;  [::String, ...],
+        &quot;startTimeRange&quot; =&gt;  [
+            &quot;beginDate&quot; =&gt;  timestamp,
+            &quot;endDate&quot; =&gt;  timestamp
+        ],
+        &quot;completionTimeRange&quot; =&gt;  [
+            &quot;beginDate&quot; =&gt;  timestamp,
+            &quot;endDate&quot; =&gt;  timestamp
+        ],
+        &quot;stateChangeTimeRange&quot; =&gt;  [
+            &quot;beginDate&quot; =&gt;  timestamp,
+            &quot;endDate&quot; =&gt;  timestamp
+        ]
+    ]</code></pre><p><strong><code>nextToken = ::String</code></strong></p><p>You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the <strong>ListAssessmentRuns</strong> action. Subsequent calls to the action fill <strong>nextToken</strong> in the request with the value of <strong>NextToken</strong> from the previous response to continue listing data.</p><p><strong><code>maxResults = ::Int</code></strong></p><p>You can use this parameter to indicate the maximum number of items that you want in the response. The default value is 10. The maximum value is 500.</p><p><strong>Returns</strong></p><p><code>ListAssessmentRunsResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: List assessment runs</strong></p><p>Lists the assessment runs that correspond to the assessment templates that are specified by the ARNs of the assessment templates.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;assessmentTemplateArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw&quot;
+    ],
+    &quot;maxResults&quot; =&gt; 123
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;assessmentRunArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE&quot;,
+        &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-v5D6fI3v&quot;
+    ],
+    &quot;nextToken&quot; =&gt; &quot;1&quot;
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/ListAssessmentRuns">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.list_assessment_targets" href="#AWSSDK.Inspector.list_assessment_targets"><code>AWSSDK.Inspector.list_assessment_targets</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.list_assessment_targets
+list_assessment_targets([::AWSConfig], arguments::Dict)
+list_assessment_targets([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;ListAssessmentTargets&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;ListAssessmentTargets&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>ListAssessmentTargets Operation</strong></p><p>Lists the ARNs of the assessment targets within this AWS account. For more information about assessment targets, see <a href="http://docs.aws.amazon.com/inspector/latest/userguide/inspector_applications.html">Amazon Inspector Assessment Targets</a>.</p><p><strong>Arguments</strong></p><p><strong><code>filter = [&quot;assessmentTargetNamePattern&quot; =&gt;  ::String]</code></strong></p><p>You can use this parameter to specify a subset of data to be included in the action&#39;s response.</p><p>For a record to match a filter, all specified filter attributes must match. When multiple values are specified for a filter attribute, any of the values can match.</p><p><strong><code>nextToken = ::String</code></strong></p><p>You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the <strong>ListAssessmentTargets</strong> action. Subsequent calls to the action fill <strong>nextToken</strong> in the request with the value of <strong>NextToken</strong> from the previous response to continue listing data.</p><p><strong><code>maxResults = ::Int</code></strong></p><p>You can use this parameter to indicate the maximum number of items you want in the response. The default value is 10. The maximum value is 500.</p><p><strong>Returns</strong></p><p><code>ListAssessmentTargetsResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code> or <code>AccessDeniedException</code>.</p><p><strong>Example: List assessment targets</strong></p><p>Lists the ARNs of the assessment targets within this AWS account. </p><p>Input:</p><pre><code class="language-none">[
+    &quot;maxResults&quot; =&gt; 123
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;assessmentTargetArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq&quot;
+    ],
+    &quot;nextToken&quot; =&gt; &quot;1&quot;
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/ListAssessmentTargets">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.list_assessment_templates" href="#AWSSDK.Inspector.list_assessment_templates"><code>AWSSDK.Inspector.list_assessment_templates</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.list_assessment_templates
+list_assessment_templates([::AWSConfig], arguments::Dict)
+list_assessment_templates([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;ListAssessmentTemplates&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;ListAssessmentTemplates&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>ListAssessmentTemplates Operation</strong></p><p>Lists the assessment templates that correspond to the assessment targets that are specified by the ARNs of the assessment targets.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentTargetArns = [::String, ...]</code></strong></p><p>A list of ARNs that specifies the assessment targets whose assessment templates you want to list.</p><p><strong><code>filter = [ ... ]</code></strong></p><p>You can use this parameter to specify a subset of data to be included in the action&#39;s response.</p><p>For a record to match a filter, all specified filter attributes must match. When multiple values are specified for a filter attribute, any of the values can match.</p><pre><code class="language-none"> filter = [
+        &quot;namePattern&quot; =&gt;  ::String,
+        &quot;durationRange&quot; =&gt;  [
+            &quot;minSeconds&quot; =&gt;  ::Int,
+            &quot;maxSeconds&quot; =&gt;  ::Int
+        ],
+        &quot;rulesPackageArns&quot; =&gt;  [::String, ...]
+    ]</code></pre><p><strong><code>nextToken = ::String</code></strong></p><p>You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the <strong>ListAssessmentTemplates</strong> action. Subsequent calls to the action fill <strong>nextToken</strong> in the request with the value of <strong>NextToken</strong> from the previous response to continue listing data.</p><p><strong><code>maxResults = ::Int</code></strong></p><p>You can use this parameter to indicate the maximum number of items you want in the response. The default value is 10. The maximum value is 500.</p><p><strong>Returns</strong></p><p><code>ListAssessmentTemplatesResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: List assessment templates</strong></p><p>Lists the assessment templates that correspond to the assessment targets that are specified by the ARNs of the assessment targets.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;assessmentTargetArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq&quot;
+    ],
+    &quot;maxResults&quot; =&gt; 123
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;assessmentTemplateArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw&quot;,
+        &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-Uza6ihLh&quot;
+    ],
+    &quot;nextToken&quot; =&gt; &quot;1&quot;
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/ListAssessmentTemplates">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.list_event_subscriptions" href="#AWSSDK.Inspector.list_event_subscriptions"><code>AWSSDK.Inspector.list_event_subscriptions</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.list_event_subscriptions
+list_event_subscriptions([::AWSConfig], arguments::Dict)
+list_event_subscriptions([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;ListEventSubscriptions&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;ListEventSubscriptions&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>ListEventSubscriptions Operation</strong></p><p>Lists all the event subscriptions for the assessment template that is specified by the ARN of the assessment template. For more information, see <a href="@ref">SubscribeToEvent</a> and <a href="@ref">UnsubscribeFromEvent</a>.</p><p><strong>Arguments</strong></p><p><strong><code>resourceArn = ::String</code></strong></p><p>The ARN of the assessment template for which you want to list the existing event subscriptions.</p><p><strong><code>nextToken = ::String</code></strong></p><p>You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the <strong>ListEventSubscriptions</strong> action. Subsequent calls to the action fill <strong>nextToken</strong> in the request with the value of <strong>NextToken</strong> from the previous response to continue listing data.</p><p><strong><code>maxResults = ::Int</code></strong></p><p>You can use this parameter to indicate the maximum number of items you want in the response. The default value is 10. The maximum value is 500.</p><p><strong>Returns</strong></p><p><code>ListEventSubscriptionsResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: List event subscriptions</strong></p><p>Lists all the event subscriptions for the assessment template that is specified by the ARN of the assessment template. </p><p>Input:</p><pre><code class="language-none">[
+    &quot;maxResults&quot; =&gt; 123,
+    &quot;resourceArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-nvgVhaxX/template/0-7sbz2Kz0&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;nextToken&quot; =&gt; &quot;1&quot;,
+    &quot;subscriptions&quot; =&gt; [
+        Dict(
+            &quot;eventSubscriptions&quot; =&gt; [
+                Dict(
+                    &quot;event&quot; =&gt; &quot;ASSESSMENT_RUN_COMPLETED&quot;,
+                    &quot;subscribedAt&quot; =&gt; &quot;1459455440.867&quot;
+                )
+            ],
+            &quot;resourceArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-nvgVhaxX/template/0-7sbz2Kz0&quot;,
+            &quot;topicArn&quot; =&gt; &quot;arn:aws:sns:us-west-2:123456789012:exampletopic&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/ListEventSubscriptions">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.list_findings" href="#AWSSDK.Inspector.list_findings"><code>AWSSDK.Inspector.list_findings</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.list_findings
+list_findings([::AWSConfig], arguments::Dict)
+list_findings([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;ListFindings&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;ListFindings&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>ListFindings Operation</strong></p><p>Lists findings that are generated by the assessment runs that are specified by the ARNs of the assessment runs.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentRunArns = [::String, ...]</code></strong></p><p>The ARNs of the assessment runs that generate the findings that you want to list.</p><p><strong><code>filter = [ ... ]</code></strong></p><p>You can use this parameter to specify a subset of data to be included in the action&#39;s response.</p><p>For a record to match a filter, all specified filter attributes must match. When multiple values are specified for a filter attribute, any of the values can match.</p><pre><code class="language-none"> filter = [
+        &quot;agentIds&quot; =&gt;  [::String, ...],
+        &quot;autoScalingGroups&quot; =&gt;  [::String, ...],
+        &quot;ruleNames&quot; =&gt;  [::String, ...],
+        &quot;severities&quot; =&gt;  [&quot;Low&quot;, &quot;Medium&quot;, &quot;High&quot;, &quot;Informational&quot; or &quot;Undefined&quot;, ...],
+        &quot;rulesPackageArns&quot; =&gt;  [::String, ...],
+        &quot;attributes&quot; =&gt;  [[
+            &quot;key&quot; =&gt; &lt;required&gt; ::String,
+            &quot;value&quot; =&gt;  ::String
+        ], ...],
+        &quot;userAttributes&quot; =&gt;  [[
+            &quot;key&quot; =&gt; &lt;required&gt; ::String,
+            &quot;value&quot; =&gt;  ::String
+        ], ...],
+        &quot;creationTimeRange&quot; =&gt;  [
+            &quot;beginDate&quot; =&gt;  timestamp,
+            &quot;endDate&quot; =&gt;  timestamp
+        ]
+    ]</code></pre><p><strong><code>nextToken = ::String</code></strong></p><p>You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the <strong>ListFindings</strong> action. Subsequent calls to the action fill <strong>nextToken</strong> in the request with the value of <strong>NextToken</strong> from the previous response to continue listing data.</p><p><strong><code>maxResults = ::Int</code></strong></p><p>You can use this parameter to indicate the maximum number of items you want in the response. The default value is 10. The maximum value is 500.</p><p><strong>Returns</strong></p><p><code>ListFindingsResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: List findings</strong></p><p>Lists findings that are generated by the assessment runs that are specified by the ARNs of the assessment runs.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;assessmentRunArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE&quot;
+    ],
+    &quot;maxResults&quot; =&gt; 123
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;findingArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-MKkpXXPE/finding/0-HwPnsDm4&quot;,
+        &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-4r1V2mAw/run/0-v5D6fI3v/finding/0-tyvmqBLy&quot;
+    ],
+    &quot;nextToken&quot; =&gt; &quot;1&quot;
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/ListFindings">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.list_rules_packages" href="#AWSSDK.Inspector.list_rules_packages"><code>AWSSDK.Inspector.list_rules_packages</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.list_rules_packages
+list_rules_packages([::AWSConfig], arguments::Dict)
+list_rules_packages([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;ListRulesPackages&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;ListRulesPackages&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>ListRulesPackages Operation</strong></p><p>Lists all available Amazon Inspector rules packages.</p><p><strong>Arguments</strong></p><p><strong><code>nextToken = ::String</code></strong></p><p>You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the <strong>ListRulesPackages</strong> action. Subsequent calls to the action fill <strong>nextToken</strong> in the request with the value of <strong>NextToken</strong> from the previous response to continue listing data.</p><p><strong><code>maxResults = ::Int</code></strong></p><p>You can use this parameter to indicate the maximum number of items you want in the response. The default value is 10. The maximum value is 500.</p><p><strong>Returns</strong></p><p><code>ListRulesPackagesResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code> or <code>AccessDeniedException</code>.</p><p><strong>Example: List rules packages</strong></p><p>Lists all available Amazon Inspector rules packages.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;maxResults&quot; =&gt; 123
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;nextToken&quot; =&gt; &quot;1&quot;,
+    &quot;rulesPackageArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:758058086616:rulespackage/0-9hgA516p&quot;,
+        &quot;arn:aws:inspector:us-west-2:758058086616:rulespackage/0-H5hpSawc&quot;,
+        &quot;arn:aws:inspector:us-west-2:758058086616:rulespackage/0-JJOtZiqQ&quot;,
+        &quot;arn:aws:inspector:us-west-2:758058086616:rulespackage/0-vg5GGHSD&quot;
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/ListRulesPackages">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.list_tags_for_resource" href="#AWSSDK.Inspector.list_tags_for_resource"><code>AWSSDK.Inspector.list_tags_for_resource</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.list_tags_for_resource
+list_tags_for_resource([::AWSConfig], arguments::Dict)
+list_tags_for_resource([::AWSConfig]; resourceArn=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;ListTagsForResource&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;ListTagsForResource&quot;, resourceArn=)</code></pre><p><strong>ListTagsForResource Operation</strong></p><p>Lists all tags associated with an assessment template.</p><p><strong>Arguments</strong></p><p><strong><code>resourceArn = ::String</code> – <em>Required</em></strong></p><p>The ARN that specifies the assessment template whose tags you want to list.</p><p><strong>Returns</strong></p><p><code>ListTagsForResourceResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: List tags for resource</strong></p><p>Lists all tags associated with an assessment template.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;resourceArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-gcwFliYu&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;tags&quot; =&gt; [
+        Dict(
+            &quot;key&quot; =&gt; &quot;Name&quot;,
+            &quot;value&quot; =&gt; &quot;Example&quot;
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/ListTagsForResource">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.preview_agents" href="#AWSSDK.Inspector.preview_agents"><code>AWSSDK.Inspector.preview_agents</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.preview_agents
+preview_agents([::AWSConfig], arguments::Dict)
+preview_agents([::AWSConfig]; previewAgentsArn=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;PreviewAgents&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;PreviewAgents&quot;, previewAgentsArn=, &lt;keyword arguments&gt;)</code></pre><p><strong>PreviewAgents Operation</strong></p><p>Previews the agents installed on the EC2 instances that are part of the specified assessment target.</p><p><strong>Arguments</strong></p><p><strong><code>previewAgentsArn = ::String</code> – <em>Required</em></strong></p><p>The ARN of the assessment target whose agents you want to preview.</p><p><strong><code>nextToken = ::String</code></strong></p><p>You can use this parameter when paginating results. Set the value of this parameter to null on your first call to the <strong>PreviewAgents</strong> action. Subsequent calls to the action fill <strong>nextToken</strong> in the request with the value of <strong>NextToken</strong> from the previous response to continue listing data.</p><p><strong><code>maxResults = ::Int</code></strong></p><p>You can use this parameter to indicate the maximum number of items you want in the response. The default value is 10. The maximum value is 500.</p><p><strong>Returns</strong></p><p><code>PreviewAgentsResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AccessDeniedException</code>, <code>NoSuchEntityException</code> or <code>InvalidCrossAccountRoleException</code>.</p><p><strong>Example: Preview agents</strong></p><p>Previews the agents installed on the EC2 instances that are part of the specified assessment target.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;maxResults&quot; =&gt; 123,
+    &quot;previewAgentsArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;agentPreviews&quot; =&gt; [
+        Dict(
+            &quot;agentId&quot; =&gt; &quot;i-49113b93&quot;
+        )
+    ],
+    &quot;nextToken&quot; =&gt; &quot;1&quot;
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/PreviewAgents">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.register_cross_account_access_role" href="#AWSSDK.Inspector.register_cross_account_access_role"><code>AWSSDK.Inspector.register_cross_account_access_role</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.register_cross_account_access_role
+register_cross_account_access_role([::AWSConfig], arguments::Dict)
+register_cross_account_access_role([::AWSConfig]; roleArn=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;RegisterCrossAccountAccessRole&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;RegisterCrossAccountAccessRole&quot;, roleArn=)</code></pre><p><strong>RegisterCrossAccountAccessRole Operation</strong></p><p>Registers the IAM role that Amazon Inspector uses to list your EC2 instances at the start of the assessment run or when you call the <a href="@ref">PreviewAgents</a> action.</p><p><strong>Arguments</strong></p><p><strong><code>roleArn = ::String</code> – <em>Required</em></strong></p><p>The ARN of the IAM role that Amazon Inspector uses to list your EC2 instances during the assessment run or when you call the <a href="@ref">PreviewAgents</a> action.</p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AccessDeniedException</code> or <code>InvalidCrossAccountRoleException</code>.</p><p><strong>Example: Register cross account access role</strong></p><p>Registers the IAM role that Amazon Inspector uses to list your EC2 instances at the start of the assessment run or when you call the PreviewAgents action.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;roleArn&quot; =&gt; &quot;arn:aws:iam::123456789012:role/inspector&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/RegisterCrossAccountAccessRole">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.remove_attributes_from_findings" href="#AWSSDK.Inspector.remove_attributes_from_findings"><code>AWSSDK.Inspector.remove_attributes_from_findings</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.remove_attributes_from_findings
+remove_attributes_from_findings([::AWSConfig], arguments::Dict)
+remove_attributes_from_findings([::AWSConfig]; findingArns=, attributeKeys=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;RemoveAttributesFromFindings&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;RemoveAttributesFromFindings&quot;, findingArns=, attributeKeys=)</code></pre><p><strong>RemoveAttributesFromFindings Operation</strong></p><p>Removes entire attributes (key and value pairs) from the findings that are specified by the ARNs of the findings where an attribute with the specified key exists.</p><p><strong>Arguments</strong></p><p><strong><code>findingArns = [::String, ...]</code> – <em>Required</em></strong></p><p>The ARNs that specify the findings that you want to remove attributes from.</p><p><strong><code>attributeKeys = [::String, ...]</code> – <em>Required</em></strong></p><p>The array of attribute keys that you want to remove from specified findings.</p><p><strong>Returns</strong></p><p><code>RemoveAttributesFromFindingsResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: Remove attributes from findings</strong></p><p>Removes entire attributes (key and value pairs) from the findings that are specified by the ARNs of the findings where an attribute with the specified key exists.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;attributeKeys&quot; =&gt; [
+        &quot;key=Example,value=example&quot;
+    ],
+    &quot;findingArns&quot; =&gt; [
+        &quot;arn:aws:inspector:us-west-2:123456789012:target/0-0kFIPusq/template/0-8l1VIE0D/run/0-Z02cjjug/finding/0-T8yM9mEU&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;failedItems&quot; =&gt; Dict(
+
+    )
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/RemoveAttributesFromFindings">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.set_tags_for_resource" href="#AWSSDK.Inspector.set_tags_for_resource"><code>AWSSDK.Inspector.set_tags_for_resource</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.set_tags_for_resource
+set_tags_for_resource([::AWSConfig], arguments::Dict)
+set_tags_for_resource([::AWSConfig]; resourceArn=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;SetTagsForResource&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;SetTagsForResource&quot;, resourceArn=, &lt;keyword arguments&gt;)</code></pre><p><strong>SetTagsForResource Operation</strong></p><p>Sets tags (key and value pairs) to the assessment template that is specified by the ARN of the assessment template.</p><p><strong>Arguments</strong></p><p><strong><code>resourceArn = ::String</code> – <em>Required</em></strong></p><p>The ARN of the assessment template that you want to set tags to.</p><p><strong><code>tags = [[ ... ], ...]</code></strong></p><p>A collection of key and value pairs that you want to set to the assessment template.</p><pre><code class="language-none"> tags = [[
+        &quot;key&quot; =&gt; &lt;required&gt; ::String,
+        &quot;value&quot; =&gt;  ::String
+    ], ...]</code></pre><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: Set tags for resource</strong></p><p>Sets tags (key and value pairs) to the assessment template that is specified by the ARN of the assessment template.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;resourceArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-nvgVhaxX/template/0-7sbz2Kz0&quot;,
+    &quot;tags&quot; =&gt; [
+        [
+            &quot;key&quot; =&gt; &quot;Example&quot;,
+            &quot;value&quot; =&gt; &quot;example&quot;
+        ]
+    ]
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/SetTagsForResource">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.start_assessment_run" href="#AWSSDK.Inspector.start_assessment_run"><code>AWSSDK.Inspector.start_assessment_run</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.start_assessment_run
+start_assessment_run([::AWSConfig], arguments::Dict)
+start_assessment_run([::AWSConfig]; assessmentTemplateArn=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;StartAssessmentRun&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;StartAssessmentRun&quot;, assessmentTemplateArn=, &lt;keyword arguments&gt;)</code></pre><p><strong>StartAssessmentRun Operation</strong></p><p>Starts the assessment run specified by the ARN of the assessment template. For this API to function properly, you must not exceed the limit of running up to 500 concurrent agents per AWS account.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentTemplateArn = ::String</code> – <em>Required</em></strong></p><p>The ARN of the assessment template of the assessment run that you want to start.</p><p><strong><code>assessmentRunName = ::String</code></strong></p><p>You can specify the name for the assessment run. The name must be unique for the assessment template whose ARN is used to start the assessment run.</p><p><strong>Returns</strong></p><p><code>StartAssessmentRunResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>LimitExceededException</code>, <code>AccessDeniedException</code>, <code>NoSuchEntityException</code>, <code>InvalidCrossAccountRoleException</code> or <code>AgentsAlreadyRunningAssessmentException</code>.</p><p><strong>Example: Start assessment run</strong></p><p>Starts the assessment run specified by the ARN of the assessment template. For this API to function properly, you must not exceed the limit of running up to 500 concurrent agents per AWS account.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;assessmentRunName&quot; =&gt; &quot;examplerun&quot;,
+    &quot;assessmentTemplateArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-nvgVhaxX/template/0-it5r2S4T&quot;
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;assessmentRunArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-nvgVhaxX/template/0-it5r2S4T/run/0-jOoroxyY&quot;
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/StartAssessmentRun">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.stop_assessment_run" href="#AWSSDK.Inspector.stop_assessment_run"><code>AWSSDK.Inspector.stop_assessment_run</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.stop_assessment_run
+stop_assessment_run([::AWSConfig], arguments::Dict)
+stop_assessment_run([::AWSConfig]; assessmentRunArn=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;StopAssessmentRun&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;StopAssessmentRun&quot;, assessmentRunArn=)</code></pre><p><strong>StopAssessmentRun Operation</strong></p><p>Stops the assessment run that is specified by the ARN of the assessment run.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentRunArn = ::String</code> – <em>Required</em></strong></p><p>The ARN of the assessment run that you want to stop.</p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: Stop assessment run</strong></p><p>Stops the assessment run that is specified by the ARN of the assessment run.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;assessmentRunArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-nvgVhaxX/template/0-it5r2S4T/run/0-11LMTAVe&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/StopAssessmentRun">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.subscribe_to_event" href="#AWSSDK.Inspector.subscribe_to_event"><code>AWSSDK.Inspector.subscribe_to_event</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.subscribe_to_event
+subscribe_to_event([::AWSConfig], arguments::Dict)
+subscribe_to_event([::AWSConfig]; resourceArn=, event=, topicArn=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;SubscribeToEvent&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;SubscribeToEvent&quot;, resourceArn=, event=, topicArn=)</code></pre><p><strong>SubscribeToEvent Operation</strong></p><p>Enables the process of sending Amazon Simple Notification Service (SNS) notifications about a specified event to a specified SNS topic.</p><p><strong>Arguments</strong></p><p><strong><code>resourceArn = ::String</code> – <em>Required</em></strong></p><p>The ARN of the assessment template that is used during the event for which you want to receive SNS notifications.</p><p><strong><code>event = &quot;ASSESSMENT_RUN_STARTED&quot;, &quot;ASSESSMENT_RUN_COMPLETED&quot;, &quot;ASSESSMENT_RUN_STATE_CHANGED&quot;, &quot;FINDING_REPORTED&quot; or &quot;OTHER&quot;</code> – <em>Required</em></strong></p><p>The event for which you want to receive SNS notifications.</p><p><strong><code>topicArn = ::String</code> – <em>Required</em></strong></p><p>The ARN of the SNS topic to which the SNS notifications are sent.</p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>LimitExceededException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: Subscribe to event</strong></p><p>Enables the process of sending Amazon Simple Notification Service (SNS) notifications about a specified event to a specified SNS topic.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;event&quot; =&gt; &quot;ASSESSMENT_RUN_COMPLETED&quot;,
+    &quot;resourceArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-nvgVhaxX/template/0-7sbz2Kz0&quot;,
+    &quot;topicArn&quot; =&gt; &quot;arn:aws:sns:us-west-2:123456789012:exampletopic&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/SubscribeToEvent">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.unsubscribe_from_event" href="#AWSSDK.Inspector.unsubscribe_from_event"><code>AWSSDK.Inspector.unsubscribe_from_event</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.unsubscribe_from_event
+unsubscribe_from_event([::AWSConfig], arguments::Dict)
+unsubscribe_from_event([::AWSConfig]; resourceArn=, event=, topicArn=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;UnsubscribeFromEvent&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;UnsubscribeFromEvent&quot;, resourceArn=, event=, topicArn=)</code></pre><p><strong>UnsubscribeFromEvent Operation</strong></p><p>Disables the process of sending Amazon Simple Notification Service (SNS) notifications about a specified event to a specified SNS topic.</p><p><strong>Arguments</strong></p><p><strong><code>resourceArn = ::String</code> – <em>Required</em></strong></p><p>The ARN of the assessment template that is used during the event for which you want to stop receiving SNS notifications.</p><p><strong><code>event = &quot;ASSESSMENT_RUN_STARTED&quot;, &quot;ASSESSMENT_RUN_COMPLETED&quot;, &quot;ASSESSMENT_RUN_STATE_CHANGED&quot;, &quot;FINDING_REPORTED&quot; or &quot;OTHER&quot;</code> – <em>Required</em></strong></p><p>The event for which you want to stop receiving SNS notifications.</p><p><strong><code>topicArn = ::String</code> – <em>Required</em></strong></p><p>The ARN of the SNS topic to which SNS notifications are sent.</p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: Unsubscribe from event</strong></p><p>Disables the process of sending Amazon Simple Notification Service (SNS) notifications about a specified event to a specified SNS topic.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;event&quot; =&gt; &quot;ASSESSMENT_RUN_COMPLETED&quot;,
+    &quot;resourceArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-nvgVhaxX/template/0-7sbz2Kz0&quot;,
+    &quot;topicArn&quot; =&gt; &quot;arn:aws:sns:us-west-2:123456789012:exampletopic&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/UnsubscribeFromEvent">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Inspector.update_assessment_target" href="#AWSSDK.Inspector.update_assessment_target"><code>AWSSDK.Inspector.update_assessment_target</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Inspector.update_assessment_target
+update_assessment_target([::AWSConfig], arguments::Dict)
+update_assessment_target([::AWSConfig]; assessmentTargetArn=, assessmentTargetName=, resourceGroupArn=)
+
+using AWSCore.Services.inspector
+inspector([::AWSConfig], &quot;UpdateAssessmentTarget&quot;, arguments::Dict)
+inspector([::AWSConfig], &quot;UpdateAssessmentTarget&quot;, assessmentTargetArn=, assessmentTargetName=, resourceGroupArn=)</code></pre><p><strong>UpdateAssessmentTarget Operation</strong></p><p>Updates the assessment target that is specified by the ARN of the assessment target.</p><p><strong>Arguments</strong></p><p><strong><code>assessmentTargetArn = ::String</code> – <em>Required</em></strong></p><p>The ARN of the assessment target that you want to update.</p><p><strong><code>assessmentTargetName = ::String</code> – <em>Required</em></strong></p><p>The name of the assessment target that you want to update.</p><p><strong><code>resourceGroupArn = ::String</code> – <em>Required</em></strong></p><p>The ARN of the resource group that is used to specify the new resource group to associate with the assessment target.</p><p><strong>Exceptions</strong></p><p><code>InternalException</code>, <code>InvalidInputException</code>, <code>AccessDeniedException</code> or <code>NoSuchEntityException</code>.</p><p><strong>Example: Update assessment target</strong></p><p>Updates the assessment target that is specified by the ARN of the assessment target.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;assessmentTargetArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:target/0-nvgVhaxX&quot;,
+    &quot;assessmentTargetName&quot; =&gt; &quot;Example&quot;,
+    &quot;resourceGroupArn&quot; =&gt; &quot;arn:aws:inspector:us-west-2:123456789012:resourcegroup/0-yNbgL5Pt&quot;
+]</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/inspector-2016-02-16/UpdateAssessmentTarget">AWS API Documentation</a></p></div></section><footer><hr/><a class="previous" href="AWSSDK.ImportExport.html"><span class="direction">Previous</span><span class="title">AWSSDK.ImportExport.jl</span></a><a class="next" href="AWSSDK.Iot.html"><span class="direction">Next</span><span class="title">AWSSDK.Iot.jl</span></a></footer></article></body></html>
