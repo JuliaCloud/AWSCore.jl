@@ -9,6 +9,23 @@ module Services
 
 using ..AWSCore
 
+function AWSMigrationHub(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "mgh",
+        version      = "2017-05-31",
+        json_version = "1.1",
+        target       = "AWSMigrationHub",
+        operation    = operation,
+        args         = args)
+end
+
+AWSMigrationHub(operation, args=[]) =
+    AWSMigrationHub(default_aws_config(), operation, args)
+
+AWSMigrationHub(a...; b...) = AWSMigrationHub(a..., b)
+
 function acm(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
@@ -206,6 +223,24 @@ cloudhsm(operation, args=[]) =
     cloudhsm(default_aws_config(), operation, args)
 
 cloudhsm(a...; b...) = cloudhsm(a..., b)
+
+function cloudhsmv2(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "cloudhsm",
+        version      = "2017-04-28",
+        endpoint     = "cloudhsmv2",
+        json_version = "1.1",
+        target       = "BaldrApiService",
+        operation    = operation,
+        args         = args)
+end
+
+cloudhsmv2(operation, args=[]) =
+    cloudhsmv2(default_aws_config(), operation, args)
+
+cloudhsmv2(a...; b...) = cloudhsmv2(a..., b)
 
 function cloudsearch(aws::AWSConfig, operation, args=[])
 
@@ -835,6 +870,23 @@ glacier(verb, resource, args=[]) =
     glacier(default_aws_config(), verb, resource, args)
 
 glacier(a...; b...) = glacier(a..., b)
+
+function glue(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "glue",
+        version      = "2017-03-31",
+        json_version = "1.1",
+        target       = "AWSGlue",
+        operation    = operation,
+        args         = args)
+end
+
+glue(operation, args=[]) =
+    glue(default_aws_config(), operation, args)
+
+glue(a...; b...) = glue(a..., b)
 
 function greengrass(aws::AWSConfig, verb, resource, args=[])
 

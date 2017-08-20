@@ -102,7 +102,7 @@ function localhost_is_ec2()
         return false
     end
 
-    @static if is_unix()
+    @static if Sys.isunix()
         return isfile("/sys/hypervisor/uuid") &&
                String(read("/sys/hypervisor/uuid",3)) == "ec2"
     end

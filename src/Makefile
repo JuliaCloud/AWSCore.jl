@@ -4,3 +4,6 @@ all:
 
 generate:
 	julia -e 'using AWSAPI; AWSAPI.generate_all()'
+
+clean:
+	rm -rf aws-sdk-js

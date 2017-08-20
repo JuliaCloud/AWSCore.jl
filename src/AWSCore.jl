@@ -392,7 +392,7 @@ end
 include("sign.jl")
 
 
-pathencode(c) = c != UInt8('/') && HTTP.shouldencode(c)
+pathencode(c) = c != UInt8('/') && HTTP.URIs.shouldencode(c)
 escape_path(path) = HTTP.escape(path, pathencode)
 
 
