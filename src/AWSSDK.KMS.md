@@ -9,7 +9,7 @@ AWS Key Management Service (AWS KMS) is an encryption and key management web ser
 
 We recommend that you use the AWS SDKs to make programmatic API calls to AWS KMS.
 
-Clients must support TLS (Transport Layer Security) 1.0\. We recommend TLS 1.2\. Clients must also support cipher suites with Perfect Forward Secrecy (PFS) such as Ephemeral Diffie-Hellman (DHE) or Elliptic Curve Ephemeral Diffie-Hellman (ECDHE). Most modern systems such as Java 7 and later support these modes.
+Clients must support TLS (Transport Layer Security) 1.0. We recommend TLS 1.2. Clients must also support cipher suites with Perfect Forward Secrecy (PFS) such as Ephemeral Diffie-Hellman (DHE) or Elliptic Curve Ephemeral Diffie-Hellman (ECDHE). Most modern systems such as Java 7 and later support these modes.
 
 **Signing Requests**
 

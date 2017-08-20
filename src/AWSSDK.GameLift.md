@@ -16,7 +16,7 @@ This reference guide describes the low-level service API for Amazon GameLift. Yo
 
 *   The [AWS command-line interface](http://aws.amazon.com/cli/) (CLI) tool is primarily useful for handling administrative actions, such as setting up and managing Amazon GameLift settings and resources. You can use the AWS CLI to manage all of your AWS services.
 
-*   The [AWS Management Console](https://console.aws.amazon.com/gamelift/home) for Amazon GameLift provides a web interface to manage your Amazon GameLift settings and resources. The console includes a dashboard for tracking key resources, includings builds and fleets, and displays usage and performance metrics for your games as customizable graphs.
+*   The [AWS Management Console](https://console.aws.amazon.com/gamelift/home) for Amazon GameLift provides a web interface to manage your Amazon GameLift settings and resources. The console includes a dashboard for tracking key resources, including builds and fleets, and displays usage and performance metrics for your games as customizable graphs.
 
 *   Amazon GameLift Local is a tool for testing your game's integration with Amazon GameLift before deploying it on the service. This tools supports a subset of key API actions, which can be called from either the AWS CLI or programmatically. See [Testing an Integration](http://docs.aws.amazon.com/gamelift/latest/developerguide/integration-testing-local.html).
 
@@ -38,15 +38,15 @@ This list offers a functional overview of the Amazon GameLift service API.
 
 **Managing Games and Players**
 
-These actions allow you to start new game sessions, find existing game sessions, track status and other game session information, and enable access for players to join game sessions.
+Use these actions to start new game sessions, find existing game sessions, track game session status and other information, and enable player access to game sessions.
 
 *   **Discover existing game sessions**
 
-    *   [SearchGameSessions](@ref) – Get all available game sessions or search for game sessions that match a set of criteria.
+    *   [SearchGameSessions](@ref) – Retrieve all available game sessions or search for game sessions that match a set of criteria.
 
-*   **Start a new game session**
+*   **Start new game sessions**
 
-    *   Game session placement – Use a queue to process requests for new game sessions and place them on the best available fleet. Placement requests are asynchronous; game sessions are started whenever acceptable resources become available.
+    *   Start new games with Queues to find the best available hosting resources across multiple regions, minimize player latency, and balance game session activity for efficiency and cost effectiveness.
 
         *   [StartGameSessionPlacement](@ref) – Request a new game session placement and add one or more players to it.
 
@@ -54,7 +54,17 @@ These actions allow you to start new game sessions, find existing game sessions,
 
         *   [StopGameSessionPlacement](@ref) – Cancel a placement request.
 
-    *   [CreateGameSession](@ref) – Request a new game session on a specific fleet. *Available in Amazon GameLift Local.*
+    *   [CreateGameSession](@ref) – Start a new game session on a specific fleet. *Available in Amazon GameLift Local.*
+
+*   **Start new game sessions with FlexMatch matchmaking**
+
+    *   [StartMatchmaking](@ref) – Request matchmaking for one players or a group who want to play together.
+
+    *   [DescribeMatchmaking](@ref) – Get details on a matchmaking request, including status.
+
+    *   [AcceptMatch](@ref) – Register that a player accepts a proposed match, for matches that require player acceptance.
+
+    *   [StopMatchmaking](@ref) – Cancel a matchmaking request.
 
 *   **Manage game session data**
 
@@ -152,11 +162,27 @@ When setting up Amazon GameLift resources for your game, you first [create a gam
 
     *   [CreateGameSessionQueue](@ref) – Create a queue for processing requests for new game sessions.
 
-    *   [DescribeGameSessionQueues](@ref) – Get data on all game session queues defined in a Amazon GameLift region.
+    *   [DescribeGameSessionQueues](@ref) – Retrieve game session queues defined in a Amazon GameLift region.
 
     *   [UpdateGameSessionQueue](@ref) – Change the configuration of a game session queue.
 
     *   [DeleteGameSessionQueue](@ref) – Remove a game session queue from the region.
+
+*   **Manage FlexMatch resources**
+
+    *   [CreateMatchmakingConfiguration](@ref) – Create a matchmaking configuration with instructions for building a player group and placing in a new game session.
+
+    *   [DescribeMatchmakingConfigurations](@ref) – Retrieve matchmaking configurations defined a Amazon GameLift region.
+
+    *   [UpdateMatchmakingConfiguration](@ref) – Change settings for matchmaking configuration. queue.
+
+    *   [DeleteMatchmakingConfiguration](@ref) – Remove a matchmaking configuration from the region.
+
+    *   [CreateMatchmakingRuleSet](@ref) – Create a set of rules to use when searching for player matches.
+
+    *   [DescribeMatchmakingRuleSets](@ref) – Retrieve matchmaking rule sets defined in a Amazon GameLift region.
+
+    *   [ValidateMatchmakingRuleSet](@ref) – Verify syntax for a set of matchmaking rules.
 
 This document is generated from
 [apis/gamelift-2015-10-01.normal.json](https://github.com/aws/aws-sdk-js/blob/master/apis/gamelift-2015-10-01.normal.json).

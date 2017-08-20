@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>AWSSDK.Glue.jl · AWSCore.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link href="assets/highlightjs/default.css" rel="stylesheet" type="text/css"/><link href="assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>AWSCore.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="index.html">AWSCore.jl</a></li><li><a class="toctext" href="AWSS3.html">AWSS3.jl</a></li><li><a class="toctext" href="AWSSQS.html">AWSSQS.jl</a></li><li><a class="toctext" href="AWSSES.html">AWSSES.jl</a></li><li><a class="toctext" href="AWSSNS.html">AWSSNS.jl</a></li><li><a class="toctext" href="AWSSDK.MigrationHub.html">AWSSDK.MigrationHub.jl</a></li><li><a class="toctext" href="AWSSDK.ACM.html">AWSSDK.ACM.jl</a></li><li><a class="toctext" href="AWSSDK.APIGateway.html">AWSSDK.APIGateway.jl</a></li><li><a class="toctext" href="AWSSDK.ApplicationAutoScaling.html">AWSSDK.ApplicationAutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.AppStream.html">AWSSDK.AppStream.jl</a></li><li><a class="toctext" href="AWSSDK.Athena.html">AWSSDK.Athena.jl</a></li><li><a class="toctext" href="AWSSDK.AutoScaling.html">AWSSDK.AutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.Batch.html">AWSSDK.Batch.jl</a></li><li><a class="toctext" href="AWSSDK.Budgets.html">AWSSDK.Budgets.jl</a></li><li><a class="toctext" href="AWSSDK.CloudDirectory.html">AWSSDK.CloudDirectory.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFormation.html">AWSSDK.CloudFormation.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFront.html">AWSSDK.CloudFront.jl</a></li><li><a class="toctext" href="AWSSDK.CloudHSM.html">AWSSDK.CloudHSM.jl</a></li><li><a class="toctext" href="AWSSDK.CloudHSMV2.html">AWSSDK.CloudHSMV2.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearch.html">AWSSDK.CloudSearch.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearchDomain.html">AWSSDK.CloudSearchDomain.jl</a></li><li><a class="toctext" href="AWSSDK.CloudTrail.html">AWSSDK.CloudTrail.jl</a></li><li><a class="toctext" href="AWSSDK.CodeBuild.html">AWSSDK.CodeBuild.jl</a></li><li><a class="toctext" href="AWSSDK.CodeCommit.html">AWSSDK.CodeCommit.jl</a></li><li><a class="toctext" href="AWSSDK.CodeDeploy.html">AWSSDK.CodeDeploy.jl</a></li><li><a class="toctext" href="AWSSDK.CodePipeline.html">AWSSDK.CodePipeline.jl</a></li><li><a class="toctext" href="AWSSDK.CodeStar.html">AWSSDK.CodeStar.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentity.html">AWSSDK.CognitoIdentity.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentityServiceProvider.html">AWSSDK.CognitoIdentityServiceProvider.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoSync.html">AWSSDK.CognitoSync.jl</a></li><li><a class="toctext" href="AWSSDK.ConfigService.html">AWSSDK.ConfigService.jl</a></li><li><a class="toctext" href="AWSSDK.CUR.html">AWSSDK.CUR.jl</a></li><li><a class="toctext" href="AWSSDK.DataPipeline.html">AWSSDK.DataPipeline.jl</a></li><li><a class="toctext" href="AWSSDK.DAX.html">AWSSDK.DAX.jl</a></li><li><a class="toctext" href="AWSSDK.DeviceFarm.html">AWSSDK.DeviceFarm.jl</a></li><li><a class="toctext" href="AWSSDK.DirectConnect.html">AWSSDK.DirectConnect.jl</a></li><li><a class="toctext" href="AWSSDK.Discovery.html">AWSSDK.Discovery.jl</a></li><li><a class="toctext" href="AWSSDK.DMS.html">AWSSDK.DMS.jl</a></li><li><a class="toctext" href="AWSSDK.DirectoryService.html">AWSSDK.DirectoryService.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDB.html">AWSSDK.DynamoDB.jl</a></li><li><a class="toctext" href="AWSSDK.EC2.html">AWSSDK.EC2.jl</a></li><li><a class="toctext" href="AWSSDK.ECR.html">AWSSDK.ECR.jl</a></li><li><a class="toctext" href="AWSSDK.ECS.html">AWSSDK.ECS.jl</a></li><li><a class="toctext" href="AWSSDK.ElastiCache.html">AWSSDK.ElastiCache.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticBeanstalk.html">AWSSDK.ElasticBeanstalk.jl</a></li><li><a class="toctext" href="AWSSDK.EFS.html">AWSSDK.EFS.jl</a></li><li><a class="toctext" href="AWSSDK.ELB.html">AWSSDK.ELB.jl</a></li><li><a class="toctext" href="AWSSDK.ELBv2.html">AWSSDK.ELBv2.jl</a></li><li><a class="toctext" href="AWSSDK.EMR.html">AWSSDK.EMR.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticTranscoder.html">AWSSDK.ElasticTranscoder.jl</a></li><li><a class="toctext" href="AWSSDK.SES.html">AWSSDK.SES.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceEntitlementService.html">AWSSDK.MarketplaceEntitlementService.jl</a></li><li><a class="toctext" href="AWSSDK.ES.html">AWSSDK.ES.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchEvents.html">AWSSDK.CloudWatchEvents.jl</a></li><li><a class="toctext" href="AWSSDK.Firehose.html">AWSSDK.Firehose.jl</a></li><li><a class="toctext" href="AWSSDK.GameLift.html">AWSSDK.GameLift.jl</a></li><li><a class="toctext" href="AWSSDK.Glacier.html">AWSSDK.Glacier.jl</a></li><li class="current"><a class="toctext" href="AWSSDK.Glue.html">AWSSDK.Glue.jl</a><ul class="internal"></ul></li><li><a class="toctext" href="AWSSDK.Greengrass.html">AWSSDK.Greengrass.jl</a></li><li><a class="toctext" href="AWSSDK.Health.html">AWSSDK.Health.jl</a></li><li><a class="toctext" href="AWSSDK.IAM.html">AWSSDK.IAM.jl</a></li><li><a class="toctext" href="AWSSDK.ImportExport.html">AWSSDK.ImportExport.jl</a></li><li><a class="toctext" href="AWSSDK.Inspector.html">AWSSDK.Inspector.jl</a></li><li><a class="toctext" href="AWSSDK.Iot.html">AWSSDK.Iot.jl</a></li><li><a class="toctext" href="AWSSDK.IotData.html">AWSSDK.IotData.jl</a></li><li><a class="toctext" href="AWSSDK.Kinesis.html">AWSSDK.Kinesis.jl</a></li><li><a class="toctext" href="AWSSDK.KinesisAnalytics.html">AWSSDK.KinesisAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.KMS.html">AWSSDK.KMS.jl</a></li><li><a class="toctext" href="AWSSDK.Lambda.html">AWSSDK.Lambda.jl</a></li><li><a class="toctext" href="AWSSDK.LexModelBuildingService.html">AWSSDK.LexModelBuildingService.jl</a></li><li><a class="toctext" href="AWSSDK.Lightsail.html">AWSSDK.Lightsail.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchLogs.html">AWSSDK.CloudWatchLogs.jl</a></li><li><a class="toctext" href="AWSSDK.MachineLearning.html">AWSSDK.MachineLearning.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceCommerceAnalytics.html">AWSSDK.MarketplaceCommerceAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceMetering.html">AWSSDK.MarketplaceMetering.jl</a></li><li><a class="toctext" href="AWSSDK.MobileAnalytics.html">AWSSDK.MobileAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatch.html">AWSSDK.CloudWatch.jl</a></li><li><a class="toctext" href="AWSSDK.MTurk.html">AWSSDK.MTurk.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorks.html">AWSSDK.OpsWorks.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorksCM.html">AWSSDK.OpsWorksCM.jl</a></li><li><a class="toctext" href="AWSSDK.Organizations.html">AWSSDK.Organizations.jl</a></li><li><a class="toctext" href="AWSSDK.Pinpoint.html">AWSSDK.Pinpoint.jl</a></li><li><a class="toctext" href="AWSSDK.Polly.html">AWSSDK.Polly.jl</a></li><li><a class="toctext" href="AWSSDK.RDS.html">AWSSDK.RDS.jl</a></li><li><a class="toctext" href="AWSSDK.Redshift.html">AWSSDK.Redshift.jl</a></li><li><a class="toctext" href="AWSSDK.Rekognition.html">AWSSDK.Rekognition.jl</a></li><li><a class="toctext" href="AWSSDK.ResourceGroupsTaggingAPI.html">AWSSDK.ResourceGroupsTaggingAPI.jl</a></li><li><a class="toctext" href="AWSSDK.Route53.html">AWSSDK.Route53.jl</a></li><li><a class="toctext" href="AWSSDK.Route53Domains.html">AWSSDK.Route53Domains.jl</a></li><li><a class="toctext" href="AWSSDK.LexRuntime.html">AWSSDK.LexRuntime.jl</a></li><li><a class="toctext" href="AWSSDK.S3.html">AWSSDK.S3.jl</a></li><li><a class="toctext" href="AWSSDK.SimpleDB.html">AWSSDK.SimpleDB.jl</a></li><li><a class="toctext" href="AWSSDK.ServiceCatalog.html">AWSSDK.ServiceCatalog.jl</a></li><li><a class="toctext" href="AWSSDK.Shield.html">AWSSDK.Shield.jl</a></li><li><a class="toctext" href="AWSSDK.SMS.html">AWSSDK.SMS.jl</a></li><li><a class="toctext" href="AWSSDK.Snowball.html">AWSSDK.Snowball.jl</a></li><li><a class="toctext" href="AWSSDK.SNS.html">AWSSDK.SNS.jl</a></li><li><a class="toctext" href="AWSSDK.SQS.html">AWSSDK.SQS.jl</a></li><li><a class="toctext" href="AWSSDK.SSM.html">AWSSDK.SSM.jl</a></li><li><a class="toctext" href="AWSSDK.StepFunctions.html">AWSSDK.StepFunctions.jl</a></li><li><a class="toctext" href="AWSSDK.StorageGateway.html">AWSSDK.StorageGateway.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDBStreams.html">AWSSDK.DynamoDBStreams.jl</a></li><li><a class="toctext" href="AWSSDK.STS.html">AWSSDK.STS.jl</a></li><li><a class="toctext" href="AWSSDK.Support.html">AWSSDK.Support.jl</a></li><li><a class="toctext" href="AWSSDK.SWF.html">AWSSDK.SWF.jl</a></li><li><a class="toctext" href="AWSSDK.WAF.html">AWSSDK.WAF.jl</a></li><li><a class="toctext" href="AWSSDK.WAFRegional.html">AWSSDK.WAFRegional.jl</a></li><li><a class="toctext" href="AWSSDK.WorkDocs.html">AWSSDK.WorkDocs.jl</a></li><li><a class="toctext" href="AWSSDK.WorkSpaces.html">AWSSDK.WorkSpaces.jl</a></li><li><a class="toctext" href="AWSSDK.XRay.html">AWSSDK.XRay.jl</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href="AWSSDK.Glue.html">AWSSDK.Glue.jl</a></li></ul><a class="edit-page" href="https://github.com/JuliaCloud/AWSCore.jl/tree/068f86262610c7377996c39b9a2eb606b49f5d42/src/AWSSDK.Glue.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>AWSSDK.Glue.jl</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="AWSSDK.Glue-1" href="#AWSSDK.Glue-1">AWSSDK.Glue</a></h1><p>Defines service operations used by the GlueFrontendService</p><p>This document is generated from <a href="https://github.com/aws/aws-sdk-js/blob/master/apis/glue-2017-03-31.normal.json">apis/glue-2017-03-31.normal.json</a>. See <a href="https://github.com/JuliaCloud/AWSCore.jl">JuliaCloud/AWSCore.jl</a>.</p><ul><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.batch_create_partition"><code>AWSSDK.Glue.batch_create_partition</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.batch_delete_connection"><code>AWSSDK.Glue.batch_delete_connection</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.batch_delete_partition"><code>AWSSDK.Glue.batch_delete_partition</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.batch_delete_table"><code>AWSSDK.Glue.batch_delete_table</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.batch_get_partition"><code>AWSSDK.Glue.batch_get_partition</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.create_classifier"><code>AWSSDK.Glue.create_classifier</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.create_connection"><code>AWSSDK.Glue.create_connection</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.create_crawler"><code>AWSSDK.Glue.create_crawler</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.create_database"><code>AWSSDK.Glue.create_database</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.create_dev_endpoint"><code>AWSSDK.Glue.create_dev_endpoint</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.create_job"><code>AWSSDK.Glue.create_job</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.create_partition"><code>AWSSDK.Glue.create_partition</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.create_script"><code>AWSSDK.Glue.create_script</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.create_table"><code>AWSSDK.Glue.create_table</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.create_trigger"><code>AWSSDK.Glue.create_trigger</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.create_user_defined_function"><code>AWSSDK.Glue.create_user_defined_function</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.delete_classifier"><code>AWSSDK.Glue.delete_classifier</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.delete_connection"><code>AWSSDK.Glue.delete_connection</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.delete_crawler"><code>AWSSDK.Glue.delete_crawler</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.delete_database"><code>AWSSDK.Glue.delete_database</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.delete_dev_endpoint"><code>AWSSDK.Glue.delete_dev_endpoint</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.delete_job"><code>AWSSDK.Glue.delete_job</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.delete_partition"><code>AWSSDK.Glue.delete_partition</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.delete_table"><code>AWSSDK.Glue.delete_table</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.delete_trigger"><code>AWSSDK.Glue.delete_trigger</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.delete_user_defined_function"><code>AWSSDK.Glue.delete_user_defined_function</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_catalog_import_status"><code>AWSSDK.Glue.get_catalog_import_status</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_classifier"><code>AWSSDK.Glue.get_classifier</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_classifiers"><code>AWSSDK.Glue.get_classifiers</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_connection"><code>AWSSDK.Glue.get_connection</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_connections"><code>AWSSDK.Glue.get_connections</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_crawler"><code>AWSSDK.Glue.get_crawler</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_crawler_metrics"><code>AWSSDK.Glue.get_crawler_metrics</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_crawlers"><code>AWSSDK.Glue.get_crawlers</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_database"><code>AWSSDK.Glue.get_database</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_databases"><code>AWSSDK.Glue.get_databases</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_dataflow_graph"><code>AWSSDK.Glue.get_dataflow_graph</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_dev_endpoint"><code>AWSSDK.Glue.get_dev_endpoint</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_dev_endpoints"><code>AWSSDK.Glue.get_dev_endpoints</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_job"><code>AWSSDK.Glue.get_job</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_job_run"><code>AWSSDK.Glue.get_job_run</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_job_runs"><code>AWSSDK.Glue.get_job_runs</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_jobs"><code>AWSSDK.Glue.get_jobs</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_mapping"><code>AWSSDK.Glue.get_mapping</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_partition"><code>AWSSDK.Glue.get_partition</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_partitions"><code>AWSSDK.Glue.get_partitions</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_plan"><code>AWSSDK.Glue.get_plan</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_table"><code>AWSSDK.Glue.get_table</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_table_versions"><code>AWSSDK.Glue.get_table_versions</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_tables"><code>AWSSDK.Glue.get_tables</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_trigger"><code>AWSSDK.Glue.get_trigger</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_triggers"><code>AWSSDK.Glue.get_triggers</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_user_defined_function"><code>AWSSDK.Glue.get_user_defined_function</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.get_user_defined_functions"><code>AWSSDK.Glue.get_user_defined_functions</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.import_catalog_to_glue"><code>AWSSDK.Glue.import_catalog_to_glue</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.reset_job_bookmark"><code>AWSSDK.Glue.reset_job_bookmark</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.start_crawler"><code>AWSSDK.Glue.start_crawler</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.start_crawler_schedule"><code>AWSSDK.Glue.start_crawler_schedule</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.start_job_run"><code>AWSSDK.Glue.start_job_run</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.start_trigger"><code>AWSSDK.Glue.start_trigger</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.stop_crawler"><code>AWSSDK.Glue.stop_crawler</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.stop_crawler_schedule"><code>AWSSDK.Glue.stop_crawler_schedule</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.stop_trigger"><code>AWSSDK.Glue.stop_trigger</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.update_classifier"><code>AWSSDK.Glue.update_classifier</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.update_connection"><code>AWSSDK.Glue.update_connection</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.update_crawler"><code>AWSSDK.Glue.update_crawler</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.update_crawler_schedule"><code>AWSSDK.Glue.update_crawler_schedule</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.update_database"><code>AWSSDK.Glue.update_database</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.update_dev_endpoint"><code>AWSSDK.Glue.update_dev_endpoint</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.update_job"><code>AWSSDK.Glue.update_job</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.update_partition"><code>AWSSDK.Glue.update_partition</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.update_table"><code>AWSSDK.Glue.update_table</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.update_trigger"><code>AWSSDK.Glue.update_trigger</code></a></li><li><a href="AWSSDK.Glue.html#AWSSDK.Glue.update_user_defined_function"><code>AWSSDK.Glue.update_user_defined_function</code></a></li></ul><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.batch_create_partition" href="#AWSSDK.Glue.batch_create_partition"><code>AWSSDK.Glue.batch_create_partition</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.batch_create_partition
+batch_create_partition([::AWSConfig], arguments::Dict)
+batch_create_partition([::AWSConfig]; DatabaseName=, TableName=, PartitionInputList=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;BatchCreatePartition&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;BatchCreatePartition&quot;, DatabaseName=, TableName=, PartitionInputList=, &lt;keyword arguments&gt;)</code></pre><p><strong>BatchCreatePartition Operation</strong></p><p>Creates one or more partitions in a batch operation.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the catalog in which the partion is to be created. Currently, this should be the AWS account ID.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the metadata database in which the partition is to be created.</p><p><strong><code>TableName = ::String</code> – <em>Required</em></strong></p><p>The name of the metadata table in which the partition is to be created.</p><p><strong><code>PartitionInputList = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>A list of <code>PartitionInput</code> structures that define the partitions to be created.</p><pre><code class="language-none"> PartitionInputList = [[
+        &quot;Values&quot; =&gt;  [::String, ...],
+        &quot;LastAccessTime&quot; =&gt;  timestamp,
+        &quot;StorageDescriptor&quot; =&gt;  [
+            &quot;Columns&quot; =&gt;  [[
+                &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+                &quot;Type&quot; =&gt;  ::String,
+                &quot;Comment&quot; =&gt;  ::String
+            ], ...],
+            &quot;Location&quot; =&gt;  ::String,
+            &quot;InputFormat&quot; =&gt;  ::String,
+            &quot;OutputFormat&quot; =&gt;  ::String,
+            &quot;Compressed&quot; =&gt;  ::Bool,
+            &quot;NumberOfBuckets&quot; =&gt;  ::Int,
+            &quot;SerdeInfo&quot; =&gt;  [
+                &quot;Name&quot; =&gt;  ::String,
+                &quot;SerializationLibrary&quot; =&gt;  ::String,
+                &quot;Parameters&quot; =&gt;  ::Dict{String,String}
+            ],
+            &quot;BucketColumns&quot; =&gt;  [::String, ...],
+            &quot;SortColumns&quot; =&gt;  [[
+                &quot;Column&quot; =&gt; &lt;required&gt; ::String,
+                &quot;SortOrder&quot; =&gt; &lt;required&gt; ::Int
+            ], ...],
+            &quot;Parameters&quot; =&gt;  ::Dict{String,String},
+            &quot;SkewedInfo&quot; =&gt;  [
+                &quot;SkewedColumnNames&quot; =&gt;  [::String, ...],
+                &quot;SkewedColumnValues&quot; =&gt;  [::String, ...],
+                &quot;SkewedColumnValueLocationMaps&quot; =&gt;  ::Dict{String,String}
+            ],
+            &quot;StoredAsSubDirectories&quot; =&gt;  ::Bool
+        ],
+        &quot;Parameters&quot; =&gt;  ::Dict{String,String},
+        &quot;LastAnalyzedTime&quot; =&gt;  timestamp
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>BatchCreatePartitionResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>AlreadyExistsException</code>, <code>ResourceNumberLimitExceededException</code>, <code>InternalServiceException</code>, <code>EntityNotFoundException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchCreatePartition">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.batch_delete_connection" href="#AWSSDK.Glue.batch_delete_connection"><code>AWSSDK.Glue.batch_delete_connection</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.batch_delete_connection
+batch_delete_connection([::AWSConfig], arguments::Dict)
+batch_delete_connection([::AWSConfig]; ConnectionNameList=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;BatchDeleteConnection&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;BatchDeleteConnection&quot;, ConnectionNameList=, &lt;keyword arguments&gt;)</code></pre><p><strong>BatchDeleteConnection Operation</strong></p><p>Deletes a list of connection definitions from the Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog in which the connections reside. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>ConnectionNameList = [::String, ...]</code> – <em>Required</em></strong></p><p>A list of names of the connections to delete.</p><p><strong>Returns</strong></p><p><code>BatchDeleteConnectionResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchDeleteConnection">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.batch_delete_partition" href="#AWSSDK.Glue.batch_delete_partition"><code>AWSSDK.Glue.batch_delete_partition</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.batch_delete_partition
+batch_delete_partition([::AWSConfig], arguments::Dict)
+batch_delete_partition([::AWSConfig]; DatabaseName=, TableName=, PartitionsToDelete=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;BatchDeletePartition&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;BatchDeletePartition&quot;, DatabaseName=, TableName=, PartitionsToDelete=, &lt;keyword arguments&gt;)</code></pre><p><strong>BatchDeletePartition Operation</strong></p><p>Deletes one or more partitions in a batch operation.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog where the partition to be deleted resides. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the catalog database in which the table in question resides.</p><p><strong><code>TableName = ::String</code> – <em>Required</em></strong></p><p>The name of the table where the partitions to be deleted is located.</p><p><strong><code>PartitionsToDelete = [[&quot;Values&quot; =&gt; &lt;required&gt; [::String, ...]], ...]</code> – <em>Required</em></strong></p><p>A list of <code>PartitionInput</code> structures that define the partitions to be deleted.</p><p><strong>Returns</strong></p><p><code>BatchDeletePartitionResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>EntityNotFoundException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchDeletePartition">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.batch_delete_table" href="#AWSSDK.Glue.batch_delete_table"><code>AWSSDK.Glue.batch_delete_table</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.batch_delete_table
+batch_delete_table([::AWSConfig], arguments::Dict)
+batch_delete_table([::AWSConfig]; DatabaseName=, TablesToDelete=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;BatchDeleteTable&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;BatchDeleteTable&quot;, DatabaseName=, TablesToDelete=, &lt;keyword arguments&gt;)</code></pre><p><strong>BatchDeleteTable Operation</strong></p><p>Deletes multiple tables at once.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the catalog database where the tables to delete reside.</p><p><strong><code>TablesToDelete = [::String, ...]</code> – <em>Required</em></strong></p><p>A list of the table to delete.</p><p><strong>Returns</strong></p><p><code>BatchDeleteTableResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>EntityNotFoundException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchDeleteTable">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.batch_get_partition" href="#AWSSDK.Glue.batch_get_partition"><code>AWSSDK.Glue.batch_get_partition</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.batch_get_partition
+batch_get_partition([::AWSConfig], arguments::Dict)
+batch_get_partition([::AWSConfig]; DatabaseName=, TableName=, PartitionsToGet=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;BatchGetPartition&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;BatchGetPartition&quot;, DatabaseName=, TableName=, PartitionsToGet=, &lt;keyword arguments&gt;)</code></pre><p><strong>BatchGetPartition Operation</strong></p><p>Retrieves partitions in a batch request.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the catalog database where the partitions reside.</p><p><strong><code>TableName = ::String</code> – <em>Required</em></strong></p><p>The name of the partitions&#39; table.</p><p><strong><code>PartitionsToGet = [[&quot;Values&quot; =&gt; &lt;required&gt; [::String, ...]], ...]</code> – <em>Required</em></strong></p><p>A list of partition values identifying the partitions to retrieve.</p><p><strong>Returns</strong></p><p><code>BatchGetPartitionResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>EntityNotFoundException</code>, <code>OperationTimeoutException</code> or <code>InternalServiceException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/BatchGetPartition">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.create_classifier" href="#AWSSDK.Glue.create_classifier"><code>AWSSDK.Glue.create_classifier</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.create_classifier
+create_classifier([::AWSConfig], arguments::Dict)
+create_classifier([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;CreateClassifier&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;CreateClassifier&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateClassifier Operation</strong></p><p>Creates a <code>Classifier</code> in the user&#39;s account.</p><p><strong>Arguments</strong></p><p><strong><code>GrokClassifier = [ ... ]</code></strong></p><p>A grok classifier to create.</p><pre><code class="language-none"> GrokClassifier = [
+        &quot;Classification&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+        &quot;GrokPattern&quot; =&gt; &lt;required&gt; ::String,
+        &quot;CustomPatterns&quot; =&gt;  ::String
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreateClassifierResponse</code></p><p><strong>Exceptions</strong></p><p><code>AlreadyExistsException</code>, <code>InvalidInputException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateClassifier">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.create_connection" href="#AWSSDK.Glue.create_connection"><code>AWSSDK.Glue.create_connection</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.create_connection
+create_connection([::AWSConfig], arguments::Dict)
+create_connection([::AWSConfig]; ConnectionInput=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;CreateConnection&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;CreateConnection&quot;, ConnectionInput=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateConnection Operation</strong></p><p>Creates a connection definition in the Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog in which to create the connection. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>ConnectionInput = [ ... ]</code> – <em>Required</em></strong></p><p>A <code>ConnectionInput</code> object defining the connection to create.</p><pre><code class="language-none"> ConnectionInput = [
+        &quot;Name&quot; =&gt;  ::String,
+        &quot;Description&quot; =&gt;  ::String,
+        &quot;ConnectionType&quot; =&gt;  &quot;JDBC&quot; or &quot;SFTP&quot;,
+        &quot;MatchCriteria&quot; =&gt;  [::String, ...],
+        &quot;ConnectionProperties&quot; =&gt;  ::Dict{String,String},
+        &quot;PhysicalConnectionRequirements&quot; =&gt;  [
+            &quot;SubnetId&quot; =&gt;  ::String,
+            &quot;SecurityGroupIdList&quot; =&gt;  [::String, ...],
+            &quot;AvailabilityZone&quot; =&gt;  ::String
+        ]
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreateConnectionResponse</code></p><p><strong>Exceptions</strong></p><p><code>AlreadyExistsException</code>, <code>InvalidInputException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateConnection">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.create_crawler" href="#AWSSDK.Glue.create_crawler"><code>AWSSDK.Glue.create_crawler</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.create_crawler
+create_crawler([::AWSConfig], arguments::Dict)
+create_crawler([::AWSConfig]; Name=, Role=, DatabaseName=, Targets=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;CreateCrawler&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;CreateCrawler&quot;, Name=, Role=, DatabaseName=, Targets=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateCrawler Operation</strong></p><p>Creates a new <code>Crawler</code> with specified targets, role, configuration, and optional schedule. At least one crawl target must be specified, in either the <em>s3Targets</em> or the <em>jdbcTargets</em> field.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>Name of the new <code>Crawler</code>.</p><p><strong><code>Role = ::String</code> – <em>Required</em></strong></p><p>The AWS ARN of the IAM role used by the new <code>Crawler</code> to access customer resources.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The Glue <code>Database</code> where results will be stored, such as: <code>arn:aws:daylight:us-east-1::database/sometable/*</code>.</p><p><strong><code>Description = ::String</code></strong></p><p>A description of the new <code>Crawler</code>.</p><p><strong><code>Targets = [ ... ]</code> – <em>Required</em></strong></p><p>A list of collection of targets to crawl.</p><pre><code class="language-none"> Targets = [
+        &quot;S3Targets&quot; =&gt;  [[
+            &quot;Path&quot; =&gt;  ::String,
+            &quot;Exclusions&quot; =&gt;  [::String, ...]
+        ], ...],
+        &quot;JdbcTargets&quot; =&gt;  [[
+            &quot;ConnectionName&quot; =&gt;  ::String,
+            &quot;Path&quot; =&gt;  ::String,
+            &quot;Exclusions&quot; =&gt;  [::String, ...]
+        ], ...]
+    ]</code></pre><p><strong><code>Schedule = ::String</code></strong></p><p>A cron expression that can be used as a Cloudwatch event (see <a href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html">CloudWatch Schedule Expression Syntax</a>. For example, to run every day at 12:15 UTC, specify: <code>cron(15 12 * * ? *)</code>.</p><p><strong><code>Classifiers = [::String, ...]</code></strong></p><p>A list of custom <code>Classifier</code> names that the user has registered. By default, all AWS classifiers are included in a crawl, but these custom classifiers always override the default classifiers for a given classification.</p><p><strong><code>TablePrefix = ::String</code></strong></p><p>The table prefix used for catalog tables created.</p><p><strong><code>SchemaChangePolicy = [ ... ]</code></strong></p><p>Policy for the crawler&#39;s update and deletion behavior.</p><pre><code class="language-none"> SchemaChangePolicy = [
+        &quot;UpdateBehavior&quot; =&gt;  &quot;LOG&quot; or &quot;UPDATE_IN_DATABASE&quot;,
+        &quot;DeleteBehavior&quot; =&gt;  &quot;LOG&quot;, &quot;DELETE_FROM_DATABASE&quot; or &quot;DEPRECATE_IN_DATABASE&quot;
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreateCrawlerResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>AlreadyExistsException</code>, <code>OperationTimeoutException</code> or <code>ResourceNumberLimitExceededException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateCrawler">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.create_database" href="#AWSSDK.Glue.create_database"><code>AWSSDK.Glue.create_database</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.create_database
+create_database([::AWSConfig], arguments::Dict)
+create_database([::AWSConfig]; DatabaseInput=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;CreateDatabase&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;CreateDatabase&quot;, DatabaseInput=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateDatabase Operation</strong></p><p>Creates a new database in a Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog in which to create the database. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseInput = [ ... ]</code> – <em>Required</em></strong></p><p>A <code>DatabaseInput</code> object defining the metadata database to create in the catalog.</p><pre><code class="language-none"> DatabaseInput = [
+        &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Description&quot; =&gt;  ::String,
+        &quot;LocationUri&quot; =&gt;  ::String,
+        &quot;Parameters&quot; =&gt;  ::Dict{String,String}
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreateDatabaseResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>AlreadyExistsException</code>, <code>ResourceNumberLimitExceededException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateDatabase">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.create_dev_endpoint" href="#AWSSDK.Glue.create_dev_endpoint"><code>AWSSDK.Glue.create_dev_endpoint</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.create_dev_endpoint
+create_dev_endpoint([::AWSConfig], arguments::Dict)
+create_dev_endpoint([::AWSConfig]; EndpointName=, RoleArn=, SecurityGroupIds=, SubnetId=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;CreateDevEndpoint&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;CreateDevEndpoint&quot;, EndpointName=, RoleArn=, SecurityGroupIds=, SubnetId=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateDevEndpoint Operation</strong></p><p>Creates a new DevEndpoint.</p><p><strong>Arguments</strong></p><p><strong><code>EndpointName = ::String</code> – <em>Required</em></strong></p><p>The name to be assigned to the new DevEndpoint.</p><p><strong><code>RoleArn = ::String</code> – <em>Required</em></strong></p><p>The IAM role for the DevEndpoint.</p><p><strong><code>SecurityGroupIds = [::String, ...]</code> – <em>Required</em></strong></p><p>Security group IDs for the security groups to be used by the new DevEndpoint.</p><p><strong><code>SubnetId = ::String</code> – <em>Required</em></strong></p><p>The subnet ID for the new DevEndpoint to use.</p><p><strong><code>PublicKey = ::String</code></strong></p><p>The public key to use for authentication.</p><p><strong><code>NumberOfNodes = ::Int</code></strong></p><p>The number of nodes to use.</p><p><strong><code>ExtraPythonLibsS3Path = ::String</code></strong></p><p>Path to one or more Python libraries in an S3 bucket that should be loaded in your DevEndpoint.</p><p><strong><code>ExtraJarsS3Path = ::String</code></strong></p><p>Path to one or more Java Jars in an S3 bucket that should be loaded in your DevEndpoint.</p><p><strong>Returns</strong></p><p><code>CreateDevEndpointResponse</code></p><p><strong>Exceptions</strong></p><p><code>AccessDeniedException</code>, <code>AlreadyExistsException</code>, <code>IdempotentParameterMismatchException</code>, <code>InternalServiceException</code>, <code>OperationTimeoutException</code>, <code>InvalidInputException</code>, <code>ValidationException</code> or <code>ResourceNumberLimitExceededException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateDevEndpoint">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.create_job" href="#AWSSDK.Glue.create_job"><code>AWSSDK.Glue.create_job</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.create_job
+create_job([::AWSConfig], arguments::Dict)
+create_job([::AWSConfig]; Name=, Role=, Command=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;CreateJob&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;CreateJob&quot;, Name=, Role=, Command=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateJob Operation</strong></p><p>Creates a new job.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>The name you assign to this job.</p><p><strong><code>Description = ::String</code></strong></p><p>Description of the job.</p><p><strong><code>LogUri = ::String</code></strong></p><p>Location of the logs for this job.</p><p><strong><code>Role = ::String</code> – <em>Required</em></strong></p><p>The role associated with this job.</p><p><strong><code>ExecutionProperty = [&quot;MaxConcurrentRuns&quot; =&gt;  ::Int]</code></strong></p><p>An ExecutionProperty specifying the maximum number of concurrent runs allowed for this job.</p><p><strong><code>Command = [ ... ]</code> – <em>Required</em></strong></p><p>The JobCommand that executes this job.</p><pre><code class="language-none"> Command = [
+        &quot;Name&quot; =&gt;  ::String,
+        &quot;ScriptLocation&quot; =&gt;  ::String
+    ]</code></pre><p><strong><code>DefaultArguments = ::Dict{String,String}</code></strong></p><p>The default parameters for this job.</p><p><strong><code>Connections = [&quot;Connections&quot; =&gt;  [::String, ...]]</code></strong></p><p>The connections used for this job.</p><p><strong><code>MaxRetries = ::Int</code></strong></p><p>The maximum number of times to retry this job if it fails.</p><p><strong><code>AllocatedCapacity = ::Int</code></strong></p><p>The number of capacity units allocated to this job.</p><p><strong>Returns</strong></p><p><code>CreateJobResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>IdempotentParameterMismatchException</code>, <code>AlreadyExistsException</code>, <code>InternalServiceException</code>, <code>OperationTimeoutException</code> or <code>ResourceNumberLimitExceededException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateJob">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.create_partition" href="#AWSSDK.Glue.create_partition"><code>AWSSDK.Glue.create_partition</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.create_partition
+create_partition([::AWSConfig], arguments::Dict)
+create_partition([::AWSConfig]; DatabaseName=, TableName=, PartitionInput=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;CreatePartition&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;CreatePartition&quot;, DatabaseName=, TableName=, PartitionInput=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreatePartition Operation</strong></p><p>Creates a new partition.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the catalog in which the partion is to be created. Currently, this should be the AWS account ID.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the metadata database in which the partition is to be created.</p><p><strong><code>TableName = ::String</code> – <em>Required</em></strong></p><p>The name of the metadata table in which the partition is to be created.</p><p><strong><code>PartitionInput = [ ... ]</code> – <em>Required</em></strong></p><p>A <code>PartitionInput</code> structure defining the partition to be created.</p><pre><code class="language-none"> PartitionInput = [
+        &quot;Values&quot; =&gt;  [::String, ...],
+        &quot;LastAccessTime&quot; =&gt;  timestamp,
+        &quot;StorageDescriptor&quot; =&gt;  [
+            &quot;Columns&quot; =&gt;  [[
+                &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+                &quot;Type&quot; =&gt;  ::String,
+                &quot;Comment&quot; =&gt;  ::String
+            ], ...],
+            &quot;Location&quot; =&gt;  ::String,
+            &quot;InputFormat&quot; =&gt;  ::String,
+            &quot;OutputFormat&quot; =&gt;  ::String,
+            &quot;Compressed&quot; =&gt;  ::Bool,
+            &quot;NumberOfBuckets&quot; =&gt;  ::Int,
+            &quot;SerdeInfo&quot; =&gt;  [
+                &quot;Name&quot; =&gt;  ::String,
+                &quot;SerializationLibrary&quot; =&gt;  ::String,
+                &quot;Parameters&quot; =&gt;  ::Dict{String,String}
+            ],
+            &quot;BucketColumns&quot; =&gt;  [::String, ...],
+            &quot;SortColumns&quot; =&gt;  [[
+                &quot;Column&quot; =&gt; &lt;required&gt; ::String,
+                &quot;SortOrder&quot; =&gt; &lt;required&gt; ::Int
+            ], ...],
+            &quot;Parameters&quot; =&gt;  ::Dict{String,String},
+            &quot;SkewedInfo&quot; =&gt;  [
+                &quot;SkewedColumnNames&quot; =&gt;  [::String, ...],
+                &quot;SkewedColumnValues&quot; =&gt;  [::String, ...],
+                &quot;SkewedColumnValueLocationMaps&quot; =&gt;  ::Dict{String,String}
+            ],
+            &quot;StoredAsSubDirectories&quot; =&gt;  ::Bool
+        ],
+        &quot;Parameters&quot; =&gt;  ::Dict{String,String},
+        &quot;LastAnalyzedTime&quot; =&gt;  timestamp
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreatePartitionResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>AlreadyExistsException</code>, <code>ResourceNumberLimitExceededException</code>, <code>InternalServiceException</code>, <code>EntityNotFoundException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreatePartition">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.create_script" href="#AWSSDK.Glue.create_script"><code>AWSSDK.Glue.create_script</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.create_script
+create_script([::AWSConfig], arguments::Dict)
+create_script([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;CreateScript&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;CreateScript&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateScript Operation</strong></p><p>Transforms a directed acyclic graph (DAG) into a Python script.</p><p><strong>Arguments</strong></p><p><strong><code>DagNodes = [[ ... ], ...]</code></strong></p><p>A list of the nodes in the DAG.</p><pre><code class="language-none"> DagNodes = [[
+        &quot;Id&quot; =&gt; &lt;required&gt; ::String,
+        &quot;NodeType&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Args&quot; =&gt; &lt;required&gt; [[
+            &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Value&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Param&quot; =&gt;  ::Bool
+        ], ...],
+        &quot;LineNumber&quot; =&gt;  ::Int
+    ], ...]</code></pre><p><strong><code>DagEdges = [[ ... ], ...]</code></strong></p><p>A list of the edges in the DAG.</p><pre><code class="language-none"> DagEdges = [[
+        &quot;Source&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Target&quot; =&gt; &lt;required&gt; ::String,
+        &quot;TargetParameter&quot; =&gt;  ::String
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>CreateScriptResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateScript">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.create_table" href="#AWSSDK.Glue.create_table"><code>AWSSDK.Glue.create_table</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.create_table
+create_table([::AWSConfig], arguments::Dict)
+create_table([::AWSConfig]; DatabaseName=, TableInput=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;CreateTable&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;CreateTable&quot;, DatabaseName=, TableInput=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateTable Operation</strong></p><p>Creates a new table definition in the Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog in which to create the <code>Table</code>. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The catalog database in which to create the new table.</p><p><strong><code>TableInput = [ ... ]</code> – <em>Required</em></strong></p><p>The <code>TableInput</code> object that defines the metadata table to create in the catalog.</p><pre><code class="language-none"> TableInput = [
+        &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Description&quot; =&gt;  ::String,
+        &quot;Owner&quot; =&gt;  ::String,
+        &quot;LastAccessTime&quot; =&gt;  timestamp,
+        &quot;LastAnalyzedTime&quot; =&gt;  timestamp,
+        &quot;Retention&quot; =&gt;  ::Int,
+        &quot;StorageDescriptor&quot; =&gt;  [
+            &quot;Columns&quot; =&gt;  [[
+                &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+                &quot;Type&quot; =&gt;  ::String,
+                &quot;Comment&quot; =&gt;  ::String
+            ], ...],
+            &quot;Location&quot; =&gt;  ::String,
+            &quot;InputFormat&quot; =&gt;  ::String,
+            &quot;OutputFormat&quot; =&gt;  ::String,
+            &quot;Compressed&quot; =&gt;  ::Bool,
+            &quot;NumberOfBuckets&quot; =&gt;  ::Int,
+            &quot;SerdeInfo&quot; =&gt;  [
+                &quot;Name&quot; =&gt;  ::String,
+                &quot;SerializationLibrary&quot; =&gt;  ::String,
+                &quot;Parameters&quot; =&gt;  ::Dict{String,String}
+            ],
+            &quot;BucketColumns&quot; =&gt;  [::String, ...],
+            &quot;SortColumns&quot; =&gt;  [[
+                &quot;Column&quot; =&gt; &lt;required&gt; ::String,
+                &quot;SortOrder&quot; =&gt; &lt;required&gt; ::Int
+            ], ...],
+            &quot;Parameters&quot; =&gt;  ::Dict{String,String},
+            &quot;SkewedInfo&quot; =&gt;  [
+                &quot;SkewedColumnNames&quot; =&gt;  [::String, ...],
+                &quot;SkewedColumnValues&quot; =&gt;  [::String, ...],
+                &quot;SkewedColumnValueLocationMaps&quot; =&gt;  ::Dict{String,String}
+            ],
+            &quot;StoredAsSubDirectories&quot; =&gt;  ::Bool
+        ],
+        &quot;PartitionKeys&quot; =&gt;  [[
+            &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Type&quot; =&gt;  ::String,
+            &quot;Comment&quot; =&gt;  ::String
+        ], ...],
+        &quot;ViewOriginalText&quot; =&gt;  ::String,
+        &quot;ViewExpandedText&quot; =&gt;  ::String,
+        &quot;TableType&quot; =&gt;  ::String,
+        &quot;Parameters&quot; =&gt;  ::Dict{String,String}
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreateTableResponse</code></p><p><strong>Exceptions</strong></p><p><code>AlreadyExistsException</code>, <code>InvalidInputException</code>, <code>EntityNotFoundException</code>, <code>ResourceNumberLimitExceededException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateTable">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.create_trigger" href="#AWSSDK.Glue.create_trigger"><code>AWSSDK.Glue.create_trigger</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.create_trigger
+create_trigger([::AWSConfig], arguments::Dict)
+create_trigger([::AWSConfig]; Name=, Type=, Actions=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;CreateTrigger&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;CreateTrigger&quot;, Name=, Type=, Actions=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateTrigger Operation</strong></p><p>Creates a new trigger.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>The name to assign to the new trigger.</p><p><strong><code>Type = &quot;SCHEDULED&quot;, &quot;CONDITIONAL&quot; or &quot;ON_DEMAND&quot;</code> – <em>Required</em></strong></p><p>The type of the new trigger.</p><p><strong><code>Schedule = ::String</code></strong></p><p>A cron schedule expression for the new trigger.</p><p><strong><code>Predicate = [ ... ]</code></strong></p><p>A predicate to specify when the new trigger should fire.</p><pre><code class="language-none"> Predicate = [
+        &quot;Logical&quot; =&gt;  &quot;AND&quot;,
+        &quot;Conditions&quot; =&gt;  [[
+            &quot;LogicalOperator&quot; =&gt;  &quot;EQUALS&quot;,
+            &quot;JobName&quot; =&gt;  ::String,
+            &quot;State&quot; =&gt;  &quot;STARTING&quot;, &quot;RUNNING&quot;, &quot;STOPPING&quot;, &quot;STOPPED&quot;, &quot;SUCCEEDED&quot; or &quot;FAILED&quot;
+        ], ...]
+    ]</code></pre><p><strong><code>Actions = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>The actions initiated by this trigger when it fires.</p><pre><code class="language-none"> Actions = [[
+        &quot;JobName&quot; =&gt;  ::String,
+        &quot;Arguments&quot; =&gt;  ::Dict{String,String}
+    ], ...]</code></pre><p><strong><code>Description = ::String</code></strong></p><p>A description of the new trigger.</p><p><strong>Returns</strong></p><p><code>CreateTriggerResponse</code></p><p><strong>Exceptions</strong></p><p><code>AlreadyExistsException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code>, <code>OperationTimeoutException</code> or <code>ResourceNumberLimitExceededException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateTrigger">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.create_user_defined_function" href="#AWSSDK.Glue.create_user_defined_function"><code>AWSSDK.Glue.create_user_defined_function</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.create_user_defined_function
+create_user_defined_function([::AWSConfig], arguments::Dict)
+create_user_defined_function([::AWSConfig]; DatabaseName=, FunctionInput=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;CreateUserDefinedFunction&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;CreateUserDefinedFunction&quot;, DatabaseName=, FunctionInput=, &lt;keyword arguments&gt;)</code></pre><p><strong>CreateUserDefinedFunction Operation</strong></p><p>Creates a new function definition in the Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog in which to create the function. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the catalog database in which to create the function.</p><p><strong><code>FunctionInput = [ ... ]</code> – <em>Required</em></strong></p><p>A <code>FunctionInput</code> object that defines the function to create in the Data Catalog.</p><pre><code class="language-none"> FunctionInput = [
+        &quot;FunctionName&quot; =&gt;  ::String,
+        &quot;ClassName&quot; =&gt;  ::String,
+        &quot;OwnerName&quot; =&gt;  ::String,
+        &quot;OwnerType&quot; =&gt;  &quot;USER&quot;, &quot;ROLE&quot; or &quot;GROUP&quot;,
+        &quot;ResourceUris&quot; =&gt;  [[
+            &quot;ResourceType&quot; =&gt;  &quot;JAR&quot;, &quot;FILE&quot; or &quot;ARCHIVE&quot;,
+            &quot;Uri&quot; =&gt;  ::String
+        ], ...]
+    ]</code></pre><p><strong>Returns</strong></p><p><code>CreateUserDefinedFunctionResponse</code></p><p><strong>Exceptions</strong></p><p><code>AlreadyExistsException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code>, <code>EntityNotFoundException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/CreateUserDefinedFunction">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.delete_classifier" href="#AWSSDK.Glue.delete_classifier"><code>AWSSDK.Glue.delete_classifier</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.delete_classifier
+delete_classifier([::AWSConfig], arguments::Dict)
+delete_classifier([::AWSConfig]; Name=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;DeleteClassifier&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;DeleteClassifier&quot;, Name=)</code></pre><p><strong>DeleteClassifier Operation</strong></p><p>Removes a <code>Classifier</code> from the metadata store.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>Name of the <code>Classifier</code> to remove.</p><p><strong>Returns</strong></p><p><code>DeleteClassifierResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteClassifier">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.delete_connection" href="#AWSSDK.Glue.delete_connection"><code>AWSSDK.Glue.delete_connection</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.delete_connection
+delete_connection([::AWSConfig], arguments::Dict)
+delete_connection([::AWSConfig]; ConnectionName=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;DeleteConnection&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;DeleteConnection&quot;, ConnectionName=, &lt;keyword arguments&gt;)</code></pre><p><strong>DeleteConnection Operation</strong></p><p>Deletes a connection from the Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog in which the connection resides. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>ConnectionName = ::String</code> – <em>Required</em></strong></p><p>The name of the connection to delete.</p><p><strong>Returns</strong></p><p><code>DeleteConnectionResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteConnection">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.delete_crawler" href="#AWSSDK.Glue.delete_crawler"><code>AWSSDK.Glue.delete_crawler</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.delete_crawler
+delete_crawler([::AWSConfig], arguments::Dict)
+delete_crawler([::AWSConfig]; Name=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;DeleteCrawler&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;DeleteCrawler&quot;, Name=)</code></pre><p><strong>DeleteCrawler Operation</strong></p><p>Removes a specified <code>Crawler</code> from the metadata store, unless the <code>Crawler</code> state is <code>RUNNING</code>.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>Name of the <code>Crawler</code> to remove.</p><p><strong>Returns</strong></p><p><code>DeleteCrawlerResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>CrawlerRunningException</code>, <code>SchedulerTransitioningException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteCrawler">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.delete_database" href="#AWSSDK.Glue.delete_database"><code>AWSSDK.Glue.delete_database</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.delete_database
+delete_database([::AWSConfig], arguments::Dict)
+delete_database([::AWSConfig]; Name=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;DeleteDatabase&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;DeleteDatabase&quot;, Name=, &lt;keyword arguments&gt;)</code></pre><p><strong>DeleteDatabase Operation</strong></p><p>Removes a specified Database from a Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog in which the database resides. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>The name of the Database to delete.</p><p><strong>Returns</strong></p><p><code>DeleteDatabaseResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteDatabase">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.delete_dev_endpoint" href="#AWSSDK.Glue.delete_dev_endpoint"><code>AWSSDK.Glue.delete_dev_endpoint</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.delete_dev_endpoint
+delete_dev_endpoint([::AWSConfig], arguments::Dict)
+delete_dev_endpoint([::AWSConfig]; EndpointName=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;DeleteDevEndpoint&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;DeleteDevEndpoint&quot;, EndpointName=)</code></pre><p><strong>DeleteDevEndpoint Operation</strong></p><p>Deletes a specified DevEndpoint.</p><p><strong>Arguments</strong></p><p><strong><code>EndpointName = ::String</code> – <em>Required</em></strong></p><p>The name of the DevEndpoint.</p><p><strong>Returns</strong></p><p><code>DeleteDevEndpointResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InternalServiceException</code>, <code>OperationTimeoutException</code> or <code>InvalidInputException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteDevEndpoint">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.delete_job" href="#AWSSDK.Glue.delete_job"><code>AWSSDK.Glue.delete_job</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.delete_job
+delete_job([::AWSConfig], arguments::Dict)
+delete_job([::AWSConfig]; JobName=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;DeleteJob&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;DeleteJob&quot;, JobName=)</code></pre><p><strong>DeleteJob Operation</strong></p><p>Deletes a specified job.</p><p><strong>Arguments</strong></p><p><strong><code>JobName = ::String</code> – <em>Required</em></strong></p><p>The name of the job to delete.</p><p><strong>Returns</strong></p><p><code>DeleteJobResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteJob">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.delete_partition" href="#AWSSDK.Glue.delete_partition"><code>AWSSDK.Glue.delete_partition</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.delete_partition
+delete_partition([::AWSConfig], arguments::Dict)
+delete_partition([::AWSConfig]; DatabaseName=, TableName=, PartitionValues=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;DeletePartition&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;DeletePartition&quot;, DatabaseName=, TableName=, PartitionValues=, &lt;keyword arguments&gt;)</code></pre><p><strong>DeletePartition Operation</strong></p><p>Deletes a specified partition.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog where the partition to be deleted resides. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the catalog database in which the table in question resides.</p><p><strong><code>TableName = ::String</code> – <em>Required</em></strong></p><p>The name of the table where the partition to be deleted is located.</p><p><strong><code>PartitionValues = [::String, ...]</code> – <em>Required</em></strong></p><p>The values that define the partition.</p><p><strong>Returns</strong></p><p><code>DeletePartitionResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeletePartition">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.delete_table" href="#AWSSDK.Glue.delete_table"><code>AWSSDK.Glue.delete_table</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.delete_table
+delete_table([::AWSConfig], arguments::Dict)
+delete_table([::AWSConfig]; DatabaseName=, Name=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;DeleteTable&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;DeleteTable&quot;, DatabaseName=, Name=, &lt;keyword arguments&gt;)</code></pre><p><strong>DeleteTable Operation</strong></p><p>Removes a table definition from the Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the catalog database in which the table resides.</p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>The name of the table to be deleted.</p><p><strong>Returns</strong></p><p><code>DeleteTableResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteTable">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.delete_trigger" href="#AWSSDK.Glue.delete_trigger"><code>AWSSDK.Glue.delete_trigger</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.delete_trigger
+delete_trigger([::AWSConfig], arguments::Dict)
+delete_trigger([::AWSConfig]; Name=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;DeleteTrigger&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;DeleteTrigger&quot;, Name=)</code></pre><p><strong>DeleteTrigger Operation</strong></p><p>Deletes a specified trigger.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>The name of the trigger to delete.</p><p><strong>Returns</strong></p><p><code>DeleteTriggerResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteTrigger">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.delete_user_defined_function" href="#AWSSDK.Glue.delete_user_defined_function"><code>AWSSDK.Glue.delete_user_defined_function</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.delete_user_defined_function
+delete_user_defined_function([::AWSConfig], arguments::Dict)
+delete_user_defined_function([::AWSConfig]; DatabaseName=, FunctionName=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;DeleteUserDefinedFunction&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;DeleteUserDefinedFunction&quot;, DatabaseName=, FunctionName=, &lt;keyword arguments&gt;)</code></pre><p><strong>DeleteUserDefinedFunction Operation</strong></p><p>Deletes an existing function definition from the Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog where the function to be deleted is located. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the catalog database where the function is located.</p><p><strong><code>FunctionName = ::String</code> – <em>Required</em></strong></p><p>The name of the function definition to be deleted.</p><p><strong>Returns</strong></p><p><code>DeleteUserDefinedFunctionResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/DeleteUserDefinedFunction">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_catalog_import_status" href="#AWSSDK.Glue.get_catalog_import_status"><code>AWSSDK.Glue.get_catalog_import_status</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_catalog_import_status
+get_catalog_import_status([::AWSConfig], arguments::Dict)
+get_catalog_import_status([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetCatalogImportStatus&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetCatalogImportStatus&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>GetCatalogImportStatus Operation</strong></p><p>Retrieves the status of a migration operation.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the catalog to migrate. Currently, this should be the AWS account ID.</p><p><strong>Returns</strong></p><p><code>GetCatalogImportStatusResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetCatalogImportStatus">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_classifier" href="#AWSSDK.Glue.get_classifier"><code>AWSSDK.Glue.get_classifier</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_classifier
+get_classifier([::AWSConfig], arguments::Dict)
+get_classifier([::AWSConfig]; Name=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetClassifier&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetClassifier&quot;, Name=)</code></pre><p><strong>GetClassifier Operation</strong></p><p>Retrieve a <code>Classifier</code> by name.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>Name of the <code>Classifier</code> to retrieve.</p><p><strong>Returns</strong></p><p><code>GetClassifierResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetClassifier">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_classifiers" href="#AWSSDK.Glue.get_classifiers"><code>AWSSDK.Glue.get_classifiers</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_classifiers
+get_classifiers([::AWSConfig], arguments::Dict)
+get_classifiers([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetClassifiers&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetClassifiers&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>GetClassifiers Operation</strong></p><p>Lists all Classifier objects in the metadata store.</p><p><strong>Arguments</strong></p><p><strong><code>MaxResults = ::Int</code></strong></p><p>Size of the list to return (optional).</p><p><strong><code>NextToken = ::String</code></strong></p><p>An optional continuation token.</p><p><strong>Returns</strong></p><p><code>GetClassifiersResponse</code></p><p><strong>Exceptions</strong></p><p><code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetClassifiers">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_connection" href="#AWSSDK.Glue.get_connection"><code>AWSSDK.Glue.get_connection</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_connection
+get_connection([::AWSConfig], arguments::Dict)
+get_connection([::AWSConfig]; Name=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetConnection&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetConnection&quot;, Name=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetConnection Operation</strong></p><p>Retrieves a connection definition from the Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog in which the connection resides. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>The name of the connection definition to retrieve.</p><p><strong>Returns</strong></p><p><code>GetConnectionResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetConnection">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_connections" href="#AWSSDK.Glue.get_connections"><code>AWSSDK.Glue.get_connections</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_connections
+get_connections([::AWSConfig], arguments::Dict)
+get_connections([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetConnections&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetConnections&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>GetConnections Operation</strong></p><p>Retrieves a list of connection definitions from the Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog in which the connections reside. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>Filter = [ ... ]</code></strong></p><p>A filter that controls which connections will be returned.</p><pre><code class="language-none"> Filter = [
+        &quot;MatchCriteria&quot; =&gt;  [::String, ...],
+        &quot;ConnectionType&quot; =&gt;  &quot;JDBC&quot; or &quot;SFTP&quot;
+    ]</code></pre><p><strong><code>NextToken = ::String</code></strong></p><p>A continuation token, if this is a continuation call.</p><p><strong><code>MaxResults = ::Int</code></strong></p><p>The maximum number of connections to return in one response.</p><p><strong>Returns</strong></p><p><code>GetConnectionsResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetConnections">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_crawler" href="#AWSSDK.Glue.get_crawler"><code>AWSSDK.Glue.get_crawler</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_crawler
+get_crawler([::AWSConfig], arguments::Dict)
+get_crawler([::AWSConfig]; Name=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetCrawler&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetCrawler&quot;, Name=)</code></pre><p><strong>GetCrawler Operation</strong></p><p>Retrieves metadata for a specified <code>Crawler</code>.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>Name of the <code>Crawler</code> to retrieve metadata for.</p><p><strong>Returns</strong></p><p><code>GetCrawlerResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetCrawler">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_crawler_metrics" href="#AWSSDK.Glue.get_crawler_metrics"><code>AWSSDK.Glue.get_crawler_metrics</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_crawler_metrics
+get_crawler_metrics([::AWSConfig], arguments::Dict)
+get_crawler_metrics([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetCrawlerMetrics&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetCrawlerMetrics&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>GetCrawlerMetrics Operation</strong></p><p>Retrieves metrics about specified crawlers.</p><p><strong>Arguments</strong></p><p><strong><code>CrawlerNameList = [::String, ...]</code></strong></p><p>A list of the names of crawlers about which to retrieve metrics.</p><p><strong><code>MaxResults = ::Int</code></strong></p><p>The maximum size of a list to return.</p><p><strong><code>NextToken = ::String</code></strong></p><p>A continuation token, if this is a continuation call.</p><p><strong>Returns</strong></p><p><code>GetCrawlerMetricsResponse</code></p><p><strong>Exceptions</strong></p><p><code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetCrawlerMetrics">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_crawlers" href="#AWSSDK.Glue.get_crawlers"><code>AWSSDK.Glue.get_crawlers</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_crawlers
+get_crawlers([::AWSConfig], arguments::Dict)
+get_crawlers([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetCrawlers&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetCrawlers&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>GetCrawlers Operation</strong></p><p>Retrieves metadata for all <code>Crawlers</code> defined in the customer account.</p><p><strong>Arguments</strong></p><p><strong><code>MaxResults = ::Int</code></strong></p><p>The number of Crawlers to return on each call.</p><p><strong><code>NextToken = ::String</code></strong></p><p>A continuation token, if this is a continuation request.</p><p><strong>Returns</strong></p><p><code>GetCrawlersResponse</code></p><p><strong>Exceptions</strong></p><p><code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetCrawlers">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_database" href="#AWSSDK.Glue.get_database"><code>AWSSDK.Glue.get_database</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_database
+get_database([::AWSConfig], arguments::Dict)
+get_database([::AWSConfig]; Name=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetDatabase&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetDatabase&quot;, Name=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetDatabase Operation</strong></p><p>Retrieves the definition of a specified database.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog in which the database resides. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>The name of the database to retrieve.</p><p><strong>Returns</strong></p><p><code>GetDatabaseResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>EntityNotFoundException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDatabase">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_databases" href="#AWSSDK.Glue.get_databases"><code>AWSSDK.Glue.get_databases</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_databases
+get_databases([::AWSConfig], arguments::Dict)
+get_databases([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetDatabases&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetDatabases&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>GetDatabases Operation</strong></p><p>Retrieves all Databases defined in a given Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog from which to retrieve <code>Databases</code>. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>NextToken = ::String</code></strong></p><p>A continuation token, if this is a continuation call.</p><p><strong><code>MaxResults = ::Int</code></strong></p><p>The maximum number of databases to return in one response.</p><p><strong>Returns</strong></p><p><code>GetDatabasesResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDatabases">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_dataflow_graph" href="#AWSSDK.Glue.get_dataflow_graph"><code>AWSSDK.Glue.get_dataflow_graph</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_dataflow_graph
+get_dataflow_graph([::AWSConfig], arguments::Dict)
+get_dataflow_graph([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetDataflowGraph&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetDataflowGraph&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>GetDataflowGraph Operation</strong></p><p>Transforms a Python script into a directed acyclic graph (DAG).</p><p><strong>Arguments</strong></p><p><strong><code>PythonScript = ::String</code></strong></p><p>The Python script to transform.</p><p><strong>Returns</strong></p><p><code>GetDataflowGraphResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDataflowGraph">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_dev_endpoint" href="#AWSSDK.Glue.get_dev_endpoint"><code>AWSSDK.Glue.get_dev_endpoint</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_dev_endpoint
+get_dev_endpoint([::AWSConfig], arguments::Dict)
+get_dev_endpoint([::AWSConfig]; EndpointName=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetDevEndpoint&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetDevEndpoint&quot;, EndpointName=)</code></pre><p><strong>GetDevEndpoint Operation</strong></p><p>Retrieves information about a specified DevEndpoint.</p><p><strong>Arguments</strong></p><p><strong><code>EndpointName = ::String</code> – <em>Required</em></strong></p><p>Name of the DevEndpoint for which to retrieve information.</p><p><strong>Returns</strong></p><p><code>GetDevEndpointResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InternalServiceException</code>, <code>OperationTimeoutException</code> or <code>InvalidInputException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDevEndpoint">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_dev_endpoints" href="#AWSSDK.Glue.get_dev_endpoints"><code>AWSSDK.Glue.get_dev_endpoints</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_dev_endpoints
+get_dev_endpoints([::AWSConfig], arguments::Dict)
+get_dev_endpoints([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetDevEndpoints&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetDevEndpoints&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>GetDevEndpoints Operation</strong></p><p>Retrieves all the DevEndpoints in this AWS account.</p><p><strong>Arguments</strong></p><p><strong><code>MaxResults = ::Int</code></strong></p><p>The maximum size of information to return.</p><p><strong><code>NextToken = ::String</code></strong></p><p>A continuation token, if this is a continuation call.</p><p><strong>Returns</strong></p><p><code>GetDevEndpointsResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InternalServiceException</code>, <code>OperationTimeoutException</code> or <code>InvalidInputException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetDevEndpoints">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_job" href="#AWSSDK.Glue.get_job"><code>AWSSDK.Glue.get_job</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_job
+get_job([::AWSConfig], arguments::Dict)
+get_job([::AWSConfig]; JobName=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetJob&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetJob&quot;, JobName=)</code></pre><p><strong>GetJob Operation</strong></p><p>Retrieves an existing job definition.</p><p><strong>Arguments</strong></p><p><strong><code>JobName = ::String</code> – <em>Required</em></strong></p><p>The name of the job to retrieve.</p><p><strong>Returns</strong></p><p><code>GetJobResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>EntityNotFoundException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetJob">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_job_run" href="#AWSSDK.Glue.get_job_run"><code>AWSSDK.Glue.get_job_run</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_job_run
+get_job_run([::AWSConfig], arguments::Dict)
+get_job_run([::AWSConfig]; JobName=, RunId=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetJobRun&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetJobRun&quot;, JobName=, RunId=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetJobRun Operation</strong></p><p>Retrieves the metadata for a given job run.</p><p><strong>Arguments</strong></p><p><strong><code>JobName = ::String</code> – <em>Required</em></strong></p><p>Name of the job being run.</p><p><strong><code>RunId = ::String</code> – <em>Required</em></strong></p><p>The ID of the job run.</p><p><strong><code>PredecessorsIncluded = ::Bool</code></strong></p><p>A list of the predecessor runs to return as well.</p><p><strong>Returns</strong></p><p><code>GetJobRunResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>EntityNotFoundException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetJobRun">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_job_runs" href="#AWSSDK.Glue.get_job_runs"><code>AWSSDK.Glue.get_job_runs</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_job_runs
+get_job_runs([::AWSConfig], arguments::Dict)
+get_job_runs([::AWSConfig]; JobName=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetJobRuns&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetJobRuns&quot;, JobName=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetJobRuns Operation</strong></p><p>Retrieves metadata for all runs of a given job.</p><p><strong>Arguments</strong></p><p><strong><code>JobName = ::String</code> – <em>Required</em></strong></p><p>The name of the job for which to retrieve all job runs.</p><p><strong><code>NextToken = ::String</code></strong></p><p>A continuation token, if this is a continuation call.</p><p><strong><code>MaxResults = ::Int</code></strong></p><p>The maximum size of the response.</p><p><strong>Returns</strong></p><p><code>GetJobRunsResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>EntityNotFoundException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetJobRuns">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_jobs" href="#AWSSDK.Glue.get_jobs"><code>AWSSDK.Glue.get_jobs</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_jobs
+get_jobs([::AWSConfig], arguments::Dict)
+get_jobs([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetJobs&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetJobs&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>GetJobs Operation</strong></p><p>Retrieves all current jobs.</p><p><strong>Arguments</strong></p><p><strong><code>NextToken = ::String</code></strong></p><p>A continuation token, if this is a continuation call.</p><p><strong><code>MaxResults = ::Int</code></strong></p><p>The maximum size of the response.</p><p><strong>Returns</strong></p><p><code>GetJobsResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>EntityNotFoundException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetJobs">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_mapping" href="#AWSSDK.Glue.get_mapping"><code>AWSSDK.Glue.get_mapping</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_mapping
+get_mapping([::AWSConfig], arguments::Dict)
+get_mapping([::AWSConfig]; Source=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetMapping&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetMapping&quot;, Source=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetMapping Operation</strong></p><p>Creates mappings.</p><p><strong>Arguments</strong></p><p><strong><code>Source = [ ... ]</code> – <em>Required</em></strong></p><p>Specifies the source table.</p><pre><code class="language-none"> Source = [
+        &quot;DatabaseName&quot; =&gt; &lt;required&gt; ::String,
+        &quot;TableName&quot; =&gt; &lt;required&gt; ::String
+    ]</code></pre><p><strong><code>Sinks = [[ ... ], ...]</code></strong></p><p>A list of target tables.</p><pre><code class="language-none"> Sinks = [[
+        &quot;DatabaseName&quot; =&gt; &lt;required&gt; ::String,
+        &quot;TableName&quot; =&gt; &lt;required&gt; ::String
+    ], ...]</code></pre><p><strong><code>Location = [ ... ]</code></strong></p><p>Parameters for the mapping.</p><pre><code class="language-none"> Location = [
+        &quot;Jdbc&quot; =&gt;  [[
+            &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Value&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Param&quot; =&gt;  ::Bool
+        ], ...],
+        &quot;S3&quot; =&gt;  [[
+            &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Value&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Param&quot; =&gt;  ::Bool
+        ], ...]
+    ]</code></pre><p><strong>Returns</strong></p><p><code>GetMappingResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetMapping">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_partition" href="#AWSSDK.Glue.get_partition"><code>AWSSDK.Glue.get_partition</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_partition
+get_partition([::AWSConfig], arguments::Dict)
+get_partition([::AWSConfig]; DatabaseName=, TableName=, PartitionValues=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetPartition&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetPartition&quot;, DatabaseName=, TableName=, PartitionValues=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetPartition Operation</strong></p><p>Retrieves information about a specified partition.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog where the partition in question resides. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the catalog database where the partition resides.</p><p><strong><code>TableName = ::String</code> – <em>Required</em></strong></p><p>The name of the partition&#39;s table.</p><p><strong><code>PartitionValues = [::String, ...]</code> – <em>Required</em></strong></p><p>The values that define the partition.</p><p><strong>Returns</strong></p><p><code>GetPartitionResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetPartition">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_partitions" href="#AWSSDK.Glue.get_partitions"><code>AWSSDK.Glue.get_partitions</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_partitions
+get_partitions([::AWSConfig], arguments::Dict)
+get_partitions([::AWSConfig]; DatabaseName=, TableName=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetPartitions&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetPartitions&quot;, DatabaseName=, TableName=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetPartitions Operation</strong></p><p>Retrieves information about the partitions in a table.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog where the partitions in question reside. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the catalog database where the partitions reside.</p><p><strong><code>TableName = ::String</code> – <em>Required</em></strong></p><p>The name of the partitions&#39; table.</p><p><strong><code>Expression = ::String</code></strong></p><p>An expression filtering the partitions to be returned.</p><p><strong><code>NextToken = ::String</code></strong></p><p>A continuation token, if this is not the first call to retrieve these partitions.</p><p><strong><code>Segment = [ ... ]</code></strong></p><p>The segment of the table&#39;s partitions to scan in this request.</p><pre><code class="language-none"> Segment = [
+        &quot;SegmentNumber&quot; =&gt; &lt;required&gt; ::Int,
+        &quot;TotalSegments&quot; =&gt; &lt;required&gt; ::Int
+    ]</code></pre><p><strong><code>MaxResults = ::Int</code></strong></p><p>The maximum number of partitions to return in a single response.</p><p><strong>Returns</strong></p><p><code>GetPartitionsResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>OperationTimeoutException</code> or <code>InternalServiceException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetPartitions">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_plan" href="#AWSSDK.Glue.get_plan"><code>AWSSDK.Glue.get_plan</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_plan
+get_plan([::AWSConfig], arguments::Dict)
+get_plan([::AWSConfig]; Mapping=, Source=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetPlan&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetPlan&quot;, Mapping=, Source=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetPlan Operation</strong></p><p>Gets a Python script to perform a specified mapping.</p><p><strong>Arguments</strong></p><p><strong><code>Mapping = [[ ... ], ...]</code> – <em>Required</em></strong></p><p>The list of mappings from a source table to target tables.</p><pre><code class="language-none"> Mapping = [[
+        &quot;SourceTable&quot; =&gt;  ::String,
+        &quot;SourcePath&quot; =&gt;  ::String,
+        &quot;SourceType&quot; =&gt;  ::String,
+        &quot;TargetTable&quot; =&gt;  ::String,
+        &quot;TargetPath&quot; =&gt;  ::String,
+        &quot;TargetType&quot; =&gt;  ::String
+    ], ...]</code></pre><p><strong><code>Source = [ ... ]</code> – <em>Required</em></strong></p><p>The source table.</p><pre><code class="language-none"> Source = [
+        &quot;DatabaseName&quot; =&gt; &lt;required&gt; ::String,
+        &quot;TableName&quot; =&gt; &lt;required&gt; ::String
+    ]</code></pre><p><strong><code>Sinks = [[ ... ], ...]</code></strong></p><p>The target tables.</p><pre><code class="language-none"> Sinks = [[
+        &quot;DatabaseName&quot; =&gt; &lt;required&gt; ::String,
+        &quot;TableName&quot; =&gt; &lt;required&gt; ::String
+    ], ...]</code></pre><p><strong><code>Location = [ ... ]</code></strong></p><p>Parameters for the mapping.</p><pre><code class="language-none"> Location = [
+        &quot;Jdbc&quot; =&gt;  [[
+            &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Value&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Param&quot; =&gt;  ::Bool
+        ], ...],
+        &quot;S3&quot; =&gt;  [[
+            &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Value&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Param&quot; =&gt;  ::Bool
+        ], ...]
+    ]</code></pre><p><strong>Returns</strong></p><p><code>GetPlanResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetPlan">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_table" href="#AWSSDK.Glue.get_table"><code>AWSSDK.Glue.get_table</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_table
+get_table([::AWSConfig], arguments::Dict)
+get_table([::AWSConfig]; DatabaseName=, Name=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetTable&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetTable&quot;, DatabaseName=, Name=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetTable Operation</strong></p><p>Retrieves the <code>Table</code> definition in a Data Catalog for a specified table.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the database in the catalog in which the table resides.</p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>The name of the table for which to retrieve the definition.</p><p><strong>Returns</strong></p><p><code>GetTableResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetTable">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_table_versions" href="#AWSSDK.Glue.get_table_versions"><code>AWSSDK.Glue.get_table_versions</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_table_versions
+get_table_versions([::AWSConfig], arguments::Dict)
+get_table_versions([::AWSConfig]; DatabaseName=, TableName=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetTableVersions&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetTableVersions&quot;, DatabaseName=, TableName=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetTableVersions Operation</strong></p><p>Retrieves a list of strings that identify available versions of a specified table.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog where the tables reside. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The database in the catalog in which the table resides.</p><p><strong><code>TableName = ::String</code> – <em>Required</em></strong></p><p>The name of the table.</p><p><strong><code>NextToken = ::String</code></strong></p><p>A continuation token, if this is not the first call.</p><p><strong><code>MaxResults = ::Int</code></strong></p><p>The maximum number of table versions to return in one response.</p><p><strong>Returns</strong></p><p><code>GetTableVersionsResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetTableVersions">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_tables" href="#AWSSDK.Glue.get_tables"><code>AWSSDK.Glue.get_tables</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_tables
+get_tables([::AWSConfig], arguments::Dict)
+get_tables([::AWSConfig]; DatabaseName=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetTables&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetTables&quot;, DatabaseName=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetTables Operation</strong></p><p>Retrieves the definitions of some or all of the tables in a given <code>Database</code>.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog where the tables reside. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The database in the catalog whose tables to list.</p><p><strong><code>Expression = ::String</code></strong></p><p>A regular expression pattern. If present, only those tables whose names match the pattern are returned.</p><p><strong><code>NextToken = ::String</code></strong></p><p>A continuation token, included if this is a continuation call.</p><p><strong><code>MaxResults = ::Int</code></strong></p><p>The maximum number of tables to return in a single response.</p><p><strong>Returns</strong></p><p><code>GetTablesResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>OperationTimeoutException</code> or <code>InternalServiceException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetTables">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_trigger" href="#AWSSDK.Glue.get_trigger"><code>AWSSDK.Glue.get_trigger</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_trigger
+get_trigger([::AWSConfig], arguments::Dict)
+get_trigger([::AWSConfig]; Name=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetTrigger&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetTrigger&quot;, Name=)</code></pre><p><strong>GetTrigger Operation</strong></p><p>Retrieves the definition of a trigger.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>The name of the trigger to retrieve.</p><p><strong>Returns</strong></p><p><code>GetTriggerResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetTrigger">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_triggers" href="#AWSSDK.Glue.get_triggers"><code>AWSSDK.Glue.get_triggers</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_triggers
+get_triggers([::AWSConfig], arguments::Dict)
+get_triggers([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetTriggers&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetTriggers&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>GetTriggers Operation</strong></p><p>Gets all the triggers associated with a job.</p><p><strong>Arguments</strong></p><p><strong><code>NextToken = ::String</code></strong></p><p>A continuation token, if this is a continuation call.</p><p><strong><code>DependentJobName = ::String</code></strong></p><p>The name of the job for which to retrieve triggers.</p><p><strong><code>MaxResults = ::Int</code></strong></p><p>The maximum size of the response.</p><p><strong>Returns</strong></p><p><code>GetTriggersResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetTriggers">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_user_defined_function" href="#AWSSDK.Glue.get_user_defined_function"><code>AWSSDK.Glue.get_user_defined_function</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_user_defined_function
+get_user_defined_function([::AWSConfig], arguments::Dict)
+get_user_defined_function([::AWSConfig]; DatabaseName=, FunctionName=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetUserDefinedFunction&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetUserDefinedFunction&quot;, DatabaseName=, FunctionName=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetUserDefinedFunction Operation</strong></p><p>Retrieves a specified function definition from the Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog where the function to be retrieved is located. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the catalog database where the function is located.</p><p><strong><code>FunctionName = ::String</code> – <em>Required</em></strong></p><p>The name of the function.</p><p><strong>Returns</strong></p><p><code>GetUserDefinedFunctionResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetUserDefinedFunction">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.get_user_defined_functions" href="#AWSSDK.Glue.get_user_defined_functions"><code>AWSSDK.Glue.get_user_defined_functions</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.get_user_defined_functions
+get_user_defined_functions([::AWSConfig], arguments::Dict)
+get_user_defined_functions([::AWSConfig]; DatabaseName=, Pattern=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;GetUserDefinedFunctions&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;GetUserDefinedFunctions&quot;, DatabaseName=, Pattern=, &lt;keyword arguments&gt;)</code></pre><p><strong>GetUserDefinedFunctions Operation</strong></p><p>Retrieves a multiple function definitions from the Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog where the functions to be retrieved are located. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the catalog database where the functions are located.</p><p><strong><code>Pattern = ::String</code> – <em>Required</em></strong></p><p>An optional function-name pattern string that filters the function definitions returned.</p><p><strong><code>NextToken = ::String</code></strong></p><p>A continuation token, if this is a continuation call.</p><p><strong><code>MaxResults = ::Int</code></strong></p><p>The maximum number of functions to return in one response.</p><p><strong>Returns</strong></p><p><code>GetUserDefinedFunctionsResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>OperationTimeoutException</code> or <code>InternalServiceException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/GetUserDefinedFunctions">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.import_catalog_to_glue" href="#AWSSDK.Glue.import_catalog_to_glue"><code>AWSSDK.Glue.import_catalog_to_glue</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.import_catalog_to_glue
+import_catalog_to_glue([::AWSConfig], arguments::Dict)
+import_catalog_to_glue([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;ImportCatalogToGlue&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;ImportCatalogToGlue&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>ImportCatalogToGlue Operation</strong></p><p>Imports an existing Athena Data Catalog to AWS Glue</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the catalog to import. Currently, this should be the AWS account ID.</p><p><strong>Returns</strong></p><p><code>ImportCatalogToGlueResponse</code></p><p><strong>Exceptions</strong></p><p><code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ImportCatalogToGlue">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.reset_job_bookmark" href="#AWSSDK.Glue.reset_job_bookmark"><code>AWSSDK.Glue.reset_job_bookmark</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.reset_job_bookmark
+reset_job_bookmark([::AWSConfig], arguments::Dict)
+reset_job_bookmark([::AWSConfig]; JobName=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;ResetJobBookmark&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;ResetJobBookmark&quot;, JobName=)</code></pre><p><strong>ResetJobBookmark Operation</strong></p><p>Resets a bookmark entry.</p><p><strong>Arguments</strong></p><p><strong><code>JobName = ::String</code> – <em>Required</em></strong></p><p>The name of the job in question.</p><p><strong>Returns</strong></p><p><code>ResetJobBookmarkResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/ResetJobBookmark">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.start_crawler" href="#AWSSDK.Glue.start_crawler"><code>AWSSDK.Glue.start_crawler</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.start_crawler
+start_crawler([::AWSConfig], arguments::Dict)
+start_crawler([::AWSConfig]; Name=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;StartCrawler&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;StartCrawler&quot;, Name=)</code></pre><p><strong>StartCrawler Operation</strong></p><p>Starts a crawl using the specified <code>Crawler</code>, regardless of what is scheduled. If the <code>Crawler</code> is already running, does nothing.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>Name of the <code>Crawler</code> to start.</p><p><strong>Returns</strong></p><p><code>StartCrawlerResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>CrawlerRunningException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartCrawler">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.start_crawler_schedule" href="#AWSSDK.Glue.start_crawler_schedule"><code>AWSSDK.Glue.start_crawler_schedule</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.start_crawler_schedule
+start_crawler_schedule([::AWSConfig], arguments::Dict)
+start_crawler_schedule([::AWSConfig]; CrawlerName=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;StartCrawlerSchedule&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;StartCrawlerSchedule&quot;, CrawlerName=)</code></pre><p><strong>StartCrawlerSchedule Operation</strong></p><p>Changes the schedule state of the specified crawler to <code>SCHEDULED</code>, unless the crawler is already running or the schedule state is already <code>SCHEDULED</code>.</p><p><strong>Arguments</strong></p><p><strong><code>CrawlerName = ::String</code> – <em>Required</em></strong></p><p>Name of the crawler to schedule.</p><p><strong>Returns</strong></p><p><code>StartCrawlerScheduleResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>SchedulerRunningException</code>, <code>SchedulerTransitioningException</code>, <code>NoScheduleException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartCrawlerSchedule">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.start_job_run" href="#AWSSDK.Glue.start_job_run"><code>AWSSDK.Glue.start_job_run</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.start_job_run
+start_job_run([::AWSConfig], arguments::Dict)
+start_job_run([::AWSConfig]; JobName=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;StartJobRun&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;StartJobRun&quot;, JobName=, &lt;keyword arguments&gt;)</code></pre><p><strong>StartJobRun Operation</strong></p><p>Runs a job.</p><p><strong>Arguments</strong></p><p><strong><code>JobName = ::String</code> – <em>Required</em></strong></p><p>The name of the job to start.</p><p><strong><code>JobRunId = ::String</code></strong></p><p>The ID of the job run to start.</p><p><strong><code>Arguments = ::Dict{String,String}</code></strong></p><p>Specific arguments for this job run.</p><p><strong><code>AllocatedCapacity = ::Int</code></strong></p><p>The infrastructure capacity to allocate to this job.</p><p><strong>Returns</strong></p><p><code>StartJobRunResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>EntityNotFoundException</code>, <code>InternalServiceException</code>, <code>OperationTimeoutException</code>, <code>ResourceNumberLimitExceededException</code> or <code>ConcurrentRunsExceededException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartJobRun">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.start_trigger" href="#AWSSDK.Glue.start_trigger"><code>AWSSDK.Glue.start_trigger</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.start_trigger
+start_trigger([::AWSConfig], arguments::Dict)
+start_trigger([::AWSConfig]; Name=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;StartTrigger&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;StartTrigger&quot;, Name=)</code></pre><p><strong>StartTrigger Operation</strong></p><p>Starts an existing trigger.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>The name of the trigger to start.</p><p><strong>Returns</strong></p><p><code>StartTriggerResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>InternalServiceException</code>, <code>EntityNotFoundException</code>, <code>OperationTimeoutException</code>, <code>ResourceNumberLimitExceededException</code> or <code>ConcurrentRunsExceededException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StartTrigger">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.stop_crawler" href="#AWSSDK.Glue.stop_crawler"><code>AWSSDK.Glue.stop_crawler</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.stop_crawler
+stop_crawler([::AWSConfig], arguments::Dict)
+stop_crawler([::AWSConfig]; Name=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;StopCrawler&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;StopCrawler&quot;, Name=)</code></pre><p><strong>StopCrawler Operation</strong></p><p>If the specified <code>Crawler</code> is running, stops the crawl.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>Name of the <code>Crawler</code> to stop.</p><p><strong>Returns</strong></p><p><code>StopCrawlerResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>CrawlerNotRunningException</code>, <code>CrawlerStoppingException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StopCrawler">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.stop_crawler_schedule" href="#AWSSDK.Glue.stop_crawler_schedule"><code>AWSSDK.Glue.stop_crawler_schedule</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.stop_crawler_schedule
+stop_crawler_schedule([::AWSConfig], arguments::Dict)
+stop_crawler_schedule([::AWSConfig]; CrawlerName=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;StopCrawlerSchedule&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;StopCrawlerSchedule&quot;, CrawlerName=)</code></pre><p><strong>StopCrawlerSchedule Operation</strong></p><p>Sets the schedule state of the specified crawler to <code>NOT_SCHEDULED</code>, but does not stop the crawler if it is already running.</p><p><strong>Arguments</strong></p><p><strong><code>CrawlerName = ::String</code> – <em>Required</em></strong></p><p>Name of the crawler whose schedule state to set.</p><p><strong>Returns</strong></p><p><code>StopCrawlerScheduleResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>SchedulerNotRunningException</code>, <code>SchedulerTransitioningException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StopCrawlerSchedule">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.stop_trigger" href="#AWSSDK.Glue.stop_trigger"><code>AWSSDK.Glue.stop_trigger</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.stop_trigger
+stop_trigger([::AWSConfig], arguments::Dict)
+stop_trigger([::AWSConfig]; Name=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;StopTrigger&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;StopTrigger&quot;, Name=)</code></pre><p><strong>StopTrigger Operation</strong></p><p>Stops a specified trigger.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>The name of the trigger to stop.</p><p><strong>Returns</strong></p><p><code>StopTriggerResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>InternalServiceException</code>, <code>EntityNotFoundException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/StopTrigger">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.update_classifier" href="#AWSSDK.Glue.update_classifier"><code>AWSSDK.Glue.update_classifier</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.update_classifier
+update_classifier([::AWSConfig], arguments::Dict)
+update_classifier([::AWSConfig]; &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;UpdateClassifier&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;UpdateClassifier&quot;, &lt;keyword arguments&gt;)</code></pre><p><strong>UpdateClassifier Operation</strong></p><p>Modifies an existing <code>Classifier</code>.</p><p><strong>Arguments</strong></p><p><strong><code>GrokClassifier = [ ... ]</code></strong></p><p>A <code>GrokClassifier</code> object with updated fields.</p><pre><code class="language-none"> GrokClassifier = [
+        &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Classification&quot; =&gt;  ::String,
+        &quot;GrokPattern&quot; =&gt;  ::String,
+        &quot;CustomPatterns&quot; =&gt;  ::String
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateClassifierResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>VersionMismatchException</code>, <code>EntityNotFoundException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateClassifier">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.update_connection" href="#AWSSDK.Glue.update_connection"><code>AWSSDK.Glue.update_connection</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.update_connection
+update_connection([::AWSConfig], arguments::Dict)
+update_connection([::AWSConfig]; Name=, ConnectionInput=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;UpdateConnection&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;UpdateConnection&quot;, Name=, ConnectionInput=, &lt;keyword arguments&gt;)</code></pre><p><strong>UpdateConnection Operation</strong></p><p>Updates a connection definition in the Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog in which the connection resides. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>The name of the connection definition to update.</p><p><strong><code>ConnectionInput = [ ... ]</code> – <em>Required</em></strong></p><p>A <code>ConnectionInput</code> object that redefines the connection in question.</p><pre><code class="language-none"> ConnectionInput = [
+        &quot;Name&quot; =&gt;  ::String,
+        &quot;Description&quot; =&gt;  ::String,
+        &quot;ConnectionType&quot; =&gt;  &quot;JDBC&quot; or &quot;SFTP&quot;,
+        &quot;MatchCriteria&quot; =&gt;  [::String, ...],
+        &quot;ConnectionProperties&quot; =&gt;  ::Dict{String,String},
+        &quot;PhysicalConnectionRequirements&quot; =&gt;  [
+            &quot;SubnetId&quot; =&gt;  ::String,
+            &quot;SecurityGroupIdList&quot; =&gt;  [::String, ...],
+            &quot;AvailabilityZone&quot; =&gt;  ::String
+        ]
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateConnectionResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>EntityNotFoundException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateConnection">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.update_crawler" href="#AWSSDK.Glue.update_crawler"><code>AWSSDK.Glue.update_crawler</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.update_crawler
+update_crawler([::AWSConfig], arguments::Dict)
+update_crawler([::AWSConfig]; Name=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;UpdateCrawler&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;UpdateCrawler&quot;, Name=, &lt;keyword arguments&gt;)</code></pre><p><strong>UpdateCrawler Operation</strong></p><p>Updates a <code>Crawler</code>. If a <code>Crawler</code> is running, you must stop it using <code>StopCrawler</code> before updating it.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>Name of the new <code>Crawler</code>.</p><p><strong><code>Role = ::String</code></strong></p><p>The AWS ARN of the IAM role used by the new <code>Crawler</code> to access customer resources.</p><p><strong><code>DatabaseName = ::String</code></strong></p><p>The Glue <code>Database</code> where results will be stored, such as: <code>arn:aws:daylight:us-east-1::database/sometable/*</code>.</p><p><strong><code>Description = ::String</code></strong></p><p>A description of the new <code>Crawler</code>.</p><p><strong><code>Targets = [ ... ]</code></strong></p><p>A list of collection of targets to crawl.</p><pre><code class="language-none"> Targets = [
+        &quot;S3Targets&quot; =&gt;  [[
+            &quot;Path&quot; =&gt;  ::String,
+            &quot;Exclusions&quot; =&gt;  [::String, ...]
+        ], ...],
+        &quot;JdbcTargets&quot; =&gt;  [[
+            &quot;ConnectionName&quot; =&gt;  ::String,
+            &quot;Path&quot; =&gt;  ::String,
+            &quot;Exclusions&quot; =&gt;  [::String, ...]
+        ], ...]
+    ]</code></pre><p><strong><code>Schedule = ::String</code></strong></p><p>A cron expression that can be used as a Cloudwatch event (see <a href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html">CloudWatch Schedule Expression Syntax</a>. For example, to run every day at 12:15 UTC, specify: <code>cron(15 12 * * ? *)</code>.</p><p><strong><code>Classifiers = [::String, ...]</code></strong></p><p>A list of custom <code>Classifier</code> names that the user has registered. By default, all AWS classifiers are included in a crawl, but these custom classifiers always override the default classifiers for a given classification.</p><p><strong><code>TablePrefix = ::String</code></strong></p><p>The table prefix used for catalog tables created.</p><p><strong><code>SchemaChangePolicy = [ ... ]</code></strong></p><p>Policy for the crawler&#39;s update and deletion behavior.</p><pre><code class="language-none"> SchemaChangePolicy = [
+        &quot;UpdateBehavior&quot; =&gt;  &quot;LOG&quot; or &quot;UPDATE_IN_DATABASE&quot;,
+        &quot;DeleteBehavior&quot; =&gt;  &quot;LOG&quot;, &quot;DELETE_FROM_DATABASE&quot; or &quot;DEPRECATE_IN_DATABASE&quot;
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateCrawlerResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>VersionMismatchException</code>, <code>EntityNotFoundException</code>, <code>CrawlerRunningException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateCrawler">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.update_crawler_schedule" href="#AWSSDK.Glue.update_crawler_schedule"><code>AWSSDK.Glue.update_crawler_schedule</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.update_crawler_schedule
+update_crawler_schedule([::AWSConfig], arguments::Dict)
+update_crawler_schedule([::AWSConfig]; CrawlerName=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;UpdateCrawlerSchedule&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;UpdateCrawlerSchedule&quot;, CrawlerName=, &lt;keyword arguments&gt;)</code></pre><p><strong>UpdateCrawlerSchedule Operation</strong></p><p>Updates the schedule of a crawler using a Cron expression.</p><p><strong>Arguments</strong></p><p><strong><code>CrawlerName = ::String</code> – <em>Required</em></strong></p><p>Name of the crawler whose schedule to update.</p><p><strong><code>Schedule = ::String</code></strong></p><p>Cron expression of the updated schedule.</p><p><strong>Returns</strong></p><p><code>UpdateCrawlerScheduleResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>VersionMismatchException</code>, <code>SchedulerTransitioningException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateCrawlerSchedule">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.update_database" href="#AWSSDK.Glue.update_database"><code>AWSSDK.Glue.update_database</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.update_database
+update_database([::AWSConfig], arguments::Dict)
+update_database([::AWSConfig]; Name=, DatabaseInput=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;UpdateDatabase&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;UpdateDatabase&quot;, Name=, DatabaseInput=, &lt;keyword arguments&gt;)</code></pre><p><strong>UpdateDatabase Operation</strong></p><p>Updates an existing database definition in a Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog in which the metadata database resides. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>The name of the metadata database to update in the catalog.</p><p><strong><code>DatabaseInput = [ ... ]</code> – <em>Required</em></strong></p><p>A <code>DatabaseInput</code> object specifying the new definition of the metadata database in the catalog.</p><pre><code class="language-none"> DatabaseInput = [
+        &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Description&quot; =&gt;  ::String,
+        &quot;LocationUri&quot; =&gt;  ::String,
+        &quot;Parameters&quot; =&gt;  ::Dict{String,String}
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateDatabaseResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateDatabase">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.update_dev_endpoint" href="#AWSSDK.Glue.update_dev_endpoint"><code>AWSSDK.Glue.update_dev_endpoint</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.update_dev_endpoint
+update_dev_endpoint([::AWSConfig], arguments::Dict)
+update_dev_endpoint([::AWSConfig]; EndpointName=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;UpdateDevEndpoint&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;UpdateDevEndpoint&quot;, EndpointName=, &lt;keyword arguments&gt;)</code></pre><p><strong>UpdateDevEndpoint Operation</strong></p><p>Updates a specified DevEndpoint.</p><p><strong>Arguments</strong></p><p><strong><code>EndpointName = ::String</code> – <em>Required</em></strong></p><p>The name of the DevEndpoint to be updated.</p><p><strong><code>PublicKey = ::String</code></strong></p><p>The public key for the DevEndpoint to use.</p><p><strong><code>CustomLibraries = [ ... ]</code></strong></p><p>Custom Python or Java custom libraries to be loaded in the DevEndpoint.</p><pre><code class="language-none"> CustomLibraries = [
+        &quot;ExtraPythonLibsS3Path&quot; =&gt;  ::String,
+        &quot;ExtraJarsS3Path&quot; =&gt;  ::String
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateDevEndpointResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InternalServiceException</code>, <code>OperationTimeoutException</code>, <code>InvalidInputException</code> or <code>ValidationException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateDevEndpoint">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.update_job" href="#AWSSDK.Glue.update_job"><code>AWSSDK.Glue.update_job</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.update_job
+update_job([::AWSConfig], arguments::Dict)
+update_job([::AWSConfig]; JobName=, JobUpdate=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;UpdateJob&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;UpdateJob&quot;, JobName=, JobUpdate=)</code></pre><p><strong>UpdateJob Operation</strong></p><p>Updates an existing job definition.</p><p><strong>Arguments</strong></p><p><strong><code>JobName = ::String</code> – <em>Required</em></strong></p><p>Name of the job definition to update.</p><p><strong><code>JobUpdate = [ ... ]</code> – <em>Required</em></strong></p><p>Specifies the values with which to update the job.</p><pre><code class="language-none"> JobUpdate = [
+        &quot;Description&quot; =&gt;  ::String,
+        &quot;LogUri&quot; =&gt;  ::String,
+        &quot;Role&quot; =&gt;  ::String,
+        &quot;ExecutionProperty&quot; =&gt;  [&quot;MaxConcurrentRuns&quot; =&gt;  ::Int],
+        &quot;Command&quot; =&gt;  [
+            &quot;Name&quot; =&gt;  ::String,
+            &quot;ScriptLocation&quot; =&gt;  ::String
+        ],
+        &quot;DefaultArguments&quot; =&gt;  ::Dict{String,String},
+        &quot;Connections&quot; =&gt;  [&quot;Connections&quot; =&gt;  [::String, ...]],
+        &quot;MaxRetries&quot; =&gt;  ::Int,
+        &quot;AllocatedCapacity&quot; =&gt;  ::Int
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateJobResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>EntityNotFoundException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateJob">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.update_partition" href="#AWSSDK.Glue.update_partition"><code>AWSSDK.Glue.update_partition</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.update_partition
+update_partition([::AWSConfig], arguments::Dict)
+update_partition([::AWSConfig]; DatabaseName=, TableName=, PartitionValueList=, PartitionInput=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;UpdatePartition&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;UpdatePartition&quot;, DatabaseName=, TableName=, PartitionValueList=, PartitionInput=, &lt;keyword arguments&gt;)</code></pre><p><strong>UpdatePartition Operation</strong></p><p>Updates a partition.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog where the partition to be updated resides. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the catalog database in which the table in question resides.</p><p><strong><code>TableName = ::String</code> – <em>Required</em></strong></p><p>The name of the table where the partition to be updated is located.</p><p><strong><code>PartitionValueList = [::String, ...]</code> – <em>Required</em></strong></p><p>A list of the values defining the partition.</p><p><strong><code>PartitionInput = [ ... ]</code> – <em>Required</em></strong></p><p>The new partition object to which to update the partition.</p><pre><code class="language-none"> PartitionInput = [
+        &quot;Values&quot; =&gt;  [::String, ...],
+        &quot;LastAccessTime&quot; =&gt;  timestamp,
+        &quot;StorageDescriptor&quot; =&gt;  [
+            &quot;Columns&quot; =&gt;  [[
+                &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+                &quot;Type&quot; =&gt;  ::String,
+                &quot;Comment&quot; =&gt;  ::String
+            ], ...],
+            &quot;Location&quot; =&gt;  ::String,
+            &quot;InputFormat&quot; =&gt;  ::String,
+            &quot;OutputFormat&quot; =&gt;  ::String,
+            &quot;Compressed&quot; =&gt;  ::Bool,
+            &quot;NumberOfBuckets&quot; =&gt;  ::Int,
+            &quot;SerdeInfo&quot; =&gt;  [
+                &quot;Name&quot; =&gt;  ::String,
+                &quot;SerializationLibrary&quot; =&gt;  ::String,
+                &quot;Parameters&quot; =&gt;  ::Dict{String,String}
+            ],
+            &quot;BucketColumns&quot; =&gt;  [::String, ...],
+            &quot;SortColumns&quot; =&gt;  [[
+                &quot;Column&quot; =&gt; &lt;required&gt; ::String,
+                &quot;SortOrder&quot; =&gt; &lt;required&gt; ::Int
+            ], ...],
+            &quot;Parameters&quot; =&gt;  ::Dict{String,String},
+            &quot;SkewedInfo&quot; =&gt;  [
+                &quot;SkewedColumnNames&quot; =&gt;  [::String, ...],
+                &quot;SkewedColumnValues&quot; =&gt;  [::String, ...],
+                &quot;SkewedColumnValueLocationMaps&quot; =&gt;  ::Dict{String,String}
+            ],
+            &quot;StoredAsSubDirectories&quot; =&gt;  ::Bool
+        ],
+        &quot;Parameters&quot; =&gt;  ::Dict{String,String},
+        &quot;LastAnalyzedTime&quot; =&gt;  timestamp
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdatePartitionResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdatePartition">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.update_table" href="#AWSSDK.Glue.update_table"><code>AWSSDK.Glue.update_table</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.update_table
+update_table([::AWSConfig], arguments::Dict)
+update_table([::AWSConfig]; DatabaseName=, TableInput=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;UpdateTable&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;UpdateTable&quot;, DatabaseName=, TableInput=, &lt;keyword arguments&gt;)</code></pre><p><strong>UpdateTable Operation</strong></p><p>Updates a metadata table in the Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog where the table resides. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the catalog database in which the table resides.</p><p><strong><code>TableInput = [ ... ]</code> – <em>Required</em></strong></p><p>An updated <code>TableInput</code> object to define the metadata table in the catalog.</p><pre><code class="language-none"> TableInput = [
+        &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+        &quot;Description&quot; =&gt;  ::String,
+        &quot;Owner&quot; =&gt;  ::String,
+        &quot;LastAccessTime&quot; =&gt;  timestamp,
+        &quot;LastAnalyzedTime&quot; =&gt;  timestamp,
+        &quot;Retention&quot; =&gt;  ::Int,
+        &quot;StorageDescriptor&quot; =&gt;  [
+            &quot;Columns&quot; =&gt;  [[
+                &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+                &quot;Type&quot; =&gt;  ::String,
+                &quot;Comment&quot; =&gt;  ::String
+            ], ...],
+            &quot;Location&quot; =&gt;  ::String,
+            &quot;InputFormat&quot; =&gt;  ::String,
+            &quot;OutputFormat&quot; =&gt;  ::String,
+            &quot;Compressed&quot; =&gt;  ::Bool,
+            &quot;NumberOfBuckets&quot; =&gt;  ::Int,
+            &quot;SerdeInfo&quot; =&gt;  [
+                &quot;Name&quot; =&gt;  ::String,
+                &quot;SerializationLibrary&quot; =&gt;  ::String,
+                &quot;Parameters&quot; =&gt;  ::Dict{String,String}
+            ],
+            &quot;BucketColumns&quot; =&gt;  [::String, ...],
+            &quot;SortColumns&quot; =&gt;  [[
+                &quot;Column&quot; =&gt; &lt;required&gt; ::String,
+                &quot;SortOrder&quot; =&gt; &lt;required&gt; ::Int
+            ], ...],
+            &quot;Parameters&quot; =&gt;  ::Dict{String,String},
+            &quot;SkewedInfo&quot; =&gt;  [
+                &quot;SkewedColumnNames&quot; =&gt;  [::String, ...],
+                &quot;SkewedColumnValues&quot; =&gt;  [::String, ...],
+                &quot;SkewedColumnValueLocationMaps&quot; =&gt;  ::Dict{String,String}
+            ],
+            &quot;StoredAsSubDirectories&quot; =&gt;  ::Bool
+        ],
+        &quot;PartitionKeys&quot; =&gt;  [[
+            &quot;Name&quot; =&gt; &lt;required&gt; ::String,
+            &quot;Type&quot; =&gt;  ::String,
+            &quot;Comment&quot; =&gt;  ::String
+        ], ...],
+        &quot;ViewOriginalText&quot; =&gt;  ::String,
+        &quot;ViewExpandedText&quot; =&gt;  ::String,
+        &quot;TableType&quot; =&gt;  ::String,
+        &quot;Parameters&quot; =&gt;  ::Dict{String,String}
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateTableResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code>, <code>OperationTimeoutException</code> or <code>ConcurrentModificationException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateTable">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.update_trigger" href="#AWSSDK.Glue.update_trigger"><code>AWSSDK.Glue.update_trigger</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.update_trigger
+update_trigger([::AWSConfig], arguments::Dict)
+update_trigger([::AWSConfig]; Name=, TriggerUpdate=)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;UpdateTrigger&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;UpdateTrigger&quot;, Name=, TriggerUpdate=)</code></pre><p><strong>UpdateTrigger Operation</strong></p><p>Updates a trigger definition.</p><p><strong>Arguments</strong></p><p><strong><code>Name = ::String</code> – <em>Required</em></strong></p><p>The name of the trigger to update.</p><p><strong><code>TriggerUpdate = [ ... ]</code> – <em>Required</em></strong></p><p>The new values with which to update the trigger.</p><pre><code class="language-none"> TriggerUpdate = [
+        &quot;Name&quot; =&gt;  ::String,
+        &quot;Description&quot; =&gt;  ::String,
+        &quot;Schedule&quot; =&gt;  ::String,
+        &quot;Actions&quot; =&gt;  [[
+            &quot;JobName&quot; =&gt;  ::String,
+            &quot;Arguments&quot; =&gt;  ::Dict{String,String}
+        ], ...],
+        &quot;Predicate&quot; =&gt;  [
+            &quot;Logical&quot; =&gt;  &quot;AND&quot;,
+            &quot;Conditions&quot; =&gt;  [[
+                &quot;LogicalOperator&quot; =&gt;  &quot;EQUALS&quot;,
+                &quot;JobName&quot; =&gt;  ::String,
+                &quot;State&quot; =&gt;  &quot;STARTING&quot;, &quot;RUNNING&quot;, &quot;STOPPING&quot;, &quot;STOPPED&quot;, &quot;SUCCEEDED&quot; or &quot;FAILED&quot;
+            ], ...]
+        ]
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateTriggerResponse</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>InternalServiceException</code>, <code>EntityNotFoundException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateTrigger">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.Glue.update_user_defined_function" href="#AWSSDK.Glue.update_user_defined_function"><code>AWSSDK.Glue.update_user_defined_function</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.Glue.update_user_defined_function
+update_user_defined_function([::AWSConfig], arguments::Dict)
+update_user_defined_function([::AWSConfig]; DatabaseName=, FunctionName=, FunctionInput=, &lt;keyword arguments&gt;)
+
+using AWSCore.Services.glue
+glue([::AWSConfig], &quot;UpdateUserDefinedFunction&quot;, arguments::Dict)
+glue([::AWSConfig], &quot;UpdateUserDefinedFunction&quot;, DatabaseName=, FunctionName=, FunctionInput=, &lt;keyword arguments&gt;)</code></pre><p><strong>UpdateUserDefinedFunction Operation</strong></p><p>Updates an existing function definition in the Data Catalog.</p><p><strong>Arguments</strong></p><p><strong><code>CatalogId = ::String</code></strong></p><p>The ID of the Data Catalog where the function to be updated is located. If none is supplied, the AWS account ID is used by default.</p><p><strong><code>DatabaseName = ::String</code> – <em>Required</em></strong></p><p>The name of the catalog database where the function to be updated is located.</p><p><strong><code>FunctionName = ::String</code> – <em>Required</em></strong></p><p>The name of the function.</p><p><strong><code>FunctionInput = [ ... ]</code> – <em>Required</em></strong></p><p>A <code>FunctionInput</code> object that re-defines the function in the Data Catalog.</p><pre><code class="language-none"> FunctionInput = [
+        &quot;FunctionName&quot; =&gt;  ::String,
+        &quot;ClassName&quot; =&gt;  ::String,
+        &quot;OwnerName&quot; =&gt;  ::String,
+        &quot;OwnerType&quot; =&gt;  &quot;USER&quot;, &quot;ROLE&quot; or &quot;GROUP&quot;,
+        &quot;ResourceUris&quot; =&gt;  [[
+            &quot;ResourceType&quot; =&gt;  &quot;JAR&quot;, &quot;FILE&quot; or &quot;ARCHIVE&quot;,
+            &quot;Uri&quot; =&gt;  ::String
+        ], ...]
+    ]</code></pre><p><strong>Returns</strong></p><p><code>UpdateUserDefinedFunctionResponse</code></p><p><strong>Exceptions</strong></p><p><code>EntityNotFoundException</code>, <code>InvalidInputException</code>, <code>InternalServiceException</code> or <code>OperationTimeoutException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/glue-2017-03-31/UpdateUserDefinedFunction">AWS API Documentation</a></p></div></section><footer><hr/><a class="previous" href="AWSSDK.Glacier.html"><span class="direction">Previous</span><span class="title">AWSSDK.Glacier.jl</span></a><a class="next" href="AWSSDK.Greengrass.html"><span class="direction">Next</span><span class="title">AWSSDK.Greengrass.jl</span></a></footer></article></body></html>

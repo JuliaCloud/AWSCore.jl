@@ -56,7 +56,7 @@ AWS OpsWorks Stacks supports the following endpoints, all HTTPS. You must connec
 
 **Chef Versions**
 
-When you call [CreateStack](@ref), [CloneStack](@ref), or [UpdateStack](@ref) we recommend you use the `ConfigurationManager` parameter to specify the Chef version. The recommended and default value for Linux stacks is currently 12\. Windows stacks use Chef 12.2\. For more information, see [Chef Versions](http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-chef11.html).
+When you call [CreateStack](@ref), [CloneStack](@ref), or [UpdateStack](@ref) we recommend you use the `ConfigurationManager` parameter to specify the Chef version. The recommended and default value for Linux stacks is currently 12. Windows stacks use Chef 12.2. For more information, see [Chef Versions](http://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-chef11.html).
 
 **Note**
 > You can specify Chef 12, 11.10, or 11.4 for your Linux stack. We recommend migrating your existing Linux stacks to Chef 12 as soon as possible.

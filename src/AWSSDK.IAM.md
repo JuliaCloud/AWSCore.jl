@@ -13,7 +13,7 @@ We recommend that you use the AWS SDKs to make programmatic API calls to IAM. Ho
 
 Requests must be signed using an access key ID and a secret access key. We strongly recommend that you do not use your AWS account access key ID and secret access key for everyday work with IAM. You can use the access key ID and secret access key for an IAM user or you can use the AWS Security Token Service to generate temporary security credentials and use those to sign requests.
 
-To sign requests, we recommend that you use [Signature Version 4](http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html). If you have an existing application that uses Signature Version 2, you do not have to update it to use Signature Version 4\. However, some operations now require Signature Version 4\. The documentation for operations that require version 4 indicate this requirement.
+To sign requests, we recommend that you use [Signature Version 4](http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html). If you have an existing application that uses Signature Version 2, you do not have to update it to use Signature Version 4. However, some operations now require Signature Version 4. The documentation for operations that require version 4 indicate this requirement.
 
 **Additional Resources**
 

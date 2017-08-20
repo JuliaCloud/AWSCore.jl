@@ -14,7 +14,7 @@ Use the following links to get started using the *AWS Storage Gateway Service AP
 
 *   [Operations in AWS Storage Gateway](http://docs.aws.amazon.com/storagegateway/latest/APIReference/API_Operations.html): Contains detailed descriptions of all AWS Storage Gateway operations, their request parameters, response elements, possible errors, and examples of requests and responses.
 
-*   [AWS Storage Gateway Regions and Endpoints](http://docs.aws.amazon.com/general/latest/general/latest/gr/rande.html#sg_region): Provides a list of each region and endpoints available for use with AWS Storage Gateway.
+*   [AWS Storage Gateway Regions and Endpoints:](http://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region) Provides a list of each region and endpoints available for use with AWS Storage Gateway.
 
 **Note**
 > AWS Storage Gateway resource IDs are in uppercase. When you use these resource IDs with the Amazon EC2 API, EC2 expects resource IDs in lowercase. You must change your resource ID to lowercase to use it with the EC2 API. For example, in Storage Gateway the ID for a volume might be `vol-AA22BB012345DAF670`. When you use this ID with the EC2 API, you must change it to `vol-aa22bb012345daf670`. Otherwise, the EC2 API might not behave as expected.
