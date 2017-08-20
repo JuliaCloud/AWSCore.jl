@@ -57,7 +57,8 @@ function http_request(request::AWSRequest)
         return http_attempt(request)
 
     catch e
-        @delay_retry if typeof(e) == HTTP.RetryException end
+        @delay_retry if typeof(e) in [HTTP.RetryException,
+                                      MbedTLS.MbedException] end
         @delay_retry if http_status(e) < 200 ||
                         http_status(e) >= 500 end
     end
