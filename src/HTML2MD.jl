@@ -100,7 +100,12 @@ function html2md(html)
     html = replace(html, "\$", "\\\$")
     html = replace(html, "\"\"\"", "\\\"\\\"\\\"")
 
-    String(post(URI("http://localhost:$tcp_port"), html).data)
+    md = String(post(URI("http://localhost:$tcp_port"), html).data)
+
+    # Work around for https://github.com/domchristie/to-markdown/issues/181
+    md = replace(md, "\\.", ".")
+
+    return md
 end
 
 
