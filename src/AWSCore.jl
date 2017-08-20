@@ -14,7 +14,6 @@ module AWSCore
 export AWSException, AWSConfig, AWSRequest,
        aws_config, default_aws_config
 
-
 using Retry
 using SymDict
 using XMLDict
