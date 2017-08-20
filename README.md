@@ -1,33 +1,55 @@
-# AWSCore
+# AWSCore.jl
 
-Amazon Web Services Core Functions and Types.
+Julia interface for [Amazon Web Services](https://aws.amazon.com).
 
-[Documentation](https://juliacloud.github.io/AWSCore.jl/build/index.html)
+This package provides core infrastructure functions and types.
 
-See seperate modules for service interfaces:
+The [AWSSDK.jl](https://github.com/JuliaCloud/AWSSDK.jl) package provides
+automatically generated low-level API wrappers for each operation in each
+Amazon Web Service.
 
-| Package | Status |
-| --------| ------ |
-| [AWS S3](http://github.com/samoconnor/AWSS3.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSS3.jl.svg)](https://travis-ci.org/samoconnor/AWSS3.jl) |
-| [AWS SQS](http://github.com/samoconnor/AWSSQS.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSSQS.jl.svg)](https://travis-ci.org/samoconnor/AWSSQS.jl) |
-| [AWS SNS](http://github.com/samoconnor/AWSSNS.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSSNS.jl.svg)](https://travis-ci.org/samoconnor/AWSSNS.jl) |
-| [AWS IAM](http://github.com/samoconnor/AWSIAM.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSIAM.jl.svg)](https://travis-ci.org/samoconnor/AWSIAM.jl) |
-| [AWS EC2](http://github.com/samoconnor/AWSEC2.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSEC2.jl.svg)](https://travis-ci.org/samoconnor/AWSEC2.jl) |
-| [AWS Lambda](http://github.com/samoconnor/AWSLambda.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSLambda.jl.svg)](https://travis-ci.org/samoconnor/AWSLambda.jl) |
-| [AWS SES](http://github.com/samoconnor/AWSSES.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSSES.jl.svg)](https://travis-ci.org/samoconnor/AWSSES.jl) |
-| [AWS SDB](http://github.com/samoconnor/AWSSDB.jl) | [![Build Status](https://travis-ci.org/samoconnor/AWSSDB.jl.svg)](https://travis-ci.org/samoconnor/AWSSDB.jl) |
+The following high-level packages are also available:
+[AWS S3](http://github.com/samoconnor/AWSS3.jl),
+[AWS SQS](http://github.com/samoconnor/AWSSQS.jl),
+[AWS SNS](http://github.com/samoconnor/AWSSNS.jl),
+[AWS IAM](http://github.com/samoconnor/AWSIAM.jl),
+[AWS EC2](http://github.com/samoconnor/AWSEC2.jl),
+[AWS Lambda](http://github.com/samoconnor/AWSLambda.jl),
+[AWS SES](http://github.com/samoconnor/AWSSES.jl) and
+[AWS SDB](http://github.com/samoconnor/AWSSDB.jl).
+These packages include operation specific result structure parsing, error
+handling, type convenience functions, iterators, etc.
 
-[![Build Status](https://travis-ci.org/samoconnor/AWSCore.jl.svg)](https://travis-ci.org/samoconnor/AWSCore.jl)
+Full documentation [is available here](https://juliacloud.github.io/AWSCore.jl/build/index.html),
+or see below for some examples of how to get started.
 
-### Features
 
-AWS Signature Version 4.
+There are three ways to use `AWSCore`:
 
-Automatic HTTP request retry with exponential back-off.
+1. Call [`AWSCore/Services.jl`](https://github.com/JuliaCloud/AWSCore.jl/blob/master/src/Services.jl)
+functions directly:
+```julia
+using AWSCore.Services.cloudformation
+cloudformation("CreateStack",
+               StackName = "mystack",
+               TemplateBody = readstring("cloudformation_template.yaml"),
+               Parameters = [["ParameterKey"   => "Foo",
+                              "ParameterValue" => "bar"]],
+               Capabilities = ["CAPABILITY_IAM"])
+```
 
-Parsing of XML and JSON API error messages to AWSException type.
+2. Use the low-level [`AWSSDK`](https://github.com/JuliaCloud/AWSSDK.jl) wrappers:
+```
+using AWSSDK.S3.list_buckets
+r = list_buckets()
+buckets = [b["Name"] for b in r["Buckets"]["Bucket"]]
+```
 
-Automatic API Request retry in case of ExpiredToken or HTTP Redirect.
+3. Use one of the high-level convenience packages:
+```
+using AWSS3
+buckets = s3_list_buckets()
+```
 
 
 ### Examples
@@ -87,14 +109,4 @@ Create an IAM user...
 
 ```julia
 iam(aws, "CreateUser", {"UserName" => "me"})
-```
-
-
-Get a list of DynamoDB tables...
-
-(See [DynamoDB.jl](https://github.com/samuelpowell/DynamoDB.jl))
-
-```julia
-r = dynamodb(aws, "ListTables", "{}")
-println(r)
 ```
