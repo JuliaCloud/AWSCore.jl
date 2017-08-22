@@ -200,7 +200,10 @@ Service endpoint URL for `request`.
 
 function service_url(aws, request)
     endpoint = get(request, :endpoint, request[:service])
-    region = endpoint != "iam" ? "." * aws[:region] : ""
+    region = "." * aws[:region]
+    if endpoint == "iam" || (endpoint == "sdb" && region == ".us-east-1")
+        region = ""
+    end
     string("https://", endpoint, region, ".amazonaws.com",
            request[:resource])
 end
