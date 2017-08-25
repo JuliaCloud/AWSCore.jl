@@ -2,7 +2,7 @@
 
 Amazon Web Services Core Functions and Types.
 
-[https://github.com/samoconnor/AWSCore.jl](https://github.com/samoconnor/AWSCore.jl)
+[https://github.com/JuliaCloud/AWSCore.jl](https://github.com/JuliaCloud/AWSCore.jl)
 
 
 # AWSCore Configuration
