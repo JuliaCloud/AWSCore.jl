@@ -286,11 +286,10 @@ function service_operation(service, operation, info)
     @assert !ismatch(r"[{][^{}]+[}]", resource) || is_rest_service(service)
 
     m = service["metadata"]["juliaModule"]
-    mprefix = ismatch(r"^Amazon", m) ? "" : "AWSSDK."
 
     """
     \"\"\"
-        using $mprefix$m.$name
+        using AWSSDK.$m.$name
         $sig1
         $sig2
 
@@ -461,51 +460,13 @@ end
 function service_generate(name, definition)
 
     meta = definition["metadata"]
-    m = "Amazon$(name)"
-    meta["juliaModule"] = m
-
     println(meta["serviceFullName"])
-
-    pkg_dir = joinpath(Pkg.dir(), m)
-    src_path = joinpath(pkg_dir, "src", "$m.jl")
-    mkpath(dirname(src_path))
-    write(src_path, service_interface(definition))
+    meta["juliaModule"] = name
 
     sdk_dir = joinpath(Pkg.dir(), "AWSSDK")
     src_path = joinpath(sdk_dir, "src", "$name.jl")
     mkpath(dirname(src_path))
-    meta["juliaModule"] = name
     write(src_path, service_interface(definition))
-
-    write(joinpath(pkg_dir, "REQUIRE"),
-        """
-        julia 0.5
-        AWSCore
-        DataStructures
-        """)
-    write(joinpath(pkg_dir, "README.md"),
-        """
-        # $m.jl
-
-        Julia interface for [$(meta["serviceFullName"])](https://docs.aws.amazon.com/goto/WebAPI/$(meta["uid"]))
-
-        See [$m.jl API Reference](https://juliacloud.github.io/AWSCore.jl/build/$m.html).
-
-        See [JuliaCloud/AWSCore.jl](https://github.com/JuliaCloud/AWSCore.jl).
-
-
-        Please file issues under [JuliaCloud/AWSCore.jl/issues](https://github.com/JuliaCloud/AWSCore.jl/issues).
-
-        This module is generated from
-        [$(meta["sourceFile"])]($(meta["sourceURL"])).
-
-        ---
-
-        $(html2md(get(definition, "documentation", "")))
-        """)
-    cp(joinpath(@__DIR__, "..", "LICENSE.md"),
-       joinpath(pkg_dir, "LICENSE.md"),
-       remove_destination=true)
 
     write(joinpath(@__DIR__, "..", "..", "AWSCoreDoc", "src", "AWSSDK.$name.md"),
           service_documentation(definition))
