@@ -342,6 +342,7 @@ Convert AWSRequest dictionary into Requests.Request (Requests.jl)
 """
 
 function Request(r::AWSRequest)
+    println(r)
     Request(r[:verb], r[:resource], r[:headers], r[:content], URI(r[:url]))
 end
 
@@ -394,7 +395,7 @@ end
 include("sign.jl")
 
 
-pathencode(c) = c != UInt8('/') && HTTP.URIs.shouldencode(c)
+pathencode(c) = c != UInt8('/') && true #HTTP.URIs.shouldencode(c)
 escape_path(path) = HTTP.escape(path, pathencode)
 
 
