@@ -27,8 +27,6 @@ http_ok(r) = HTTP.status(r) in [200, 201, 202, 204, 206]
 
 
 function http_attempt(request::AWSRequest)
-
-
     response = HTTP.request(HTTP.Client(STDOUT),
                             HTTP.Request(request[:verb],
                                          Int16(1), Int16(1),
@@ -39,8 +37,10 @@ function http_attempt(request::AWSRequest)
                                                 readtimeout = 600,
                                                 allowredirects = false,
                                                 retries = 0),
-                            stream = get(request, :return_stream, false),
-                            verbose = debug_level > 1)
+                            get(request, :return_stream, false),
+                            HTTP.Response[],
+                            0,
+                            debug_level > 1)
 
     if !http_ok(response)
         throw(HTTPException(response))
@@ -51,7 +51,6 @@ end
 
 
 function http_request(request::AWSRequest)
-
     @repeat 4 try 
 
         return http_attempt(request)
