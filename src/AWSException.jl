@@ -19,7 +19,7 @@ function Base.show(io::IO,e::AWSException)
 end
 
 
-function AWSException(e::HTTPException)
+function AWSException(e::HTTP.StatusError)
 
     code = string(http_status(e))
     message = "AWSException"

@@ -394,8 +394,9 @@ end
 include("sign.jl")
 
 
-pathencode(c) = c != UInt8('/') && HTTP.URIs.shouldencode(c)
-escape_path(path) = HTTP.escape(path, pathencode)
+
+ispathsafe(c::Char) = c == '/' || HTTP.URIs.issafe(c)
+escape_path(path) = HTTP.escape(path, ispathsafe)
 
 
 """
