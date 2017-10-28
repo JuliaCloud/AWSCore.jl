@@ -259,7 +259,8 @@ function dot_aws_credentials()
 
     ini = read(Inifile(), dot_aws_credentials_file())
 
-    profile = get(ENV, "AWS_DEFAULT_PROFILE", "default")
+    profile = get(ENV, "AWS_DEFAULT_PROFILE",
+              get(ENV, "AWS_PROFILE", "default"))
 
     if debug_level > 0
         print("Loading \"$profile\" AWSCredentials from " *
