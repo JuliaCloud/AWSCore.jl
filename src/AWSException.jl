@@ -10,7 +10,7 @@ import JSON: json
 
 export AWSException
 
-abstract AWSException <: Exception
+abstract type AWSException <: Exception end
 
 function Base.show(io::IO,e::AWSException)
     println(io, string(e.code,
