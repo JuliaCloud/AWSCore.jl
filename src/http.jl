@@ -30,11 +30,12 @@ function http_request(request::AWSRequest)
                             readtimeout = 600,
                             allowredirects = false,
                             statusraise = true,
-                            retries = 0)
+                            retries = 0,
+                            canonicalizeheaders = false)
 
     catch e
-        @delay_retry if isa(e, HTTP.HTTPError) ||
-                        isa(e, MbedTLS.MbedException) end
+        @delay_retry if isa(e, HTTP.HTTPError) &&
+                        !isa(e, HTTP.StatusError) end
         @delay_retry if http_status(e) < 200 ||
                         http_status(e) >= 500 end
     end
@@ -43,10 +44,12 @@ function http_request(request::AWSRequest)
 end
 
 
-function http_request(host::String, resource::String)
+function http_get(url::String)
+
+    host = HTTP.URIs.hostname(HTTP.URI(url))
 
     http_request(@SymDict(verb = "GET",
-                          url = "$host$resource",
+                          url = url,
                           headers = Dict("Host" => host),
                           content = UInt8[]))
 end

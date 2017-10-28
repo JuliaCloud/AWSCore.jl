@@ -457,6 +457,16 @@ function do_request(r::AWSRequest)
         end
     end
 
+    if debug_level > 1
+        display(response)
+        println()
+    end
+
+    # For HEAD request, return headers...
+    if r[:verb] == "HEAD"
+        return HTTP.headers(response)
+    end
+
     # Return response stream if requested...
     if get(r, :return_stream, false)
         return HTTP.body(response)
@@ -498,11 +508,6 @@ function do_request(r::AWSRequest)
 
     if ismatch(r"^text/", mime)
         return String(take!(response))
-    end
-
-    # If there is no reponse data, return raw response object...
-    if length(mime == "" && HTTP.body(response)) < 1
-        return response
     end
 
     # Return raw data by default...
