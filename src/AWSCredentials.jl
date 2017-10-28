@@ -54,34 +54,40 @@ function Base.show(io::IO,c::AWSCredentials)
                        ")")
 end
 
+function Base.copy!(dest::AWSCredentials, src::AWSCredentials)
+    for f in fieldnames(dest)
+        setfield!(dest, f, getfield(src, f))
+    end
+end
+
 
 function AWSCredentials()
 
     if haskey(ENV, "AWS_ACCESS_KEY_ID")
 
-        aws = env_instance_credentials()
+        creds = env_instance_credentials()
 
     elseif isfile(dot_aws_credentials_file())
 
-        aws = dot_aws_credentials()
+        creds = dot_aws_credentials()
 
     elseif localhost_is_ec2()
 
         if haskey(ENV, "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
-            aws = ecs_instance_credentials()
+            creds = ecs_instance_credentials()
         else
-            aws = ec2_instance_credentials()
+            creds = ec2_instance_credentials()
         end
     else
         error("Can't find AWS credentials!")
     end
 
     if debug_level > 0
-        display(aws)
+        display(creds)
         println()
     end
 
-    return aws
+    return creds
 end
 
 

@@ -421,7 +421,7 @@ function do_request(r::AWSRequest)
 
         # Load local system credentials if needed...
         if !haskey(r, :creds) || r[:creds].token == "ExpiredToken"
-            r[:creds] = AWSCredentials()
+            copy!(r[:creds], AWSCredentials())
         end
 
         # Use credentials to sign request...
