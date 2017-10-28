@@ -88,12 +88,12 @@ aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
 If your `~/.aws/credentials` file contains multiple profiles you can
-select a profile by setting the `AWS_DEFAULT_PROFILE` environment variable.
+select a profile by setting the `AWS_PROFILE` environment variable.
 
 `aws_config` understands the following [AWS CLI environment
 variables](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#cli-environment):
 `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`,
-`AWS_DEFAULT_REGION`, `AWS_DEFAULT_PROFILE` and `AWS_CONFIG_FILE`.
+`AWS_DEFAULT_REGION`, `AWS_PROFILE` and `AWS_CONFIG_FILE`.
 
 
 An configuration dictionary can also be created directly from a key pair
