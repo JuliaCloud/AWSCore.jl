@@ -18,7 +18,6 @@ using Retry
 using SymDict
 using XMLDict
 using HTTP
-using URIParser: URI, query_params
 
 
 """
@@ -338,24 +337,6 @@ end
 
 
 """
-Convert AWSRequest dictionary into Requests.Request (Requests.jl)
-"""
-
-function Request(r::AWSRequest)
-    Request(r[:verb], r[:resource], r[:headers], r[:content], URI(r[:url]))
-end
-
-
-"""
-Call http_request for AWSRequest.
-"""
-
-function http_request(request::AWSRequest, args...)
-    http_request(Request(request), get(request, :return_stream, false))
-end
-
-
-"""
 Pretty-print AWSRequest dictionary.
 """
 
@@ -417,7 +398,7 @@ function do_request(r::AWSRequest)
             r[:headers] = Dict{String,String}()
         end
         r[:headers]["User-Agent"] = "AWSCore.jl/0.0.0"
-        r[:headers]["Host"]       = URI(r[:url]).host
+        r[:headers]["Host"]       = HTTP.URIs.host(HTTP.URI(r[:url]))
 
         # Load local system credentials if needed...
         if !haskey(r, :creds) || r[:creds].token == "ExpiredToken"

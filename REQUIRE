@@ -4,7 +4,6 @@ SymDict 0.1.2
 XMLDict
 JSON
 IniFile
-URIParser 0.1.2
-HTTP 0.5.2
+HTTP 0.5.4
 MbedTLS
 DataStructures

@@ -26,8 +26,6 @@ end
 
 function sign_aws2!(r::AWSRequest, t)
 
-    uri = URI(r[:url])
-
     query = Dict{AbstractString,AbstractString}()
     for elem in split(r[:content], '&', keep=false)
         (n, v) = split(elem, "=")
@@ -48,7 +46,8 @@ function sign_aws2!(r::AWSRequest, t)
 
     query = Pair[k => query[k] for k in sort(collect(keys(query)))]
 
-    to_sign = "POST\n$(uri.host)\n$(uri.path)\n$(HTTP.escape(query))"
+    u = HTTP.URI(r[:url])
+    to_sign = "POST\n$(HTTP.host(u))\n$(HTTP.path(u))\n$(HTTP.escape(query))"
 
     secret = r[:creds].secret_key
     push!(query, "Signature" =>
@@ -99,14 +98,15 @@ function sign_aws4!(r::AWSRequest, t)
     signed_headers = join(sort([lowercase(k) for k in keys(r[:headers])]), ";")
 
     # Sort Query String...
-    uri = URI(r[:url])
-    query = query_params(uri)
+    query = query_params(HTTP.query(HTTP.URI(r[:url])))
     query = Pair[k => query[k] for k in sort(collect(keys(query)))]
+
+    path = HTTP.path(HTTP.URI(r[:url]))
 
     # Create hash of canonical request...
     canonical_form = string(r[:verb], "\n",
-                            r[:service] == "s3" ? uri.path
-                                                : escape_path(uri.path), "\n",
+                            r[:service] == "s3" ? path
+                                                : escape_path(path), "\n",
                             HTTP.escape(query), "\n",
                             join(sort(canonical_headers), "\n"), "\n\n",
                             signed_headers, "\n",
@@ -124,6 +124,14 @@ function sign_aws4!(r::AWSRequest, t)
         "SignedHeaders=$signed_headers, ",
         "Signature=$signature"
     )
+end
+
+
+# FIXME https://github.com/JuliaWeb/HTTP.jl/issues/104
+function query_params(query::AbstractString)
+    Dict(HTTP.unescape(k) => HTTP.unescape(v)
+        for (k,v) in ([split(e, "=")..., ""][1:2]
+            for e in split(query, "&", keep=false)))
 end
 
 
