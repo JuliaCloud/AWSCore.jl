@@ -1,9 +1,9 @@
 all:
 	@echo "usage: make generate"
-	@echo "       Generates packages: ../../AWSSDK and ../../Amazon*"
+	@echo "       Generates package: ../../AWSSDK"
 
 generate:
-	julia -e 'using AWSAPI; AWSAPI.generate_all()'
+	JULIA_LOAD_PATH=. julia -e 'using AWSAPI; AWSAPI.generate_all()'
 
 clean:
 	rm -rf aws-sdk-js
