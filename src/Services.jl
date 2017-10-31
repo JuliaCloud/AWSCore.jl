@@ -1174,6 +1174,23 @@ meteringmarketplace(operation, args=[]) =
 
 meteringmarketplace(a...; b...) = meteringmarketplace(a..., b)
 
+function mobile(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "AWSMobileHubService",
+        version      = "2017-07-01",
+        endpoint     = "mobile",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+mobile(verb, resource, args=[]) =
+    mobile(default_aws_config(), verb, resource, args)
+
+mobile(a...; b...) = mobile(a..., b)
+
 function mobileanalytics(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
