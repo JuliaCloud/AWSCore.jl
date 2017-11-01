@@ -18,7 +18,7 @@ Application Auto Scaling can scale the following AWS resources:
 
 *   AppStream 2.0 fleets. For more information, see [Fleet Auto Scaling for Amazon AppStream 2.0](http://docs.aws.amazon.com/appstream2/latest/developerguide/autoscaling.html) in the *Amazon AppStream 2.0 Developer Guide*.
 
-*   Provisioned read and write capacity for Amazon DynamoDB tables and global secondary indexes. For more information, see [Auto Scaling for DynamoDB](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TargetTracking.html) in the *Amazon DynamoDB Developer Guide*.
+*   Provisioned read and write capacity for Amazon DynamoDB tables and global secondary indexes. For more information, see [Managing Throughput Capacity Automatically with DynamoDB Auto Scaling](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/AutoScaling.html) in the *Amazon DynamoDB Developer Guide*.
 
 For a list of supported regions, see [AWS Regions and Endpoints: Application Auto Scaling](http://docs.aws.amazon.com/general/latest/gr/rande.html#as-app_region) in the *AWS General Reference*.
 

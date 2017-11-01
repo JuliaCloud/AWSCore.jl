@@ -8,6 +8,8 @@ This reference is intended to be used with the [Amazon EC2 Systems Manager User 
 
 To get started, verify prerequisites and configure managed instances. For more information, see [Systems Manager Prerequisites](http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-setting-up.html).
 
+For information about other API actions you can perform on Amazon EC2 instances, see the [Amazon EC2 API Reference](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/). For information about how to use a Query API, see [Making API Requests](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/making-api-requests.html).
+
 This document is generated from
 [apis/ssm-2014-11-06.normal.json](https://github.com/aws/aws-sdk-js/blob/master/apis/ssm-2014-11-06.normal.json).
 See [JuliaCloud/AWSCore.jl](https://github.com/JuliaCloud/AWSCore.jl).

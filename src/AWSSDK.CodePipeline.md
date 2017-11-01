@@ -16,13 +16,15 @@ You can work with pipelines by calling:
 
 *   [DeletePipeline](@ref), which deletes the specified pipeline.
 
-*   [GetPipeline](@ref), which returns information about a pipeline structure.
+*   [GetPipeline](@ref), which returns information about the pipeline structure and pipeline metadata, including the pipeline Amazon Resource Name (ARN).
 
 *   [GetPipelineExecution](@ref), which returns information about a specific execution of a pipeline.
 
 *   [GetPipelineState](@ref), which returns information about the current state of the stages and actions of a pipeline.
 
 *   [ListPipelines](@ref), which gets a summary of all of the pipelines associated with your account.
+
+*   [ListPipelineExecutions](@ref), which gets a summary of the most recent executions for a pipeline.
 
 *   [StartPipelineExecution](@ref), which runs the the most recent revision of an artifact through the pipeline.
 

@@ -1,11 +1,278 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>AWSSDK.CodeBuild.jl · AWSCore.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link href="assets/highlightjs/default.css" rel="stylesheet" type="text/css"/><link href="assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>AWSCore.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="index.html">AWSCore.jl</a></li><li><a class="toctext" href="AWSS3.html">AWSS3.jl</a></li><li><a class="toctext" href="AWSSQS.html">AWSSQS.jl</a></li><li><a class="toctext" href="AWSSES.html">AWSSES.jl</a></li><li><a class="toctext" href="AWSSNS.html">AWSSNS.jl</a></li><li><a class="toctext" href="AWSSDK.MigrationHub.html">AWSSDK.MigrationHub.jl</a></li><li><a class="toctext" href="AWSSDK.ACM.html">AWSSDK.ACM.jl</a></li><li><a class="toctext" href="AWSSDK.APIGateway.html">AWSSDK.APIGateway.jl</a></li><li><a class="toctext" href="AWSSDK.ApplicationAutoScaling.html">AWSSDK.ApplicationAutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.AppStream.html">AWSSDK.AppStream.jl</a></li><li><a class="toctext" href="AWSSDK.Athena.html">AWSSDK.Athena.jl</a></li><li><a class="toctext" href="AWSSDK.AutoScaling.html">AWSSDK.AutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.Batch.html">AWSSDK.Batch.jl</a></li><li><a class="toctext" href="AWSSDK.Budgets.html">AWSSDK.Budgets.jl</a></li><li><a class="toctext" href="AWSSDK.CloudDirectory.html">AWSSDK.CloudDirectory.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFormation.html">AWSSDK.CloudFormation.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFront.html">AWSSDK.CloudFront.jl</a></li><li><a class="toctext" href="AWSSDK.CloudHSM.html">AWSSDK.CloudHSM.jl</a></li><li><a class="toctext" href="AWSSDK.CloudHSMV2.html">AWSSDK.CloudHSMV2.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearch.html">AWSSDK.CloudSearch.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearchDomain.html">AWSSDK.CloudSearchDomain.jl</a></li><li><a class="toctext" href="AWSSDK.CloudTrail.html">AWSSDK.CloudTrail.jl</a></li><li class="current"><a class="toctext" href="AWSSDK.CodeBuild.html">AWSSDK.CodeBuild.jl</a><ul class="internal"><li class="toplevel"><a class="toctext" href="#AWS-CodeBuild-1">AWS CodeBuild</a></li></ul></li><li><a class="toctext" href="AWSSDK.CodeCommit.html">AWSSDK.CodeCommit.jl</a></li><li><a class="toctext" href="AWSSDK.CodeDeploy.html">AWSSDK.CodeDeploy.jl</a></li><li><a class="toctext" href="AWSSDK.CodePipeline.html">AWSSDK.CodePipeline.jl</a></li><li><a class="toctext" href="AWSSDK.CodeStar.html">AWSSDK.CodeStar.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentity.html">AWSSDK.CognitoIdentity.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentityServiceProvider.html">AWSSDK.CognitoIdentityServiceProvider.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoSync.html">AWSSDK.CognitoSync.jl</a></li><li><a class="toctext" href="AWSSDK.ConfigService.html">AWSSDK.ConfigService.jl</a></li><li><a class="toctext" href="AWSSDK.CUR.html">AWSSDK.CUR.jl</a></li><li><a class="toctext" href="AWSSDK.DataPipeline.html">AWSSDK.DataPipeline.jl</a></li><li><a class="toctext" href="AWSSDK.DAX.html">AWSSDK.DAX.jl</a></li><li><a class="toctext" href="AWSSDK.DeviceFarm.html">AWSSDK.DeviceFarm.jl</a></li><li><a class="toctext" href="AWSSDK.DirectConnect.html">AWSSDK.DirectConnect.jl</a></li><li><a class="toctext" href="AWSSDK.Discovery.html">AWSSDK.Discovery.jl</a></li><li><a class="toctext" href="AWSSDK.DMS.html">AWSSDK.DMS.jl</a></li><li><a class="toctext" href="AWSSDK.DirectoryService.html">AWSSDK.DirectoryService.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDB.html">AWSSDK.DynamoDB.jl</a></li><li><a class="toctext" href="AWSSDK.EC2.html">AWSSDK.EC2.jl</a></li><li><a class="toctext" href="AWSSDK.ECR.html">AWSSDK.ECR.jl</a></li><li><a class="toctext" href="AWSSDK.ECS.html">AWSSDK.ECS.jl</a></li><li><a class="toctext" href="AWSSDK.ElastiCache.html">AWSSDK.ElastiCache.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticBeanstalk.html">AWSSDK.ElasticBeanstalk.jl</a></li><li><a class="toctext" href="AWSSDK.EFS.html">AWSSDK.EFS.jl</a></li><li><a class="toctext" href="AWSSDK.ELB.html">AWSSDK.ELB.jl</a></li><li><a class="toctext" href="AWSSDK.ELBv2.html">AWSSDK.ELBv2.jl</a></li><li><a class="toctext" href="AWSSDK.EMR.html">AWSSDK.EMR.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticTranscoder.html">AWSSDK.ElasticTranscoder.jl</a></li><li><a class="toctext" href="AWSSDK.SES.html">AWSSDK.SES.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceEntitlementService.html">AWSSDK.MarketplaceEntitlementService.jl</a></li><li><a class="toctext" href="AWSSDK.ES.html">AWSSDK.ES.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchEvents.html">AWSSDK.CloudWatchEvents.jl</a></li><li><a class="toctext" href="AWSSDK.Firehose.html">AWSSDK.Firehose.jl</a></li><li><a class="toctext" href="AWSSDK.GameLift.html">AWSSDK.GameLift.jl</a></li><li><a class="toctext" href="AWSSDK.Glacier.html">AWSSDK.Glacier.jl</a></li><li><a class="toctext" href="AWSSDK.Glue.html">AWSSDK.Glue.jl</a></li><li><a class="toctext" href="AWSSDK.Greengrass.html">AWSSDK.Greengrass.jl</a></li><li><a class="toctext" href="AWSSDK.Health.html">AWSSDK.Health.jl</a></li><li><a class="toctext" href="AWSSDK.IAM.html">AWSSDK.IAM.jl</a></li><li><a class="toctext" href="AWSSDK.ImportExport.html">AWSSDK.ImportExport.jl</a></li><li><a class="toctext" href="AWSSDK.Inspector.html">AWSSDK.Inspector.jl</a></li><li><a class="toctext" href="AWSSDK.Iot.html">AWSSDK.Iot.jl</a></li><li><a class="toctext" href="AWSSDK.IotData.html">AWSSDK.IotData.jl</a></li><li><a class="toctext" href="AWSSDK.Kinesis.html">AWSSDK.Kinesis.jl</a></li><li><a class="toctext" href="AWSSDK.KinesisAnalytics.html">AWSSDK.KinesisAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.KMS.html">AWSSDK.KMS.jl</a></li><li><a class="toctext" href="AWSSDK.Lambda.html">AWSSDK.Lambda.jl</a></li><li><a class="toctext" href="AWSSDK.LexModelBuildingService.html">AWSSDK.LexModelBuildingService.jl</a></li><li><a class="toctext" href="AWSSDK.Lightsail.html">AWSSDK.Lightsail.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchLogs.html">AWSSDK.CloudWatchLogs.jl</a></li><li><a class="toctext" href="AWSSDK.MachineLearning.html">AWSSDK.MachineLearning.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceCommerceAnalytics.html">AWSSDK.MarketplaceCommerceAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceMetering.html">AWSSDK.MarketplaceMetering.jl</a></li><li><a class="toctext" href="AWSSDK.MobileAnalytics.html">AWSSDK.MobileAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatch.html">AWSSDK.CloudWatch.jl</a></li><li><a class="toctext" href="AWSSDK.MTurk.html">AWSSDK.MTurk.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorks.html">AWSSDK.OpsWorks.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorksCM.html">AWSSDK.OpsWorksCM.jl</a></li><li><a class="toctext" href="AWSSDK.Organizations.html">AWSSDK.Organizations.jl</a></li><li><a class="toctext" href="AWSSDK.Pinpoint.html">AWSSDK.Pinpoint.jl</a></li><li><a class="toctext" href="AWSSDK.Polly.html">AWSSDK.Polly.jl</a></li><li><a class="toctext" href="AWSSDK.RDS.html">AWSSDK.RDS.jl</a></li><li><a class="toctext" href="AWSSDK.Redshift.html">AWSSDK.Redshift.jl</a></li><li><a class="toctext" href="AWSSDK.Rekognition.html">AWSSDK.Rekognition.jl</a></li><li><a class="toctext" href="AWSSDK.ResourceGroupsTaggingAPI.html">AWSSDK.ResourceGroupsTaggingAPI.jl</a></li><li><a class="toctext" href="AWSSDK.Route53.html">AWSSDK.Route53.jl</a></li><li><a class="toctext" href="AWSSDK.Route53Domains.html">AWSSDK.Route53Domains.jl</a></li><li><a class="toctext" href="AWSSDK.LexRuntime.html">AWSSDK.LexRuntime.jl</a></li><li><a class="toctext" href="AWSSDK.S3.html">AWSSDK.S3.jl</a></li><li><a class="toctext" href="AWSSDK.SimpleDB.html">AWSSDK.SimpleDB.jl</a></li><li><a class="toctext" href="AWSSDK.ServiceCatalog.html">AWSSDK.ServiceCatalog.jl</a></li><li><a class="toctext" href="AWSSDK.Shield.html">AWSSDK.Shield.jl</a></li><li><a class="toctext" href="AWSSDK.SMS.html">AWSSDK.SMS.jl</a></li><li><a class="toctext" href="AWSSDK.Snowball.html">AWSSDK.Snowball.jl</a></li><li><a class="toctext" href="AWSSDK.SNS.html">AWSSDK.SNS.jl</a></li><li><a class="toctext" href="AWSSDK.SQS.html">AWSSDK.SQS.jl</a></li><li><a class="toctext" href="AWSSDK.SSM.html">AWSSDK.SSM.jl</a></li><li><a class="toctext" href="AWSSDK.StepFunctions.html">AWSSDK.StepFunctions.jl</a></li><li><a class="toctext" href="AWSSDK.StorageGateway.html">AWSSDK.StorageGateway.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDBStreams.html">AWSSDK.DynamoDBStreams.jl</a></li><li><a class="toctext" href="AWSSDK.STS.html">AWSSDK.STS.jl</a></li><li><a class="toctext" href="AWSSDK.Support.html">AWSSDK.Support.jl</a></li><li><a class="toctext" href="AWSSDK.SWF.html">AWSSDK.SWF.jl</a></li><li><a class="toctext" href="AWSSDK.WAF.html">AWSSDK.WAF.jl</a></li><li><a class="toctext" href="AWSSDK.WAFRegional.html">AWSSDK.WAFRegional.jl</a></li><li><a class="toctext" href="AWSSDK.WorkDocs.html">AWSSDK.WorkDocs.jl</a></li><li><a class="toctext" href="AWSSDK.WorkSpaces.html">AWSSDK.WorkSpaces.jl</a></li><li><a class="toctext" href="AWSSDK.XRay.html">AWSSDK.XRay.jl</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href="AWSSDK.CodeBuild.html">AWSSDK.CodeBuild.jl</a></li></ul><a class="edit-page" href="https://github.com/JuliaCloud/AWSCore.jl/tree/068f86262610c7377996c39b9a2eb606b49f5d42/src/AWSSDK.CodeBuild.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>AWSSDK.CodeBuild.jl</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="AWSSDK.CodeBuild-1" href="#AWSSDK.CodeBuild-1">AWSSDK.CodeBuild</a></h1><h1><a class="nav-anchor" id="AWS-CodeBuild-1" href="#AWS-CodeBuild-1">AWS CodeBuild</a></h1><p>AWS CodeBuild is a fully managed build service in the cloud. AWS CodeBuild compiles your source code, runs unit tests, and produces artifacts that are ready to deploy. AWS CodeBuild eliminates the need to provision, manage, and scale your own build servers. It provides prepackaged build environments for the most popular programming languages and build tools, such as Apach Maven, Gradle, and more. You can also fully customize build environments in AWS CodeBuild to use your own build tools. AWS CodeBuild scales automatically to meet peak build requests, and you pay only for the build time you consume. For more information about AWS CodeBuild, see the <em>AWS CodeBuild User Guide</em>.</p><p>AWS CodeBuild supports these operations:</p><ul><li><p><code>BatchGetProjects</code>: Gets information about one or more build projects. A <em>build project</em> defines how AWS CodeBuild will run a build. This includes information such as where to get the source code to build, the build environment to use, the build commands to run, and where to store the build output. A <em>build environment</em> represents a combination of operating system, programming language runtime, and tools that AWS CodeBuild will use to run a build. Also, you can add tags to build projects to help manage your resources and costs.</p></li><li><p><code>CreateProject</code>: Creates a build project.</p></li><li><p><code>DeleteProject</code>: Deletes a build project.</p></li><li><p><code>ListProjects</code>: Gets a list of build project names, with each build project name representing a single build project.</p></li><li><p><code>UpdateProject</code>: Changes the settings of an existing build project.</p></li><li><p><code>BatchGetBuilds</code>: Gets information about one or more builds.</p></li><li><p><code>ListBuilds</code>: Gets a list of build IDs, with each build ID representing a single build.</p></li><li><p><code>ListBuildsForProject</code>: Gets a list of build IDs for the specified build project, with each build ID representing a single build.</p></li><li><p><code>StartBuild</code>: Starts running a build.</p></li><li><p><code>StopBuild</code>: Attempts to stop running a build.</p></li><li><p><code>ListCuratedEnvironmentImages</code>: Gets information about Docker images that are managed by AWS CodeBuild.</p></li></ul><p>This document is generated from <a href="https://github.com/aws/aws-sdk-js/blob/master/apis/codebuild-2016-10-06.normal.json">apis/codebuild-2016-10-06.normal.json</a>. See <a href="https://github.com/JuliaCloud/AWSCore.jl">JuliaCloud/AWSCore.jl</a>.</p><ul><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.batch_get_builds"><code>AWSSDK.CodeBuild.batch_get_builds</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.batch_get_projects"><code>AWSSDK.CodeBuild.batch_get_projects</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.create_project"><code>AWSSDK.CodeBuild.create_project</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.delete_project"><code>AWSSDK.CodeBuild.delete_project</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.list_builds"><code>AWSSDK.CodeBuild.list_builds</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.list_builds_for_project"><code>AWSSDK.CodeBuild.list_builds_for_project</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.list_curated_environment_images"><code>AWSSDK.CodeBuild.list_curated_environment_images</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.list_projects"><code>AWSSDK.CodeBuild.list_projects</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.start_build"><code>AWSSDK.CodeBuild.start_build</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.stop_build"><code>AWSSDK.CodeBuild.stop_build</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.update_project"><code>AWSSDK.CodeBuild.update_project</code></a></li></ul><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CodeBuild.batch_get_builds" href="#AWSSDK.CodeBuild.batch_get_builds"><code>AWSSDK.CodeBuild.batch_get_builds</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CodeBuild.batch_get_builds
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>AWSSDK.CodeBuild.jl · AWSCore.jl</title><link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link href="assets/highlightjs/default.css" rel="stylesheet" type="text/css"/><link href="assets/documenter.css" rel="stylesheet" type="text/css"/></head><body><nav class="toc"><h1>AWSCore.jl</h1><select id="version-selector" onChange="window.location.href=this.value" style="visibility: hidden"></select><form class="search" action="search.html"><input id="search-query" name="q" type="text" placeholder="Search docs"/></form><ul><li><a class="toctext" href="index.html">AWSCore.jl</a></li><li><a class="toctext" href="AWSS3.html">AWSS3.jl</a></li><li><a class="toctext" href="AWSSQS.html">AWSSQS.jl</a></li><li><a class="toctext" href="AWSSES.html">AWSSES.jl</a></li><li><a class="toctext" href="AWSSNS.html">AWSSNS.jl</a></li><li><a class="toctext" href="AWSSDK.MigrationHub.html">AWSSDK.MigrationHub.jl</a></li><li><a class="toctext" href="AWSSDK.ACM.html">AWSSDK.ACM.jl</a></li><li><a class="toctext" href="AWSSDK.APIGateway.html">AWSSDK.APIGateway.jl</a></li><li><a class="toctext" href="AWSSDK.ApplicationAutoScaling.html">AWSSDK.ApplicationAutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.AppStream.html">AWSSDK.AppStream.jl</a></li><li><a class="toctext" href="AWSSDK.Athena.html">AWSSDK.Athena.jl</a></li><li><a class="toctext" href="AWSSDK.AutoScaling.html">AWSSDK.AutoScaling.jl</a></li><li><a class="toctext" href="AWSSDK.Batch.html">AWSSDK.Batch.jl</a></li><li><a class="toctext" href="AWSSDK.Budgets.html">AWSSDK.Budgets.jl</a></li><li><a class="toctext" href="AWSSDK.CloudDirectory.html">AWSSDK.CloudDirectory.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFormation.html">AWSSDK.CloudFormation.jl</a></li><li><a class="toctext" href="AWSSDK.CloudFront.html">AWSSDK.CloudFront.jl</a></li><li><a class="toctext" href="AWSSDK.CloudHSM.html">AWSSDK.CloudHSM.jl</a></li><li><a class="toctext" href="AWSSDK.CloudHSMV2.html">AWSSDK.CloudHSMV2.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearch.html">AWSSDK.CloudSearch.jl</a></li><li><a class="toctext" href="AWSSDK.CloudSearchDomain.html">AWSSDK.CloudSearchDomain.jl</a></li><li><a class="toctext" href="AWSSDK.CloudTrail.html">AWSSDK.CloudTrail.jl</a></li><li class="current"><a class="toctext" href="AWSSDK.CodeBuild.html">AWSSDK.CodeBuild.jl</a><ul class="internal"><li class="toplevel"><a class="toctext" href="#AWS-CodeBuild-1">AWS CodeBuild</a></li></ul></li><li><a class="toctext" href="AWSSDK.CodeCommit.html">AWSSDK.CodeCommit.jl</a></li><li><a class="toctext" href="AWSSDK.CodeDeploy.html">AWSSDK.CodeDeploy.jl</a></li><li><a class="toctext" href="AWSSDK.CodePipeline.html">AWSSDK.CodePipeline.jl</a></li><li><a class="toctext" href="AWSSDK.CodeStar.html">AWSSDK.CodeStar.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentity.html">AWSSDK.CognitoIdentity.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoIdentityServiceProvider.html">AWSSDK.CognitoIdentityServiceProvider.jl</a></li><li><a class="toctext" href="AWSSDK.CognitoSync.html">AWSSDK.CognitoSync.jl</a></li><li><a class="toctext" href="AWSSDK.ConfigService.html">AWSSDK.ConfigService.jl</a></li><li><a class="toctext" href="AWSSDK.CUR.html">AWSSDK.CUR.jl</a></li><li><a class="toctext" href="AWSSDK.DataPipeline.html">AWSSDK.DataPipeline.jl</a></li><li><a class="toctext" href="AWSSDK.DAX.html">AWSSDK.DAX.jl</a></li><li><a class="toctext" href="AWSSDK.DeviceFarm.html">AWSSDK.DeviceFarm.jl</a></li><li><a class="toctext" href="AWSSDK.DirectConnect.html">AWSSDK.DirectConnect.jl</a></li><li><a class="toctext" href="AWSSDK.Discovery.html">AWSSDK.Discovery.jl</a></li><li><a class="toctext" href="AWSSDK.DMS.html">AWSSDK.DMS.jl</a></li><li><a class="toctext" href="AWSSDK.DirectoryService.html">AWSSDK.DirectoryService.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDB.html">AWSSDK.DynamoDB.jl</a></li><li><a class="toctext" href="AWSSDK.EC2.html">AWSSDK.EC2.jl</a></li><li><a class="toctext" href="AWSSDK.ECR.html">AWSSDK.ECR.jl</a></li><li><a class="toctext" href="AWSSDK.ECS.html">AWSSDK.ECS.jl</a></li><li><a class="toctext" href="AWSSDK.ElastiCache.html">AWSSDK.ElastiCache.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticBeanstalk.html">AWSSDK.ElasticBeanstalk.jl</a></li><li><a class="toctext" href="AWSSDK.EFS.html">AWSSDK.EFS.jl</a></li><li><a class="toctext" href="AWSSDK.ELB.html">AWSSDK.ELB.jl</a></li><li><a class="toctext" href="AWSSDK.ELBv2.html">AWSSDK.ELBv2.jl</a></li><li><a class="toctext" href="AWSSDK.EMR.html">AWSSDK.EMR.jl</a></li><li><a class="toctext" href="AWSSDK.ElasticTranscoder.html">AWSSDK.ElasticTranscoder.jl</a></li><li><a class="toctext" href="AWSSDK.SES.html">AWSSDK.SES.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceEntitlementService.html">AWSSDK.MarketplaceEntitlementService.jl</a></li><li><a class="toctext" href="AWSSDK.ES.html">AWSSDK.ES.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchEvents.html">AWSSDK.CloudWatchEvents.jl</a></li><li><a class="toctext" href="AWSSDK.Firehose.html">AWSSDK.Firehose.jl</a></li><li><a class="toctext" href="AWSSDK.GameLift.html">AWSSDK.GameLift.jl</a></li><li><a class="toctext" href="AWSSDK.Glacier.html">AWSSDK.Glacier.jl</a></li><li><a class="toctext" href="AWSSDK.Glue.html">AWSSDK.Glue.jl</a></li><li><a class="toctext" href="AWSSDK.Greengrass.html">AWSSDK.Greengrass.jl</a></li><li><a class="toctext" href="AWSSDK.Health.html">AWSSDK.Health.jl</a></li><li><a class="toctext" href="AWSSDK.IAM.html">AWSSDK.IAM.jl</a></li><li><a class="toctext" href="AWSSDK.ImportExport.html">AWSSDK.ImportExport.jl</a></li><li><a class="toctext" href="AWSSDK.Inspector.html">AWSSDK.Inspector.jl</a></li><li><a class="toctext" href="AWSSDK.Iot.html">AWSSDK.Iot.jl</a></li><li><a class="toctext" href="AWSSDK.IotData.html">AWSSDK.IotData.jl</a></li><li><a class="toctext" href="AWSSDK.Kinesis.html">AWSSDK.Kinesis.jl</a></li><li><a class="toctext" href="AWSSDK.KinesisAnalytics.html">AWSSDK.KinesisAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.KMS.html">AWSSDK.KMS.jl</a></li><li><a class="toctext" href="AWSSDK.Lambda.html">AWSSDK.Lambda.jl</a></li><li><a class="toctext" href="AWSSDK.LexModelBuildingService.html">AWSSDK.LexModelBuildingService.jl</a></li><li><a class="toctext" href="AWSSDK.Lightsail.html">AWSSDK.Lightsail.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatchLogs.html">AWSSDK.CloudWatchLogs.jl</a></li><li><a class="toctext" href="AWSSDK.MachineLearning.html">AWSSDK.MachineLearning.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceCommerceAnalytics.html">AWSSDK.MarketplaceCommerceAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.MarketplaceMetering.html">AWSSDK.MarketplaceMetering.jl</a></li><li><a class="toctext" href="AWSSDK.Mobile.html">AWSSDK.Mobile.jl</a></li><li><a class="toctext" href="AWSSDK.MobileAnalytics.html">AWSSDK.MobileAnalytics.jl</a></li><li><a class="toctext" href="AWSSDK.CloudWatch.html">AWSSDK.CloudWatch.jl</a></li><li><a class="toctext" href="AWSSDK.MTurk.html">AWSSDK.MTurk.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorks.html">AWSSDK.OpsWorks.jl</a></li><li><a class="toctext" href="AWSSDK.OpsWorksCM.html">AWSSDK.OpsWorksCM.jl</a></li><li><a class="toctext" href="AWSSDK.Organizations.html">AWSSDK.Organizations.jl</a></li><li><a class="toctext" href="AWSSDK.Pinpoint.html">AWSSDK.Pinpoint.jl</a></li><li><a class="toctext" href="AWSSDK.Polly.html">AWSSDK.Polly.jl</a></li><li><a class="toctext" href="AWSSDK.RDS.html">AWSSDK.RDS.jl</a></li><li><a class="toctext" href="AWSSDK.Redshift.html">AWSSDK.Redshift.jl</a></li><li><a class="toctext" href="AWSSDK.Rekognition.html">AWSSDK.Rekognition.jl</a></li><li><a class="toctext" href="AWSSDK.ResourceGroupsTaggingAPI.html">AWSSDK.ResourceGroupsTaggingAPI.jl</a></li><li><a class="toctext" href="AWSSDK.Route53.html">AWSSDK.Route53.jl</a></li><li><a class="toctext" href="AWSSDK.Route53Domains.html">AWSSDK.Route53Domains.jl</a></li><li><a class="toctext" href="AWSSDK.LexRuntime.html">AWSSDK.LexRuntime.jl</a></li><li><a class="toctext" href="AWSSDK.S3.html">AWSSDK.S3.jl</a></li><li><a class="toctext" href="AWSSDK.SimpleDB.html">AWSSDK.SimpleDB.jl</a></li><li><a class="toctext" href="AWSSDK.ServiceCatalog.html">AWSSDK.ServiceCatalog.jl</a></li><li><a class="toctext" href="AWSSDK.Shield.html">AWSSDK.Shield.jl</a></li><li><a class="toctext" href="AWSSDK.SMS.html">AWSSDK.SMS.jl</a></li><li><a class="toctext" href="AWSSDK.Snowball.html">AWSSDK.Snowball.jl</a></li><li><a class="toctext" href="AWSSDK.SNS.html">AWSSDK.SNS.jl</a></li><li><a class="toctext" href="AWSSDK.SQS.html">AWSSDK.SQS.jl</a></li><li><a class="toctext" href="AWSSDK.SSM.html">AWSSDK.SSM.jl</a></li><li><a class="toctext" href="AWSSDK.StepFunctions.html">AWSSDK.StepFunctions.jl</a></li><li><a class="toctext" href="AWSSDK.StorageGateway.html">AWSSDK.StorageGateway.jl</a></li><li><a class="toctext" href="AWSSDK.DynamoDBStreams.html">AWSSDK.DynamoDBStreams.jl</a></li><li><a class="toctext" href="AWSSDK.STS.html">AWSSDK.STS.jl</a></li><li><a class="toctext" href="AWSSDK.Support.html">AWSSDK.Support.jl</a></li><li><a class="toctext" href="AWSSDK.SWF.html">AWSSDK.SWF.jl</a></li><li><a class="toctext" href="AWSSDK.WAF.html">AWSSDK.WAF.jl</a></li><li><a class="toctext" href="AWSSDK.WAFRegional.html">AWSSDK.WAFRegional.jl</a></li><li><a class="toctext" href="AWSSDK.WorkDocs.html">AWSSDK.WorkDocs.jl</a></li><li><a class="toctext" href="AWSSDK.WorkSpaces.html">AWSSDK.WorkSpaces.jl</a></li><li><a class="toctext" href="AWSSDK.XRay.html">AWSSDK.XRay.jl</a></li></ul></nav><article id="docs"><header><nav><ul><li><a href="AWSSDK.CodeBuild.html">AWSSDK.CodeBuild.jl</a></li></ul><a class="edit-page" href="https://github.com/JuliaCloud/AWSCore.jl/tree/3f5998472a59e7a3f8cd74e35ba3641496df4f08/src/AWSSDK.CodeBuild.md"><span class="fa"></span> Edit on GitHub</a></nav><hr/><div id="topbar"><span>AWSSDK.CodeBuild.jl</span><a class="fa fa-bars" href="#"></a></div></header><h1><a class="nav-anchor" id="AWSSDK.CodeBuild-1" href="#AWSSDK.CodeBuild-1">AWSSDK.CodeBuild</a></h1><h1><a class="nav-anchor" id="AWS-CodeBuild-1" href="#AWS-CodeBuild-1">AWS CodeBuild</a></h1><p>AWS CodeBuild is a fully managed build service in the cloud. AWS CodeBuild compiles your source code, runs unit tests, and produces artifacts that are ready to deploy. AWS CodeBuild eliminates the need to provision, manage, and scale your own build servers. It provides prepackaged build environments for the most popular programming languages and build tools, such as Apache Maven, Gradle, and more. You can also fully customize build environments in AWS CodeBuild to use your own build tools. AWS CodeBuild scales automatically to meet peak build requests, and you pay only for the build time you consume. For more information about AWS CodeBuild, see the <em>AWS CodeBuild User Guide</em>.</p><p>AWS CodeBuild supports these operations:</p><ul><li><p><code>BatchDeleteBuilds</code>: Deletes one or more builds.</p></li><li><p><code>BatchGetProjects</code>: Gets information about one or more build projects. A <em>build project</em> defines how AWS CodeBuild will run a build. This includes information such as where to get the source code to build, the build environment to use, the build commands to run, and where to store the build output. A <em>build environment</em> represents a combination of operating system, programming language runtime, and tools that AWS CodeBuild will use to run a build. Also, you can add tags to build projects to help manage your resources and costs.</p></li><li><p><code>CreateProject</code>: Creates a build project.</p></li><li><p><code>CreateWebhook</code>: For an existing AWS CodeBuild build project that has its source code stored in a GitHub repository, enables AWS CodeBuild to begin automatically rebuilding the source code every time a code change is pushed to the repository.</p></li><li><p><code>DeleteProject</code>: Deletes a build project.</p></li><li><p><code>DeleteWebhook</code>: For an existing AWS CodeBuild build project that has its source code stored in a GitHub repository, stops AWS CodeBuild from automatically rebuilding the source code every time a code change is pushed to the repository.</p></li><li><p><code>ListProjects</code>: Gets a list of build project names, with each build project name representing a single build project.</p></li><li><p><code>UpdateProject</code>: Changes the settings of an existing build project.</p></li><li><p><code>BatchGetBuilds</code>: Gets information about one or more builds.</p></li><li><p><code>ListBuilds</code>: Gets a list of build IDs, with each build ID representing a single build.</p></li><li><p><code>ListBuildsForProject</code>: Gets a list of build IDs for the specified build project, with each build ID representing a single build.</p></li><li><p><code>StartBuild</code>: Starts running a build.</p></li><li><p><code>StopBuild</code>: Attempts to stop running a build.</p></li><li><p><code>ListCuratedEnvironmentImages</code>: Gets information about Docker images that are managed by AWS CodeBuild.</p></li></ul><p>This document is generated from <a href="https://github.com/aws/aws-sdk-js/blob/master/apis/codebuild-2016-10-06.normal.json">apis/codebuild-2016-10-06.normal.json</a>. See <a href="https://github.com/JuliaCloud/AWSCore.jl">JuliaCloud/AWSCore.jl</a>.</p><ul><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.batch_delete_builds"><code>AWSSDK.CodeBuild.batch_delete_builds</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.batch_get_builds"><code>AWSSDK.CodeBuild.batch_get_builds</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.batch_get_projects"><code>AWSSDK.CodeBuild.batch_get_projects</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.create_project"><code>AWSSDK.CodeBuild.create_project</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.create_webhook"><code>AWSSDK.CodeBuild.create_webhook</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.delete_project"><code>AWSSDK.CodeBuild.delete_project</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.delete_webhook"><code>AWSSDK.CodeBuild.delete_webhook</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.list_builds"><code>AWSSDK.CodeBuild.list_builds</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.list_builds_for_project"><code>AWSSDK.CodeBuild.list_builds_for_project</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.list_curated_environment_images"><code>AWSSDK.CodeBuild.list_curated_environment_images</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.list_projects"><code>AWSSDK.CodeBuild.list_projects</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.start_build"><code>AWSSDK.CodeBuild.start_build</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.stop_build"><code>AWSSDK.CodeBuild.stop_build</code></a></li><li><a href="AWSSDK.CodeBuild.html#AWSSDK.CodeBuild.update_project"><code>AWSSDK.CodeBuild.update_project</code></a></li></ul><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CodeBuild.batch_delete_builds" href="#AWSSDK.CodeBuild.batch_delete_builds"><code>AWSSDK.CodeBuild.batch_delete_builds</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CodeBuild.batch_delete_builds
+batch_delete_builds([::AWSConfig], arguments::Dict)
+batch_delete_builds([::AWSConfig]; ids=)
+
+using AWSCore.Services.codebuild
+codebuild([::AWSConfig], &quot;BatchDeleteBuilds&quot;, arguments::Dict)
+codebuild([::AWSConfig], &quot;BatchDeleteBuilds&quot;, ids=)</code></pre><p><strong>BatchDeleteBuilds Operation</strong></p><p>Deletes one or more builds.</p><p><strong>Arguments</strong></p><p><strong><code>ids = [::String, ...]</code> – <em>Required</em></strong></p><p>The IDs of the builds to delete.</p><p><strong>Returns</strong></p><p><code>BatchDeleteBuildsOutput</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/BatchDeleteBuilds">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CodeBuild.batch_get_builds" href="#AWSSDK.CodeBuild.batch_get_builds"><code>AWSSDK.CodeBuild.batch_get_builds</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CodeBuild.batch_get_builds
 batch_get_builds([::AWSConfig], arguments::Dict)
 batch_get_builds([::AWSConfig]; ids=)
 
 using AWSCore.Services.codebuild
 codebuild([::AWSConfig], &quot;BatchGetBuilds&quot;, arguments::Dict)
-codebuild([::AWSConfig], &quot;BatchGetBuilds&quot;, ids=)</code></pre><p><strong>BatchGetBuilds Operation</strong></p><p>Gets information about builds.</p><p><strong>Arguments</strong></p><p><strong><code>ids = [::String, ...]</code> – <em>Required</em></strong></p><p>The IDs of the builds.</p><p><strong>Returns</strong></p><p><code>BatchGetBuildsOutput</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/BatchGetBuilds">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CodeBuild.batch_get_projects" href="#AWSSDK.CodeBuild.batch_get_projects"><code>AWSSDK.CodeBuild.batch_get_projects</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CodeBuild.batch_get_projects
+codebuild([::AWSConfig], &quot;BatchGetBuilds&quot;, ids=)</code></pre><p><strong>BatchGetBuilds Operation</strong></p><p>Gets information about builds.</p><p><strong>Arguments</strong></p><p><strong><code>ids = [::String, ...]</code> – <em>Required</em></strong></p><p>The IDs of the builds.</p><p><strong>Returns</strong></p><p><code>BatchGetBuildsOutput</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>.</p><p><strong>Example: To get information about builds</strong></p><p>The following example gets information about builds with the specified build IDs.</p><p>Input:</p><pre><code class="language-none">[
+    &quot;ids&quot; =&gt; [
+        &quot;codebuild-demo-project:9b0ac37f-d19e-4254-9079-f47e9a389eEX&quot;,
+        &quot;codebuild-demo-project:b79a46f7-1473-4636-a23f-da9c45c208EX&quot;
+    ]
+]</code></pre><p>Output:</p><pre><code class="language-none">Dict(
+    &quot;builds&quot; =&gt; [
+        Dict(
+            &quot;arn&quot; =&gt; &quot;arn:aws:codebuild:us-east-1:123456789012:build/codebuild-demo-project:9b0ac37f-d19e-4254-9079-f47e9a389eEX&quot;,
+            &quot;artifacts&quot; =&gt; Dict(
+                &quot;location&quot; =&gt; &quot;arn:aws:s3:::codebuild-123456789012-output-bucket/codebuild-demo-project&quot;
+            ),
+            &quot;buildComplete&quot; =&gt; true,
+            &quot;buildStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+            &quot;currentPhase&quot; =&gt; &quot;COMPLETED&quot;,
+            &quot;endTime&quot; =&gt; 1.479832474764e9,
+            &quot;environment&quot; =&gt; Dict(
+                &quot;type&quot; =&gt; &quot;LINUX_CONTAINER&quot;,
+                &quot;computeType&quot; =&gt; &quot;BUILD_GENERAL1_SMALL&quot;,
+                &quot;environmentVariables&quot; =&gt; [
+
+                ],
+                &quot;image&quot; =&gt; &quot;aws/codebuild/java:openjdk-8&quot;,
+                &quot;privilegedMode&quot; =&gt; false
+            ),
+            &quot;id&quot; =&gt; &quot;codebuild-demo-project:9b0ac37f-d19e-4254-9079-f47e9a389eEX&quot;,
+            &quot;initiator&quot; =&gt; &quot;MyDemoUser&quot;,
+            &quot;logs&quot; =&gt; Dict(
+                &quot;deepLink&quot; =&gt; &quot;https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logEvent:group=/aws/codebuild/codebuild-demo-project;stream=9b0ac37f-d19e-4254-9079-f47e9a389eEX&quot;,
+                &quot;groupName&quot; =&gt; &quot;/aws/codebuild/codebuild-demo-project&quot;,
+                &quot;streamName&quot; =&gt; &quot;9b0ac37f-d19e-4254-9079-f47e9a389eEX&quot;
+            ),
+            &quot;phases&quot; =&gt; [
+                Dict(
+                    &quot;durationInSeconds&quot; =&gt; 0,
+                    &quot;endTime&quot; =&gt; 1.47983234223e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;SUBMITTED&quot;,
+                    &quot;startTime&quot; =&gt; 1.479832341854e9
+                ),
+                Dict(
+                    &quot;contexts&quot; =&gt; [
+
+                    ],
+                    &quot;durationInSeconds&quot; =&gt; 72,
+                    &quot;endTime&quot; =&gt; 1.479832415064e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;PROVISIONING&quot;,
+                    &quot;startTime&quot; =&gt; 1.47983234223e9
+                ),
+                Dict(
+                    &quot;contexts&quot; =&gt; [
+
+                    ],
+                    &quot;durationInSeconds&quot; =&gt; 46,
+                    &quot;endTime&quot; =&gt; 1.479832461261e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;DOWNLOAD_SOURCE&quot;,
+                    &quot;startTime&quot; =&gt; 1.479832415064e9
+                ),
+                Dict(
+                    &quot;contexts&quot; =&gt; [
+
+                    ],
+                    &quot;durationInSeconds&quot; =&gt; 0,
+                    &quot;endTime&quot; =&gt; 1.479832461354e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;INSTALL&quot;,
+                    &quot;startTime&quot; =&gt; 1.479832461261e9
+                ),
+                Dict(
+                    &quot;contexts&quot; =&gt; [
+
+                    ],
+                    &quot;durationInSeconds&quot; =&gt; 0,
+                    &quot;endTime&quot; =&gt; 1.479832461448e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;PRE_BUILD&quot;,
+                    &quot;startTime&quot; =&gt; 1.479832461354e9
+                ),
+                Dict(
+                    &quot;contexts&quot; =&gt; [
+
+                    ],
+                    &quot;durationInSeconds&quot; =&gt; 9,
+                    &quot;endTime&quot; =&gt; 1.479832471115e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;BUILD&quot;,
+                    &quot;startTime&quot; =&gt; 1.479832461448e9
+                ),
+                Dict(
+                    &quot;contexts&quot; =&gt; [
+
+                    ],
+                    &quot;durationInSeconds&quot; =&gt; 0,
+                    &quot;endTime&quot; =&gt; 1.479832471224e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;POST_BUILD&quot;,
+                    &quot;startTime&quot; =&gt; 1.479832471115e9
+                ),
+                Dict(
+                    &quot;contexts&quot; =&gt; [
+
+                    ],
+                    &quot;durationInSeconds&quot; =&gt; 0,
+                    &quot;endTime&quot; =&gt; 1.479832471791e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;UPLOAD_ARTIFACTS&quot;,
+                    &quot;startTime&quot; =&gt; 1.479832471224e9
+                ),
+                Dict(
+                    &quot;contexts&quot; =&gt; [
+
+                    ],
+                    &quot;durationInSeconds&quot; =&gt; 2,
+                    &quot;endTime&quot; =&gt; 1.479832474764e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;FINALIZING&quot;,
+                    &quot;startTime&quot; =&gt; 1.479832471791e9
+                ),
+                Dict(
+                    &quot;phaseType&quot; =&gt; &quot;COMPLETED&quot;,
+                    &quot;startTime&quot; =&gt; 1.479832474764e9
+                )
+            ],
+            &quot;projectName&quot; =&gt; &quot;codebuild-demo-project&quot;,
+            &quot;source&quot; =&gt; Dict(
+                &quot;type&quot; =&gt; &quot;S3&quot;,
+                &quot;buildspec&quot; =&gt; &quot;&quot;,
+                &quot;location&quot; =&gt; &quot;arn:aws:s3:::codebuild-123456789012-input-bucket/MessageUtil.zip&quot;
+            ),
+            &quot;startTime&quot; =&gt; 1.479832341854e9,
+            &quot;timeoutInMinutes&quot; =&gt; 60
+        ),
+        Dict(
+            &quot;arn&quot; =&gt; &quot;arn:aws:codebuild:us-east-1:123456789012:build/codebuild-demo-project:b79a46f7-1473-4636-a23f-da9c45c208EX&quot;,
+            &quot;artifacts&quot; =&gt; Dict(
+                &quot;location&quot; =&gt; &quot;arn:aws:s3:::codebuild-123456789012-output-bucket/codebuild-demo-project&quot;
+            ),
+            &quot;buildComplete&quot; =&gt; true,
+            &quot;buildStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+            &quot;currentPhase&quot; =&gt; &quot;COMPLETED&quot;,
+            &quot;endTime&quot; =&gt; 1.479401214239e9,
+            &quot;environment&quot; =&gt; Dict(
+                &quot;type&quot; =&gt; &quot;LINUX_CONTAINER&quot;,
+                &quot;computeType&quot; =&gt; &quot;BUILD_GENERAL1_SMALL&quot;,
+                &quot;environmentVariables&quot; =&gt; [
+
+                ],
+                &quot;image&quot; =&gt; &quot;aws/codebuild/java:openjdk-8&quot;,
+                &quot;privilegedMode&quot; =&gt; false
+            ),
+            &quot;id&quot; =&gt; &quot;codebuild-demo-project:b79a46f7-1473-4636-a23f-da9c45c208EX&quot;,
+            &quot;initiator&quot; =&gt; &quot;MyDemoUser&quot;,
+            &quot;logs&quot; =&gt; Dict(
+                &quot;deepLink&quot; =&gt; &quot;https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#logEvent:group=/aws/codebuild/codebuild-demo-project;stream=b79a46f7-1473-4636-a23f-da9c45c208EX&quot;,
+                &quot;groupName&quot; =&gt; &quot;/aws/codebuild/codebuild-demo-project&quot;,
+                &quot;streamName&quot; =&gt; &quot;b79a46f7-1473-4636-a23f-da9c45c208EX&quot;
+            ),
+            &quot;phases&quot; =&gt; [
+                Dict(
+                    &quot;durationInSeconds&quot; =&gt; 0,
+                    &quot;endTime&quot; =&gt; 1.479401082342e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;SUBMITTED&quot;,
+                    &quot;startTime&quot; =&gt; 1.479401081869e9
+                ),
+                Dict(
+                    &quot;contexts&quot; =&gt; [
+
+                    ],
+                    &quot;durationInSeconds&quot; =&gt; 71,
+                    &quot;endTime&quot; =&gt; 1.479401154129e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;PROVISIONING&quot;,
+                    &quot;startTime&quot; =&gt; 1.479401082342e9
+                ),
+                Dict(
+                    &quot;contexts&quot; =&gt; [
+
+                    ],
+                    &quot;durationInSeconds&quot; =&gt; 45,
+                    &quot;endTime&quot; =&gt; 1.479401199136e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;DOWNLOAD_SOURCE&quot;,
+                    &quot;startTime&quot; =&gt; 1.479401154129e9
+                ),
+                Dict(
+                    &quot;contexts&quot; =&gt; [
+
+                    ],
+                    &quot;durationInSeconds&quot; =&gt; 0,
+                    &quot;endTime&quot; =&gt; 1.479401199236e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;INSTALL&quot;,
+                    &quot;startTime&quot; =&gt; 1.479401199136e9
+                ),
+                Dict(
+                    &quot;contexts&quot; =&gt; [
+
+                    ],
+                    &quot;durationInSeconds&quot; =&gt; 0,
+                    &quot;endTime&quot; =&gt; 1.479401199345e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;PRE_BUILD&quot;,
+                    &quot;startTime&quot; =&gt; 1.479401199236e9
+                ),
+                Dict(
+                    &quot;contexts&quot; =&gt; [
+
+                    ],
+                    &quot;durationInSeconds&quot; =&gt; 9,
+                    &quot;endTime&quot; =&gt; 1.47940120868e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;BUILD&quot;,
+                    &quot;startTime&quot; =&gt; 1.479401199345e9
+                ),
+                Dict(
+                    &quot;contexts&quot; =&gt; [
+
+                    ],
+                    &quot;durationInSeconds&quot; =&gt; 0,
+                    &quot;endTime&quot; =&gt; 1.479401208783e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;POST_BUILD&quot;,
+                    &quot;startTime&quot; =&gt; 1.47940120868e9
+                ),
+                Dict(
+                    &quot;contexts&quot; =&gt; [
+
+                    ],
+                    &quot;durationInSeconds&quot; =&gt; 0,
+                    &quot;endTime&quot; =&gt; 1.479401209463e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;UPLOAD_ARTIFACTS&quot;,
+                    &quot;startTime&quot; =&gt; 1.479401208783e9
+                ),
+                Dict(
+                    &quot;contexts&quot; =&gt; [
+
+                    ],
+                    &quot;durationInSeconds&quot; =&gt; 4,
+                    &quot;endTime&quot; =&gt; 1.479401214239e9,
+                    &quot;phaseStatus&quot; =&gt; &quot;SUCCEEDED&quot;,
+                    &quot;phaseType&quot; =&gt; &quot;FINALIZING&quot;,
+                    &quot;startTime&quot; =&gt; 1.479401209463e9
+                ),
+                Dict(
+                    &quot;phaseType&quot; =&gt; &quot;COMPLETED&quot;,
+                    &quot;startTime&quot; =&gt; 1.479401214239e9
+                )
+            ],
+            &quot;projectName&quot; =&gt; &quot;codebuild-demo-project&quot;,
+            &quot;source&quot; =&gt; Dict(
+                &quot;type&quot; =&gt; &quot;S3&quot;,
+                &quot;location&quot; =&gt; &quot;arn:aws:s3:::codebuild-123456789012-input-bucket/MessageUtil.zip&quot;
+            ),
+            &quot;startTime&quot; =&gt; 1.479401081869e9,
+            &quot;timeoutInMinutes&quot; =&gt; 60
+        )
+    ]
+)</code></pre><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/BatchGetBuilds">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CodeBuild.batch_get_projects" href="#AWSSDK.CodeBuild.batch_get_projects"><code>AWSSDK.CodeBuild.batch_get_projects</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CodeBuild.batch_get_projects
 batch_get_projects([::AWSConfig], arguments::Dict)
 batch_get_projects([::AWSConfig]; names=)
 
@@ -38,19 +305,32 @@ codebuild([::AWSConfig], &quot;CreateProject&quot;, name=, source=, artifacts=, 
         &quot;computeType&quot; =&gt; &lt;required&gt; &quot;BUILD_GENERAL1_SMALL&quot;, &quot;BUILD_GENERAL1_MEDIUM&quot; or &quot;BUILD_GENERAL1_LARGE&quot;,
         &quot;environmentVariables&quot; =&gt;  [[
             &quot;name&quot; =&gt; &lt;required&gt; ::String,
-            &quot;value&quot; =&gt; &lt;required&gt; ::String
+            &quot;value&quot; =&gt; &lt;required&gt; ::String,
+            &quot;type&quot; =&gt;  &quot;PLAINTEXT&quot; or &quot;PARAMETER_STORE&quot;
         ], ...],
         &quot;privilegedMode&quot; =&gt;  ::Bool
     ]</code></pre><p><strong><code>serviceRole = ::String</code></strong></p><p>The ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with dependent AWS services on behalf of the AWS account.</p><p><strong><code>timeoutInMinutes = ::Int</code></strong></p><p>How long, in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait until timing out any build that has not been marked as completed. The default is 60 minutes.</p><p><strong><code>encryptionKey = ::String</code></strong></p><p>The AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build output artifacts.</p><p>You can specify either the CMK&#39;s Amazon Resource Name (ARN) or, if available, the CMK&#39;s alias (using the format <code>alias/*alias-name*</code> ).</p><p><strong><code>tags = [[ ... ], ...]</code></strong></p><p>A set of tags for this build project.</p><p>These tags are available for use by AWS services that support AWS CodeBuild build project tags.</p><pre><code class="language-none"> tags = [[
         &quot;key&quot; =&gt;  ::String,
         &quot;value&quot; =&gt;  ::String
-    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>CreateProjectOutput</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>ResourceAlreadyExistsException</code> or <code>AccountLimitExceededException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/CreateProject">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CodeBuild.delete_project" href="#AWSSDK.CodeBuild.delete_project"><code>AWSSDK.CodeBuild.delete_project</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CodeBuild.delete_project
+    ], ...]</code></pre><p><strong>Returns</strong></p><p><code>CreateProjectOutput</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>ResourceAlreadyExistsException</code> or <code>AccountLimitExceededException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/CreateProject">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CodeBuild.create_webhook" href="#AWSSDK.CodeBuild.create_webhook"><code>AWSSDK.CodeBuild.create_webhook</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CodeBuild.create_webhook
+create_webhook([::AWSConfig], arguments::Dict)
+create_webhook([::AWSConfig]; projectName=)
+
+using AWSCore.Services.codebuild
+codebuild([::AWSConfig], &quot;CreateWebhook&quot;, arguments::Dict)
+codebuild([::AWSConfig], &quot;CreateWebhook&quot;, projectName=)</code></pre><p><strong>CreateWebhook Operation</strong></p><p>For an existing AWS CodeBuild build project that has its source code stored in a GitHub repository, enables AWS CodeBuild to begin automatically rebuilding the source code every time a code change is pushed to the repository.</p><p><strong>Important</strong></p><blockquote><p>If you enable webhooks for an AWS CodeBuild project, and the project is used as a build step in AWS CodePipeline, then two identical builds will be created for each commit. One build is triggered through webhooks, and one through AWS CodePipeline. Because billing is on a per-build basis, you will be billed for both builds. Therefore, if you are using AWS CodePipeline, we recommend that you disable webhooks in CodeBuild. In the AWS CodeBuild console, clear the Webhook box. For more information, see step 9 in <a href="http://docs.aws.amazon.com/codebuild/latest/userguide/change-project.html#change-project-console">Change a Build Project’s Settings</a>.</p></blockquote><p><strong>Arguments</strong></p><p><strong><code>projectName = ::String</code> – <em>Required</em></strong></p><p>The name of the build project.</p><p><strong>Returns</strong></p><p><code>CreateWebhookOutput</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>OAuthProviderException</code>, <code>ResourceAlreadyExistsException</code> or <code>ResourceNotFoundException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/CreateWebhook">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CodeBuild.delete_project" href="#AWSSDK.CodeBuild.delete_project"><code>AWSSDK.CodeBuild.delete_project</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CodeBuild.delete_project
 delete_project([::AWSConfig], arguments::Dict)
 delete_project([::AWSConfig]; name=)
 
 using AWSCore.Services.codebuild
 codebuild([::AWSConfig], &quot;DeleteProject&quot;, arguments::Dict)
-codebuild([::AWSConfig], &quot;DeleteProject&quot;, name=)</code></pre><p><strong>DeleteProject Operation</strong></p><p>Deletes a build project.</p><p><strong>Arguments</strong></p><p><strong><code>name = ::String</code> – <em>Required</em></strong></p><p>The name of the build project.</p><p><strong>Returns</strong></p><p><code>DeleteProjectOutput</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/DeleteProject">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CodeBuild.list_builds" href="#AWSSDK.CodeBuild.list_builds"><code>AWSSDK.CodeBuild.list_builds</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CodeBuild.list_builds
+codebuild([::AWSConfig], &quot;DeleteProject&quot;, name=)</code></pre><p><strong>DeleteProject Operation</strong></p><p>Deletes a build project.</p><p><strong>Arguments</strong></p><p><strong><code>name = ::String</code> – <em>Required</em></strong></p><p>The name of the build project.</p><p><strong>Returns</strong></p><p><code>DeleteProjectOutput</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/DeleteProject">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CodeBuild.delete_webhook" href="#AWSSDK.CodeBuild.delete_webhook"><code>AWSSDK.CodeBuild.delete_webhook</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CodeBuild.delete_webhook
+delete_webhook([::AWSConfig], arguments::Dict)
+delete_webhook([::AWSConfig]; projectName=)
+
+using AWSCore.Services.codebuild
+codebuild([::AWSConfig], &quot;DeleteWebhook&quot;, arguments::Dict)
+codebuild([::AWSConfig], &quot;DeleteWebhook&quot;, projectName=)</code></pre><p><strong>DeleteWebhook Operation</strong></p><p>For an existing AWS CodeBuild build project that has its source code stored in a GitHub repository, stops AWS CodeBuild from automatically rebuilding the source code every time a code change is pushed to the repository.</p><p><strong>Arguments</strong></p><p><strong><code>projectName = ::String</code> – <em>Required</em></strong></p><p>The name of the build project.</p><p><strong>Returns</strong></p><p><code>DeleteWebhookOutput</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>ResourceNotFoundException</code> or <code>OAuthProviderException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/DeleteWebhook">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CodeBuild.list_builds" href="#AWSSDK.CodeBuild.list_builds"><code>AWSSDK.CodeBuild.list_builds</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CodeBuild.list_builds
 list_builds([::AWSConfig], arguments::Dict)
 list_builds([::AWSConfig]; &lt;keyword arguments&gt;)
 
@@ -80,7 +360,7 @@ start_build([::AWSConfig]; projectName=, &lt;keyword arguments&gt;)
 
 using AWSCore.Services.codebuild
 codebuild([::AWSConfig], &quot;StartBuild&quot;, arguments::Dict)
-codebuild([::AWSConfig], &quot;StartBuild&quot;, projectName=, &lt;keyword arguments&gt;)</code></pre><p><strong>StartBuild Operation</strong></p><p>Starts running a build.</p><p><strong>Arguments</strong></p><p><strong><code>projectName = ::String</code> – <em>Required</em></strong></p><p>The name of the build project to start running a build.</p><p><strong><code>sourceVersion = ::String</code></strong></p><p>A version of the build input to be built, for this build only. If not specified, the latest version will be used. If specified, must be one of:</p><ul><li><p>For AWS CodeCommit or GitHub: the commit ID to use.</p></li><li><p>For Amazon Simple Storage Service (Amazon S3): the version ID of the object representing the build input ZIP file to use.</p></li></ul><p><strong><code>artifactsOverride = [ ... ]</code></strong></p><p>Build output artifact settings that override, for this build only, the latest ones already defined in the build project.</p><pre><code class="language-none"> artifactsOverride = [
+codebuild([::AWSConfig], &quot;StartBuild&quot;, projectName=, &lt;keyword arguments&gt;)</code></pre><p><strong>StartBuild Operation</strong></p><p>Starts running a build.</p><p><strong>Arguments</strong></p><p><strong><code>projectName = ::String</code> – <em>Required</em></strong></p><p>The name of the build project to start running a build.</p><p><strong><code>sourceVersion = ::String</code></strong></p><p>A version of the build input to be built, for this build only. If not specified, the latest version will be used. If specified, must be one of:</p><ul><li><p>For AWS CodeCommit: the commit ID to use.</p></li><li><p>For GitHub: the commit ID, pull request ID, branch name, or tag name that corresponds to the version of the source code you want to build. If a pull request ID is specified, it must use the format <code>pr/pull-request-ID</code> (for example <code>pr/25</code>). If a branch name is specified, the branch&#39;s HEAD commit ID will be used. If not specified, the default branch&#39;s HEAD commit ID will be used.</p></li><li><p>For Bitbucket: the commit ID, branch name, or tag name that corresponds to the version of the source code you want to build. If a branch name is specified, the branch&#39;s HEAD commit ID will be used. If not specified, the default branch&#39;s HEAD commit ID will be used.</p></li><li><p>For Amazon Simple Storage Service (Amazon S3): the version ID of the object representing the build input ZIP file to use.</p></li></ul><p><strong><code>artifactsOverride = [ ... ]</code></strong></p><p>Build output artifact settings that override, for this build only, the latest ones already defined in the build project.</p><pre><code class="language-none"> artifactsOverride = [
         &quot;type&quot; =&gt; &lt;required&gt; &quot;CODEPIPELINE&quot;, &quot;S3&quot; or &quot;NO_ARTIFACTS&quot;,
         &quot;location&quot; =&gt;  ::String,
         &quot;path&quot; =&gt;  ::String,
@@ -89,7 +369,8 @@ codebuild([::AWSConfig], &quot;StartBuild&quot;, projectName=, &lt;keyword argum
         &quot;packaging&quot; =&gt;  &quot;NONE&quot; or &quot;ZIP&quot;
     ]</code></pre><p><strong><code>environmentVariablesOverride = [[ ... ], ...]</code></strong></p><p>A set of environment variables that overrides, for this build only, the latest ones already defined in the build project.</p><pre><code class="language-none"> environmentVariablesOverride = [[
         &quot;name&quot; =&gt; &lt;required&gt; ::String,
-        &quot;value&quot; =&gt; &lt;required&gt; ::String
+        &quot;value&quot; =&gt; &lt;required&gt; ::String,
+        &quot;type&quot; =&gt;  &quot;PLAINTEXT&quot; or &quot;PARAMETER_STORE&quot;
     ], ...]</code></pre><p><strong><code>buildspecOverride = ::String</code></strong></p><p>A build spec declaration that overrides, for this build only, the latest one already defined in the build project.</p><p><strong><code>timeoutInMinutesOverride = ::Int</code></strong></p><p>The number of build timeout minutes, from 5 to 480 (8 hours), that overrides, for this build only, the latest setting already defined in the build project.</p><p><strong>Returns</strong></p><p><code>StartBuildOutput</code></p><p><strong>Exceptions</strong></p><p><code>InvalidInputException</code>, <code>ResourceNotFoundException</code> or <code>AccountLimitExceededException</code>.</p><p>See also: <a href="https://docs.aws.amazon.com/goto/WebAPI/codebuild-2016-10-06/StartBuild">AWS API Documentation</a></p></div></section><section class="docstring"><div class="docstring-header"><a class="docstring-binding" id="AWSSDK.CodeBuild.stop_build" href="#AWSSDK.CodeBuild.stop_build"><code>AWSSDK.CodeBuild.stop_build</code></a> — <span class="docstring-category">Function</span>.</div><div><pre><code class="language-none">using AWSSDK.CodeBuild.stop_build
 stop_build([::AWSConfig], arguments::Dict)
 stop_build([::AWSConfig]; id=)
@@ -123,7 +404,8 @@ codebuild([::AWSConfig], &quot;UpdateProject&quot;, name=, &lt;keyword arguments
         &quot;computeType&quot; =&gt; &lt;required&gt; &quot;BUILD_GENERAL1_SMALL&quot;, &quot;BUILD_GENERAL1_MEDIUM&quot; or &quot;BUILD_GENERAL1_LARGE&quot;,
         &quot;environmentVariables&quot; =&gt;  [[
             &quot;name&quot; =&gt; &lt;required&gt; ::String,
-            &quot;value&quot; =&gt; &lt;required&gt; ::String
+            &quot;value&quot; =&gt; &lt;required&gt; ::String,
+            &quot;type&quot; =&gt;  &quot;PLAINTEXT&quot; or &quot;PARAMETER_STORE&quot;
         ], ...],
         &quot;privilegedMode&quot; =&gt;  ::Bool
     ]</code></pre><p><strong><code>serviceRole = ::String</code></strong></p><p>The replacement ARN of the AWS Identity and Access Management (IAM) role that enables AWS CodeBuild to interact with dependent AWS services on behalf of the AWS account.</p><p><strong><code>timeoutInMinutes = ::Int</code></strong></p><p>The replacement value in minutes, from 5 to 480 (8 hours), for AWS CodeBuild to wait before timing out any related build that did not get marked as completed.</p><p><strong><code>encryptionKey = ::String</code></strong></p><p>The replacement AWS Key Management Service (AWS KMS) customer master key (CMK) to be used for encrypting the build output artifacts.</p><p>You can specify either the CMK&#39;s Amazon Resource Name (ARN) or, if available, the CMK&#39;s alias (using the format <code>alias/*alias-name*</code> ).</p><p><strong><code>tags = [[ ... ], ...]</code></strong></p><p>The replacement set of tags for this build project.</p><p>These tags are available for use by AWS services that support AWS CodeBuild build project tags.</p><pre><code class="language-none"> tags = [[

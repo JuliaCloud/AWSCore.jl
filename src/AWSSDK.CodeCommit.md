@@ -26,6 +26,8 @@ Branches, by calling the following:
 
 *   [CreateBranch](@ref), which creates a new branch in a specified repository
 
+*   [DeleteBranch](@ref), which deletes the specified branch in a repository unless it is the default branch
+
 *   [GetBranch](@ref), which returns information about a specified branch
 
 *   [ListBranches](@ref), which lists all branches for a specified repository
