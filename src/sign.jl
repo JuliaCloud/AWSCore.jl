@@ -111,11 +111,26 @@ function sign_aws4!(r::AWSRequest, t)
                             join(sort(canonical_headers), "\n"), "\n\n",
                             signed_headers, "\n",
                             content_hash)
+    if debug_level > 2
+        println("canonical_form:")
+        println(canonical_form)
+        println("")
+    end
+
     canonical_hash = bytes2hex(digest(MD_SHA256, canonical_form))
 
     # Create and sign "String to Sign"...
     string_to_sign = "AWS4-HMAC-SHA256\n$datetime\n$scope\n$canonical_hash"
     signature = bytes2hex(digest(MD_SHA256, string_to_sign, signing_key))
+
+    if debug_level > 2
+        println("string_to_sign:")
+        println(string_to_sign)
+        println("")
+        println("signature:")
+        println(signature)
+        println("")
+    end
 
     # Append Authorization header...
     r[:headers]["Authorization"] = string(
