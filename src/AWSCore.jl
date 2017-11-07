@@ -398,10 +398,7 @@ function do_request(r::AWSRequest)
             r[:headers] = Dict{String,String}()
         end
         r[:headers]["User-Agent"] = "AWSCore.jl/0.0.0"
-        r[:headers]["Host"]       = HTTP.URIs.host(HTTP.URI(r[:url]))
-
-        # FIXME https://github.com/JuliaWeb/HTTP.jl/issues/112
-        r[:headers]["Host"]       = split(r[:headers]["Host"], ":")[1]
+        r[:headers]["Host"]       = HTTP.URIs.hostname(HTTP.URI(r[:url]))
 
         # Load local system credentials if needed...
         if !haskey(r, :creds) || r[:creds].token == "ExpiredToken"
