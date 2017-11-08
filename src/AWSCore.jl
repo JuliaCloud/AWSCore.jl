@@ -161,7 +161,7 @@ Recursivly flatten tree of `Dicts` and `Arrays` into a 1-level deep Dict.
 # FIXME handle map.flattened and list.flattened (see SQS and SDB)
 function flatten_query(service, query, prefix="")
 
-    result = Dict{String,Any}()
+    result = Dict{String,String}()
 
     for (k, v) in query
 
@@ -179,11 +179,11 @@ function flatten_query(service, query, prefix="")
                 if typeof(x) <: Associative
                     merge!(result, flatten_query(service, x, "$pk."))
                 else
-                    result[pk] = x
+                    result[pk] = string(x)
                 end
             end
         else
-            result["$prefix$k"] = v
+            result["$prefix$k"] = string(v)
         end
     end
 
