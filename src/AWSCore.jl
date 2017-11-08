@@ -173,7 +173,7 @@ function flatten_query(service, query, prefix="")
 
             for (i, x) in enumerate(v)
 
-                suffix = service == "ec2" ? "" : ".member"
+                suffix = service in ["ec2", "sqs"] ? "" : ".member"
                 pk = "$prefix$k$suffix.$i"
 
                 if typeof(x) <: Associative
@@ -219,7 +219,7 @@ function service_query(aws::AWSConfig; args...)
     request = Dict{Symbol,Any}(args)
 
     request[:verb] = "POST"
-    request[:resource] = get(aws, :resource, "/") #FIXME AWSSQS.jl aws[:resource]
+    request[:resource] = get(aws, :resource, "/")
     request[:url] = service_url(aws, request)
     request[:headers] = Dict("Content-Type" =>
                              "application/x-www-form-urlencoded; charset=utf-8")
