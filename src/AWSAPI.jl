@@ -52,7 +52,17 @@ is_rest_service(service) = ismatch(r"^rest", service["metadata"]["protocol"])
 
 function member_name(service, name, info)
 
-    name = get(info, "locationName", name)
+    if haskey(info, "locationName")
+        name = info["locationName"]
+    else
+        shape = service["shapes"][info["shape"]]
+        if get(shape, "flattened", false)
+            if shape["type"] == "list"
+                name = shape["member"]["shape"]
+                name = get(shape["member"], "locationName", name)
+            end
+        end
+    end
 
     if service["metadata"]["signingName"] == "ec2"
         name = string(uppercase(name[1]), name[2:end])
@@ -68,7 +78,6 @@ function service_args(service, name)
     @assert shape["type"] == "structure"
 
     m = filter((n, i) -> (n in get(shape, "required", [])), shape["members"])
-
 
     args = join(["$(member_name(service, name, info))="
                  for (name, info) in m], ", ")
@@ -243,7 +252,7 @@ function service_operation(service, operation, info)
 
             # Example: $(eg["title"])
 
-            $(eg["description"])
+            $(get(eg,"description", ""))
             """
 
             if haskey(eg, "input")

@@ -27,7 +27,7 @@ function start_node_server()
     @assert server_process == nothing
 
     if !isdir(joinpath(@__DIR__, "node_modules"))
-        run(`$(npm_cmd()) install to-markdown`, dir=@__DIR__)
+        run(setenv(`$(npm_cmd()) install to-markdown`, dir=@__DIR__))
     end
 
     server_process = spawn(`$(nodejs_cmd()) -e """

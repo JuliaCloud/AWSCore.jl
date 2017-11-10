@@ -1323,6 +1323,24 @@ polly(verb, resource, args=[]) =
 
 polly(a...; b...) = polly(a..., b)
 
+function pricing(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "pricing",
+        version      = "2017-10-15",
+        endpoint     = "api.pricing",
+        json_version = "1.1",
+        target       = "AWSPriceListService",
+        operation    = operation,
+        args         = args)
+end
+
+pricing(operation, args=[]) =
+    pricing(default_aws_config(), operation, args)
+
+pricing(a...; b...) = pricing(a..., b)
+
 function rds(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
