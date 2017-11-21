@@ -26,8 +26,8 @@ function http_request(request::AWSRequest)
                             body = FIFOBuffer(request[:content]),
                             stream = get(request, :return_stream, false),
                             verbose = debug_level > 1,
-                            connecttimeout = 600,
-                            readtimeout = 600,
+                            connecttimeout = Inf,
+                            readtimeout = Inf,
                             allowredirects = false,
                             statusraise = true,
                             retries = 0,
@@ -35,9 +35,10 @@ function http_request(request::AWSRequest)
 
     catch e
         @delay_retry if isa(e, HTTP.HTTPError) &&
-                        !isa(e, HTTP.StatusError) end
-        @delay_retry if http_status(e) < 200 ||
-                        http_status(e) >= 500 end
+                       !isa(e, HTTP.StatusError) end
+        @delay_retry if isa(e, HTTP.StatusError) && (
+                        http_status(e) < 200 ||
+                        http_status(e) >= 500) end
     end
 
     assert(false) # Unreachable.
