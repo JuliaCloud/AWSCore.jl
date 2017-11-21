@@ -36,7 +36,7 @@ try
     @test false
 catch e
     println(e)
-    @test isa(e, AWSCore.InvalidAction)
+    @test ecode(e) == "InvalidAction"
 end
 
 try
@@ -45,11 +45,7 @@ try
     @test false
 catch e
     println(e)
-    if isdefined(AWSCore, :AccessDenied)
-        @test isa(e, AWSCore.AccessDenied)
-    else
-        @test isa(e, AWSCore.NoSuchEntity)
-    end
+    @test ecode(e) in ["AccessDenied", "NoSuchEntity"]
 end
 
 try
@@ -58,7 +54,7 @@ try
     @test false
 catch e
     println(e)
-    @test isa(e, AWSCore.ValidationError)
+    @test ecode(e) == "ValidationError"
 end
 
 try
@@ -67,11 +63,7 @@ try
     @test false
 catch e
     println(e)
-    if isdefined(AWSCore, :AccessDenied)
-        @test isa(e, AWSCore.AccessDenied)
-    else
-        @test isa(e, AWSCore.EntityAlreadyExists)
-    end
+    @test ecode(e) in ["AccessDenied", "EntityAlreadyExists"]
 end
 
 

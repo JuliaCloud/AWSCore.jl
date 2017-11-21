@@ -418,7 +418,7 @@ function do_request(r::AWSRequest)
     catch e
 
         # Handle HTTP Redirect...
-        @retry if http_status(e) in [301, 302, 307] &&
+        @retry if isa(e, HTTP.StatusError) && http_status(e) in [301, 302, 307] &&
                   haskey(headers(e), "Location")
             r[:url] = headers(e)["Location"]
         end
@@ -430,10 +430,11 @@ function do_request(r::AWSRequest)
         end
 
         # Handle expired signature...
-        @retry if ismatch(r"Signature expired", e.message) end
+        @retry if :message in fieldnames(e) &&
+                  ismatch(r"Signature expired", e.message) end
 
         # Handle ExpiredToken...
-        @retry if typeof(e) == ExpiredToken
+        @retry if ecode(e) == "ExpiredToken"
             r[:creds].token = "ExpiredToken"
         end
     end
