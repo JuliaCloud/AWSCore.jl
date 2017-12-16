@@ -31,9 +31,13 @@ function http_request(request::AWSRequest)
                             options...)
 
     catch e
+
         @delay_retry if isa(e, Base.UVError) ||
                         isa(e, Base.DNSError) ||
-                        isa(e, Base.EOFError) end
+                        isa(e, Base.EOFError) ||
+                        isa(e, HTTP.ParsingError) ||
+                        isa(e, Base.ArgumentError) &&
+                            e.msg == "stream is closed or unusable" end
         @delay_retry if isa(e, HTTP.StatusError) && (
                         http_status(e) < 200 ||
                         http_status(e) >= 500) end
