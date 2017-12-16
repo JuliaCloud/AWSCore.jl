@@ -17,7 +17,8 @@ export AWSException, AWSConfig, AWSRequest,
 using Retry
 using SymDict
 using XMLDict
-using HTTP
+include("vendor/HTTP.jl/HTTP.jl")
+using .HTTP
 
 
 """
@@ -235,8 +236,8 @@ function service_query(aws::AWSConfig; args...)
         request[:query]["ContentType"] = "JSON"
     end
 
-    request[:content] = HTTP.escape(flatten_query(request[:service],
-                                    request[:query]))
+    request[:content] = HTTP.escapeuri(flatten_query(request[:service],
+                                       request[:query]))
     do_request(merge(request, aws))
 end
 
@@ -323,7 +324,7 @@ function service_rest_xml(aws::AWSConfig; args...)
 
     request[:resource] = rest_resource(request, args)
 
-    query_str  = HTTP.escape(args)
+    query_str  = HTTP.escapeuri(args)
 
     if query_str  != ""
         request[:resource] *= "?$query_str"
@@ -377,7 +378,7 @@ include("sign.jl")
 
 
 ispathsafe(c::Char) = c == '/' || HTTP.URIs.issafe(c)
-escape_path(path) = HTTP.escape(path, ispathsafe)
+escape_path(path) = HTTP.escapeuri(path, ispathsafe)
 
 
 """
@@ -398,7 +399,7 @@ function do_request(r::AWSRequest)
             r[:headers] = Dict{String,String}()
         end
         r[:headers]["User-Agent"] = "AWSCore.jl/0.0.0"
-        r[:headers]["Host"]       = HTTP.URIs.hostname(HTTP.URI(r[:url]))
+        r[:headers]["Host"]       = HTTP.URI(r[:url]).host
 
         # Load local system credentials if needed...
         if !haskey(r, :creds) || r[:creds].token == "ExpiredToken"
@@ -415,13 +416,13 @@ function do_request(r::AWSRequest)
         # Send the request...
         response = http_request(r)
 
-    catch e
-
-        # Handle HTTP Redirect...
-        @retry if isa(e, HTTP.StatusError) && http_status(e) in [301, 302, 307] &&
-                  haskey(headers(e), "Location")
-            r[:url] = headers(e)["Location"]
+        if response.status in [301, 302, 307] &&
+           HTTP.header(response, "Location") != ""
+            r[:url] = HTTP.header(response, "Location")
+            continue
         end
+
+    catch e
 
         e = AWSException(e)
 
@@ -446,38 +447,39 @@ function do_request(r::AWSRequest)
 
     # For HEAD request, return headers...
     if r[:verb] == "HEAD"
-        return HTTP.headers(response)
+        return Dict(response.headers)
     end
 
     # Return response stream if requested...
     if get(r, :return_stream, false)
-        return HTTP.body(response)
+        return response.body.stream
     end
+
+    body = take!(response)
 
     # Return raw data if requested...
     if get(r, :return_raw, false)
-        return take!(response)
+        return body
     end
 
     # Parse response data according to mimetype...
-    mime = get(HTTP.headers(response), "Content-Type", "")
+    mime = HTTP.header(response, "Content-Type", "")
     if mime == ""
-        body = HTTP.body(response)
         if length(body) > 5 && String(body)[1:5] == "<?xml"
             mime = "text/xml"
         end
     end
 
     if ismatch(r"/xml", mime)
-        return parse_xml(String(take!(response)))
+        return parse_xml(String(body))
     end
 
     if ismatch(r"/x-amz-json-1.[01]$", mime)
-        return JSON.parse(String(take!(response)))
+        return JSON.parse(String(body))
     end
 
     if ismatch(r"json$", mime)
-        info = JSON.parse(String(take!(response)))
+        info = JSON.parse(String(body))
         @protected try
             action = r[:query]["Action"]
             info = info[action * "Response"]
@@ -489,11 +491,11 @@ function do_request(r::AWSRequest)
     end
 
     if ismatch(r"^text/", mime)
-        return String(take!(response))
+        return String(body)
     end
 
     # Return raw data by default...
-    return take!(response)
+    return body
 end
 
 

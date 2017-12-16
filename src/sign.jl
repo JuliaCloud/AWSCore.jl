@@ -8,7 +8,6 @@
 
 
 using MbedTLS
-using HTTP
 
 
 function sign!(r::AWSRequest, t = now(Dates.UTC))
@@ -29,7 +28,7 @@ function sign_aws2!(r::AWSRequest, t)
     query = Dict{AbstractString,AbstractString}()
     for elem in split(r[:content], '&', keep=false)
         (n, v) = split(elem, "=")
-        query[n] = HTTP.unescape(v)
+        query[n] = HTTP.unescapeuri(v)
     end
 
     r[:headers]["Content-Type"] =
@@ -47,13 +46,13 @@ function sign_aws2!(r::AWSRequest, t)
     query = Pair[k => query[k] for k in sort(collect(keys(query)))]
 
     u = HTTP.URI(r[:url])
-    to_sign = "POST\n$(HTTP.host(u))\n$(HTTP.path(u))\n$(HTTP.escape(query))"
+    to_sign = "POST\n$(HTTP.host(u))\n$(HTTP.path(u))\n$(HTTP.escapeuri(query))"
 
     secret = r[:creds].secret_key
     push!(query, "Signature" =>
                   digest(MD_SHA256, to_sign, secret) |> base64encode |> strip)
 
-    r[:content] = HTTP.escape(query)
+    r[:content] = HTTP.escapeuri(query)
 end
 
 
@@ -98,16 +97,15 @@ function sign_aws4!(r::AWSRequest, t)
     signed_headers = join(sort([lowercase(k) for k in keys(r[:headers])]), ";")
 
     # Sort Query String...
-    query = query_params(HTTP.query(HTTP.URI(r[:url])))
+    uri = HTTP.URI(r[:url])
+    query = HTTP.URIs.queryparams(uri.query)
     query = Pair[k => query[k] for k in sort(collect(keys(query)))]
-
-    path = HTTP.path(HTTP.URI(r[:url]))
 
     # Create hash of canonical request...
     canonical_form = string(r[:verb], "\n",
-                            r[:service] == "s3" ? path
-                                                : escape_path(path), "\n",
-                            HTTP.escape(query), "\n",
+                            r[:service] == "s3" ? uri.path
+                                                : escape_path(uri.path), "\n",
+                            HTTP.escapeuri(query), "\n",
                             join(sort(canonical_headers), "\n"), "\n\n",
                             signed_headers, "\n",
                             content_hash)
@@ -139,14 +137,6 @@ function sign_aws4!(r::AWSRequest, t)
         "SignedHeaders=$signed_headers, ",
         "Signature=$signature"
     )
-end
-
-
-# FIXME https://github.com/JuliaWeb/HTTP.jl/issues/104
-function query_params(query::AbstractString)
-    Dict(HTTP.unescape(k) => HTTP.unescape(v)
-        for (k,v) in ([split(e, "=")..., ""][1:2]
-            for e in split(query, "&", keep=false)))
 end
 
 

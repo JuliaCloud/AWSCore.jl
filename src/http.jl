@@ -10,32 +10,30 @@ import Base: show, UVError
 
 
 http_status(e::HTTP.StatusError) = e.status
-headers(e::HTTP.StatusError) = HTTP.headers(e.response)
-http_message(e::HTTP.StatusError) = String(HTTP.body(e.response))
-content_type(e::HTTP.StatusError) = get(headers(e), "Content-Type", "")
+header(e::HTTP.StatusError, k, d="") = HTTP.header(e.response, k, d)
+http_message(e::HTTP.StatusError) = String(take!(e.response.body))
+content_type(e::HTTP.StatusError) = HTTP.header(e.response, "Content-Type")
 
 
 function http_request(request::AWSRequest)
 
-    @repeat 4 try 
+    @repeat 4 try
 
-        return HTTP.request(HTTP.DEFAULT_CLIENT,
-                            request[:verb],
-                            HTTP.URI(request[:url]);
-                            headers = request[:headers],
-                            body = FIFOBuffer(request[:content]),
-                            stream = get(request, :return_stream, false),
-                            verbose = debug_level > 1,
-                            connecttimeout = Inf,
-                            readtimeout = Inf,
-                            allowredirects = false,
-                            statusraise = true,
-                            retries = 0,
-                            canonicalizeheaders = false)
+        options = []
+        if get(request, :return_stream, false)
+            push!(options, (:response_stream, BufferStream()))
+        end
+
+        return HTTP.request(request[:verb],
+                            request[:url],
+                            request[:headers],
+                            request[:content];
+                            options...)
 
     catch e
-        @delay_retry if isa(e, HTTP.HTTPError) &&
-                       !isa(e, HTTP.StatusError) end
+        @delay_retry if isa(e, Base.UVError) ||
+                        isa(e, Base.DNSError) ||
+                        isa(e, Base.EOFError) end
         @delay_retry if isa(e, HTTP.StatusError) && (
                         http_status(e) < 200 ||
                         http_status(e) >= 500) end
