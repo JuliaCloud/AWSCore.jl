@@ -423,12 +423,7 @@ function do_request(r::AWSRequest)
         end
 
     catch e
-
         e = AWSException(e)
-
-        if debug_level > 0
-            println("Warning: AWSCore.do_request() exception: $(typeof(e))")
-        end
 
         # Handle expired signature...
         @retry if :message in fieldnames(e) &&
