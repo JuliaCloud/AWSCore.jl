@@ -9,6 +9,7 @@ import MbedTLS.SSLContext
 import ..Connect: getconnection, getparser
 import ..Parsers.Parser
 
+const max_duplicates = 8
 
 const ByteView = typeof(view(UInt8[], 1:0))
 
@@ -50,6 +51,9 @@ Connection{T}(host::AbstractString, port::AbstractString, io::T) where T <: IO =
 
 const noconnection = Connection{TCPSocket}("","",TCPSocket())
 
+getparser(c::Connection) = c.parser
+
+
 Base.unsafe_write(c::Connection, p::Ptr{UInt8}, n::UInt) =
     unsafe_write(c.io, p, n)
 
@@ -90,14 +94,27 @@ Increment `writecount` and wait for pending reads to complete.
 """
 
 function IOExtras.closewrite(c::Connection)
-    c.writecount += 1
-    if islocked(c.readlock)
-        @debug 3 "Waiting to read: $c"
-    end
-    lock(c.readlock)
+    seq = c.writecount
+    c.writecount += 1;                            @debug 2 "write done: $c"
+
+    # The write lock may already have been unlocked by `close` or `purge`.
     if islocked(c.writelock)
         unlock(c.writelock)
+        notify(poolcondition)
     end
+    lock(c.readlock)
+    # Wait for prior pending reads to complete...
+    while c.readcount != seq
+        unlock(c.readlock)
+        yield()
+        lock(c.readlock)
+        # Error if there is nothing to read.
+        if !isopen(c.io) && nb_available(c.io) == 0
+            unlock(c.readlock)
+            throw(EOFError())
+        end
+    end
+    return
 end
 
 
@@ -106,14 +123,15 @@ end
 
 Signal that an entire Response Message has been read from the `Connection`.
 
-Increment `readcount` and wake up waiting `closewrite`.
+Increment `readcount` and wake up tasks waiting in `closewrite`.
 """
 
 function IOExtras.closeread(c::Connection)
-    c.readcount += 1
+    c.readcount += 1;                             @debug 2 "read done: $c"
     if islocked(c.readlock)
         unlock(c.readlock)
     end
+    return
 end
 
 
@@ -125,6 +143,8 @@ function Base.close(c::Connection)
     if islocked(c.writelock)
         unlock(c.writelock)
     end
+    notify(poolcondition)
+    return
 end
 
 
@@ -142,6 +162,78 @@ the `Connection` can be reused for reading.
 
 const pool = Vector{Connection}()
 const poollock = ReentrantLock()
+const poolcondition = Condition()
+
+"""
+    closeall()
+
+Close all connections in `pool`.
+"""
+
+function closeall()
+
+    lock(poollock)
+    for c in pool
+        close(c)
+    end
+    empty!(pool)
+    unlock(poollock)
+    return
+end
+
+
+"""
+    findwriteable(type, host, port) -> Vector{Connection}
+
+Find `Connections` in the `pool` that are ready for writing.
+"""
+
+function findwriteable(T::Type,
+                       host::AbstractString,
+                       port::AbstractString)
+
+    filter(c->(typeof(c.io) == T &&
+               c.host == host &&
+               c.port == port &&
+               !islocked(c.writelock) &&
+               isopen(c.io)), pool)
+end
+
+
+"""
+    findall(type, host, port) -> Vector{Connection}
+
+Find all `Connections` in the `pool` for `host` and `port`.
+"""
+
+function findall(T::Type,
+                 host::AbstractString,
+                 port::AbstractString)
+
+    filter(c->(typeof(c.io) == T &&
+               c.host == host &&
+               c.port == port &&
+               isopen(c.io)), pool)
+end
+
+
+"""
+    purge()
+
+Remove closed connections from `pool`.
+"""
+function purge()
+    while (i = findfirst(x->!isopen(x.io), pool)) > 0
+        c = pool[i]
+        if islocked(c.readlock)
+            unlock(c.readlock)
+        end
+        if islocked(c.writelock)
+            unlock(c.writelock)
+        end
+        deleteat!(pool, i)                               ;@debug 1 "Deleted: $c"
+    end
+end
 
 
 """
@@ -156,37 +248,47 @@ function getconnection(::Type{Connection{T}},
                        port::AbstractString;
                        kw...)::Connection{T} where T <: IO
 
-    lock(poollock)
-    try
+    while true
 
-        pattern = x->(!islocked(x.writelock) &&
-                      typeof(x.io) == T &&
-                      x.host == host &&
-                      x.port == port)
+        lock(poollock)
+        try
+            purge()
 
-        while (i = findlast(pattern, pool)) > 0
-            c = pool[i]
-            if !isopen(c.io)
-                deleteat!(pool, i)                ;@debug 1 "Deleted: $c"
-                continue
-            end;                                  ;@debug 2 "Reused: $c"
-            lock(c.writelock)
-            return c
+            # Try to find a connection with no active readers or writers...
+            writeable = findwriteable(T, host, port)
+            idle = filter(c->!islocked(c.readlock), writeable)
+            if !isempty(idle)
+                c = rand(idle)                            ;@debug 2 "Idle: $c"
+                lock(c.writelock)
+                return c
+            end
+
+            # If there are not too many duplicates for this host,
+            # create a new connection...
+            busy = findall(T, host, port)
+            if length(busy) < max_duplicates
+                io = getconnection(T, host, port; kw...)
+                c = Connection{T}(host, port, io)         ;@debug 1 "New: $c"
+                lock(c.writelock)
+                push!(pool, c)
+                return c
+            end
+
+            # Share a connection that has active readers...
+            if !isempty(writeable)
+                c = rand(writeable)                       ;@debug 2 "Shared: $c"
+                lock(c.writelock)
+                return c
+            end
+
+        finally
+            unlock(poollock)
         end
 
-        io = getconnection(T, host, port; kw...)
-        c = Connection{T}(host, port, io)         ;@debug 1 "New: $c"
-        lock(c.writelock)
-        push!(pool, c)
-        return c
-
-    finally
-        unlock(poollock)
+        # Wait for `closewrite` or `close` to signal that a connection is ready.
+        wait(poolcondition)
     end
 end
-
-
-getparser(c::Connection) = c.parser
 
 
 function Base.show(io::IO, c::Connection)
@@ -213,5 +315,14 @@ peerport(c::Connection) = !isopen(c.io) ? 0 :
 
 tcpstatus(c::Connection) = Base.uv_status_string(tcpsocket(c))
 
+function showpool(io::IO)
+    lock(poollock)
+    println(io, "ConnectionPool[")
+    for c in pool
+        println(io, "   $c")
+    end
+    println("]\n")
+    unlock(poollock)
+end
 
 end # module ConnectionPool
