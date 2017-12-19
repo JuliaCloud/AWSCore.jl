@@ -19,7 +19,7 @@ else
     import Dates
 end
 
-const minimal = false
+const minimal = true
 
 include("debug.jl")
 include("Pairs.jl")
