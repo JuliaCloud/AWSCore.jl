@@ -447,34 +447,32 @@ function do_request(r::AWSRequest)
 
     # Return response stream if requested...
     if get(r, :return_stream, false)
-        return response.body.stream
+        return r[:response_stream]
     end
-
-    body = take!(response)
 
     # Return raw data if requested...
     if get(r, :return_raw, false)
-        return body
+        return response.body
     end
 
     # Parse response data according to mimetype...
     mime = HTTP.header(response, "Content-Type", "")
     if mime == ""
-        if length(body) > 5 && String(body)[1:5] == "<?xml"
+        if length(response.body) > 5 && String(response.body)[1:5] == "<?xml"
             mime = "text/xml"
         end
     end
 
     if ismatch(r"/xml", mime)
-        return parse_xml(String(body))
+        return parse_xml(String(response.body))
     end
 
     if ismatch(r"/x-amz-json-1.[01]$", mime)
-        return JSON.parse(String(body))
+        return JSON.parse(String(response.body))
     end
 
     if ismatch(r"json$", mime)
-        info = JSON.parse(String(body))
+        info = JSON.parse(String(response.body))
         @protected try
             action = r[:query]["Action"]
             info = info[action * "Response"]
@@ -486,11 +484,11 @@ function do_request(r::AWSRequest)
     end
 
     if ismatch(r"^text/", mime)
-        return String(body)
+        return String(response.body)
     end
 
     # Return raw data by default...
-    return body
+    return response.body
 end
 
 

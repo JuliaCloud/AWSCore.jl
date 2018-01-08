@@ -11,7 +11,7 @@ import Base: show, UVError
 
 http_status(e::HTTP.StatusError) = e.status
 header(e::HTTP.StatusError, k, d="") = HTTP.header(e.response, k, d)
-http_message(e::HTTP.StatusError) = String(take!(e.response.body))
+http_message(e::HTTP.StatusError) = String(e.response.body)
 content_type(e::HTTP.StatusError) = HTTP.header(e.response, "Content-Type")
 
 
@@ -21,7 +21,9 @@ function http_request(request::AWSRequest)
 
         options = []
         if get(request, :return_stream, false)
-            push!(options, (:response_stream, BufferStream()))
+            io = BufferStream()
+            request[:response_stream] = io
+            push!(options, (:response_stream, io))
         end
 
         return HTTP.request(request[:verb],
@@ -32,15 +34,10 @@ function http_request(request::AWSRequest)
 
     catch e
 
-        @delay_retry if isa(e, Base.UVError) ||
-                        isa(e, Base.DNSError) ||
-                        isa(e, Base.EOFError) ||
+        @delay_retry if isa(e, Base.DNSError) ||
                         isa(e, HTTP.ParsingError) ||
-                        isa(e, Base.ArgumentError) &&
-                            e.msg == "stream is closed or unusable" end
-        @delay_retry if isa(e, HTTP.StatusError) && (
-                        http_status(e) < 200 ||
-                        http_status(e) >= 500) end
+                        isa(e, HTTP.IOError) ||
+                        (isa(e, HTTP.StatusError) && http_status(e) >= 500) end
     end
 
     assert(false) # Unreachable.
