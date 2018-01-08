@@ -22,14 +22,18 @@
 # IN THE SOFTWARE.
 #
 
+
 module Parsers
 
-export Parser, parse!, reset!,
-       messagestarted, messagecomplete, headerscomplete, waitingforeof,
-       connectionclosed,
+export Parser, Header, Headers, ByteView, nobytes,
+       reset!,
+       parseheaders, parsebody,
+       messagestarted, headerscomplete, bodycomplete, messagecomplete,
+       messagehastrailing,
+       waitingforeof, seteof,
+       connectionclosed, setnobody,
        ParsingError, ParsingErrorCode
 
-using ..IOExtras
 using ..URIs.parseurlchar
 
 import MbedTLS.SSLContext
@@ -41,19 +45,20 @@ include("parseutils.jl")
 
 
 const strict = false # See macro @errifstrict
-const enable_passert = false # See macro @passert
 
+
+const nobytes = view(UInt8[], 1:0)
+const ByteView = typeof(nobytes)
+const Header = Pair{String,String}
+const Headers = Vector{Header}
 
 """
-    Message
-
-HTTP Message metadata.
-- `method::Method`
-- `major::Int16`
-- `minor::Int16`
-- `url::String`
-- `status::Int32`
-- `upgrade::Bool`
+ - `method::Method`: internal parser `@enum` for HTTP method.
+ - `major` and `minor`: HTTP version
+ - `url::String`: request URL
+ - `status::Int`: response status
+ - `upgrade::Bool`: Connection should be upgraded to a different protocol.
+                    e.g. `CONNECT` or `Connection: upgrade`.
 """
 
 mutable struct Message
@@ -69,51 +74,29 @@ Message() =  Message(NOMETHOD, 0, 0, "", 0, false)
 
 
 """
-    Parser
+The parser separates a raw HTTP Message into its component parts.
 
-HTTP Message Parser.
+If the input data is invalid the Parser throws a `ParsingError`.
 
-The `Parser` must be configured with output processing callbacks:
+The parser processes a single HTTP Message. If the input stream contains
+multiple Messages the Parser stops at the end of the first Message.
+The `parseheaders` and `parsebody` functions return a `SubArray` containing the
+unuses portion of the input.
 
-- `onheader = f(::Pair{String,String})` is called for each Header Line.
+The Parser does not interpret the Message Headers except as needed
+to parse the Message Body. It is beyond the scope of the Parser to deal
+with repeated header fields, multi-line values, cookies or case normalization.
 
-- Body data is passed to `onbodyfragment = f(::SubArray{UInt8,1})`.
-  If the Message is chunked or if the Message is passed to `parse!`
-  in multiple fragments, then `onbodyfragment` will be called multiple times.
-
-- `onheaderscomplete = f(::Message)` is called at the end of the Header.
-
-Message data can be passed to the `parse!(::Parser, data)` function
-or read from a stream by `read!(::IO, ::Parser)`.
-
-e.g.
-
-```
-p = Parser()
-p.onheaderscomplete = m -> (@show string(m.method); @show m.url)
-p.onheader = h -> @show h
-
-parse!(p, \"\"\"
-GET /foo HTTP/1.1
-Content-Length: 0
-Foo: Bar
-
-\"\"\")
-
-h = "Content-Length"=>"0"
-h = "Foo"=>"Bar"
-string(m.method) = "GET"
-m.url = "/foo"
-```
+The Parser has no knowledge of the high-level `Request` and `Response` structs
+defined in `Messages.jl`. The Parser has it's own low level
+[`Message`](@ref) struct that represents both Request and Response
+Messages.
 """
 
 mutable struct Parser
 
     # config
-    isheadresponse::Bool # Are we parsing a HEAD Response Message?
-    onheader::Function#(::Pair{String,String}
-    onbodyfragment::Function#(::SubArray{UInt8,1})
-    onheaderscomplete::Function#(::Message)
+    message_has_no_body::Bool # Are we parsing a HEAD Response Message?
 
     # state
     state::UInt8
@@ -135,47 +118,9 @@ end
 Create an unconfigured `Parser`.
 """
 
-Parser() = Parser(false, x->nothing, x->nothing, x->nothing,
+Parser() = Parser(false,
                   s_start_req_or_res, 0, 0, 0, 0,
                   IOBuffer(), IOBuffer(), Message())
-
-
-"""
-    read!(io, ::Parser [, unread=IOExtras.unread!])
-
-Read data from `io` into the `Parser` until `eof`
-or until the parser finds the end of the message.
-
-If `readavailable(io)` reads past the end of the Message the excess bytes
-are passed to `unread`. This is handled transparently if there is a suitable
-`IOExtras.unread!(::IO, SubArray{UInt8, 1})` method defined.
-
-Throws `ParsingError` if input is invalid.
-"""
-
-function Base.read!(io::IO, p::Parser; unread=IOExtras.unread!)
-
-    while !eof(io)
-        bytes = readavailable(io)
-        n = parse!(p, bytes)
-        if n < length(bytes)
-            unread(io, view(bytes, n+1:length(bytes)))
-        end
-        if messagecomplete(p)
-            return
-        end
-    end
-    @debug 2 "read!(::$(typeof(io)), Parser($(ParsingStateCode(p.state)))) eof!"
-
-    if !messagestarted(p)
-        throw(EOFError())
-    end
-    if !waitingforeof(p)
-        throw(ParsingError(p, headerscomplete(p) ? HPE_BODY_INCOMPLETE :
-                                                   HPE_HEADERS_INCOMPLETE))
-    end
-    return
-end
 
 
 """
@@ -187,10 +132,7 @@ Revert `Parser` to unconfigured state.
 function reset!(p::Parser)
 
     # config
-    p.isheadresponse = false
-    p.onheader = x->nothing
-    p.onbodyfragment = x->nothing
-    p.onheaderscomplete = x->nothing
+    p.message_has_no_body = false
 
     # state
     p.state = s_start_req_or_res
@@ -212,6 +154,16 @@ end
 
 
 """
+    setnobody(::Parser)
+
+Tell the `Parser` not to look for a Message Body.
+e.g. for the Response to a HEAD Request.
+"""
+
+setnobody(p::Parser) = p.message_has_no_body = true
+
+
+"""
     messagestarted(::Parser)
 
 Has the `Parser` begun processng a Message?
@@ -226,7 +178,17 @@ messagestarted(p::Parser) = p.state != s_start_req_or_res
 Has the `Parser` processed the entire Message Header?
 """
 
-headerscomplete(p::Parser) = p.state >= s_headers_done
+headerscomplete(p::Parser) = p.state > s_headers_done
+
+
+"""
+    bodycomplete(::Parser)
+
+Has the `Parser` processed the Message Body?
+"""
+
+bodycomplete(p::Parser) = p.state == s_message_done ||
+                          p.state == s_trailer_start
 
 
 """
@@ -248,6 +210,26 @@ waitingforeof(p::Parser) = p.state == s_body_identity_eof
 
 
 """
+    seteof(::Parser)
+
+Signal that the peer has closed the connection.
+"""
+function seteof(p::Parser)
+    if p.state == s_body_identity_eof
+        p.state = s_message_done
+    end
+end
+
+
+"""
+    messagehastrailing(::Parser)
+
+Is the `Parser` ready to process trailing headers?
+"""
+messagehastrailing(p::Parser) = p.flags & F_TRAILING > 0
+
+
+"""
     connectionclosed(::Parser)
 
 Was "Connection: close" parsed?
@@ -258,6 +240,16 @@ connectionclosed(p::Parser) = p.flags & F_CONNECTION_CLOSE > 0
 
 isrequest(p::Parser) = p.message.status == 0
 
+
+"""
+The [`Parser`] input was invalid.
+
+Fields:
+ - `code`, internal `@enum ParsingErrorCode`.
+ - `state`, internal parsing state.
+ - `status::Int32`, HTTP response status.
+ - `msg::String`, error message.
+"""
 
 struct ParsingError <: Exception
     code::ParsingErrorCode
@@ -281,7 +273,7 @@ end
 
 
 macro err(code)
-    esc(:(throw(ParsingError(parser, $code))))
+    esc(:(parser.state = p_state; throw(ParsingError(parser, $code))))
 end
 
 macro errorif(cond, err)
@@ -293,7 +285,7 @@ macro errorifstrict(cond)
 end
 
 macro passert(cond)
-    enable_passert ? esc(:(@assert $cond)) : :()
+    DEBUG_LEVEL > 1 ? esc(:(@assert $cond)) : :()
 end
 
 macro methodstate(meth, i, char)
@@ -302,46 +294,46 @@ end
 
 
 """
-    parse!(::Parser, bytes) -> count
+    parseheaders(::Parser, bytes) do h::Pair{String,String} ... -> excess
 
-Parse `bytes` and update the `Parser`.
+Read headers from `bytes`, passing each field/value pair to `f`.
+Returns a `SubArray` containing bytes not parsed.
 
-Returns number of bytes consumed.
-If `bytes` contains the end of one Message and the start of the next
-Message, `parse!` will stop at the end of the first Message.
-
-Throws `ParsingError` if input is invalid.
+e.g.
+```
+excess = parseheaders(p, bytes) do (k,v)
+    println("\$k: \$v")
+end
+```
 """
 
-parse!(p::Parser, bytes::String)::Int = parse!(p, Vector{UInt8}(bytes))
+function parseheaders(f, p, bytes)
+    v = Vector{UInt8}(bytes)
+    parseheaders(f, p, view(v, 1:length(v)))
+end
 
-parse!(p::Parser, bytes)::Int = parse!(p, view(bytes, 1:length(bytes)))
-
-const ByteView = typeof(view(UInt8[], 1:0))
-
-function parse!(parser::Parser, bytes::ByteView)::Int
+function parseheaders(onheader::Function #=f(::Pair{String,String}) =#,
+                      parser::Parser, bytes::ByteView)::ByteView
 
     isempty(bytes) && throw(ArgumentError("bytes must not be empty"))
+    !messagehastrailing(parser) &&
+    headerscomplete(parser) && (ArgumentError("headers already complete"))
+
     len = length(bytes)
     p_state = parser.state
-    @debug 2 "parse!(parser.state=$(ParsingStateCode(p_state))), $len-bytes:\n" *
-             escapelines(String(collect(bytes))) * ")"
+    @debug 3 "parseheaders(parser.state=$(ParsingStateCode(p_state))), " *
+             "$len-bytes:\n" * escapelines(String(collect(bytes))) * ")"
 
     p = 0
-    while p < len && p_state != s_message_done
+    while p < len && p_state <= s_headers_done
 
-        @debug 3 string("top of while($p < $len) \"",
+        @debug 4 string("top of while($p < $len) \"",
                         Base.escape_string(string(Char(bytes[p+1]))), "\" ",
                         ParsingStateCode(p_state))
         p += 1
         @inbounds ch = Char(bytes[p])
 
-        if p_state == s_dead
-            # This state is used after a 'Connection: close' message
-            # the parser will error out if it reads another message
-            @errorif(ch != CR && ch != LF, HPE_CLOSED_CONNECTION)
-
-        elseif p_state == s_start_req_or_res
+        if p_state == s_start_req_or_res
             (ch == CR || ch == LF) && continue
             parser.flags = 0
             parser.content_length = ULLONG_MAX
@@ -514,14 +506,14 @@ function parse!(parser::Parser, bytes::ByteView)::Int
 
         elseif p_state == s_req_method
             matcher = string(parser.message.method)
-            @debugshow 3 matcher
-            @debugshow 3 parser.index
+            @debugshow 4 matcher
+            @debugshow 4 parser.index
             if ch == ' ' && parser.index == length(matcher) + 1
                 p_state = s_req_spaces_before_url
             elseif parser.index > length(matcher)
                 @err(HPE_INVALID_METHOD)
             elseif ch == matcher[parser.index]
-                @debug 3 "nada"
+                @debug 4 "nada"
             elseif isalpha(ch)
                 ci = @methodstate(parser.message.method,
                                   Int(parser.index) - 1, ch)
@@ -565,14 +557,14 @@ function parse!(parser::Parser, bytes::ByteView)::Int
             elseif ch == '-' &&
                    parser.index == 2 &&
                    parser.message.method == MKCOL
-                @debug 3 "matched MSEARCH"
+                @debug 4 "matched MSEARCH"
                 parser.message.method = MSEARCH
                 parser.index -= 1
             else
                 @err(HPE_INVALID_METHOD)
             end
             parser.index += 1
-            @debugshow 3 parser.index
+            @debugshow 4 parser.index
 
         elseif p_state == s_req_spaces_before_url
             ch == ' ' && continue
@@ -623,7 +615,7 @@ function parse!(parser::Parser, bytes::ByteView)::Int
 
             if p_state >= s_req_http_start
                 parser.message.url = take!(parser.valuebuffer)
-                @debugshow 3 parser.message.url
+                @debugshow 4 parser.message.url
             end
 
             p = min(p, len)
@@ -695,7 +687,8 @@ function parse!(parser::Parser, bytes::ByteView)::Int
             @errorif(ch != LF, HPE_LF_EXPECTED)
             p_state = s_header_field_start
 
-        elseif p_state == s_header_field_start
+        elseif p_state == s_trailer_start ||
+               p_state == s_header_field_start
             if ch == CR
                 p_state = s_headers_almost_done
             elseif ch == LF
@@ -728,13 +721,13 @@ function parse!(parser::Parser, bytes::ByteView)::Int
             start = p
             while p <= len
                 @inbounds ch = Char(bytes[p])
-                @debug 3 Base.escape_string(string(ch))
+                @debug 4 Base.escape_string(string(ch))
                 c = (!strict && ch == ' ') ? ' ' : tokens[Int(ch)+1]
                 if c == Char(0)
                     @errorif(ch != ':', HPE_INVALID_HEADER_TOKEN)
                     break
                 end
-                @debugshow 3 parser.header_state
+                @debugshow 4 parser.header_state
                 h = parser.header_state
                 if h == h_general
 
@@ -875,9 +868,9 @@ function parse!(parser::Parser, bytes::ByteView)::Int
             h = parser.header_state
             while p <= len
                 @inbounds ch = Char(bytes[p])
-                @debug 3 Base.escape_string(string('\'', ch, '\''))
-                @debugshow 3 strict
-                @debugshow 3 isheaderchar(ch)
+                @debug 4 Base.escape_string(string('\'', ch, '\''))
+                @debugshow 4 strict
+                @debugshow 4 isheaderchar(ch)
                 if ch == CR
                     p_state = s_header_almost_done
                     break
@@ -890,7 +883,7 @@ function parse!(parser::Parser, bytes::ByteView)::Int
 
                 c = lower(ch)
 
-                @debugshow 3 h
+                @debugshow 4 h
                 if h == h_general
                     crlf = findfirst(x->(x == bCR || x == bLF),
                            view(bytes, p:len))
@@ -912,7 +905,7 @@ function parse!(parser::Parser, bytes::ByteView)::Int
 
                         # Overflow?
                         # Test against a conservative limit for simplicity.
-                        @debugshow 3 Int(parser.content_length)
+                        @debugshow 4 Int(parser.content_length)
                         if div(ULLONG_MAX - 10, 10) < t
                             parser.header_state = h
                             @err(HPE_INVALID_CONTENT_LENGTH)
@@ -1016,8 +1009,8 @@ function parse!(parser::Parser, bytes::ByteView)::Int
             write(parser.valuebuffer, view(bytes, start:p-1))
 
             if p_state != s_header_value
-                parser.onheader(String(take!(parser.fieldbuffer)) =>
-                                String(take!(parser.valuebuffer)))
+                onheader(String(take!(parser.fieldbuffer)) =>
+                         String(take!(parser.valuebuffer)))
             end
 
             p = min(p, len)
@@ -1064,7 +1057,7 @@ function parse!(parser::Parser, bytes::ByteView)::Int
 
                 # header value was empty
                 p_state = s_header_field_start
-                parser.onheader(String(take!(parser.fieldbuffer)) => "")
+                onheader(String(take!(parser.fieldbuffer)) => "")
                 p -= 1
             end
 
@@ -1074,34 +1067,32 @@ function parse!(parser::Parser, bytes::ByteView)::Int
             if (parser.flags & F_TRAILING) > 0
                 # End of a chunked request
                 p_state = s_message_done
-                continue
-            end
-
-            # Cannot use chunked encoding and a content-length header together
-            # per the HTTP specification.
-            @errorif((parser.flags & F_CHUNKED) > 0 &&
-                     (parser.flags & F_CONTENTLENGTH) > 0,
-                     HPE_UNEXPECTED_CONTENT_LENGTH)
-
-            p_state = s_headers_done
-            parser.state = p_state
-
-            # Set this here so that on_headers_complete() callbacks can see it
-            if (parser.flags & F_UPGRADE > 0) &&
-               (parser.flags & F_CONNECTION_UPGRADE > 0)
-                parser.message.upgrade = isrequest(parser) ||
-                                         parser.message.status == 101
             else
-                parser.message.upgrade = isrequest(parser) &&
-                                         parser.message.method == CONNECT
+
+                # Cannot use chunked encoding and a content-length header
+                # together per the HTTP specification.
+                @errorif((parser.flags & F_CHUNKED) > 0 &&
+                         (parser.flags & F_CONTENTLENGTH) > 0,
+                         HPE_UNEXPECTED_CONTENT_LENGTH)
+
+                p_state = s_headers_done
+
+                # Set this here for onheaderscomplete() callback.
+                if (parser.flags & F_UPGRADE > 0) &&
+                   (parser.flags & F_CONNECTION_UPGRADE > 0)
+                    parser.message.upgrade = isrequest(parser) ||
+                                             parser.message.status == 101
+                else
+                    parser.message.upgrade = isrequest(parser) &&
+                                             parser.message.method == CONNECT
+                end
+                @debugshow 4 parser.message.upgrade
             end
-            @debugshow 3 parser.message.upgrade
-            @debug 3 "headersdone"
-            parser.onheaderscomplete(parser.message)
 
         elseif p_state == s_headers_done
             @errorifstrict(ch != LF)
-            if parser.isheadresponse ||
+
+            if parser.message_has_no_body ||
                    parser.content_length == 0 ||
                    (parser.message.upgrade && isrequest(parser) &&
                     parser.message.method == CONNECT)
@@ -1112,7 +1103,7 @@ function parse!(parser::Parser, bytes::ByteView)::Int
             elseif parser.content_length != ULLONG_MAX
                 # Content-Length header given and non-zero
                 p_state = s_body_identity
-            elseif isrequest(parser) || # FIXME never need eof() for request?
+            elseif isrequest(parser) || # RFC 7230, 3.3.3, 6.
                    div(parser.message.status, 100) == 1 || # 1xx e.g. Continue
                    parser.message.status == 204 ||         # No Content
                    parser.message.status == 304            # Not Modified
@@ -1123,17 +1114,66 @@ function parse!(parser::Parser, bytes::ByteView)::Int
                 p_state = s_body_identity_eof
             end
 
-        elseif p_state == s_body_identity
+        else
+            @err HPE_INVALID_INTERNAL_STATE
+        end
+    end
+
+    @assert p <= len
+    @assert p == len ||
+            p_state == s_message_done ||
+            p_state == s_chunk_size_start ||
+            p_state == s_body_identity ||
+            p_state == s_body_identity_eof
+
+    @debug 3 "parseheaders() exiting $(ParsingStateCode(p_state))"
+
+    parser.state = p_state
+    return view(bytes, p+1:len)
+end
+
+
+"""
+    parsebody(::Parser, bytes) -> data, excess
+
+Parse body data from `bytes`.
+Returns decoded `data` and `excess` bytes not parsed.
+"""
+
+function parsebody(p, bytes)
+    v = Vector{UInt8}(bytes)
+    parsebody(p, view(v, 1:length(v)))
+end
+
+function parsebody(parser::Parser, bytes::ByteView)::Tuple{ByteView,ByteView}
+
+    isempty(bytes) && throw(ArgumentError("bytes must not be empty"))
+    !headerscomplete(parser) && throw(ArgumentError("headers not complete"))
+
+    len = length(bytes)
+    p_state = parser.state
+    @debug 3 "parsebody(parser.state=$(ParsingStateCode(p_state))), " *
+             "$len-bytes:\n" * escapelines(String(collect(bytes))) * ")"
+
+    result = nobytes
+
+    p = 0
+    while p < len && result == nobytes && p_state < s_message_done &&
+                                          p_state != s_trailer_start
+
+        @debug 4 string("top of while($p < $len) \"",
+                        Base.escape_string(string(Char(bytes[p+1]))), "\" ",
+                        ParsingStateCode(p_state))
+        p += 1
+        @inbounds ch = Char(bytes[p])
+
+        if p_state == s_body_identity
             to_read = Int(min(parser.content_length, len - p + 1))
             @passert parser.content_length != 0 &&
                      parser.content_length != ULLONG_MAX
 
-            parser.onbodyfragment(view(bytes, p:p + to_read - 1))
-
-            # The difference between advancing content_length and p is because
-            # the latter will automaticaly advance on the next loop iteration.
-            # Further, if content_length ends up at 0, we want to see the last
-            # byte again for our message complete callback.
+            @passert result == nobytes
+            result = view(bytes, p:p + to_read - 1)
             parser.content_length -= to_read
             p += to_read - 1
 
@@ -1143,7 +1183,8 @@ function parse!(parser::Parser, bytes::ByteView)::Int
 
         # read until EOF
         elseif p_state == s_body_identity_eof
-            parser.onbodyfragment(view(bytes, p:len))
+            @passert result == nobytes
+            result = bytes
             p = len
 
         elseif p_state == s_chunk_size_start
@@ -1161,7 +1202,7 @@ function parse!(parser::Parser, bytes::ByteView)::Int
                 p_state = s_chunk_size_almost_done
             else
                 unhex_val = unhex[Int(ch)+1]
-                @debugshow 3 unhex_val
+                @debugshow 4 unhex_val
                 if unhex_val == -1
                     if ch == ';' || ch == ' '
                         p_state = s_chunk_parameters
@@ -1174,7 +1215,7 @@ function parse!(parser::Parser, bytes::ByteView)::Int
                 t += UInt64(unhex_val)
 
                 # Overflow? Test against a conservative limit for simplicity.
-                @debugshow 3 Int(parser.content_length)
+                @debugshow 4 Int(parser.content_length)
                 if div(ULLONG_MAX - 16, 16) < t
                     @err(HPE_INVALID_CONTENT_LENGTH)
                 end
@@ -1194,7 +1235,7 @@ function parse!(parser::Parser, bytes::ByteView)::Int
 
             if parser.content_length == 0
                 parser.flags |= F_TRAILING
-                p_state = s_header_field_start
+                p_state = s_trailer_start
             else
                 p_state = s_chunk_data
             end
@@ -1206,12 +1247,10 @@ function parse!(parser::Parser, bytes::ByteView)::Int
             @passert parser.content_length != 0 &&
                      parser.content_length != ULLONG_MAX
 
-            parser.onbodyfragment(view(bytes, p:p + to_read - 1))
-
-            # See the explanation in s_body_identity for why the content
-            # length and data pointers are managed this way.
+            @passert result == nobytes
+            result = view(bytes, p:p + to_read - 1)
             parser.content_length -= to_read
-            p += Int(to_read) - 1
+            p += to_read - 1
 
             if parser.content_length == 0
                 p_state = s_chunk_data_almost_done
@@ -1232,7 +1271,6 @@ function parse!(parser::Parser, bytes::ByteView)::Int
             @err HPE_INVALID_INTERNAL_STATE
         end
     end
-    @assert p_state == s_message_done || p == len
 
     # Consume trailing end of line after message.
     if p_state == s_message_done
@@ -1246,11 +1284,28 @@ function parse!(parser::Parser, bytes::ByteView)::Int
     end
 
     @assert p <= len
-    @debug 3 "parse!() exiting $(ParsingStateCode(p_state))"
+    @assert p == len ||
+            result != nobytes ||
+            p_state == s_message_done ||
+            p_state == s_trailer_start
+
+    @debug 3 "parsebody() exiting $(ParsingStateCode(p_state))"
 
     parser.state = p_state
-    return p
+    return result, view(bytes, p+1:len)
 end
 
+
+Base.show(io::IO, p::Parser) = print(io, "Parser(",
+    "state=", ParsingStateCode(p.state),", ",
+    p.flags & F_CHUNKED > 0 ? "F_CHUNKED, " : "",
+    p.flags & F_CONNECTION_KEEP_ALIVE > 0 ? "F_CONNECTION_KEEP_ALIVE, " : "",
+    p.flags & F_CONNECTION_CLOSE > 0 ? "F_CONNECTION_CLOSE, " : "",
+    p.flags & F_CONNECTION_UPGRADE > 0 ? "F_CONNECTION_UPGRADE, " : "",
+    p.flags & F_TRAILING > 0 ? "F_TRAILING, " : "",
+    p.flags & F_UPGRADE > 0 ? "F_UPGRADE, " : "",
+    p.flags & F_CONTENTLENGTH > 0 ? "F_CONTENTLENGTH, " : "",
+    "content_length=", p.content_length, ", ",
+    "message=", p.message, ")")
 
 end # module Parsers

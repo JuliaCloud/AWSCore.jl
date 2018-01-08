@@ -1,5 +1,9 @@
 module URIs
 
+if VERSION >= v"0.7.0-DEV.2915"
+    using Unicode
+end
+
 import Base.==
 
 include("urlparser.jl")
@@ -41,14 +45,18 @@ struct URI
     userinfo::SubString
 end
 
+URI(uri::URI) = uri
+
 function URI(;host::AbstractString="", path::AbstractString="",
             scheme::AbstractString="", userinfo::AbstractString="",
             port::Union{Integer,AbstractString}="", query="",
             fragment::AbstractString="", isconnect::Bool=false)
     host != "" && scheme == "" && !isconnect && (scheme = "http")
     io = IOBuffer()
-    printuri(io, scheme, userinfo, host, string(port), path, escapeuri(query), fragment)
-    return URI(String(take!(io)); isconnect=isconnect)
+    printuri(io, scheme, userinfo, host, string(port),
+             path, escapeuri(query), fragment)
+    uri = String(take!(io))
+    return URI(uri, isconnect=isconnect)
 end
 
 # we assume `str` is at least host & port
@@ -89,7 +97,7 @@ Base.parse(::Type{URI}, str::AbstractString; isconnect::Bool=false) =
                     a.fragment  == b.fragment  &&
                     a.userinfo  == b.userinfo
 
-function resource(uri::URI)
+@inline function resource(uri::URI)
     string(uri.path,
            isempty(uri.query) ? "" : "?$(uri.query)",
            isempty(uri.fragment) ? "" : "#$(uri.fragment)")
@@ -122,7 +130,7 @@ function printuri(io::IO,
     if sch in uses_authority
         print(io, sch, "://")
         !isempty(userinfo) && print(io, userinfo, "@")
-        print(io, ':' in host? "[$host]" : host)
+        print(io, ':' in host ? "[$host]" : host)
         print(io, ((sch == "http" && port == "80") ||
                    (sch == "https" && port == "443") || isempty(port)) ? "" : ":$port")
     elseif path != "" && path != "*" && sch != ""
@@ -148,7 +156,7 @@ function queryparams(q::AbstractString)
 end
 
 # Validate known URI formats
-const uses_authority = ["hdfs", "ftp", "http", "gopher", "nntp", "telnet", "imap", "wais", "file", "mms", "https", "shttp", "snews", "prospero", "rtsp", "rtspu", "rsync", "svn", "svn+ssh", "sftp" ,"nfs", "git", "git+ssh", "ldap", "s3"]
+const uses_authority = ["hdfs", "ftp", "http", "gopher", "nntp", "telnet", "imap", "wais", "file", "mms", "https", "shttp", "snews", "prospero", "rtsp", "rtspu", "rsync", "svn", "svn+ssh", "sftp" ,"nfs", "git", "git+ssh", "ldap", "s3", "ws"]
 const uses_params = ["ftp", "hdl", "prospero", "http", "imap", "https", "shttp", "rtsp", "rtspu", "sip", "sips", "mms", "sftp", "tel"]
 const non_hierarchical = ["gopher", "hdl", "mailto", "news", "telnet", "wais", "imap", "snews", "sip", "sips"]
 const uses_query = ["http", "wais", "imap", "https", "shttp", "mms", "gopher", "rtsp", "rtspu", "sip", "sips", "ldap"]
@@ -186,7 +194,9 @@ escapeuri(str::AbstractString, safe::Function=issafe) =
 escapeuri(bytes::Vector{UInt8}) = bytes
 escapeuri(v::Number) = escapeuri(string(v))
 escapeuri(v::Symbol) = escapeuri(string(v))
+@static if VERSION < v"0.7.0-DEV.3017"
 escapeuri(v::Nullable) = Base.isnull(v) ? "" : escapeuri(get(v))
+end
 
 escapeuri(key, value) = string(escapeuri(key), "=", escapeuri(value))
 escapeuri(key, values::Vector) = escapeuri(key => v for v in values)

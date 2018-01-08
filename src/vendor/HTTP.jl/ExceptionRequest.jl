@@ -1,18 +1,20 @@
 module ExceptionRequest
 
-import ..Layer, ..RequestStack.request
-using ..Messages
+export StatusError
+
+import ..Layer, ..request
+import ..HTTP
+using ..Messages.iserror
+
+
+"""
+    request(ExceptionLayer, ::URI, ::Request, body) -> HTTP.Response
+
+Throw a `StatusError` if the request returns an error response status.
+"""
 
 abstract type ExceptionLayer{Next <: Layer} <: Layer end
 export ExceptionLayer
-export StatusError
-
-
-struct StatusError <: Exception
-    status::Int16
-    response::Messages.Response
-end
-
 
 function request(::Type{ExceptionLayer{Next}}, a...; kw...) where Next
 
@@ -23,6 +25,20 @@ function request(::Type{ExceptionLayer{Next}}, a...; kw...) where Next
     end
 
     return res
+end
+
+
+"""
+The `Response` has a `4xx`, `5xx` or unrecognised status code.
+
+Fields:
+ - `status::Int16`, the response status code.
+ - `response` the [`HTTP.Response`](@ref)
+"""
+
+struct StatusError <: Exception
+    status::Int16
+    response::HTTP.Response
 end
 
 

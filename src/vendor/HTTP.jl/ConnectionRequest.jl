@@ -1,45 +1,48 @@
 module ConnectionRequest
 
-import ..Layer, ..RequestStack.request
+import ..Layer, ..request
 using ..URIs
 using ..Messages
+using ..IOExtras
 using ..ConnectionPool
 using MbedTLS.SSLContext
+import ..@debug, ..DEBUG_LEVEL
 
+
+"""
+    request(ConnectionPoolLayer, ::URI, ::Request, body) -> HTTP.Response
+
+Retrieve an `IO` connection from the [`ConnectionPool`](@ref).
+
+Close the connection if the request throws an exception.
+Otherwise leave it open so that it can be reused.
+
+`IO` related exceptions from `Base` are wrapped in `HTTP.IOError`.
+See [`isioerror`](@ref).
+"""
 
 abstract type ConnectionPoolLayer{Next <: Layer} <: Layer end
 export ConnectionPoolLayer
 
+function request(::Type{ConnectionPoolLayer{Next}}, uri::URI, req, body;
+                 socket_type::Type=TCPSocket, kw...) where Next
 
-sockettype(uri::URI) = uri.scheme == "https" ? SSLContext : TCPSocket
+    IOType = ConnectionPool.Transaction{sockettype(uri, socket_type)}
+    io = getconnection(IOType, uri.host, uri.port; kw...)
 
-
-"""
-    request(ConnectionLayer{Connection, Next}, ::URI, ::Request, ::Response)
-
-Get a `Connection` for a `URI`, send a `Request` and fill in a `Response`.
-"""
-
-function request(::Type{ConnectionPoolLayer{Next}},
-                 uri::URI, req::Request, res::Response; kw...) where Next
-
-    Connection = ConnectionPool.Connection{sockettype(uri)}
-    io = getconnection(Connection, uri.host, uri.port; kw...)
-
-    return request(Next, io, req, res; kw...)
+    try
+        r = request(Next, io, req, body; kw...)
+        return r
+    catch e
+        @debug 1 "❗️  ConnectionLayer $e. Closing: $io"
+        close(io)
+        rethrow(isioerror(e) ? IOError(e) : e)
+    end
 end
 
 
-abstract type ConnectLayer{Next <: Layer} <: Layer end
-export ConnectLayer
-
-function request(::Type{ConnectLayer{Next}},
-                 uri::URI, req::Request, res::Response; kw...) where Next
-
-    io = getconnection(sockettype(uri), uri.host, uri.port; kw...)
-
-    return request(Next, io, req, res; kw...)
-end
+sockettype(uri::URI, default) = uri.scheme in ("wss", "https") ? SSLContext :
+                                                                 default
 
 
 end # module ConnectionRequest
