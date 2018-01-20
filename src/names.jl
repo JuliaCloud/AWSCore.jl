@@ -10,60 +10,9 @@
 #==============================================================================#
 
 
-export aws_endpoint, arn, is_arn,
+export arn, is_arn,
        arn_service, arn_region, arn_account, arn_resource,
        arn_iam_type, arn_iam_name
-
-
-
-"""
-    aws_endpoint(service, [region, [hostname_prefix]])
-
-Generate service endpoint URL for `service` and  `region`.
-"""
-
-function aws_endpoint(service, region="", hostname_prefix="")
-
-    protocol = "http"
-
-    # HTTPS where required...
-    if service in ["iam", "sts", "lambda", "apigateway", "email"]
-        protocol = "https"
-    end
-
-    # Identity and Access Management API has no region suffix...
-    if service == "iam"
-        region = ""
-    end
-
-    # SES not available in all regions...
-    if service == "ses" && !(region in ["us-east-1", "us-west-2", "eu-west-1"])
-        region = "us-east-1"
-    end
-
-    # No region sufix for s3 or sdb in default region...
-    if region == "us-east-1" && service in ["s3", "sdb"]
-        region = ""
-    end
-
-    # Append region to service...
-    if region != ""
-        if service == "s3"
-            service = "$service-$region"
-        else
-            service = "$service.$region"
-        end
-    end
-
-    # Add optional hostname prefix (e.g. S3 Bucket Name)...
-    if hostname_prefix != ""
-        service = "$hostname_prefix.$service"
-    end
-
-    return "$protocol://$service.amazonaws.com"
-end
-
-
 
 
 """
@@ -162,9 +111,7 @@ function is_arn(arn)
     v = split(arn, ":")
     p = [is_arn_prefix, is_partition, is_service, is_region, is_account]
 
-    #FIXME requires Julia > v0.5:
-    # return length(v) >= 6 && all(v[1:5] .|> p)
-    return length(v) >= 6 && all([f(x) for (f,x) in zip(p, v[1:5])])
+    return length(v) >= 6 && all(v[1:5] .|> p)
 end
 
 arn_match(s, n, p) = ismatch(p, s) ||

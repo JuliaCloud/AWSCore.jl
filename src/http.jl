@@ -14,6 +14,8 @@ header(e::HTTP.StatusError, k, d="") = HTTP.header(e.response, k, d)
 http_message(e::HTTP.StatusError) = String(e.response.body)
 content_type(e::HTTP.StatusError) = HTTP.header(e.response, "Content-Type")
 
+const http_stack = HTTP.stack(redirect=false, retry=false,
+                              aws_authorization=false)
 
 function http_request(request::AWSRequest)
 
@@ -26,10 +28,18 @@ function http_request(request::AWSRequest)
             push!(options, (:response_stream, io))
         end
 
-        return HTTP.request(request[:verb],
-                            request[:url],
-                            request[:headers],
+        return HTTP.request(http_stack,
+                            request[:verb],
+                            HTTP.URI(request[:url]),
+                            HTTP.mkheaders(request[:headers]),
                             request[:content];
+                            #aws_service = request[:service],
+                            #aws_region = request[:region],
+                            #aws_access_key_id = request[:creds].access_key_id,
+                            #aws_secret_access_key = request[:creds].secret_key,
+                            #aws_session_token = request[:creds].token,
+                            verbose = debug_level - 1,
+                            require_ssl_verification=false,
                             options...)
 
     catch e
@@ -37,7 +47,7 @@ function http_request(request::AWSRequest)
         @delay_retry if isa(e, Base.DNSError) ||
                         isa(e, HTTP.ParsingError) ||
                         isa(e, HTTP.IOError) ||
-                        (isa(e, HTTP.StatusError) && http_status(e) >= 500) end
+                       (isa(e, HTTP.StatusError) && http_status(e) >= 500) end
     end
 
     assert(false) # Unreachable.
@@ -50,7 +60,7 @@ function http_get(url::String)
 
     http_request(@SymDict(verb = "GET",
                           url = url,
-                          headers = Dict("Host" => host),
+                          headers = ["Host" => host],
                           content = UInt8[]))
 end
 

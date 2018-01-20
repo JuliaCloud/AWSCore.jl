@@ -17,8 +17,7 @@ export AWSException, AWSConfig, AWSRequest,
 using Retry
 using SymDict
 using XMLDict
-include("vendor/HTTP.jl/HTTP.jl")
-using .HTTP
+using HTTP
 
 
 """
@@ -279,7 +278,7 @@ function rest_resource(request, args)
             r = replace(r, "{$k}", v)
             delete!(args, k)
         elseif contains(r, "{$k+}")
-            r = replace(r, "{$k+}", escape_path(v))
+            r = replace(r, "{$k+}", HTTP.escapepath(v))
             delete!(args, k)
         end
     end
@@ -374,11 +373,6 @@ end
 
 
 include("sign.jl")
-
-
-
-ispathsafe(c::Char) = c == '/' || HTTP.URIs.issafe(c)
-escape_path(path) = HTTP.escapeuri(path, ispathsafe)
 
 
 """

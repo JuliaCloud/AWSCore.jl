@@ -46,7 +46,7 @@ function sign_aws2!(r::AWSRequest, t)
     query = Pair[k => query[k] for k in sort(collect(keys(query)))]
 
     u = HTTP.URI(r[:url])
-    to_sign = "POST\n$(HTTP.host(u))\n$(HTTP.path(u))\n$(HTTP.escapeuri(query))"
+    to_sign = "POST\n$(u.host)\n$(u.path)\n$(HTTP.escapeuri(query))"
 
     secret = r[:creds].secret_key
     push!(query, "Signature" =>
@@ -104,7 +104,7 @@ function sign_aws4!(r::AWSRequest, t)
     # Create hash of canonical request...
     canonical_form = string(r[:verb], "\n",
                             r[:service] == "s3" ? uri.path
-                                                : escape_path(uri.path), "\n",
+                                                : HTTP.escapepath(uri.path), "\n",
                             HTTP.escapeuri(query), "\n",
                             join(sort(canonical_headers), "\n"), "\n\n",
                             signed_headers, "\n",

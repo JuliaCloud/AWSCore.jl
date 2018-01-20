@@ -264,8 +264,8 @@ aws4_request_headers_test()
 println("AWS4 Signature ok.")
 
 
-@test AWSCore.escape_path("invocations/function:f:PROD") ==
-                          "invocations/function%3Af%3APROD"
+@test HTTP.escapepath("invocations/function:f:PROD") ==
+                      "invocations/function%3Af%3APROD"
 
 
 #-------------------------------------------------------------------------------
@@ -283,33 +283,6 @@ println("AWS4 Signature ok.")
 
 
 println("ARNs ok.")
-
-
-
-#-------------------------------------------------------------------------------
-# Endpoint URL tests
-#-------------------------------------------------------------------------------
-
-
-import AWSCore: aws_endpoint
-
-
-@test aws_endpoint("sqs", "us-east-1") == "http://sqs.us-east-1.amazonaws.com"
-@test aws_endpoint("sdb", "us-east-1") == "http://sdb.amazonaws.com"
-@test aws_endpoint("iam", "us-east-1") == "https://iam.amazonaws.com"
-@test aws_endpoint("iam", "eu-west-1") == "https://iam.amazonaws.com"
-@test aws_endpoint("sts", "us-east-1") == "https://sts.us-east-1.amazonaws.com"
-@test aws_endpoint("sqs", "eu-west-1") == "http://sqs.eu-west-1.amazonaws.com"
-@test aws_endpoint("sdb", "eu-west-1") == "http://sdb.eu-west-1.amazonaws.com"
-@test aws_endpoint("sns", "eu-west-1") == "http://sns.eu-west-1.amazonaws.com"
-
-@test aws_endpoint("s3", "us-east-1", "bucket") == 
-      "http://bucket.s3.amazonaws.com"
-@test aws_endpoint("s3", "eu-west-1", "bucket") ==
-      "http://bucket.s3-eu-west-1.amazonaws.com"
-
-
-println("Endpoints ok.")
 
 
 
