@@ -56,7 +56,7 @@ end
 
 function http_get(url::String)
 
-    host = HTTP.URIs.hostname(HTTP.URI(url))
+    host = HTTP.URI(url).host
 
     http_request(@SymDict(verb = "GET",
                           url = url,
