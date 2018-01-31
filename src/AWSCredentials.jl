@@ -29,7 +29,7 @@ The `AWSCredentials()` constructor tries to load local Credentials from
 environment variables, `~/.aws/credentials` or EC2 instance credentials.
 """
 
-type AWSCredentials
+mutable struct AWSCredentials
     access_key_id::String
     secret_key::String
     token::String
