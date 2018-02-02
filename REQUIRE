@@ -2,8 +2,8 @@ julia 0.6
 Retry
 SymDict 0.1.2
 XMLDict
-JSON
+JSON 0.5
 IniFile
 HTTP 0.6.0
 MbedTLS
-DataStructures
+DataStructures 0.2.9
