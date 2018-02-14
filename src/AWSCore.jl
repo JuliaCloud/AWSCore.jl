@@ -319,6 +319,8 @@ function service_rest_xml(aws::AWSConfig; args...)
     request = Dict{Symbol,Any}(args)
     args = stringdict(request[:args])
 
+    request[:headers] = Dict{String,String}(get(args, "headers", []))
+    delete!(args, "headers")
     request[:content] = get(args, "Body", "")
     delete!(args, "Body")
 
