@@ -327,7 +327,11 @@ function service_rest_xml(aws::AWSConfig; args...)
     query_str  = HTTP.escapeuri(args)
 
     if query_str  != ""
-        request[:resource] *= "?$query_str"
+        if contains(request[:resource], "?")
+            request[:resource] *= "&$query_str"
+        else
+            request[:resource] *= "?$query_str"
+        end
     end
 
     #FIXME deal with bucket prefix
