@@ -68,6 +68,10 @@ function member_name(service, name, info)
         name = string(uppercase(name[1]), name[2:end])
     end
 
+    if get(info, "location", "") in ["header", "headers"]
+        name = "*header:* $name"
+    end
+
     return name
 end
 
@@ -129,6 +133,7 @@ function service_shape_doc(service, name, pad="", stack=[])
                     s = "```\n $n$s\n```"
                     n = "$n$brief"
                 end
+
                 result *= "## `$n`$(r ? " -- *Required*" : "")\n$d\n$s\n\n"
             end
 
