@@ -35,7 +35,7 @@ aws = aws_config()
         @test false
     catch e
         println(e)
-        @test e.code == "InvalidAction"
+        @test ecode(e) == "InvalidAction"
     end
 
     try
@@ -44,7 +44,7 @@ aws = aws_config()
         @test false
     catch e
         println(e)
-        @test e.code in ["AccessDenied", "NoSuchEntity"]
+        @test ecode(e) in ["AccessDenied", "NoSuchEntity"]
     end
 
     try
@@ -53,7 +53,7 @@ aws = aws_config()
         @test false
     catch e
         println(e)
-        @test e.code == "ValidationError"
+        @test ecode(e) == "ValidationError"
     end
 
     try
@@ -62,7 +62,7 @@ aws = aws_config()
         @test false
     catch e
         println(e)
-        @test e.code in ["AccessDenied", "EntityAlreadyExists"]
+        @test ecode(e) in ["AccessDenied", "EntityAlreadyExists"]
     end
 end
 
@@ -260,4 +260,9 @@ end
                           "invocations/function%3Af%3APROD"
 end
 
-end
+end # testset "AWSCore"
+
+
+#==============================================================================#
+# End of file.
+#==============================================================================#
