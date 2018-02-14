@@ -1,5 +1,5 @@
 julia 0.6
-Retry
+Retry 0.2.0
 SymDict 0.1.2
 XMLDict
 JSON
