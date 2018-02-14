@@ -45,9 +45,9 @@ function http_request(request::AWSRequest)
     catch e
 
         @delay_retry if isa(e, Base.DNSError) ||
-                        isa(e, HTTP.Parsers.ParseError) ||
-                        isa(e, HTTP.IOExtras.IOError) ||
-                        (isa(e, HTTP.ExceptionRequest.StatusError) && http_status(e) >= 500) end
+                        isa(e, HTTP.ParseError) ||
+                        isa(e, HTTP.IOError) ||
+                       (isa(e, HTTP.StatusError) && http_status(e) >= 500) end
     end
 
     assert(false) # Unreachable.
@@ -56,7 +56,7 @@ end
 
 function http_get(url::String)
 
-    host = HTTP.URIs.hostname(HTTP.URI(url))
+    host = HTTP.URI(url).host
 
     http_request(@SymDict(verb = "GET",
                           url = url,
