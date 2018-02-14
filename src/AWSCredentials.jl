@@ -171,7 +171,7 @@ function ec2_metadata(key)
 
     @assert localhost_is_ec2()
 
-    String(take!(http_get("http://169.254.169.254/latest/meta-data/$key")))
+    String(http_get("http://169.254.169.254/latest/meta-data/$key").body)
 end
 
 
@@ -216,7 +216,7 @@ function ecs_instance_credentials()
 
     uri = ENV["AWS_CONTAINER_CREDENTIALS_RELATIVE_URI"]
 
-    new_creds = JSON.parse(String(take!(http_get("http://169.254.170.2$uri"))))
+    new_creds = JSON.parse(String(http_get("http://169.254.170.2$uri").body))
 
     if debug_level > 0
         print("Loading AWSCredentials from ECS metadata... ")
