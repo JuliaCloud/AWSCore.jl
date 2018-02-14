@@ -18,6 +18,7 @@ using Retry
 using SymDict
 using XMLDict
 using HTTP
+using DataStructures: OrderedDict
 
 
 """
@@ -462,11 +463,11 @@ function do_request(r::AWSRequest)
     end
 
     if ismatch(r"/x-amz-json-1.[01]$", mime)
-        return JSON.parse(String(response.body))
+        return JSON.parse(String(response.body), dicttype=OrderedDict)
     end
 
     if ismatch(r"json$", mime)
-        info = JSON.parse(String(response.body))
+        info = JSON.parse(String(response.body), dicttype=OrderedDict)
         @protected try
             action = r[:query]["Action"]
             info = info[action * "Response"]
