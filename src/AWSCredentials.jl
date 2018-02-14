@@ -71,13 +71,14 @@ function AWSCredentials()
 
         creds = dot_aws_credentials()
 
+    elseif haskey(ENV, "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
+
+        creds = ecs_instance_credentials()
+
     elseif localhost_is_ec2()
 
-        if haskey(ENV, "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
-            creds = ecs_instance_credentials()
-        else
-            creds = ec2_instance_credentials()
-        end
+        creds = ec2_instance_credentials()
+
     else
         error("Can't find AWS credentials!")
     end
@@ -211,7 +212,6 @@ Load [ECS Task Credentials]
 
 function ecs_instance_credentials()
 
-    @assert localhost_is_ec2()
     @assert haskey(ENV, "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
 
     uri = ENV["AWS_CONTAINER_CREDENTIALS_RELATIVE_URI"]
