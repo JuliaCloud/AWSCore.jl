@@ -469,6 +469,9 @@ function do_request(r::AWSRequest)
     end
 
     if ismatch(r"/x-amz-json-1.[01]$", mime)
+        if isempty(response.body)
+            return nothing
+        end
         return JSON.parse(String(response.body), dicttype=OrderedDict)
     end
 
