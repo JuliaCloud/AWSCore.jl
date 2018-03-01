@@ -47,6 +47,7 @@ function http_request(request::AWSRequest)
         @delay_retry if isa(e, Base.DNSError) ||
                         isa(e, HTTP.ParseError) ||
                         isa(e, HTTP.IOError) ||
+                        #isa(e, EOFError) || FIXME needed ?
                        (isa(e, HTTP.StatusError) && http_status(e) >= 500) end
     end
 

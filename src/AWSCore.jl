@@ -472,11 +472,19 @@ function do_request(r::AWSRequest)
         if isempty(response.body)
             return nothing
         end
-        return JSON.parse(String(response.body), dicttype=OrderedDict)
+        if get(r, :ordered_json_dict, true)
+            return JSON.parse(String(response.body), dicttype=OrderedDict)
+        else
+            return JSON.parse(String(response.body))
+        end
     end
 
     if ismatch(r"json$", mime)
-        info = JSON.parse(String(response.body), dicttype=OrderedDict)
+        if get(r, :ordered_json_dict, true)
+            info = JSON.parse(String(response.body), dicttype=OrderedDict)
+        else
+            info = JSON.parse(String(response.body))
+        end
         @protected try
             action = r[:query]["Action"]
             info = info[action * "Response"]
