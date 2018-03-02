@@ -36,7 +36,7 @@ function sign_aws2!(r::AWSRequest, t)
 
     query["AWSAccessKeyId"] = r[:creds].access_key_id
     query["Expires"] = Dates.format(t + Dates.Second(120),
-                                    "yyyy-mm-ddTHH:MM:SSZ")
+                                   dateformat"yyyy-mm-dd\THH:MM:SS\Z")
     query["SignatureVersion"] = "2"
     query["SignatureMethod"] = "HmacSHA256"
     if r[:creds].token != ""
@@ -64,7 +64,7 @@ function sign_aws4!(r::AWSRequest, t)
 
     # ISO8601 date/time strings for time of request...
     date = Dates.format(t,"yyyymmdd")
-    datetime = Dates.format(t,"yyyymmddTHHMMSSZ")
+    datetime = Dates.format(t, dateformat"yyyymmdd\THHMMSS\Z")
 
     # Authentication scope...
     scope = [date, r[:region], r[:service], "aws4_request"]
