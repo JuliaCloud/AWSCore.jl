@@ -12,8 +12,12 @@
 export AWSCredentials,
        localhost_is_lambda,
        localhost_is_ec2,
+       localhost_maybe_ec2,
        aws_user_arn,
        aws_account_number
+
+@deprecate localhost_is_ec2() localhost_maybe_ec2()
+
 
 """
 When you interact with AWS, you specify your [AWS Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html) to verify who you are and whether you have permission to access the resources that you are requesting. AWS uses the security credentials to authenticate and authorize your requests.
@@ -75,7 +79,7 @@ function AWSCredentials()
 
         creds = ecs_instance_credentials()
 
-    elseif localhost_is_ec2()
+    elseif localhost_maybe_ec2()
 
         creds = ec2_instance_credentials()
 
@@ -103,7 +107,7 @@ localhost_is_lambda() = haskey(ENV, "LAMBDA_TASK_ROOT")
 Is Julia running on an EC2 virtual machine?
 """
 
-function localhost_is_ec2()
+function localhost_maybe_ec2()
 
     if localhost_is_lambda()
         return false
@@ -111,7 +115,11 @@ function localhost_is_ec2()
 
     @static if VERSION < v"0.7.0-DEV" ? is_unix() : Sys.isunix()
         return isfile("/sys/hypervisor/uuid") &&
-               String(read("/sys/hypervisor/uuid",3)) == "ec2"
+               String(read("/sys/hypervisor/uuid",3)) == "ec2" ||
+               isfile("/sys/devices/virtual/dmi/id/product_uuid")
+                      # product_uuid is not world readable!
+                      # https://patchwork.kernel.org/patch/6461521/
+                      # https://github.com/JuliaCloud/AWSCore.jl/issues/24
     end
 
     return false
@@ -169,7 +177,7 @@ for `key`.
 
 function ec2_metadata(key)
 
-    @assert localhost_is_ec2()
+    @assert localhost_maybe_ec2()
 
     String(http_get("http://169.254.169.254/latest/meta-data/$key").body)
 end
@@ -185,7 +193,7 @@ for EC2 virtual machine.
 
 function ec2_instance_credentials()
 
-    @assert localhost_is_ec2()
+    @assert localhost_maybe_ec2()
 
     info  = ec2_metadata("iam/info")
     info  = JSON.parse(info, dicttype=Dict{String,String})
