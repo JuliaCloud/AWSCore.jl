@@ -111,19 +111,27 @@ function localhost_is_ec2()
         return false
     end
 
-    return isfile("/sys/hypervisor/uuid") &&
-           String(read("/sys/hypervisor/uuid",3)) == "ec2"
+    if isfile("/sys/hypervisor/uuid") &&
+       String(read("/sys/hypervisor/uuid",3)) == "ec2"
+        return true
+    end
+
+    if isfile("/sys/devices/virtual/dmi/id/product_uuid")
+        try
+            # product_uuid is not world readable!
+            # https://patchwork.kernel.org/patch/6461521/
+            # https://github.com/JuliaCloud/AWSCore.jl/issues/24
+            if String(read("/sys/devices/virtual/dmi/id/product_uuid")) == "EC2"
+                return true
+            end
+        end
+    end
+
+    return false
 end
 
-function localhost_maybe_ec2()
-
-    return localhost_is_ec2() ||
-           isfile("/sys/devices/virtual/dmi/id/product_uuid")
-                  # product_uuid is not world readable!
-                  # https://patchwork.kernel.org/patch/6461521/
-                  # https://github.com/JuliaCloud/AWSCore.jl/issues/24
-end
-
+localhost_maybe_ec2() = localhost_is_ec2() ||
+                        isfile("/sys/devices/virtual/dmi/id/product_uuid")
 
 """
     aws_user_arn(::AWSConfig)
