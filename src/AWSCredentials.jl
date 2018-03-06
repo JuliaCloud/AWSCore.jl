@@ -16,8 +16,6 @@ export AWSCredentials,
        aws_user_arn,
        aws_account_number
 
-@deprecate localhost_is_ec2() localhost_maybe_ec2()
-
 
 """
 When you interact with AWS, you specify your [AWS Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html) to verify who you are and whether you have permission to access the resources that you are requesting. AWS uses the security credentials to authenticate and authorize your requests.
@@ -107,22 +105,23 @@ localhost_is_lambda() = haskey(ENV, "LAMBDA_TASK_ROOT")
 Is Julia running on an EC2 virtual machine?
 """
 
-function localhost_maybe_ec2()
+function localhost_is_ec2()
 
     if localhost_is_lambda()
         return false
     end
 
-    @static if VERSION < v"0.7.0-DEV" ? is_unix() : Sys.isunix()
-        return isfile("/sys/hypervisor/uuid") &&
-               String(read("/sys/hypervisor/uuid",3)) == "ec2" ||
-               isfile("/sys/devices/virtual/dmi/id/product_uuid")
-                      # product_uuid is not world readable!
-                      # https://patchwork.kernel.org/patch/6461521/
-                      # https://github.com/JuliaCloud/AWSCore.jl/issues/24
-    end
+    return isfile("/sys/hypervisor/uuid") &&
+           String(read("/sys/hypervisor/uuid",3)) == "ec2"
+end
 
-    return false
+function localhost_maybe_ec2()
+
+    return localhost_is_ec2() ||
+           isfile("/sys/devices/virtual/dmi/id/product_uuid")
+                  # product_uuid is not world readable!
+                  # https://patchwork.kernel.org/patch/6461521/
+                  # https://github.com/JuliaCloud/AWSCore.jl/issues/24
 end
 
 
