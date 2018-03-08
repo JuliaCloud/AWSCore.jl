@@ -292,7 +292,7 @@ function dot_aws_credentials()
                 get(creds_ini, source_profile, "aws_access_key_id"),
                 get(creds_ini, source_profile, "aws_secret_access_key")
                 ),
-            :region => get(config_ini, source_profile, "region")
+            :region => get(config_ini, source_profile, "region", get(ENV, "AWS_DEFAULT_REGION", "us-east-1"))
             )
 
         role = Services.sts(config, "AssumeRole", RoleArn=role_arn, RoleSessionName=profile)

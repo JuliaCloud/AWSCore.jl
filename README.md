@@ -110,3 +110,22 @@ Create an IAM user...
 ```julia
 iam(aws, "CreateUser", {"UserName" => "me"})
 ```
+
+
+Automatically assume a role([details](https://docs.aws.amazon.com/cli/latest/userguide/cli-roles.html))...
+
+For a user with the IAM profile `valid-iam-profile` already in their credentials file
+that has permissions to a role called `example-role-name`:
+ 
+~/.aws/config:
+```
+[profile example-role-name]
+role_arn = arn:aws:iam::[role number here]:role/example-role-name
+source_profile = valid-iam-profile
+```
+
+
+```julia
+ENV["AWS_PROFILE"] = "example-role-name"
+AWSCore.aws_config()
+```
