@@ -254,27 +254,62 @@ using IniFile
 dot_aws_credentials_file() = get(ENV, "AWS_CONFIG_FILE",
                                  joinpath(homedir(), ".aws", "credentials"))
 
+dot_aws_config_file() = get(ENV, "AWS_CONFIG_FILE",
+                                 joinpath(homedir(), ".aws", "config"))
+
 """
 Load Credentials from [AWS CLI ~/.aws/credentials file]
 (http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html).
 """
-
 function dot_aws_credentials()
 
     @assert isfile(dot_aws_credentials_file())
+    @assert isfile(dot_aws_config_file())
 
-    ini = read(Inifile(), dot_aws_credentials_file())
-
+    config_ini = read(Inifile(), dot_aws_config_file())
+    creds_ini = read(Inifile(), dot_aws_credentials_file())
+    
     profile = get(ENV, "AWS_DEFAULT_PROFILE",
               get(ENV, "AWS_PROFILE", "default"))
 
-    if debug_level > 0
-        print("Loading \"$profile\" AWSCredentials from " *
-                dot_aws_credentials_file() * "... ")
-    end
+    role_arn = get(config_ini, "profile $profile", "role_arn")
 
-    AWSCredentials(get(ini, profile, "aws_access_key_id"),
-                   get(ini, profile, "aws_secret_access_key"))
+    if role_arn != :notfound
+        if debug_level > 0
+            print("Loading \"$profile\" Profile from " *
+                    dot_aws_config_file() * "... ")
+        end
+
+        source_profile = get(config_ini, "profile $profile", "source_profile")
+        
+        if debug_level > 0
+            print("Loading \"$source_profile\" AWSCredentials from " *
+                    dot_aws_credentials_file() * "... ")
+        end
+
+        config = AWSConfig(
+            :creds=>AWSCredentials(
+                get(creds_ini, source_profile, "aws_access_key_id"),
+                get(creds_ini, source_profile, "aws_secret_access_key")
+                ),
+            :region => get(config_ini, source_profile, "region")
+            )
+
+        role = Services.sts(config, "AssumeRole", RoleArn=role_arn, RoleSessionName=profile)
+        role_creds = role["Credentials"]
+
+        AWSCredentials(role_creds["AccessKeyId"],
+                       role_creds["SecretAccessKey"],
+                       role_creds["SessionToken"]) 
+    else   
+        if debug_level > 0
+            print("Loading \"$profile\" AWSCredentials from " *
+                    dot_aws_credentials_file() * "... ")
+        end
+
+        AWSCredentials(get(creds_ini, profile, "aws_access_key_id"),
+                       get(creds_ini, profile, "aws_secret_access_key"))
+    end
 end
 
 
