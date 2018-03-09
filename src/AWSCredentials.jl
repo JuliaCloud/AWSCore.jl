@@ -26,7 +26,7 @@ The fields `access_key_id` and `secret_key` hold the access keys used to authent
 The `user_arn` and `account_number` fields are used to cache the result of the [`aws_user_arn`](@ref) and [`aws_account_number`](@ref) functions.
 
 The `AWSCredentials()` constructor tries to load local Credentials from
-environment variables, `~/.aws/credentials` or EC2 instance credentials.
+environment variables, `~/.aws/credentials`, `~/.aws/config` or EC2 instance credentials.
 """
 
 mutable struct AWSCredentials
@@ -67,7 +67,7 @@ function AWSCredentials()
 
         creds = env_instance_credentials()
 
-    elseif isfile(dot_aws_credentials_file())
+    elseif isfile(dot_aws_credentials_file()) || isfile(dot_aws_config_file())
 
         creds = dot_aws_credentials()
 
@@ -251,65 +251,72 @@ end
 
 using IniFile
 
-dot_aws_credentials_file() = get(ENV, "AWS_CONFIG_FILE",
+dot_aws_credentials_file() = get(ENV, "AWS_SHARED_CREDENTIALS_FILE",
                                  joinpath(homedir(), ".aws", "credentials"))
 
 dot_aws_config_file() = get(ENV, "AWS_CONFIG_FILE",
                                  joinpath(homedir(), ".aws", "config"))
 
 """
-Load Credentials from [AWS CLI ~/.aws/credentials file]
+Load Credentials from [AWS CLI ~/.aws/credentials file] or [AWS CLI ~/.aws/config file]
 (http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html).
 """
 function dot_aws_credentials()
 
-    @assert isfile(dot_aws_credentials_file())
-    @assert isfile(dot_aws_config_file())
+    @assert isfile(dot_aws_credentials_file()) || isfile(dot_aws_config_file())
 
-    config_ini = read(Inifile(), dot_aws_config_file())
-    creds_ini = read(Inifile(), dot_aws_credentials_file())
-    
     profile = get(ENV, "AWS_DEFAULT_PROFILE",
               get(ENV, "AWS_PROFILE", "default"))
+    
+    region = get(ENV, "AWS_DEFAULT_REGION", "us-east-1")
+    key_id = :notfound
+    key = :notfound
+    role_arn = :notfound
 
-    role_arn = get(config_ini, "profile $profile", "role_arn")
-
-    if role_arn != :notfound
+    if isfile(dot_aws_config_file())
         if debug_level > 0
             print("Loading \"$profile\" Profile from " *
                     dot_aws_config_file() * "... ")
         end
 
-        source_profile = get(config_ini, "profile $profile", "source_profile")
+        ini =  read(Inifile(), dot_aws_config_file())
+        profile_name = "profile $profile"
+        key_id = get(ini, profile_name, "aws_access_key_id")
+        key = get(ini, profile_name, "aws_secret_access_key")
+        role_arn = get(ini, profile_name, "role_arn")
         
-        if debug_level > 0
-            print("Loading \"$source_profile\" AWSCredentials from " *
-                    dot_aws_credentials_file() * "... ")
+        if role_arn != :notfound
+            profile = get(ini, profile_name, "source_profile")
+            profile_name = "profile $profile"
+            key_id = get(ini, profile_name, "aws_access_key_id")
+            key = get(ini, profile_name, "aws_secret_access_key")
+            region = get(ini, profile, "region", region)
         end
+    end
 
-        config = AWSConfig(
-            :creds=>AWSCredentials(
-                get(creds_ini, source_profile, "aws_access_key_id"),
-                get(creds_ini, source_profile, "aws_secret_access_key")
-                ),
-            :region => get(config_ini, source_profile, "region", get(ENV, "AWS_DEFAULT_REGION", "us-east-1"))
-            )
-
-        role = Services.sts(config, "AssumeRole", RoleArn=role_arn, RoleSessionName=profile)
-        role_creds = role["Credentials"]
-
-        AWSCredentials(role_creds["AccessKeyId"],
-                       role_creds["SecretAccessKey"],
-                       role_creds["SessionToken"]) 
-    else   
+    if isfile(dot_aws_credentials_file())
         if debug_level > 0
             print("Loading \"$profile\" AWSCredentials from " *
                     dot_aws_credentials_file() * "... ")
         end
 
-        AWSCredentials(get(creds_ini, profile, "aws_access_key_id"),
-                       get(creds_ini, profile, "aws_secret_access_key"))
+        ini =  read(Inifile(), dot_aws_credentials_file())
+        key_id = get(ini, profile, "aws_access_key_id")
+        key = get(ini, profile, "aws_secret_access_key")
     end
+
+    credentials = AWSCredentials(key_id, key)
+    if role_arn != :notfound
+        config = AWSConfig(:creds=>credentials, :region=>region)
+        role = Services.sts(config, "AssumeRole", RoleArn=role_arn, RoleSessionName=profile)
+        role_creds = role["Credentials"]
+
+        credentials = AWSCredentials(role_creds["AccessKeyId"], 
+            role_creds["SecretAccessKey"],
+            role_creds["SessionToken"])
+    end
+
+    credentials
 end
 
 
