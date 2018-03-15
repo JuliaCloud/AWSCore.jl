@@ -275,7 +275,7 @@ function dot_aws_credentials()
 
     if isfile(dot_aws_config_file())
         if debug_level > 0
-            print("Loading \"$profile\" Profile from " *
+            println("Loading \"$profile\" Profile from " *
                     dot_aws_config_file() * "... ")
         end
 
@@ -296,7 +296,7 @@ function dot_aws_credentials()
 
     if isfile(dot_aws_credentials_file())
         if debug_level > 0
-            print("Loading \"$profile\" AWSCredentials from " *
+            println("Loading \"$profile\" AWSCredentials from " *
                     dot_aws_credentials_file() * "... ")
         end
 
