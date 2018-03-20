@@ -403,7 +403,7 @@ function do_request(r::AWSRequest)
         r[:headers]["Host"]       = HTTP.URI(r[:url]).host
 
         # Load local system credentials if needed...
-        if !haskey(r, :creds) || r[:creds].token == "ExpiredToken"
+        if r[:creds].token == "ExpiredToken"
             copy!(r[:creds], AWSCredentials())
         end
 
