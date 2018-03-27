@@ -301,7 +301,10 @@ function service_rest_json(aws::AWSConfig; args...)
 
     request[:resource] = rest_resource(request, args)
     request[:url] = service_url(aws, request)
-    request[:headers] = Dict("Content-Type" => "application/json")
+
+    request[:headers] = Dict{String,String}(get(args, "headers", []))
+    delete!(args, "headers")
+    request[:headers]["Content-Type"] = "application/json"
     request[:content] = json(aws_args_dict(args))
 
     do_request(merge(request, aws))
@@ -431,7 +434,12 @@ function do_request(r::AWSRequest)
                   ismatch(r"Signature expired", e.message) end
 
         # Handle ExpiredToken...
-        @retry if ecode(e) == "ExpiredToken"
+        # See `credsExpiredCodes` in
+        # https://github.com/aws/aws-sdk-go/blob/master/aws/request/retryer.go
+        @retry if ecode(e) in ["ExpiredToken",
+                               "ExpiredTokenException",
+                               "RequestExpired"]
+
             r[:creds].token = "ExpiredToken"
         end
     end
@@ -480,6 +488,9 @@ function do_request(r::AWSRequest)
     end
 
     if ismatch(r"json$", mime)
+        if isempty(response.body)
+            return nothing
+        end
         if get(r, :ordered_json_dict, true)
             info = JSON.parse(String(response.body), dicttype=OrderedDict)
         else
