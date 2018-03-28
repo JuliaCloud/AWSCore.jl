@@ -14,8 +14,6 @@ header(e::HTTP.StatusError, k, d="") = HTTP.header(e.response, k, d)
 http_message(e::HTTP.StatusError) = String(e.response.body)
 content_type(e::HTTP.StatusError) = HTTP.header(e.response, "Content-Type")
 
-const http_stack = HTTP.stack(redirect=false, retry=false,
-                              aws_authorization=false)
 
 function http_request(request::AWSRequest)
 
@@ -28,6 +26,13 @@ function http_request(request::AWSRequest)
             push!(options, (:response_stream, io))
         end
 
+        verbose = debug_level - 1
+
+        http_stack = HTTP.stack(redirect=false,
+                                retry=false,
+                                aws_authorization=false,
+                                verbose=verbose)
+
         return HTTP.request(http_stack,
                             request[:verb],
                             HTTP.URI(request[:url]),
@@ -38,7 +43,7 @@ function http_request(request::AWSRequest)
                             #aws_access_key_id = request[:creds].access_key_id,
                             #aws_secret_access_key = request[:creds].secret_key,
                             #aws_session_token = request[:creds].token,
-                            verbose = debug_level - 1,
+                            verbose = verbose,
                             require_ssl_verification=false,
                             options...)
 
