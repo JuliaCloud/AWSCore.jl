@@ -66,6 +66,123 @@ aws = aws_config()
     end
 end
 
+@testset "AssumeRole" begin
+    mktemp() do config_file, config_io
+        write(config_io, """[profile test]
+                output = json
+                region = us-east-1
+
+                [profile test:dev]
+                source_profile = test
+                role_arn = arn:aws:iam::123456789000:role/Dev
+
+                [profile test:sub-dev]
+                source_profile = test:dev
+                role_arn = arn:aws:iam::123456789000:role/SubDev
+
+                [profile test2]
+                aws_access_key_id = WRONG_ACCESS_ID
+                aws_secret_access_key = WRONG_ACCESS_KEY
+                output = json
+                region = us-east-1
+
+                [profile test3]
+                source_profile = test:dev
+                role_arn = arn:aws:iam::123456789000:role/test3
+
+                [profile test4]
+                source_profile = test:dev
+                role_arn = arn:aws:iam::123456789000:role/test3
+                aws_access_key_id = RIGHT_ACCESS_ID4
+                aws_secret_access_key = RIGHT_ACCESS_KEY4
+            """)
+        close(config_io)
+
+        mktemp() do creds_file, creds_io
+            write(creds_io, """[test]
+                aws_access_key_id = TEST_ACCESS_ID
+                aws_secret_access_key = TEST_ACCESS_KEY
+
+                [test2]
+                aws_access_key_id = RIGHT_ACCESS_ID2
+                aws_secret_access_key = RIGHT_ACCESS_KEY2
+
+                [test3]
+                aws_access_key_id = RIGHT_ACCESS_ID3
+                aws_secret_access_key = RIGHT_ACCESS_KEY3
+                """)
+            close(creds_io)
+
+            withenv(
+                "AWS_SHARED_CREDENTIALS_FILE" => creds_file,
+                "AWS_CONFIG_FILE" => config_file,
+                "AWS_DEFAULT_PROFILE" => "test"
+                ) do
+
+                # Check credentials load 
+                config = AWSCore.aws_config()
+                creds = config[:creds]
+
+                @test creds.access_key_id == "TEST_ACCESS_ID"
+                @test creds.secret_key == "TEST_ACCESS_KEY"
+
+                # Check credential file takes precedence over config
+                ENV["AWS_DEFAULT_PROFILE"] = "test2"
+                config = AWSCore.aws_config()
+                creds = config[:creds]
+
+                @test creds.access_key_id == "RIGHT_ACCESS_ID2"
+                @test creds.secret_key == "RIGHT_ACCESS_KEY2"
+
+                # Check credentials take precedence over role
+                ENV["AWS_DEFAULT_PROFILE"] = "test3"
+                config = AWSCore.aws_config()
+                creds = config[:creds]
+
+                @test creds.access_key_id == "RIGHT_ACCESS_ID3"
+                @test creds.secret_key == "RIGHT_ACCESS_KEY3"
+
+                ENV["AWS_DEFAULT_PROFILE"] = "test4"
+                config = AWSCore.aws_config()
+                creds = config[:creds]
+
+                @test creds.access_key_id == "RIGHT_ACCESS_ID4"
+                @test creds.secret_key == "RIGHT_ACCESS_KEY4"
+
+                # Check we try to assume a role
+                ENV["AWS_DEFAULT_PROFILE"] = "test:dev"
+
+                try
+                    AWSCore.aws_config()
+                    @test false
+                catch e
+                    @test e isa AWSCore.AWSException
+                    @test ecode(e) == "InvalidClientTokenId"
+                end
+
+                # Check we try to assume a role
+                ENV["AWS_DEFAULT_PROFILE"] = "test:sub-dev"
+                let oldout = STDOUT
+                    r,w = redirect_stdout()
+                    try
+                        AWSCore.aws_config()
+                        @test false
+                    catch e
+                        @test e isa AWSCore.AWSException
+                        @test ecode(e) == "InvalidClientTokenId"
+                    end
+                    redirect_stdout(oldout)
+                    close(w)
+                    output = convert(String, read(r))
+                    contains(output, "Assuming \"test:dev\"")
+                    contains(output, "Assuming \"test\"")
+                    close(r)
+                end
+            end
+        end
+    end
+end
+
 @testset "XML Parsing" begin
     XML(x)=parse_xml(x)
 
