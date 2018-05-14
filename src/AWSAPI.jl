@@ -317,7 +317,6 @@ function service_operation(service, operation, info)
     $example
     See also: [AWS API Documentation]($api_ref)
     \"\"\"
-
     @inline $name(aws::AWSConfig=default_aws_config(); args...) = $name(aws, args)
 
     @inline $name(aws::AWSConfig, args) = AWSCore.Services.$request(aws,$method$resource$operation args)
