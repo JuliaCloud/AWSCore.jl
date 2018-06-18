@@ -333,7 +333,7 @@ function aws_get_role(role::AbstractString, ini::Inifile)
         config,
         "AssumeRole",
         RoleArn=role_arn,
-        RoleSessionName=role
+        RoleSessionName=replace(role, r"[^\w+=,.@-]", s"-"),
     )
     role_creds = role["Credentials"]
 
