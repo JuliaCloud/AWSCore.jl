@@ -285,14 +285,14 @@ function aws_get_role_details(profile::AbstractString, ini::Inifile)
     profile = "profile $profile"
     role_arn = get(ini, profile, "role_arn", role_arn)
     source_profile = get(ini, profile, "source_profile", source_profile)
-    
+
     (source_profile, role_arn)
 end
 
 function aws_get_credential_details(profile::AbstractString, ini::Inifile, config::Bool)
     if debug_level > 0
         filename = config ? dot_aws_config_file() : dot_aws_credentials_file()
-        println("Loading \"$profile\" AWSCredentials from " * filename 
+        println("Loading \"$profile\" AWSCredentials from " * filename
                 * "... ")
     end
 
@@ -317,7 +317,7 @@ end
 
 function aws_get_role(role::AbstractString, ini::Inifile)
     source_profile, role_arn = aws_get_role_details(role, ini)
-    
+
     if source_profile == :notfound
         error("Can't find AWS credentials!")
     end
@@ -326,21 +326,21 @@ function aws_get_role(role::AbstractString, ini::Inifile)
         println("Assuming \"$source_profile\"... ")
     end
     credentials = dot_aws_credentials(source_profile)
-    
+
     config = AWSConfig(:creds=>credentials, :region=>aws_get_region(source_profile, ini))
-    
+
     role = Services.sts(
         config,
         "AssumeRole",
         RoleArn=role_arn,
-        RoleSessionName=role
+        RoleSessionName=replace(role, r"[^\w+=,.@-]", s"-"),
     )
     role_creds = role["Credentials"]
 
-    credentials = AWSCredentials(role_creds["AccessKeyId"], 
+    credentials = AWSCredentials(role_creds["AccessKeyId"],
         role_creds["SecretAccessKey"],
         role_creds["SessionToken"]
-    )    
+    )
 end
 
 """
@@ -358,7 +358,7 @@ function dot_aws_credentials(profile = nothing)
     # According to the docs the order of precedence is:
     # 1. credentials in the credential file
     # 2. credentials in the config file
-    # 3. roles in the config file 
+    # 3. roles in the config file
     credential_file = dot_aws_credentials_file()
     ini = nothing
     if isfile(credential_file)
