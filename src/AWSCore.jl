@@ -14,9 +14,10 @@ module AWSCore
 export AWSException, AWSConfig, AWSRequest,
        aws_config, default_aws_config
 
+using Compat
 using Retry
 using SymDict
-using XMLDict
+using EzXML
 using HTTP
 using DataStructures: OrderedDict
 
@@ -29,7 +30,6 @@ This dictionary holds [`AWSCredentials`](@ref) and AWS region configuration.
 aws = AWSConfig(:creds => AWSCredentials(), :region => "us-east-1")`
 ```
 """
-
 const AWSConfig = SymbolDict
 
 
@@ -133,7 +133,6 @@ end
 
 Convert nested `Vector{Pair}` maps in `args` into `Dict{String,Any}` maps.
 """
-
 function aws_args_dict(args)
 
     result = stringdict(args)
@@ -153,13 +152,12 @@ function aws_args_dict(args)
 end
 
 
+# FIXME handle map.flattened and list.flattened (see SQS and SDB)
 """
     flatten_query(service, query, prefix="")
 
 Recursivly flatten tree of `Dicts` and `Arrays` into a 1-level deep Dict.
 """
-
-# FIXME handle map.flattened and list.flattened (see SQS and SDB)
 function flatten_query(service, query, prefix="")
 
     result = Dict{String,String}()
@@ -197,7 +195,6 @@ end
 
 Service endpoint URL for `request`.
 """
-
 function service_url(aws, request)
     endpoint = get(request, :endpoint, request[:service])
     region = "." * aws[:region]
@@ -214,7 +211,6 @@ end
 
 Process request for AWS "query" service protocol.
 """
-
 function service_query(aws::AWSConfig; args...)
 
     request = Dict{Symbol,Any}(args)
@@ -247,7 +243,6 @@ end
 
 Process request for AWS "json" service protocol.
 """
-
 function service_json(aws::AWSConfig; args...)
 
     request = Dict{Symbol,Any}(args)
@@ -269,17 +264,16 @@ end
 
 Replace {Arg} placeholders in `request[:resource]` with arg values.
 """
-
 function rest_resource(request, args)
 
     r = request[:resource]
 
     for (k,v) in args
-        if contains(r, "{$k}")
-            r = replace(r, "{$k}", v)
+        if occursin("{$k}", r)
+            r = replace(r, "{$k}" => v)
             delete!(args, k)
-        elseif contains(r, "{$k+}")
-            r = replace(r, "{$k+}", HTTP.escapepath(v))
+        elseif occursin("{$k+}", r)
+            r = replace(r, "{$k+}" => HTTP.escapepath(v))
             delete!(args, k)
         end
     end
@@ -293,7 +287,6 @@ end
 
 Process request for AWS "rest_json" service protocol.
 """
-
 function service_rest_json(aws::AWSConfig; args...)
 
     request = Dict{Symbol,Any}(args)
@@ -316,7 +309,6 @@ end
 
 Process request for AWS "rest_xml" service protocol.
 """
-
 function service_rest_xml(aws::AWSConfig; args...)
 
     request = Dict{Symbol,Any}(args)
@@ -332,7 +324,7 @@ function service_rest_xml(aws::AWSConfig; args...)
     query_str  = HTTP.escapeuri(args)
 
     if query_str  != ""
-        if contains(request[:resource], "?")
+        if occursin("?", request[:resource])
             request[:resource] *= "&$query_str"
         else
             request[:resource] *= "?$query_str"
@@ -349,7 +341,6 @@ end
 """
 Pretty-print AWSRequest dictionary.
 """
-
 function dump_aws_request(r::AWSRequest)
 
     action = r[:verb]
@@ -472,11 +463,11 @@ function do_request(r::AWSRequest)
         end
     end
 
-    if ismatch(r"/xml", mime)
-        return parse_xml(String(response.body))
+    if occursin(r"/xml", mime)
+        return parsexml(String(response.body))
     end
 
-    if ismatch(r"/x-amz-json-1.[01]$", mime)
+    if occursin(r"/x-amz-json-1.[01]$", mime)
         if isempty(response.body)
             return nothing
         end
@@ -487,7 +478,7 @@ function do_request(r::AWSRequest)
         end
     end
 
-    if ismatch(r"json$", mime)
+    if occursin(r"json$", mime)
         if isempty(response.body)
             return nothing
         end

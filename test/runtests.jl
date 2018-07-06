@@ -4,12 +4,12 @@
 # Copyright OC Technology Pty Ltd 2014 - All rights reserved
 #==============================================================================#
 
-
-using Base.Test
+using Compat
+using Compat.Test
 using AWSCore
 using SymDict
 using Retry
-using XMLDict
+using EzXML
 
 using AWSCore: service_query
 
@@ -23,7 +23,7 @@ aws = aws_config()
 @testset "Load Credentials" begin
     user = aws_user_arn(aws)
 
-    @test ismatch(r"^arn:aws:iam::[0-9]+:[^:]+$", user)
+    @test occursin(r"^arn:aws:iam::[0-9]+:[^:]+$", user)
 
     println("Authenticated as: $user")
 
@@ -184,7 +184,7 @@ end
 end
 
 @testset "XML Parsing" begin
-    XML(x)=parse_xml(x)
+    XML(x) = parsexml(x)
 
     xml = """
     <CreateQueueResponse>
