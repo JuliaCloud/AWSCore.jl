@@ -20,6 +20,12 @@ const tcp_port = 34562
 
 server_process = nothing
 
+if VERSION >= v"0.7.0-DEV.4445"
+    _runasync(cmd) = run(cmd, wait=false)
+else
+    _runasync(cmd) = spawn(cmd)
+end
+
 function start_node_server()
 
     global server_process
@@ -30,7 +36,7 @@ function start_node_server()
         run(setenv(`$(npm_cmd()) install to-markdown`, dir=@__DIR__))
     end
 
-    server_process = run(`$(nodejs_cmd()) -e """
+    server_process = _runasync(`$(nodejs_cmd()) -e """
         const http = require('http')  
         const port = $tcp_port
         const h2m = require('to-markdown')
@@ -79,7 +85,7 @@ function start_node_server()
             return console.log('HTML2MD Error:', err)
           }
         })
-    """`, wait=false)
+    """`)
 
     atexit(() -> kill(server_process))
 

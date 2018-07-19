@@ -9,7 +9,7 @@ using Compat.Test
 using AWSCore
 using SymDict
 using Retry
-using EzXML
+using XMLDict
 
 using AWSCore: service_query
 
@@ -184,7 +184,7 @@ end
 end
 
 @testset "XML Parsing" begin
-    XML(x) = parsexml(x)
+    XML(x)=parse_xml(x)
 
     xml = """
     <CreateQueueResponse>

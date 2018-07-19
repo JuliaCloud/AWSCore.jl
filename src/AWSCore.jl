@@ -17,7 +17,7 @@ export AWSException, AWSConfig, AWSRequest,
 using Compat
 using Retry
 using SymDict
-using EzXML
+using XMLDict
 using HTTP
 using DataStructures: OrderedDict
 
@@ -464,7 +464,7 @@ function do_request(r::AWSRequest)
     end
 
     if occursin(r"/xml", mime)
-        return parsexml(String(response.body))
+        return parse_xml(String(response.body))
     end
 
     if occursin(r"/x-amz-json-1.[01]$", mime)
