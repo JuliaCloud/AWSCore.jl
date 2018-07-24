@@ -4,9 +4,8 @@
 # Copyright OC Technology Pty Ltd 2014 - All rights reserved
 #==============================================================================#
 
-using Compat
-using Compat.Test
-using Compat.Dates
+using Test
+using Dates
 using AWSCore
 using SymDict
 using Retry

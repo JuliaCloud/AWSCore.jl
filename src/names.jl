@@ -109,7 +109,7 @@ function is_arn(arn)
 end
 
 arn_match(s, n, p) = occursin(p, s) ||
-                     (debug_level == 0 || Compat.@warn("Bad ARN $n: \"$s\""); false)
+                     (debug_level == 0 || @warn("Bad ARN $n: \"$s\""); false)
 
 is_arn_prefix(s) = arn_match(s, "prefix",   r"^arn$")
 is_partition(s)  = arn_match(s, "partiton", r"^aws[a-z-]*$")

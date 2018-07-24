@@ -55,12 +55,13 @@ function Base.show(io::IO,c::AWSCredentials)
                        ")")
 end
 
-function Compat.copyto!(dest::AWSCredentials, src::AWSCredentials)
+function Base.copyto!(dest::AWSCredentials, src::AWSCredentials)
     for f in fieldnames(typeof(dest))
         setfield!(dest, f, getfield(src, f))
     end
 end
-
+import Base: copy!
+Base.@deprecate copy!(dest::AWSCredentials, src::AWSCredentials) copyto!(dest, src)
 
 function AWSCredentials()
 

@@ -14,21 +14,14 @@ module AWSCore
 export AWSException, AWSConfig, AWSRequest,
        aws_config, default_aws_config
 
-using Compat
-using Compat.Base64
-using Compat.Dates
-using Compat.Sockets
+using Base64
+using Dates
+using Sockets
 using Retry
 using SymDict
 using XMLDict
 using HTTP
 using DataStructures: OrderedDict
-
-if isdefined(Sockets, :DNSError) # DNSError was inadvertently omitted in Compat.Sockets
-    import Sockets: DNSError
-else
-    import Base: DNSError
-end
 
 
 """
@@ -406,7 +399,7 @@ function do_request(r::AWSRequest)
 
         # Load local system credentials if needed...
         if r[:creds].token == "ExpiredToken"
-            copy!(r[:creds], AWSCredentials())
+            copyto!(r[:creds], AWSCredentials())
         end
 
         # Use credentials to sign request...
