@@ -100,7 +100,6 @@ arn_iam_name(arn) = split(arn_resource(arn), "/")[end]
 Is `arn` in the [correct format]?
 (http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
 """
-
 function is_arn(arn)
 
     v = split(arn, ":")

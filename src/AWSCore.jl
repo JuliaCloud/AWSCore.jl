@@ -15,11 +15,20 @@ export AWSException, AWSConfig, AWSRequest,
        aws_config, default_aws_config
 
 using Compat
+using Compat.Base64
+using Compat.Dates
+using Compat.Sockets
 using Retry
 using SymDict
 using XMLDict
 using HTTP
 using DataStructures: OrderedDict
+
+if isdefined(Sockets, :DNSError) # DNSError was inadvertently omitted in Compat.Sockets
+    import Sockets: DNSError
+else
+    import Base: DNSError
+end
 
 
 """
@@ -137,7 +146,7 @@ function aws_args_dict(args)
 
     result = stringdict(args)
 
-    dictlike(t) = (t <: Associative
+    dictlike(t) = (t <: AbstractDict
                 || t <: Vector && t.parameters[1] <: Pair{String})
 
     for (k, v) in result
@@ -164,7 +173,7 @@ function flatten_query(service, query, prefix="")
 
     for (k, v) in query
 
-        if typeof(v) <: Associative
+        if typeof(v) <: AbstractDict
 
             merge!(result, flatten_query(service, v, "$prefix$k."))
 
@@ -175,7 +184,7 @@ function flatten_query(service, query, prefix="")
                 suffix = service in ["ec2", "sqs"] ? "" : ".member"
                 pk = "$prefix$k$suffix.$i"
 
-                if typeof(x) <: Associative
+                if typeof(x) <: AbstractDict
                     merge!(result, flatten_query(service, x, "$pk."))
                 else
                     result[pk] = string(x)
@@ -381,7 +390,6 @@ include("sign.jl")
 
 Submit an API request, return the result.
 """
-
 function do_request(r::AWSRequest)
 
     response = nothing

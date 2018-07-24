@@ -121,6 +121,7 @@ function localhost_is_ec2()
             if String(read("/sys/devices/virtual/dmi/id/product_uuid")) == "EC2"
                 return true
             end
+        catch
         end
     end
 

@@ -181,7 +181,7 @@ function service_shape_doc(service, name, pad="", stack=[])
 end
 
 
-function pretty(d::Associative, dict = "Dict()", pad="")
+function pretty(d::AbstractDict, dict = "Dict()", pad="")
     dict[1:end-1] * "\n" *
     join([string(pad, "    \"", k, "\" => ", pretty(v, dict, pad * "    "))
           for (k, v) in d], ",\n") *

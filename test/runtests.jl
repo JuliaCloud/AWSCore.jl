@@ -6,6 +6,7 @@
 
 using Compat
 using Compat.Test
+using Compat.Dates
 using AWSCore
 using SymDict
 using Retry
