@@ -112,7 +112,7 @@ function aws_config(;creds=AWSCredentials(),
 end
 
 
-global _default_aws_config = Nullable{AWSConfig}()
+global _default_aws_config = nothing # Union{AWSConfig,Nothing}
 
 
 """
@@ -121,10 +121,10 @@ obtained by calling [`aws_config`](@ref) with no optional arguments.
 """
 function default_aws_config()
     global _default_aws_config
-    if isnull(_default_aws_config)
-        _default_aws_config = Nullable(aws_config())
+    if _default_aws_config === nothing
+        _default_aws_config = aws_config()
     end
-    return get(_default_aws_config)
+    return _default_aws_config
 end
 
 
