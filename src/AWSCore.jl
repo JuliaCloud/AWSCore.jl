@@ -14,6 +14,9 @@ module AWSCore
 export AWSException, AWSConfig, AWSRequest,
        aws_config, default_aws_config
 
+using Base64
+using Dates
+using Sockets
 using Retry
 using SymDict
 using XMLDict
@@ -29,7 +32,6 @@ This dictionary holds [`AWSCredentials`](@ref) and AWS region configuration.
 aws = AWSConfig(:creds => AWSCredentials(), :region => "us-east-1")`
 ```
 """
-
 const AWSConfig = SymbolDict
 
 
@@ -112,7 +114,7 @@ function aws_config(;creds=AWSCredentials(),
 end
 
 
-global _default_aws_config = Nullable{AWSConfig}()
+global _default_aws_config = nothing # Union{AWSConfig,Nothing}
 
 
 """
@@ -121,10 +123,10 @@ obtained by calling [`aws_config`](@ref) with no optional arguments.
 """
 function default_aws_config()
     global _default_aws_config
-    if isnull(_default_aws_config)
-        _default_aws_config = Nullable(aws_config())
+    if _default_aws_config === nothing
+        _default_aws_config = aws_config()
     end
-    return get(_default_aws_config)
+    return _default_aws_config
 end
 
 
@@ -133,12 +135,11 @@ end
 
 Convert nested `Vector{Pair}` maps in `args` into `Dict{String,Any}` maps.
 """
-
 function aws_args_dict(args)
 
     result = stringdict(args)
 
-    dictlike(t) = (t <: Associative
+    dictlike(t) = (t <: AbstractDict
                 || t <: Vector && t.parameters[1] <: Pair{String})
 
     for (k, v) in result
@@ -153,20 +154,19 @@ function aws_args_dict(args)
 end
 
 
+# FIXME handle map.flattened and list.flattened (see SQS and SDB)
 """
     flatten_query(service, query, prefix="")
 
 Recursivly flatten tree of `Dicts` and `Arrays` into a 1-level deep Dict.
 """
-
-# FIXME handle map.flattened and list.flattened (see SQS and SDB)
 function flatten_query(service, query, prefix="")
 
     result = Dict{String,String}()
 
     for (k, v) in query
 
-        if typeof(v) <: Associative
+        if typeof(v) <: AbstractDict
 
             merge!(result, flatten_query(service, v, "$prefix$k."))
 
@@ -177,7 +177,7 @@ function flatten_query(service, query, prefix="")
                 suffix = service in ["ec2", "sqs"] ? "" : ".member"
                 pk = "$prefix$k$suffix.$i"
 
-                if typeof(x) <: Associative
+                if typeof(x) <: AbstractDict
                     merge!(result, flatten_query(service, x, "$pk."))
                 else
                     result[pk] = string(x)
@@ -197,7 +197,6 @@ end
 
 Service endpoint URL for `request`.
 """
-
 function service_url(aws, request)
     endpoint = get(request, :endpoint, request[:service])
     region = "." * aws[:region]
@@ -214,7 +213,6 @@ end
 
 Process request for AWS "query" service protocol.
 """
-
 function service_query(aws::AWSConfig; args...)
 
     request = Dict{Symbol,Any}(args)
@@ -247,7 +245,6 @@ end
 
 Process request for AWS "json" service protocol.
 """
-
 function service_json(aws::AWSConfig; args...)
 
     request = Dict{Symbol,Any}(args)
@@ -269,17 +266,16 @@ end
 
 Replace {Arg} placeholders in `request[:resource]` with arg values.
 """
-
 function rest_resource(request, args)
 
     r = request[:resource]
 
     for (k,v) in args
-        if contains(r, "{$k}")
-            r = replace(r, "{$k}", v)
+        if occursin("{$k}", r)
+            r = replace(r, "{$k}" => v)
             delete!(args, k)
-        elseif contains(r, "{$k+}")
-            r = replace(r, "{$k+}", HTTP.escapepath(v))
+        elseif occursin("{$k+}", r)
+            r = replace(r, "{$k+}" => HTTP.escapepath(v))
             delete!(args, k)
         end
     end
@@ -293,7 +289,6 @@ end
 
 Process request for AWS "rest_json" service protocol.
 """
-
 function service_rest_json(aws::AWSConfig; args...)
 
     request = Dict{Symbol,Any}(args)
@@ -316,7 +311,6 @@ end
 
 Process request for AWS "rest_xml" service protocol.
 """
-
 function service_rest_xml(aws::AWSConfig; args...)
 
     request = Dict{Symbol,Any}(args)
@@ -332,7 +326,7 @@ function service_rest_xml(aws::AWSConfig; args...)
     query_str  = HTTP.escapeuri(args)
 
     if query_str  != ""
-        if contains(request[:resource], "?")
+        if occursin("?", request[:resource])
             request[:resource] *= "&$query_str"
         else
             request[:resource] *= "?$query_str"
@@ -349,7 +343,6 @@ end
 """
 Pretty-print AWSRequest dictionary.
 """
-
 function dump_aws_request(r::AWSRequest)
 
     action = r[:verb]
@@ -390,7 +383,6 @@ include("sign.jl")
 
 Submit an API request, return the result.
 """
-
 function do_request(r::AWSRequest)
 
     response = nothing
@@ -407,7 +399,7 @@ function do_request(r::AWSRequest)
 
         # Load local system credentials if needed...
         if r[:creds].token == "ExpiredToken"
-            copy!(r[:creds], AWSCredentials())
+            copyto!(r[:creds], AWSCredentials())
         end
 
         # Use credentials to sign request...
@@ -472,11 +464,11 @@ function do_request(r::AWSRequest)
         end
     end
 
-    if ismatch(r"/xml", mime)
+    if occursin(r"/xml", mime)
         return parse_xml(String(response.body))
     end
 
-    if ismatch(r"/x-amz-json-1.[01]$", mime)
+    if occursin(r"/x-amz-json-1.[01]$", mime)
         if isempty(response.body)
             return nothing
         end
@@ -487,7 +479,7 @@ function do_request(r::AWSRequest)
         end
     end
 
-    if ismatch(r"json$", mime)
+    if occursin(r"json$", mime)
         if isempty(response.body)
             return nothing
         end

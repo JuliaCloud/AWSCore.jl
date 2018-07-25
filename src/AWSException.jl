@@ -31,13 +31,13 @@ function AWSException(e::HTTP.StatusError)
     info = Dict()
 
     # Extract API error code from Lambda-style JSON error message...
-    if ismatch(r"json$", content_type(e))
+    if occursin(r"json$", content_type(e))
         info = JSON.parse(http_message(e))
         message = get(info, "message", message)
     end
 
     # Extract API error code from JSON error message...
-    if ismatch(r"^application/x-amz-json-1.[01]$", content_type(e))
+    if occursin(r"^application/x-amz-json-1.[01]$", content_type(e))
         info = JSON.parse(http_message(e))
         if haskey(info, "__type")
             code = split(info["__type"], "#")[end]

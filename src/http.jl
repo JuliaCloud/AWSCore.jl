@@ -49,7 +49,7 @@ function http_request(request::AWSRequest)
 
     catch e
 
-        @delay_retry if isa(e, Base.DNSError) ||
+        @delay_retry if isa(e, Sockets.DNSError) ||
                         isa(e, HTTP.ParseError) ||
                         isa(e, HTTP.IOError) ||
                         #isa(e, EOFError) || FIXME needed ?

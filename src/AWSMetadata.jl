@@ -37,7 +37,7 @@ Cache for files downloaded from the AWS JavaScript SDK on GitHub.
 
 cachedir() = joinpath(@__DIR__, "aws-sdk-js")
 cachehas(file) = isfile(joinpath(cachedir(), file))
-cacheget(file) = readstring(joinpath(cachedir(), file))
+cacheget(file) = read(joinpath(cachedir(), file), String)
 
 function cacheput(file, data)
     p = joinpath(cachedir(), file)
@@ -51,7 +51,6 @@ end
 
 List contents of `dirname` in the AWS JavaScript SDK on GitHub.
 """
-
 function aws_sdk_js_ls(dirname)
 
     cachename = dirname * ".contents"
@@ -75,7 +74,6 @@ end
 
 Get `filename` from the AWS JavaScript SDK on GitHub.
 """
-
 function aws_sdk_js(filename)
 
     if cachehas(filename * ".404")
@@ -111,7 +109,6 @@ _service_list = OrderedDict()
 
 Dict of services supported by the AWS JavaScript SDK.
 """
-
 function service_list()
 
     global _service_list
@@ -157,7 +154,6 @@ Get `service-2.json` file for `service`.
 
 e.g.  `service_definition(services()["SQS"])`
 """
-
 function service_definition(service)
 
     # Fetch ".normal.json" service definition from AWS JavaScript SDK...
@@ -219,7 +215,6 @@ end
 
 Print summary information about available services.
 """
-
 function service_summary()
 
     services = service_list()

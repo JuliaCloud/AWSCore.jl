@@ -27,8 +27,7 @@ sdk_module_name(service_name) = "AWSSDK.$(service_name)"
 
 Transform CamelCase to lowercase_with_underscores.
 """
-
-uncamel(s) = lowercase(replace(s, r"([a-z])([A-Z])", s"\1_\2"))
+uncamel(s) = lowercase(replace(s, r"([a-z])([A-Z])" => s"\1_\2"))
 
 
 """
@@ -36,10 +35,7 @@ uncamel(s) = lowercase(replace(s, r"([a-z])([A-Z])", s"\1_\2"))
 
 Join `words` with commas and "or". e.g. "one, two or three".
 """
-
-orjoin(words) = isempty(words) ? "" :
-                length(words) == 1 ? words[1] :
-                "$(join(words[1:end-1], ", ")) or $(words[end])"
+orjoin(words) = join(words, ", ", " or ")
 
 
 function is_simple_post_service(service)
@@ -47,7 +43,7 @@ function is_simple_post_service(service)
         &&  service["metadata"]["endpointPrefix"] != "importexport")
 end
 
-is_rest_service(service) = ismatch(r"^rest", service["metadata"]["protocol"])
+is_rest_service(service) = occursin(r"^rest", service["metadata"]["protocol"])
 
 
 function member_name(service, name, info)
@@ -185,7 +181,7 @@ function service_shape_doc(service, name, pad="", stack=[])
 end
 
 
-function pretty(d::Associative, dict = "Dict()", pad="")
+function pretty(d::AbstractDict, dict = "Dict()", pad="")
     dict[1:end-1] * "\n" *
     join([string(pad, "    \"", k, "\" => ", pretty(v, dict, pad * "    "))
           for (k, v) in d], ",\n") *
@@ -202,7 +198,7 @@ function pretty(s::String, args...)
     s = replace(s, "\$", "\\\$")
 
     # Work around for https://github.com/JuliaLang/julia/pull/22800
-    s = replace(s, r"([^\\])\\([^ntrebfva\\'\"$`0-9])", s"\1\\\\\2")
+    s = replace(s, r"([^\\])\\([^ntrebfva\\'\"$`0-9])" => s"\1\\\\\2")
 
     return "\"$s\""
 end
@@ -297,7 +293,7 @@ function service_operation(service, operation, info)
         sig4 = ""
     end
 
-    @assert !ismatch(r"[{][^{}]+[}]", resource) || is_rest_service(service)
+    @assert !occursin(r"[{][^{}]+[}]", resource) || is_rest_service(service)
 
     m = service["metadata"]["juliaModule"]
 

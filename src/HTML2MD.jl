@@ -30,7 +30,7 @@ function start_node_server()
         run(setenv(`$(npm_cmd()) install to-markdown`, dir=@__DIR__))
     end
 
-    server_process = spawn(`$(nodejs_cmd()) -e """
+    server_process = run(`$(nodejs_cmd()) -e """
         const http = require('http')  
         const port = $tcp_port
         const h2m = require('to-markdown')
@@ -79,7 +79,7 @@ function start_node_server()
             return console.log('HTML2MD Error:', err)
           }
         })
-    """`)
+    """`, wait=false)
 
     atexit(() -> kill(server_process))
 
@@ -96,14 +96,14 @@ function html2md(html)
         start_node_server()
     end
 
-    html = replace(html, "\\", "\\\\")
-    html = replace(html, "\$", "\\\$")
-    html = replace(html, "\"\"\"", "\\\"\\\"\\\"")
+    html = replace(html, "\\" => "\\\\")
+    html = replace(html, "\$" => "\\\$")
+    html = replace(html, "\"\"\"" => "\\\"\\\"\\\"")
 
     md = String(post(URI("http://localhost:$tcp_port"), html).data)
 
     # Work around for https://github.com/domchristie/to-markdown/issues/181
-    md = replace(md, r"([0-9])\\[.]", s"\1.")
+    md = replace(md, r"([0-9])\\[.]" => s"\1.")
 
     return md
 end

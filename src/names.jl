@@ -20,7 +20,6 @@ export arn, is_arn,
 
 Generate an [Amazon Resource Name](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) for `service` and `resource`.
 """
-
 function arn(service, resource,
              region=get(default_aws_config(), :region, ""),
              account=aws_account_number(default_aws_config()))
@@ -51,7 +50,6 @@ end
 
 Extract service name from `arn`.
 """
-
 arn_service(arn) = split(arn, ":")[3]
 
 
@@ -60,7 +58,6 @@ arn_service(arn) = split(arn, ":")[3]
 
 Extract region name from `arn`.
 """
-
 arn_region(arn) = split(arn, ":")[4]
 
 
@@ -69,7 +66,6 @@ arn_region(arn) = split(arn, ":")[4]
 
 Extract account number from `arn`.
 """
-
 arn_account(arn) = split(arn, ":")[5]
 
 
@@ -78,7 +74,6 @@ arn_account(arn) = split(arn, ":")[5]
 
 Extract resource name from `arn`.
 """
-
 arn_resource(arn) = split(arn, ":")[6]
 
 
@@ -105,7 +100,6 @@ arn_iam_name(arn) = split(arn_resource(arn), "/")[end]
 Is `arn` in the [correct format]?
 (http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
 """
-
 function is_arn(arn)
 
     v = split(arn, ":")
@@ -114,8 +108,8 @@ function is_arn(arn)
     return length(v) >= 6 && all(v[1:5] .|> p)
 end
 
-arn_match(s, n, p) = ismatch(p, s) ||
-                     (debug_level == 0 || warn("Bad ARN $n: \"$s\""); false)
+arn_match(s, n, p) = occursin(p, s) ||
+                     (debug_level == 0 || @warn("Bad ARN $n: \"$s\""); false)
 
 is_arn_prefix(s) = arn_match(s, "prefix",   r"^arn$")
 is_partition(s)  = arn_match(s, "partiton", r"^aws[a-z-]*$")

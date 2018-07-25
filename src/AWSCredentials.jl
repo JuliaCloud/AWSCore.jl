@@ -30,7 +30,6 @@ The `user_arn` and `account_number` fields are used to cache the result of the [
 The `AWSCredentials()` constructor tries to load local Credentials from
 environment variables, `~/.aws/credentials`, `~/.aws/config` or EC2 instance credentials.
 """
-
 mutable struct AWSCredentials
     access_key_id::String
     secret_key::String
@@ -56,12 +55,13 @@ function Base.show(io::IO,c::AWSCredentials)
                        ")")
 end
 
-function Base.copy!(dest::AWSCredentials, src::AWSCredentials)
-    for f in fieldnames(dest)
+function Base.copyto!(dest::AWSCredentials, src::AWSCredentials)
+    for f in fieldnames(typeof(dest))
         setfield!(dest, f, getfield(src, f))
     end
 end
-
+import Base: copy!
+Base.@deprecate copy!(dest::AWSCredentials, src::AWSCredentials) copyto!(dest, src)
 
 function AWSCredentials()
 
@@ -97,14 +97,12 @@ end
 """
 Is Julia running in an AWS Lambda sandbox?
 """
-
 localhost_is_lambda() = haskey(ENV, "LAMBDA_TASK_ROOT")
 
 
 """
 Is Julia running on an EC2 virtual machine?
 """
-
 function localhost_is_ec2()
 
     if localhost_is_lambda()
@@ -124,6 +122,7 @@ function localhost_is_ec2()
             if String(read("/sys/devices/virtual/dmi/id/product_uuid")) == "EC2"
                 return true
             end
+        catch
         end
     end
 
@@ -143,7 +142,6 @@ for configrued user.
 
 e.g. `"arn:aws:iam::account-ID-without-hyphens:user/Bob"`
 """
-
 function aws_user_arn(aws::AWSConfig)
 
     creds = aws[:creds]
@@ -164,7 +162,6 @@ end
 
 12-digit [AWS Account Number](http://docs.aws.amazon.com/general/latest/gr/acct-identifiers.html).
 """
-
 function aws_account_number(aws::AWSConfig)
     creds = aws[:creds]
     if creds.account_number == ""
@@ -181,7 +178,6 @@ Fetch [EC2 meta-data]
 (http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
 for `key`.
 """
-
 function ec2_metadata(key)
 
     @assert localhost_maybe_ec2()
@@ -197,7 +193,6 @@ Load [Instance Profile Credentials]
 (http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials)
 for EC2 virtual machine.
 """
-
 function ec2_instance_credentials()
 
     @assert localhost_maybe_ec2()
@@ -224,7 +219,6 @@ end
 Load [ECS Task Credentials]
 (http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html)
 """
-
 function ecs_instance_credentials()
 
     @assert haskey(ENV, "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
@@ -250,7 +244,6 @@ Load Credentials from [environment variables]
 `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` etc.
 (e.g. in Lambda sandbox).
 """
-
 function env_instance_credentials()
 
     if debug_level > 0
