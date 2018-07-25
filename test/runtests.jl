@@ -10,6 +10,7 @@ using AWSCore
 using SymDict
 using Retry
 using XMLDict
+using HTTP
 
 using AWSCore: service_query
 
@@ -116,7 +117,8 @@ end
             withenv(
                 "AWS_SHARED_CREDENTIALS_FILE" => creds_file,
                 "AWS_CONFIG_FILE" => config_file,
-                "AWS_DEFAULT_PROFILE" => "test"
+                "AWS_DEFAULT_PROFILE" => "test",
+                "AWS_ACCESS_KEY_ID" => nothing
                 ) do
 
                 # Check credentials load 
