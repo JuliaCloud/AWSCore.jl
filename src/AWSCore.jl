@@ -459,13 +459,15 @@ function do_request(r::AWSRequest)
     # Parse response data according to mimetype...
     mime = HTTP.header(response, "Content-Type", "")
     if mime == ""
-        if length(response.body) > 5 && String(response.body)[1:5] == "<?xml"
+        if length(response.body) > 5 && String(response.body[1:5]) == "<?xml"
             mime = "text/xml"
         end
     end
 
+    body = String(copy(response.body))
+
     if occursin(r"/xml", mime)
-        return parse_xml(String(response.body))
+        return parse_xml(body)
     end
 
     if occursin(r"/x-amz-json-1.[01]$", mime)
@@ -473,9 +475,9 @@ function do_request(r::AWSRequest)
             return nothing
         end
         if get(r, :ordered_json_dict, true)
-            return JSON.parse(String(response.body), dicttype=OrderedDict)
+            return JSON.parse(body, dicttype=OrderedDict)
         else
-            return JSON.parse(String(response.body))
+            return JSON.parse(body)
         end
     end
 
@@ -484,9 +486,9 @@ function do_request(r::AWSRequest)
             return nothing
         end
         if get(r, :ordered_json_dict, true)
-            info = JSON.parse(String(response.body), dicttype=OrderedDict)
+            info = JSON.parse(body, dicttype=OrderedDict)
         else
-            info = JSON.parse(String(response.body))
+            info = JSON.parse(body)
         end
         @protected try
             action = r[:query]["Action"]
@@ -499,7 +501,7 @@ function do_request(r::AWSRequest)
     end
 
     if ismatch(r"^text/", mime)
-        return String(response.body)
+        return body
     end
 
     # Return raw data by default...

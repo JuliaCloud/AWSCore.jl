@@ -11,7 +11,7 @@ import Base: show, UVError
 
 http_status(e::HTTP.StatusError) = e.status
 header(e::HTTP.StatusError, k, d="") = HTTP.header(e.response, k, d)
-http_message(e::HTTP.StatusError) = String(e.response.body)
+http_message(e::HTTP.StatusError) = String(copy(e.response.body))
 content_type(e::HTTP.StatusError) = HTTP.header(e.response, "Content-Type")
 
 
