@@ -21,7 +21,7 @@ function http_request(request::AWSRequest)
 
         options = []
         if get(request, :return_stream, false)
-            io = BufferStream()
+            io = Base.BufferStream()
             request[:response_stream] = io
             push!(options, (:response_stream, io))
         end
