@@ -13,17 +13,18 @@ module AWSMetadata
 
 
 using JSON
-using Requests: get, post, URI, Response
+using HTTP
 using DataStructures
 using Retry
 
+
+github_headers = ["User-Agent" => "https://github.com/JuliaCloud/AWSCore.jl/blob/master/src/AWSMetadata.jl"]
 
 """
     json_parse(d)
 
 Parse JSON to OrderedDict to preserve API and documentation order.
 """
-
 json_parse(d) = JSON.parse(d, dicttype=DataStructures.OrderedDict)
 
 
@@ -34,7 +35,6 @@ json_parse(d) = JSON.parse(d, dicttype=DataStructures.OrderedDict)
 
 Cache for files downloaded from the AWS JavaScript SDK on GitHub.
 """
-
 cachedir() = joinpath(@__DIR__, "aws-sdk-js")
 cachehas(file) = isfile(joinpath(cachedir(), file))
 cacheget(file) = read(joinpath(cachedir(), file), String)
@@ -60,10 +60,10 @@ function aws_sdk_js_ls(dirname)
 
     url = "https://api.github.com/repos/aws/aws-sdk-js/contents/$dirname"
     println("GET $url...")
-    r = get(URI(url))
+    r = HTTP.get(url, github_headers)
     @assert r.status == 200
 
-    r = String(r.data)
+    r = String(copy(r.body))
     cacheput(cachename, r)
     return json_parse(r)
 end
@@ -77,9 +77,7 @@ Get `filename` from the AWS JavaScript SDK on GitHub.
 function aws_sdk_js(filename)
 
     if cachehas(filename * ".404")
-        r = Response()
-        r.status = 404
-        throw(r)
+        throw(HTTP.Response(404))
     end
     if cachehas(filename)
         return cacheget(filename)
@@ -87,7 +85,7 @@ function aws_sdk_js(filename)
 
     url = "https://raw.githubusercontent.com/aws/aws-sdk-js/master/$filename"
     println("GET $url...")
-    r = get(URI(url))
+    r = HTTP.get(url, github_headers)
     if r.status != 200
         if r.status == 404
             cacheput(filename * ".404", "")
@@ -95,7 +93,7 @@ function aws_sdk_js(filename)
         throw(r)
     end
 
-    r = String(r.data)
+    r = String(copy(r.body))
     cacheput(filename, r)
     return r
 end

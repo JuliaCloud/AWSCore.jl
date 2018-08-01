@@ -13,8 +13,7 @@ export html2md
 
 
 using NodeJS
-using Requests.post
-using Requests.URI
+using HTTP
 
 const tcp_port = 34562
 
@@ -100,7 +99,7 @@ function html2md(html)
     html = replace(html, "\$" => "\\\$")
     html = replace(html, "\"\"\"" => "\\\"\\\"\\\"")
 
-    md = String(post(URI("http://localhost:$tcp_port"), html).data)
+    md = String(HTTP.post("http://localhost:$tcp_port", [], html).body)
 
     # Work around for https://github.com/domchristie/to-markdown/issues/181
     md = replace(md, r"([0-9])\\[.]" => s"\1.")

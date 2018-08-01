@@ -472,7 +472,7 @@ function service_generate(name, definition)
     println(meta["serviceFullName"])
     meta["juliaModule"] = name
 
-    sdk_dir = joinpath(Pkg.dir(), "AWSSDK")
+    sdk_dir = joinpath(@__DIR__, "..", "..", "AWSSDK")
     src_path = joinpath(sdk_dir, "src", "$name.jl")
     mkpath(dirname(src_path))
     write(src_path, service_interface(definition))
@@ -556,7 +556,7 @@ end # module Services
     write(joinpath(@__DIR__, "..", "..", "AWSCoreDoc", "make.jl"),
           generate_doc(services))
 
-    sdk_dir = joinpath(Pkg.dir(), "AWSSDK")
+    sdk_dir = joinpath(@__DIR__, "..", "..", "AWSSDK")
     src_path = joinpath(sdk_dir, "src", "AWSSDK.jl")
     mkpath(dirname(src_path))
         
