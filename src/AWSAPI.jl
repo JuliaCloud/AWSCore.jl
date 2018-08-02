@@ -77,7 +77,7 @@ function service_args(service, name)
     shape = service["shapes"][name]
     @assert shape["type"] == "structure"
 
-    m = filter((n, i) -> (n in get(shape, "required", [])), shape["members"])
+    m = filter((n, i)::Pair -> (n in get(shape, "required", [])), shape["members"])
 
     args = join(["$(member_name(service, name, info))="
                  for (name, info) in m], ", ")
@@ -121,7 +121,7 @@ function service_shape_doc(service, name, pad="", stack=[])
                 d = html2md(get(i, "documentation", ""))
                 r = haskey(shape, "required") && m in shape["required"]
                 n = "$n = "
-                if !contains(s, "\n")
+                if !occursin("\n", s)
                     n = "$n$s"
                     s = ""
                 else
@@ -195,7 +195,7 @@ function pretty(v::Vector, dict, pad)
 end
 
 function pretty(s::String, args...)
-    s = replace(s, "\$", "\\\$")
+    s = replace(s, "\$" => "\\\$")
 
     # Work around for https://github.com/JuliaLang/julia/pull/22800
     s = replace(s, r"([^\\])\\([^ntrebfva\\'\"$`0-9])" => s"\1\\\\\2")
@@ -279,7 +279,7 @@ function service_operation(service, operation, info)
 
     operation_name = operation
     operation = is_rest_service(service) ? "" : " \"$operation\","
-    resource = replace(resource, "\$", "\\\$")
+    resource = replace(resource, "\$" => "\\\$")
 
     if haskey(info, "input")
         sig1 = "$name([::AWSConfig], arguments::Dict)"
@@ -334,7 +334,7 @@ function service_request_function(service)
 
     meta = service["metadata"]
 
-    protocol = replace(meta["protocol"], "-", "_")
+    protocol = replace(meta["protocol"], "-" => "_")
     if protocol == "ec2"
         protocol = "query"
     end

@@ -3,7 +3,7 @@ all:
 	@echo "       Generates package: ../../AWSSDK"
 
 generate:
-	JULIA_LOAD_PATH=. julia07 -e 'using AWSAPI; AWSAPI.generate_all()'
+	julia07  -e 'push!(LOAD_PATH, "."); using AWSAPI; AWSAPI.generate_all()'
 
 clean:
 	rm -rf aws-sdk-js

@@ -122,7 +122,7 @@ function service_list()
 
     # Get list of API filenames...
     files = aws_sdk_js_ls("apis")
-    filter!(f -> ismatch(r".normal.json$", f["name"]), files)
+    filter!(f -> occursin(r".normal.json$", f["name"]), files)
 
     l = Pair[]
 
@@ -164,7 +164,10 @@ function service_definition(service)
     @assert meta["apiVersion"] == service["version"]
 
     # Check that service definition JSON version is 2.0...
-    @assert service["prefix"] in ["sdb", "greengrass", "pinpoint"] ||
+    @assert service["prefix"] in ["sdb", "guardduty", "greengrass",
+                                  "iot1click", "iot-jobs-data", "iot-data",
+                                  "iot1click-devices",
+                                  "pinpoint"] ||
             definition["version"] == "2.0"
 
     # Check that signature version is v4...
