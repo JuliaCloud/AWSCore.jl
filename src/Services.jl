@@ -43,6 +43,40 @@ acm(operation, args=[]) =
 
 acm(a...; b...) = acm(a..., b)
 
+function acm_pca(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "acm-pca",
+        version      = "2017-08-22",
+        json_version = "1.1",
+        target       = "ACMPrivateCA",
+        operation    = operation,
+        args         = args)
+end
+
+acm_pca(operation, args=[]) =
+    acm_pca(default_aws_config(), operation, args)
+
+acm_pca(a...; b...) = acm_pca(a..., b)
+
+function alexaforbusiness(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "a4b",
+        version      = "2017-11-09",
+        json_version = "1.1",
+        target       = "AlexaForBusiness",
+        operation    = operation,
+        args         = args)
+end
+
+alexaforbusiness(operation, args=[]) =
+    alexaforbusiness(default_aws_config(), operation, args)
+
+alexaforbusiness(a...; b...) = alexaforbusiness(a..., b)
+
 function apigateway(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
@@ -95,6 +129,22 @@ appstream(operation, args=[]) =
 
 appstream(a...; b...) = appstream(a..., b)
 
+function appsync(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "appsync",
+        version      = "2017-07-25",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+appsync(verb, resource, args=[]) =
+    appsync(default_aws_config(), verb, resource, args)
+
+appsync(a...; b...) = appsync(a..., b)
+
 function athena(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
@@ -126,6 +176,24 @@ autoscaling(operation, args=[]) =
     autoscaling(default_aws_config(), operation, args)
 
 autoscaling(a...; b...) = autoscaling(a..., b)
+
+function autoscaling_plans(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "autoscaling-plans",
+        version      = "2018-01-06",
+        endpoint     = "autoscaling",
+        json_version = "1.1",
+        target       = "AnyScaleScalingPlannerFrontendService",
+        operation    = operation,
+        args         = args)
+end
+
+autoscaling_plans(operation, args=[]) =
+    autoscaling_plans(default_aws_config(), operation, args)
+
+autoscaling_plans(a...; b...) = autoscaling_plans(a..., b)
 
 function batch(aws::AWSConfig, verb, resource, args=[])
 
@@ -160,12 +228,46 @@ budgets(operation, args=[]) =
 
 budgets(a...; b...) = budgets(a..., b)
 
+function ce(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "ce",
+        version      = "2017-10-25",
+        json_version = "1.1",
+        target       = "AWSInsightsIndexService",
+        operation    = operation,
+        args         = args)
+end
+
+ce(operation, args=[]) =
+    ce(default_aws_config(), operation, args)
+
+ce(a...; b...) = ce(a..., b)
+
+function cloud9(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "cloud9",
+        version      = "2017-09-23",
+        json_version = "1.1",
+        target       = "AWSCloud9WorkspaceManagementService",
+        operation    = operation,
+        args         = args)
+end
+
+cloud9(operation, args=[]) =
+    cloud9(default_aws_config(), operation, args)
+
+cloud9(a...; b...) = cloud9(a..., b)
+
 function clouddirectory(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_json(
         aws;
         service      = "clouddirectory",
-        version      = "2016-05-10",
+        version      = "2017-01-11",
         verb         = verb,
         resource     = resource,
         args         = args)
@@ -196,7 +298,7 @@ function cloudfront(aws::AWSConfig, verb, resource, args=[])
     AWSCore.service_rest_xml(
         aws;
         service      = "cloudfront",
-        version      = "2017-03-25",
+        version      = "2017-10-30",
         verb         = verb,
         resource     = resource,
         args         = args)
@@ -426,6 +528,23 @@ cognito_sync(verb, resource, args=[]) =
 
 cognito_sync(a...; b...) = cognito_sync(a..., b)
 
+function comprehend(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "comprehend",
+        version      = "2017-11-27",
+        json_version = "1.1",
+        target       = "Comprehend_20171127",
+        operation    = operation,
+        args         = args)
+end
+
+comprehend(operation, args=[]) =
+    comprehend(default_aws_config(), operation, args)
+
+comprehend(a...; b...) = comprehend(a..., b)
+
 function config(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
@@ -442,6 +561,22 @@ config(operation, args=[]) =
     config(default_aws_config(), operation, args)
 
 config(a...; b...) = config(a..., b)
+
+function connect(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "connect",
+        version      = "2017-08-08",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+connect(verb, resource, args=[]) =
+    connect(default_aws_config(), verb, resource, args)
+
+connect(a...; b...) = connect(a..., b)
 
 function cur(aws::AWSConfig, operation, args=[])
 
@@ -545,6 +680,22 @@ discovery(operation, args=[]) =
 
 discovery(a...; b...) = discovery(a..., b)
 
+function dlm(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "dlm",
+        version      = "2018-01-12",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+dlm(verb, resource, args=[]) =
+    dlm(default_aws_config(), verb, resource, args)
+
+dlm(a...; b...) = dlm(a..., b)
+
 function dms(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
@@ -644,6 +795,22 @@ ecs(operation, args=[]) =
     ecs(default_aws_config(), operation, args)
 
 ecs(a...; b...) = ecs(a..., b)
+
+function eks(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "eks",
+        version      = "2017-11-01",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+eks(verb, resource, args=[]) =
+    eks(default_aws_config(), verb, resource, args)
+
+eks(a...; b...) = eks(a..., b)
 
 function elasticache(aws::AWSConfig, operation, args=[])
 
@@ -838,6 +1005,23 @@ firehose(operation, args=[]) =
 
 firehose(a...; b...) = firehose(a..., b)
 
+function fms(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "fms",
+        version      = "2018-01-01",
+        json_version = "1.1",
+        target       = "AWSFMS_20180101",
+        operation    = operation,
+        args         = args)
+end
+
+fms(operation, args=[]) =
+    fms(default_aws_config(), operation, args)
+
+fms(a...; b...) = fms(a..., b)
+
 function gamelift(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
@@ -903,6 +1087,22 @@ greengrass(verb, resource, args=[]) =
     greengrass(default_aws_config(), verb, resource, args)
 
 greengrass(a...; b...) = greengrass(a..., b)
+
+function guardduty(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "guardduty",
+        version      = "2017-11-28",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+guardduty(verb, resource, args=[]) =
+    guardduty(default_aws_config(), verb, resource, args)
+
+guardduty(a...; b...) = guardduty(a..., b)
 
 function health(aws::AWSConfig, operation, args=[])
 
@@ -1004,6 +1204,73 @@ iot_data(verb, resource, args=[]) =
 
 iot_data(a...; b...) = iot_data(a..., b)
 
+function iot_jobs_data(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "iot-jobs-data",
+        version      = "2017-09-29",
+        endpoint     = "data.jobs.iot",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+iot_jobs_data(verb, resource, args=[]) =
+    iot_jobs_data(default_aws_config(), verb, resource, args)
+
+iot_jobs_data(a...; b...) = iot_jobs_data(a..., b)
+
+function devices(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "iot1click",
+        version      = "2018-05-14",
+        endpoint     = "devices.iot1click",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+devices(verb, resource, args=[]) =
+    devices(default_aws_config(), verb, resource, args)
+
+devices(a...; b...) = devices(a..., b)
+
+function iot1click_projects(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "iot1click",
+        version      = "2018-05-14",
+        endpoint     = "projects.iot1click",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+iot1click_projects(verb, resource, args=[]) =
+    iot1click_projects(default_aws_config(), verb, resource, args)
+
+iot1click_projects(a...; b...) = iot1click_projects(a..., b)
+
+function iotanalytics(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "iotanalytics",
+        version      = "2017-11-27",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+iotanalytics(verb, resource, args=[]) =
+    iotanalytics(default_aws_config(), verb, resource, args)
+
+iotanalytics(a...; b...) = iotanalytics(a..., b)
+
 function kinesis(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
@@ -1021,6 +1288,38 @@ kinesis(operation, args=[]) =
 
 kinesis(a...; b...) = kinesis(a..., b)
 
+function kinesis_video_archived_media(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "kinesisvideo",
+        version      = "2017-09-30",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+kinesis_video_archived_media(verb, resource, args=[]) =
+    kinesis_video_archived_media(default_aws_config(), verb, resource, args)
+
+kinesis_video_archived_media(a...; b...) = kinesis_video_archived_media(a..., b)
+
+function kinesis_video_media(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "kinesisvideo",
+        version      = "2017-09-30",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+kinesis_video_media(verb, resource, args=[]) =
+    kinesis_video_media(default_aws_config(), verb, resource, args)
+
+kinesis_video_media(a...; b...) = kinesis_video_media(a..., b)
+
 function kinesisanalytics(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
@@ -1037,6 +1336,22 @@ kinesisanalytics(operation, args=[]) =
     kinesisanalytics(default_aws_config(), operation, args)
 
 kinesisanalytics(a...; b...) = kinesisanalytics(a..., b)
+
+function kinesisvideo(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "kinesisvideo",
+        version      = "2017-09-30",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+kinesisvideo(verb, resource, args=[]) =
+    kinesisvideo(default_aws_config(), verb, resource, args)
+
+kinesisvideo(a...; b...) = kinesisvideo(a..., b)
 
 function kms(aws::AWSConfig, operation, args=[])
 
@@ -1139,6 +1454,23 @@ machinelearning(operation, args=[]) =
 
 machinelearning(a...; b...) = machinelearning(a..., b)
 
+function macie(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "macie",
+        version      = "2017-12-19",
+        json_version = "1.1",
+        target       = "MacieService",
+        operation    = operation,
+        args         = args)
+end
+
+macie(operation, args=[]) =
+    macie(default_aws_config(), operation, args)
+
+macie(a...; b...) = macie(a..., b)
+
 function marketplacecommerceanalytics(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
@@ -1155,6 +1487,105 @@ marketplacecommerceanalytics(operation, args=[]) =
     marketplacecommerceanalytics(default_aws_config(), operation, args)
 
 marketplacecommerceanalytics(a...; b...) = marketplacecommerceanalytics(a..., b)
+
+function mediaconvert(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "mediaconvert",
+        version      = "2017-08-29",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+mediaconvert(verb, resource, args=[]) =
+    mediaconvert(default_aws_config(), verb, resource, args)
+
+mediaconvert(a...; b...) = mediaconvert(a..., b)
+
+function medialive(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "medialive",
+        version      = "2017-10-14",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+medialive(verb, resource, args=[]) =
+    medialive(default_aws_config(), verb, resource, args)
+
+medialive(a...; b...) = medialive(a..., b)
+
+function mediapackage(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "mediapackage",
+        version      = "2017-10-12",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+mediapackage(verb, resource, args=[]) =
+    mediapackage(default_aws_config(), verb, resource, args)
+
+mediapackage(a...; b...) = mediapackage(a..., b)
+
+function mediastore(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "mediastore",
+        version      = "2017-09-01",
+        json_version = "1.1",
+        target       = "MediaStore_20170901",
+        operation    = operation,
+        args         = args)
+end
+
+mediastore(operation, args=[]) =
+    mediastore(default_aws_config(), operation, args)
+
+mediastore(a...; b...) = mediastore(a..., b)
+
+function mediastore_data(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "mediastore",
+        version      = "2017-09-01",
+        endpoint     = "data.mediastore",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+mediastore_data(verb, resource, args=[]) =
+    mediastore_data(default_aws_config(), verb, resource, args)
+
+mediastore_data(a...; b...) = mediastore_data(a..., b)
+
+function mediatailor(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "mediatailor",
+        version      = "2018-04-23",
+        endpoint     = "api.mediatailor",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+mediatailor(verb, resource, args=[]) =
+    mediatailor(default_aws_config(), verb, resource, args)
+
+mediatailor(a...; b...) = mediatailor(a..., b)
 
 function meteringmarketplace(aws::AWSConfig, operation, args=[])
 
@@ -1222,6 +1653,22 @@ monitoring(operation, args=[]) =
 
 monitoring(a...; b...) = monitoring(a..., b)
 
+function mq(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "mq",
+        version      = "2017-11-27",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+mq(verb, resource, args=[]) =
+    mq(default_aws_config(), verb, resource, args)
+
+mq(a...; b...) = mq(a..., b)
+
 function mturk_requester(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
@@ -1238,6 +1685,21 @@ mturk_requester(operation, args=[]) =
     mturk_requester(default_aws_config(), operation, args)
 
 mturk_requester(a...; b...) = mturk_requester(a..., b)
+
+function neptune(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_query(
+        aws;
+        service      = "rds",
+        version      = "2014-10-31",
+        operation    = operation,
+        args         = args)
+end
+
+neptune(operation, args=[]) =
+    neptune(default_aws_config(), operation, args)
+
+neptune(a...; b...) = neptune(a..., b)
 
 function opsworks(aws::AWSConfig, operation, args=[])
 
@@ -1289,6 +1751,23 @@ organizations(operation, args=[]) =
     organizations(default_aws_config(), operation, args)
 
 organizations(a...; b...) = organizations(a..., b)
+
+function pi(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "pi",
+        version      = "2018-02-27",
+        json_version = "1.1",
+        target       = "PerformanceInsightsv20180227",
+        operation    = operation,
+        args         = args)
+end
+
+pi(operation, args=[]) =
+    pi(default_aws_config(), operation, args)
+
+pi(a...; b...) = pi(a..., b)
 
 function pinpoint(aws::AWSConfig, verb, resource, args=[])
 
@@ -1388,6 +1867,22 @@ rekognition(operation, args=[]) =
 
 rekognition(a...; b...) = rekognition(a..., b)
 
+function resource_groups(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "resource-groups",
+        version      = "2017-11-27",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+resource_groups(verb, resource, args=[]) =
+    resource_groups(default_aws_config(), verb, resource, args)
+
+resource_groups(a...; b...) = resource_groups(a..., b)
+
 function resourcegroupstaggingapi(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
@@ -1455,6 +1950,23 @@ runtime_lex(verb, resource, args=[]) =
 
 runtime_lex(a...; b...) = runtime_lex(a..., b)
 
+function runtime_sagemaker(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "sagemaker",
+        version      = "2017-05-13",
+        endpoint     = "runtime.sagemaker",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+runtime_sagemaker(verb, resource, args=[]) =
+    runtime_sagemaker(default_aws_config(), verb, resource, args)
+
+runtime_sagemaker(a...; b...) = runtime_sagemaker(a..., b)
+
 function s3(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_xml(
@@ -1471,6 +1983,23 @@ s3(verb, resource, args=[]) =
 
 s3(a...; b...) = s3(a..., b)
 
+function sagemaker(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "sagemaker",
+        version      = "2017-07-24",
+        json_version = "1.1",
+        target       = "SageMaker",
+        operation    = operation,
+        args         = args)
+end
+
+sagemaker(operation, args=[]) =
+    sagemaker(default_aws_config(), operation, args)
+
+sagemaker(a...; b...) = sagemaker(a..., b)
+
 function sdb(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_query(
@@ -1485,6 +2014,39 @@ sdb(operation, args=[]) =
     sdb(default_aws_config(), operation, args)
 
 sdb(a...; b...) = sdb(a..., b)
+
+function secretsmanager(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "secretsmanager",
+        version      = "2017-10-17",
+        json_version = "1.1",
+        target       = "secretsmanager",
+        operation    = operation,
+        args         = args)
+end
+
+secretsmanager(operation, args=[]) =
+    secretsmanager(default_aws_config(), operation, args)
+
+secretsmanager(a...; b...) = secretsmanager(a..., b)
+
+function serverlessrepo(aws::AWSConfig, verb, resource, args=[])
+
+    AWSCore.service_rest_json(
+        aws;
+        service      = "serverlessrepo",
+        version      = "2017-09-08",
+        verb         = verb,
+        resource     = resource,
+        args         = args)
+end
+
+serverlessrepo(verb, resource, args=[]) =
+    serverlessrepo(default_aws_config(), verb, resource, args)
+
+serverlessrepo(a...; b...) = serverlessrepo(a..., b)
 
 function servicecatalog(aws::AWSConfig, operation, args=[])
 
@@ -1502,6 +2064,23 @@ servicecatalog(operation, args=[]) =
     servicecatalog(default_aws_config(), operation, args)
 
 servicecatalog(a...; b...) = servicecatalog(a..., b)
+
+function servicediscovery(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "servicediscovery",
+        version      = "2017-03-14",
+        json_version = "1.1",
+        target       = "Route53AutoNaming_v20170314",
+        operation    = operation,
+        args         = args)
+end
+
+servicediscovery(operation, args=[]) =
+    servicediscovery(default_aws_config(), operation, args)
+
+servicediscovery(a...; b...) = servicediscovery(a..., b)
 
 function shield(aws::AWSConfig, operation, args=[])
 
@@ -1702,6 +2281,40 @@ swf(operation, args=[]) =
 
 swf(a...; b...) = swf(a..., b)
 
+function transcribe(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "transcribe",
+        version      = "2017-10-26",
+        json_version = "1.1",
+        target       = "Transcribe",
+        operation    = operation,
+        args         = args)
+end
+
+transcribe(operation, args=[]) =
+    transcribe(default_aws_config(), operation, args)
+
+transcribe(a...; b...) = transcribe(a..., b)
+
+function translate(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "translate",
+        version      = "2017-07-01",
+        json_version = "1.1",
+        target       = "AWSShineFrontendService_20170701",
+        operation    = operation,
+        args         = args)
+end
+
+translate(operation, args=[]) =
+    translate(default_aws_config(), operation, args)
+
+translate(a...; b...) = translate(a..., b)
+
 function waf(aws::AWSConfig, operation, args=[])
 
     AWSCore.service_json(
@@ -1751,6 +2364,23 @@ workdocs(verb, resource, args=[]) =
     workdocs(default_aws_config(), verb, resource, args)
 
 workdocs(a...; b...) = workdocs(a..., b)
+
+function workmail(aws::AWSConfig, operation, args=[])
+
+    AWSCore.service_json(
+        aws;
+        service      = "workmail",
+        version      = "2017-10-01",
+        json_version = "1.1",
+        target       = "WorkMailService",
+        operation    = operation,
+        args         = args)
+end
+
+workmail(operation, args=[]) =
+    workmail(default_aws_config(), operation, args)
+
+workmail(a...; b...) = workmail(a..., b)
 
 function workspaces(aws::AWSConfig, operation, args=[])
 
