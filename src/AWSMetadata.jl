@@ -164,10 +164,8 @@ function service_definition(service)
     @assert meta["apiVersion"] == service["version"]
 
     # Check that service definition JSON version is 2.0...
-    @assert service["prefix"] in ["sdb", "guardduty", "greengrass",
-                                  "iot1click", "iot-jobs-data", "iot-data",
-                                  "iot1click-devices",
-                                  "pinpoint"] ||
+    @assert service["prefix"] in ["sdb", "greengrass", "pinpoint"] ||
+            !haskey(definition, "version") ||
             definition["version"] == "2.0"
 
     # Check that signature version is v4...
@@ -181,7 +179,7 @@ function service_definition(service)
         meta["uid"] = meta["endpointPrefix"] * "-" * meta["apiVersion"]
     end
 
-    # Set signing name to entpoint prefix by default...
+    # Set signing name to endpoint prefix by default...
     if !haskey(meta, "signingName")
         meta["signingName"] = meta["endpointPrefix"]
     end
