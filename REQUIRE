@@ -1,4 +1,4 @@
-julia 0.7.0-beta
+julia 0.7.0
 Retry 0.3.0
 SymDict 0.1.2
 XMLDict 0.2.0
