@@ -357,7 +357,7 @@ function dump_aws_request(r::AWSRequest)
         action = split(r[:headers]["X-Amz-Target"], ".")[end]
         q = JSON.parse(r[:content])
         for k in keys(q)
-            if ismatch(r"[^.]Name$", k)
+            if occursin(r"[^.]Name$", k)
                 name *= " "
                 name *= q[k]
             end
@@ -365,7 +365,7 @@ function dump_aws_request(r::AWSRequest)
     end
     if haskey(r, :query)
         for k in keys(r[:query])
-            if ismatch(r"[^.]Name$", k)
+            if occursin(r"[^.]Name$", k)
                 name *= " "
                 name *= r[:query][k]
             end
@@ -422,8 +422,8 @@ function do_request(r::AWSRequest)
         e = AWSException(e)
 
         # Handle expired signature...
-        @retry if :message in fieldnames(e) &&
-                  ismatch(r"Signature expired", e.message) end
+        @retry if :message in fieldnames(typeof(e)) &&
+                  occursin(r"Signature expired", e.message) end
 
         # Handle ExpiredToken...
         # See `credsExpiredCodes` in
@@ -500,7 +500,7 @@ function do_request(r::AWSRequest)
         return info
     end
 
-    if ismatch(r"^text/", mime)
+    if occursin(r"^text/", mime)
         return body
     end
 

@@ -164,7 +164,7 @@ end
 
                 # Check we try to assume a role
                 ENV["AWS_DEFAULT_PROFILE"] = "test:sub-dev"
-                let oldout = STDOUT
+                let oldout = stdout
                     r,w = redirect_stdout()
                     try
                         AWSCore.aws_config()
@@ -175,9 +175,9 @@ end
                     end
                     redirect_stdout(oldout)
                     close(w)
-                    output = convert(String, read(r))
-                    contains(output, "Assuming \"test:dev\"")
-                    contains(output, "Assuming \"test\"")
+                    output = String(read(r))
+                    occursin("Assuming \"test:dev\"", output)
+                    occursin("Assuming \"test\"", output)
                     close(r)
                 end
             end
