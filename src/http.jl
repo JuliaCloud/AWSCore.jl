@@ -6,7 +6,7 @@
 # Copyright OC Technology Pty Ltd 2014 - All rights reserved
 #==============================================================================#
 
-import Base: show, UVError
+import Base: show, IOError
 
 
 http_status(e::HTTP.StatusError) = e.status
