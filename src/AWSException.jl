@@ -5,9 +5,6 @@
 #==============================================================================#
 
 
-import JSON: json
-
-
 export AWSException
 
 struct AWSException <: Exception
@@ -32,13 +29,13 @@ function AWSException(e::HTTP.StatusError)
 
     # Extract API error code from Lambda-style JSON error message...
     if occursin(r"json$", content_type(e))
-        info = JSON.parse(http_message(e))
+        info = LazyJSON.value(http_message(e))
         message = get(info, "message", message)
     end
 
     # Extract API error code from JSON error message...
     if occursin(r"^application/x-amz-json-1.[01]$", content_type(e))
-        info = JSON.parse(http_message(e))
+        info = LazyJSON.value(http_message(e))
         if haskey(info, "__type")
             code = split(info["__type"], "#")[end]
         end

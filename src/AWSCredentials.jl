@@ -186,8 +186,6 @@ function ec2_metadata(key)
 end
 
 
-using JSON
-
 """
 Load [Instance Profile Credentials]
 (http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials)
@@ -198,11 +196,11 @@ function ec2_instance_credentials()
     @assert localhost_maybe_ec2()
 
     info  = ec2_metadata("iam/info")
-    info  = JSON.parse(info, dicttype=Dict{String,String})
+    info  = LazyJSON.value(info)
 
     name  = ec2_metadata("iam/security-credentials/")
     creds = ec2_metadata("iam/security-credentials/$name")
-    new_creds = JSON.parse(creds, dicttype=Dict{String,String})
+    new_creds = LazyJSON.value(creds)
 
     if debug_level > 0
         print("Loading AWSCredentials from EC2 metadata... ")
@@ -225,7 +223,8 @@ function ecs_instance_credentials()
 
     uri = ENV["AWS_CONTAINER_CREDENTIALS_RELATIVE_URI"]
 
-    new_creds = JSON.parse(String(http_get("http://169.254.170.2$uri").body))
+    new_creds = String(http_get("http://169.254.170.2$uri").body)
+    new_creds = LazyJSON.value(new_creds)
 
     if debug_level > 0
         print("Loading AWSCredentials from ECS metadata... ")

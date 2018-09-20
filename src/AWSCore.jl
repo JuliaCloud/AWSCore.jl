@@ -22,6 +22,8 @@ using SymDict
 using XMLDict
 using HTTP
 using DataStructures: OrderedDict
+using JSON
+using LazyJSON
 
 
 """
