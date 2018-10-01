@@ -430,12 +430,33 @@ function do_request(r::AWSRequest)
         # Handle ExpiredToken...
         # See `credsExpiredCodes` in
         # https://github.com/aws/aws-sdk-go/blob/master/aws/request/retryer.go
-        @retry if ecode(e) in ["ExpiredToken",
+        @retry if ecode(e) in ("ExpiredToken",
                                "ExpiredTokenException",
-                               "RequestExpired"]
+                               "RequestExpired")
 
             r[:creds].token = "ExpiredToken"
         end
+
+        # Handle throttling
+        # see botocore for list of codes:
+        # https://github.com/boto/botocore/blob/master/botocore/data/_retry.json
+        # Recommended for SDKs at:
+        # https://docs.aws.amazon.com/general/latest/gr/api-retries.html
+        # Also BadDigest error and CRC32 thing
+        @retry if http_status(e.cause) == 429 ||
+                  ecode(e) in ("Throttling",
+                               "ThrottlingException",
+                               "ThrottledException",
+                               "RequestThrottledException",
+                               "TooManyRequestsException",
+                               "ProvisionedThroughputExceededException",
+                               "LimitExceededException",
+                               "RequestThrottled",
+                               "RequestTimeout",
+                               "BadDigest",
+                               "RequestTimeoutException",
+                               "PriorRequestNotComplete") ||
+                  HTTP.header(e.cause.response, "crc32body") == "x-amz-crc32" end
     end
 
     if debug_level > 1
