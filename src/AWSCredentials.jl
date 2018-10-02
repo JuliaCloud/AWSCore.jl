@@ -290,14 +290,16 @@ function aws_get_credential_details(profile::AbstractString, ini::Inifile, confi
 
     key_id = get(ini, profile, "aws_access_key_id")
     key = get(ini, profile, "aws_secret_access_key")
+    token = get(ini, profile, "aws_session_token", "")
 
     if config
         profile = "profile $profile"
         key_id = get(ini, profile, "aws_access_key_id", key_id)
         key = get(ini, profile, "aws_secret_access_key", key)
+        token = get(ini, profile, "aws_session_token", token)
     end
 
-    (key, key_id)
+    (key, key_id, token)
 end
 
 function aws_get_region(profile::AbstractString, ini::Inifile)
@@ -355,18 +357,18 @@ function dot_aws_credentials(profile = nothing)
     ini = nothing
     if isfile(credential_file)
         ini = read(Inifile(), credential_file)
-        key, key_id = aws_get_credential_details(profile, ini, false)
+        key, key_id, token = aws_get_credential_details(profile, ini, false)
         if key != :notfound
-            return AWSCredentials(key_id, key)
+            return AWSCredentials(key_id, key, token)
         end
     end
 
     config_file = dot_aws_config_file()
     if isfile(config_file)
         ini = read(Inifile(), config_file)
-        key, key_id = aws_get_credential_details(profile, ini, true)
+        key, key_id, token = aws_get_credential_details(profile, ini, true)
         if key != :notfound
-            AWSCredentials(key_id, key)
+            AWSCredentials(key_id, key, token)
         else
             aws_get_role(profile, ini)
         end
