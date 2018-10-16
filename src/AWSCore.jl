@@ -70,6 +70,7 @@ The `aws_config` function provides a simple way to creates an
 >aws = aws_config()
 >aws = aws_config(creds = my_credentials)
 >aws = aws_config(region = "ap-southeast-2")
+>aws = aws_config(profile = "profile-name")
 ```
 
 By default, the `aws_config` attempts to load AWS credentials from:
@@ -88,8 +89,9 @@ aws_access_key_id = AKIAXXXXXXXXXXXXXXXX
 aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
 
-If your `~/.aws/credentials` file contains multiple profiles you can
-select a profile by setting the `AWS_PROFILE` environment variable.
+If your `~/.aws/credentials` file contains multiple profiles you can pass the
+profile name as a string to the `profile` keyword argument (`nothing` by
+default) or select a profile by setting the `AWS_PROFILE` environment variable.
 
 `aws_config` understands the following [AWS CLI environment
 variables](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#cli-environment):
@@ -106,7 +108,8 @@ aws = aws_config(creds = AWSCredentials("AKIAXXXXXXXXXXXXXXXX",
 ```
 
 """
-function aws_config(;creds=AWSCredentials(),
+function aws_config(;profile=nothing,
+                     creds=AWSCredentials(profile=profile),
                      region=get(ENV, "AWS_DEFAULT_REGION", "us-east-1"),
                      args...)
     @SymDict(creds, region, args...)
