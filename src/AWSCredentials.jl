@@ -29,6 +29,7 @@ The `user_arn` and `account_number` fields are used to cache the result of the [
 
 The `AWSCredentials()` constructor tries to load local Credentials from
 environment variables, `~/.aws/credentials`, `~/.aws/config` or EC2 instance credentials.
+To specify the profile to use from `~/.aws/credentials`, do, for example, `AWSCredentials(profile="profile-name")`.
 """
 mutable struct AWSCredentials
     access_key_id::String
@@ -63,7 +64,7 @@ end
 import Base: copy!
 Base.@deprecate copy!(dest::AWSCredentials, src::AWSCredentials) copyto!(dest, src)
 
-function AWSCredentials()
+function AWSCredentials(;profile=nothing)
 
     if haskey(ENV, "AWS_ACCESS_KEY_ID")
 
@@ -71,7 +72,7 @@ function AWSCredentials()
 
     elseif isfile(dot_aws_credentials_file()) || isfile(dot_aws_config_file())
 
-        creds = dot_aws_credentials()
+        creds = dot_aws_credentials(profile)
 
     elseif haskey(ENV, "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
 
