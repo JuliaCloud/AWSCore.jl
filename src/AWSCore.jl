@@ -5,9 +5,6 @@
 #==============================================================================#
 
 
-__precompile__()
-
-
 module AWSCore
 
 
@@ -424,7 +421,7 @@ function do_request(r::AWSRequest)
         end
 
     catch e
-        e = AWSException(e)
+        e = aws_exception(e)
 
         # Handle expired signature...
         @retry if :message in fieldnames(typeof(e)) &&

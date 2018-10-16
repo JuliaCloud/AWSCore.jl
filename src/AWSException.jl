@@ -56,7 +56,8 @@ function AWSException(e::HTTP.StatusError)
 end
 
 
-AWSException(e) = e
+aws_exception(e::Exception) = rethrow(e)
+aws_exception(e::HTTP.StatusError) = AWSException(e)
 
 
 #==============================================================================#
