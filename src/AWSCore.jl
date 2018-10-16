@@ -5,9 +5,6 @@
 #==============================================================================#
 
 
-__precompile__()
-
-
 module AWSCore
 
 
@@ -421,7 +418,9 @@ function do_request(r::AWSRequest)
         end
 
     catch e
-        e = AWSException(e)
+        if e isa HTTP.StatusError
+            e = AWSException(e)
+        end
 
         # Handle expired signature...
         @retry if :message in fieldnames(typeof(e)) &&
@@ -443,7 +442,8 @@ function do_request(r::AWSRequest)
         # Recommended for SDKs at:
         # https://docs.aws.amazon.com/general/latest/gr/api-retries.html
         # Also BadDigest error and CRC32 thing
-        @retry if http_status(e.cause) == 429 ||
+        @retry if e isa AWSException && (
+                  http_status(e.cause) == 429 ||
                   ecode(e) in ("Throttling",
                                "ThrottlingException",
                                "ThrottledException",
@@ -456,7 +456,7 @@ function do_request(r::AWSRequest)
                                "BadDigest",
                                "RequestTimeoutException",
                                "PriorRequestNotComplete") ||
-                  HTTP.header(e.cause.response, "crc32body") == "x-amz-crc32" end
+                  header(e.cause, "crc32body") == "x-amz-crc32") end
     end
 
     if debug_level > 1
