@@ -56,6 +56,16 @@ function AWSException(e::HTTP.StatusError)
 end
 
 
+"""
+    aws_exception(e::Exception)
+
+Attempts to create an `AWSException` object out of the provided `Exception`.
+
+If this cannot be done, the error will be immediately rethrown.
+
+This should only be used within `catch` clauses, as provided errors may be rethrown rather
+than thrown.
+"""
 aws_exception(e::Exception) = rethrow(e)
 aws_exception(e::HTTP.StatusError) = AWSException(e)
 
