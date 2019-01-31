@@ -48,10 +48,13 @@ function http_request(request::AWSRequest)
                             options...)
 
     catch e
-
+        # Base.IOError is needed because HTTP.jl can often have errors that aren't
+        # caught and wrapped in an HTTP.IOError
+        # https://github.com/JuliaWeb/HTTP.jl/issues/382
         @delay_retry if isa(e, Sockets.DNSError) ||
                         isa(e, HTTP.ParseError) ||
                         isa(e, HTTP.IOError) ||
+                        isa(e, Base.IOError) ||
                         #isa(e, EOFError) || FIXME needed ?
                        (isa(e, HTTP.StatusError) && http_status(e) >= 500) end
     end
