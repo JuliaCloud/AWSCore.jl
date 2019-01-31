@@ -7,6 +7,12 @@ julia:
   - 1.0
 notifications:
   email: false
+branches:
+  only:
+    - master
+    - staging
+    - trying
+    - /^v[0-9]+\.[0-9]+\.[0-9]+$/  # version tags
 env:
 # arn:aws:iam::551613799374:user/AWSCore.jl.test.user
   global:
@@ -15,3 +21,12 @@ env:
 matrix:
   allow_failures:
     - julia: nightly
+jobs:
+  include:
+    - stage: "Documentation"
+      julia: 1.0
+      os: linux
+      script:
+        - julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
+        - julia --project=docs/ docs/make.jl
+      after_success: skip
