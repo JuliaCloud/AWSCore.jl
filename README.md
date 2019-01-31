@@ -1,5 +1,7 @@
 # AWSCore.jl
 
+[![Travis](https://travis-ci.org/JuliaCloud/AWSCore.jl.svg?branch=master)](https://travis-ci.org/JuliaCloud/AWSCore.jl)
+
 Julia interface for [Amazon Web Services](https://aws.amazon.com).
 
 This package provides core infrastructure functions and types.
