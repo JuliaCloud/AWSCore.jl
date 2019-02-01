@@ -21,7 +21,7 @@ export arn, is_arn,
 Generate an [Amazon Resource Name](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html) for `service` and `resource`.
 """
 function arn(service, resource,
-             region=get(default_aws_config(), :region, ""),
+             region=default_aws_config().region,
              account=aws_account_number(default_aws_config()))
 
     if service == "s3"
@@ -38,7 +38,7 @@ end
 function arn(aws::AWSConfig,
              service,
              resource,
-             region=get(aws, :region, ""),
+             region=aws.region,
              account=aws_account_number(aws))
 
     arn(service, resource, region, account)

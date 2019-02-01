@@ -17,32 +17,7 @@ export AWSCredentials,
        aws_account_number
 
 
-"""
-When you interact with AWS, you specify your [AWS Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html) to verify who you are and whether you have permission to access the resources that you are requesting. AWS uses the security credentials to authenticate and authorize your requests.
-
-The fields `access_key_id` and `secret_key` hold the access keys used to authenticate API requests (see [Creating, Modifying, and Viewing Access Keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)).
-
-[Temporary Security Credentials](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html) require the extra session `token` field.
-
-
-The `user_arn` and `account_number` fields are used to cache the result of the [`aws_user_arn`](@ref) and [`aws_account_number`](@ref) functions.
-
-The `AWSCredentials()` constructor tries to load local Credentials from
-environment variables, `~/.aws/credentials`, `~/.aws/config` or EC2 instance credentials.
-To specify the profile to use from `~/.aws/credentials`, do, for example, `AWSCredentials(profile="profile-name")`.
-"""
-mutable struct AWSCredentials
-    access_key_id::String
-    secret_key::String
-    token::String
-    user_arn::String
-    account_number::String
-
-    function AWSCredentials(access_key_id, secret_key,
-                            token="", user_arn="", account_number="")
-        new(access_key_id, secret_key, token, user_arn, account_number)
-    end
-end
+# AWSCredentials type defined in src/AWSCore.jl
 
 function Base.show(io::IO,c::AWSCredentials)
     println(io, string(c.user_arn,
@@ -145,7 +120,7 @@ e.g. `"arn:aws:iam::account-ID-without-hyphens:user/Bob"`
 """
 function aws_user_arn(aws::AWSConfig)
 
-    creds = aws[:creds]
+    creds = aws.creds
 
     if creds.user_arn == ""
 
@@ -164,7 +139,7 @@ end
 12-digit [AWS Account Number](http://docs.aws.amazon.com/general/latest/gr/acct-identifiers.html).
 """
 function aws_account_number(aws::AWSConfig)
-    creds = aws[:creds]
+    creds = aws.creds
     if creds.account_number == ""
         aws_user_arn(aws)
     end
@@ -322,7 +297,7 @@ function aws_get_role(role::AbstractString, ini::Inifile)
     end
     credentials = dot_aws_credentials(source_profile)
 
-    config = AWSConfig(:creds=>credentials, :region=>aws_get_region(source_profile, ini))
+    config = AWSConfig(creds=credentials, region=aws_get_region(source_profile, ini))
 
     role = Services.sts(
         config,

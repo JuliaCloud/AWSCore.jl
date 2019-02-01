@@ -19,7 +19,7 @@ AWSCore.set_debug_level(1)
 
 @testset "AWSCore" begin
 
-aws = aws_config()
+aws = AWSConfig()
 
 @testset "Load Credentials" begin
     user = aws_user_arn(aws)
@@ -28,7 +28,7 @@ aws = aws_config()
 
     println("Authenticated as: $user")
 
-    aws[:region] = "us-east-1"
+    aws.region = "us-east-1"
 
     println("Testing exceptions...")
     try
@@ -121,32 +121,32 @@ end
                 "AWS_ACCESS_KEY_ID" => nothing
                 ) do
 
-                # Check credentials load 
-                config = AWSCore.aws_config()
-                creds = config[:creds]
+                # Check credentials load
+                config = AWSCore.AWSConfig()
+                creds = config.creds
 
                 @test creds.access_key_id == "TEST_ACCESS_ID"
                 @test creds.secret_key == "TEST_ACCESS_KEY"
 
                 # Check credential file takes precedence over config
                 ENV["AWS_DEFAULT_PROFILE"] = "test2"
-                config = AWSCore.aws_config()
-                creds = config[:creds]
+                config = AWSCore.AWSConfig()
+                creds = config.creds
 
                 @test creds.access_key_id == "RIGHT_ACCESS_ID2"
                 @test creds.secret_key == "RIGHT_ACCESS_KEY2"
 
                 # Check credentials take precedence over role
                 ENV["AWS_DEFAULT_PROFILE"] = "test3"
-                config = AWSCore.aws_config()
-                creds = config[:creds]
+                config = AWSCore.AWSConfig()
+                creds = config.creds
 
                 @test creds.access_key_id == "RIGHT_ACCESS_ID3"
                 @test creds.secret_key == "RIGHT_ACCESS_KEY3"
 
                 ENV["AWS_DEFAULT_PROFILE"] = "test4"
-                config = AWSCore.aws_config()
-                creds = config[:creds]
+                config = AWSCore.AWSConfig()
+                creds = config.creds
 
                 @test creds.access_key_id == "RIGHT_ACCESS_ID4"
                 @test creds.secret_key == "RIGHT_ACCESS_KEY4"
@@ -155,7 +155,7 @@ end
                 ENV["AWS_DEFAULT_PROFILE"] = "test:dev"
 
                 try
-                    AWSCore.aws_config()
+                    AWSCore.AWSConfig()
                     @test false
                 catch e
                     @test e isa AWSCore.AWSException
@@ -167,7 +167,7 @@ end
                 let oldout = stdout
                     r,w = redirect_stdout()
                     try
-                        AWSCore.aws_config()
+                        AWSCore.AWSConfig()
                         @test false
                     catch e
                         @test e isa AWSCore.AWSException
