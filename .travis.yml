@@ -5,22 +5,24 @@ os:
   - osx
 julia:
   - 1.0
-notifications:
-  email: false
+  - 1.1
+  - nightly
+matrix:
+  allow_failures:
+    - julia: nightly
 branches:
   only:
     - master
     - staging
     - trying
     - /^v[0-9]+\.[0-9]+\.[0-9]+$/  # version tags
+notifications:
+  email: false
 env:
-# arn:aws:iam::551613799374:user/AWSCore.jl.test.user
+  # arn:aws:iam::134847318362:user/AWSCoreJL
   global:
-    - secure: ZIhkKfoTrAxH1mcGTK9fqdRQUSzMtgTaTPBFjMsNkybCCevzN9PSBsk2b1+RvIt4is88t+VTVgHkS1ldKZjaq65qy9r7Uz4lLosledrwlOCIQYNHmqKUey99QvSAB0uQM0k4ozgFbMG83dOaO9dFNupRV/43ANc65/GOmD+0ZvWhtaeazVfNmTe8mQZiUme4wOT32xVp8jimjerkx1Lfwbr26pycSdwJWsibKU2eP/U0n4Z0qYcCu7n76zeAD+OHASWmVs2yHk7KU8AIOx3wD46KqXeM8SnUTOqE1EL3KeC4dt5Ebs1SD4C4j++S51HzFRHIU6IHgW3W2cV17pPhp4PObPGNWa8H6sXxWg910E7XbHSpVI1jnUlpaCM/7abzU1VXM8gudJf1hc4nJOccJNUDwOCj6ENvCRy3co8ySoK8R7NClyyIVHN0Q871SaPOs0YvAVAuUfmEZRSm6r6UiUucOPz8MHQ/xyiTUHxAXDBcniB9CS0fsXKo2nRFs20Z7GvzDa4ALh0RW7piUinpn3XAG0vFDJ27jvztWE5mB4PZqbYbPBbtQiGdfWov5VkkhVA2nCpTprrEsYpx9A5dTMxWjzJMe1kcnL2bk3RyKdzQ9GJGzCyDNy1rHTsvV0qU+MDVmbkq3Pz+JTpVZvw1qbl6G+ab+WR1/N8Bru7u88I=
-    - secure: cAbrL11gTFZSn2v7GU6S7HwmaOHzPoC4F7t01GLeeGVJ2UuhlBVqOCIIqHYmol0c6NixRzif6Gw0MiQPcDOi1URO5UQ0M/K1ed1NR8ifztv/01poMRsNl6RmmqkMMp9Z5UwWNWdJ9Fp30hLDUPwCMoqtVBR5Qe+iAkBsiLmPp3tKnwDcSCw5bA00zvq63JhFsTKIK3uYnENFIWlsVrI7KxlUqvBnqdnId2X6ribv4PZIFs2En9MCOAnrfl1hosep+DVGj+65RFtt/UDdXgimwYUFraq7WwDiaHnZ8IMi9nZ55cgUXB7GtnjB+vApG2od/5evtXcyX3uKdpbpRxzR4SfBBCUe3b3a3yCdYihVgjCua1bNm8R98iAbzoIS5pqO1m37Y18lNI7IzpRF7t9kgAat8lZ/Ep+AIhMZmBhZS4bzpZ7HnO36oeM30V7UZltM7IYJ7ta5kqkOYna9gzx21HODeMWsSR/2BfNBq/N32SVvDuILGBr1hLa063DvSrhKzSVos4Tc4U1+80dyT9MXS5+3Ik+PYrR9wE30A+g1do5xEeviA2QBfw23OSCTti6or7ugQWFXnqNW+CiY5ijYxI9cQMhVGyshArRmyM3cHi3SG7jAOaZGWaLD5WpRrziIs6qUsmNX3LAVqhXZNzw/USQmxIxOYrmZ8DTp1zhuXsM=
-matrix:
-  allow_failures:
-    - julia: nightly
+    - secure: I7/rE1u2w6kNlRiKsHGRonjC2Jsi/qlbHKNaLb5dH+K+YtDZo91J3WN4DRypKueWZAAFjYhgpHVm5Drt3TeKhQe9EF836DK7Mr6KBitXHp8S1xloCdnDl+w94j4wUxc5U48pCE3K0MncA7xIucbuHYyDigCzltQ7QRt32/6QmNOfe/FLLrxIs/kSuaugrt+XUfARrNbizaUtZfenJd3gC9VxFstjqKR+J5s4VWsrkS8xahlmME73pxuJW5e3unsBbWFs2oqRAxk9WG43wE96dIxD65MtHS+vO6C3157QDy/l67up2UtMNzboMoflPor7ZewOnslHXp1gl/3pEn50WJOQ3/jFA7Eb/sdQVl5Fd+9EO/vSwhOX4redtXPTwnzBTTxC4do6QTNRKJtyfRo6uKr1t48IYZZdBweGC7iHY911qtpxdUyqNRz/Lldrw/bV319TQWtyJYM+NBSzQ2ZJc33KlzzseBTO+YAXKyNTMAk5qyxjXnzKhZRT7RkyzPlKmngH2lfsU6eMsCCTB2sTF1dffz9uqVZ9bQYVd/yw/+IeVu/XZlT4T6vWfbp29CIhjHXOpprXGwQPhm8DKpiXtuGKYnmlpaR7wB1Gr3a9O0qgwEbYhj3x9BwvP9mrp6/D87jwDKG5aPv6N4U06KPf0sbfrziJx4Ooz8TEPPI8BjA=
+    - secure: Lrh6AxUp1yFdsB1XlvNHFk+5pOMGQR8bJadUtnqXsuk97ieINI5w/da6wBPIH4WkZBGpQr+uJLe10PTxDcaNeZOC1LcuSK+v5J88pSiFYi10BggYWC2Kb2XEVBjd9BHi/RxAkiHXziBEaqpuX2WcwY2hgAOU+rpt3M9U9SxDITXNG68PpVVqDJ7GSZvZeJZnLrjTPKLlFR8EkqrE23bTaGvzqn50fwk7U3n0F04slkmg2ORScWkgBSFmaATBbiSU9Pz7bB4KuGarNC0Q0eTeoZcThRVYVwse3oLnYLMXkUuIDF5QwDfA5HCC4ad5yXdVenwHZSPS/sSnRM+fVAwkU8CL7hFC9zX2X/fBExWet0LufaCh4L6pax3dKV2m6q3Uq9M1z8X33ry2xqS96rpdD4bo+FxYrzjyAotn46w4fPE7yb3YZgf+dbHTDfVjiPH70hIKUhKiyzyKMTwdT63WNIy1/qbREge4jPVXgnIM3/jAu0THf74cT+RwN4xQnt7a50Yn2c/I+37kO2B+4qkyh4p75eIfPXqak1vdDc9tUqxZa7lPdIkofT3jp7TaJ+4/OLf2OrpA2XFjx20el4/TdB9TiJtGv0qTrujY4wh5BALxGVoSEihj3ahkqV/FQ6RyWJsMggd3yoaING61nCkDXUvLk/44yzeYavNrUaMzWpc=
 jobs:
   include:
     - stage: "Documentation"
