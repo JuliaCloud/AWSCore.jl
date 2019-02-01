@@ -5,22 +5,22 @@ os:
   - osx
 julia:
   - 1.0
-notifications:
-  email: false
+matrix:
+  allow_failures:
+    - julia: nightly
 branches:
   only:
     - master
     - staging
     - trying
     - /^v[0-9]+\.[0-9]+\.[0-9]+$/  # version tags
+notifications:
+  email: false
 env:
   # arn:aws:iam::134847318362:user/AWSCoreJL
   global:
     - secure: I7/rE1u2w6kNlRiKsHGRonjC2Jsi/qlbHKNaLb5dH+K+YtDZo91J3WN4DRypKueWZAAFjYhgpHVm5Drt3TeKhQe9EF836DK7Mr6KBitXHp8S1xloCdnDl+w94j4wUxc5U48pCE3K0MncA7xIucbuHYyDigCzltQ7QRt32/6QmNOfe/FLLrxIs/kSuaugrt+XUfARrNbizaUtZfenJd3gC9VxFstjqKR+J5s4VWsrkS8xahlmME73pxuJW5e3unsBbWFs2oqRAxk9WG43wE96dIxD65MtHS+vO6C3157QDy/l67up2UtMNzboMoflPor7ZewOnslHXp1gl/3pEn50WJOQ3/jFA7Eb/sdQVl5Fd+9EO/vSwhOX4redtXPTwnzBTTxC4do6QTNRKJtyfRo6uKr1t48IYZZdBweGC7iHY911qtpxdUyqNRz/Lldrw/bV319TQWtyJYM+NBSzQ2ZJc33KlzzseBTO+YAXKyNTMAk5qyxjXnzKhZRT7RkyzPlKmngH2lfsU6eMsCCTB2sTF1dffz9uqVZ9bQYVd/yw/+IeVu/XZlT4T6vWfbp29CIhjHXOpprXGwQPhm8DKpiXtuGKYnmlpaR7wB1Gr3a9O0qgwEbYhj3x9BwvP9mrp6/D87jwDKG5aPv6N4U06KPf0sbfrziJx4Ooz8TEPPI8BjA=
     - secure: Lrh6AxUp1yFdsB1XlvNHFk+5pOMGQR8bJadUtnqXsuk97ieINI5w/da6wBPIH4WkZBGpQr+uJLe10PTxDcaNeZOC1LcuSK+v5J88pSiFYi10BggYWC2Kb2XEVBjd9BHi/RxAkiHXziBEaqpuX2WcwY2hgAOU+rpt3M9U9SxDITXNG68PpVVqDJ7GSZvZeJZnLrjTPKLlFR8EkqrE23bTaGvzqn50fwk7U3n0F04slkmg2ORScWkgBSFmaATBbiSU9Pz7bB4KuGarNC0Q0eTeoZcThRVYVwse3oLnYLMXkUuIDF5QwDfA5HCC4ad5yXdVenwHZSPS/sSnRM+fVAwkU8CL7hFC9zX2X/fBExWet0LufaCh4L6pax3dKV2m6q3Uq9M1z8X33ry2xqS96rpdD4bo+FxYrzjyAotn46w4fPE7yb3YZgf+dbHTDfVjiPH70hIKUhKiyzyKMTwdT63WNIy1/qbREge4jPVXgnIM3/jAu0THf74cT+RwN4xQnt7a50Yn2c/I+37kO2B+4qkyh4p75eIfPXqak1vdDc9tUqxZa7lPdIkofT3jp7TaJ+4/OLf2OrpA2XFjx20el4/TdB9TiJtGv0qTrujY4wh5BALxGVoSEihj3ahkqV/FQ6RyWJsMggd3yoaING61nCkDXUvLk/44yzeYavNrUaMzWpc=
-matrix:
-  allow_failures:
-    - julia: nightly
 jobs:
   include:
     - stage: "Documentation"
