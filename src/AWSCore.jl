@@ -103,52 +103,117 @@ format. All keyword arguments have default values and are thus optional.
 ```julia-repl
 julia> AWSConfig(profile="example", region="ap-southeast-2")
 AWSConfig((AKIDEXAMPLE, wJa...)
-, "ap-southeast-2", "json")
+, "ap-southeast-2", "json", NamedTuple())
 
 julia> AWSConfig(creds=AWSCredentials("AKIDEXAMPLE", "wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY"))
 AWSConfig((AKIDEXAMPLE, wJa...)
-, "us-east-1", "json")
+, "us-east-1", "json", NamedTuple())
 ```
 """
 mutable struct AWSConfig
     creds::AWSCredentials
     region::String
     output::String
+    # XXX: The `_extras` field will be removed after the deprecation period
+    _extras::Dict{Symbol,Any}
 end
 
 function AWSConfig(; profile=nothing,
                      creds=AWSCredentials(profile=profile),
-                     region=get(ENV, "AWS_DEFAULT_REGION", "us-east-1"),
-                     output="json")
-    AWSConfig(creds, region, output)
+                     region=get(ENV, "AWS_DEFAULT_REGION", ""),
+                     output="json",
+                     kwargs...)
+    AWSConfig(creds, region, output, kwargs)
 end
 
 # Relics of using SymbolDict
-import Base: getindex, setindex!
+
+_isfield(x::Symbol) = (x === :creds || x === :region || x === :output)
+
 Base.@deprecate AWSConfig(pairs::Pair...) AWSConfig(; pairs...)
-Base.@deprecate getindex(conf::AWSConfig, x::Symbol) getfield(conf, x)
-Base.@deprecate setindex!(conf::AWSConfig, val, var::Symbol) setfield!(conf, var, val)
 Base.@deprecate aws_config AWSConfig
-function Base.get(conf::AWSConfig, field::Symbol, alternative)
-    Base.depwarn("get(::AWSConf, a, b) is deprecated; access fields directly instead", :get)
-    if Base.fieldindex(AWSConfig, field, false) > 0
-        getfield(conf, field)
+
+function Base.setindex!(conf::AWSConfig, val, var::Symbol)
+    if _isfield(var)
+        Base.depwarn("`setindex!(conf::AWSConfig, val, var::Symbol)` is deprecated, " *
+                     "use `setfield!(conf, var, val)` instead.", :setindex!)
+        setfield!(conf, var, val)
     else
-        alternative
+        Base.depwarn("storing information other than credentials, region, and output " *
+                     "format in an `AWSConfig` object is deprecated; use another data " *
+                     "structure to store this information.", :setindex!)
+        conf._extras[var] = val
     end
 end
+
+function Base.getindex(conf::AWSConfig, x::Symbol)
+    if _isfield(x)
+        Base.depwarn("`getindex(conf::AWSConfig, x::Symbol)` is deprecated, use " *
+                     "`getfield(conf, x)` instead.", :getindex)
+        getfield(conf, x)
+    else
+        Base.depwarn("retrieving information other than credentials, region, and output " *
+                     "format from an `AWSConfig` object is deprecated; use another data " *
+                     "structure to store this information.", :getindex)
+        conf._extras[x]
+    end
+end
+
+function Base.get(conf::AWSConfig, field::Symbol, alternative)
+    if _isfield(field)
+        Base.depwarn("`get(conf::AWSConfig, field::Symbol, alternative)` is deprecated, " *
+                     "use `getfield(conf, field)` instead.", :get)
+        getfield(conf, field)
+    else
+        Base.depwarn("retrieving information other than credentials, region, and output " *
+                     "format from an `AWSConfig` object is deprecated; use another data " *
+                     "structure to store this information.", :get)
+        get(conf._extras, field, alternative)
+    end
+end
+
+function Base.haskey(conf::AWSConfig, field::Symbol)
+    Base.depwarn("`haskey(conf::AWSConfig, field::Symbol)` is deprecated; in the future " *
+                 "no information other than credentials, region and output format will " *
+                 "be stored in an `AWSConfig` object.", :haskey)
+    _isfield(field) ? true : haskey(conf._extras, field)
+end
+
 function Base.merge(conf::AWSConfig, d::AbstractDict{Symbol,<:Any})
-    Base.depwarn("merge(::AWSConf, dict) is deprecated; set fields directly instead", :merge)
     for (k, v) in d
-        setfield!(conf, k, v)
+        if _isfield(k)
+            Base.depwarn("`merge(conf::AWSConf, d::AbstractDict)` is deprecated, set fields " *
+                         "directly instead", :merge)
+            setfield!(conf, k, v)
+        else
+            Base.depwarn("storing information other than credentials, region, and output " *
+                         "format in an `AWSConfig` object is deprecated; use another data " *
+                         "structure to store this information.", :merge)
+            conf._extras[k] = v
+        end
     end
     conf
 end
+
 function Base.merge(d::AbstractDict{K,V}, conf::AWSConfig) where {K,V}
-    for f in fieldnames(AWSConfig)
-        d[convert(K, f)] = getfield(conf, f)
+    Base.depwarn("`merge(d::AbstractDict, conf::AWSConfig)` is deprecated; in the future " *
+                 "no information other than credentials, region and output format will " *
+                 "be stored in an `AWSConfig` object and it will not behave like a " *
+                 "dictionary.", :merge)
+    m = merge(d, conf._extras)
+    for f in [:creds, :region, :output]
+        m[convert(K, f)] = getfield(conf, f)
     end
-    d
+    m
+end
+
+function Base.iterate(conf::AWSConfig, state...)
+    Base.depwarn("in the future, `AWSConfig` objects will not be iterable", :iterate)
+    x = [:creds => conf.creds,
+         :region => conf.region,
+         :output => conf.output,
+         conf._extras...]
+    iterate(x, state...)
 end
 
 """
@@ -283,7 +348,7 @@ function service_query(aws::AWSConfig; args...)
     request = Dict{Symbol,Any}(args)
 
     request[:verb] = "POST"
-    request[:resource] = "/" # get(aws, :resource, "/") XXX how could config ever have that
+    request[:resource] = get(aws, :resource, "/")
     request[:url] = service_url(aws, request)
     request[:headers] = Dict("Content-Type" =>
                              "application/x-www-form-urlencoded; charset=utf-8")
