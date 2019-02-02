@@ -22,17 +22,65 @@ using DataStructures: OrderedDict
 using JSON
 using LazyJSON
 
-
+# NOTE: This needs to be defined before AWSConfig. Methods defined on AWSCredentials are
+# in src/AWSCredentials.jl.
 """
-Most `AWSCore` functions take a `AWSConfig` dictionary as the first argument.
-This dictionary holds [`AWSCredentials`](@ref) and AWS region configuration.
+    AWSCredentials
 
-```julia
-aws = AWSConfig(:creds => AWSCredentials(), :region => "us-east-1")`
+A type which holds AWS credentials.
+When you interact with AWS, you specify your
+[AWS Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)
+to verify who you are and whether you have permission to access the resources that you are
+requesting. AWS uses the security credentials to authenticate and authorize your requests.
+
+The fields `access_key_id` and `secret_key` hold the access keys used to authenticate API
+requests (see [Creating, Modifying, and Viewing Access
+Keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)).
+
+[Temporary Security Credentials](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html)
+require the extra session `token` field.
+
+The `user_arn` and `account_number` fields are used to cache the result of the
+[`aws_user_arn`](@ref) and [`aws_account_number`](@ref) functions.
+
+The `AWSCredentials()` constructor tries to load local credentials from:
+
+* `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
+  [environment variables](http://docs.aws.amazon.com/cli/latest/userguide/cli-environment.html),
+* [`~/.aws/credentials`](http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html), or
+* [EC2 Instance Credentials](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials).
+
+To specify the profile to use from `~/.aws/credentials`, do, for example,
+`AWSCredentials(profile="profile-name")`.
+
+A `~/.aws/credentials` file can be created using the
+[AWS CLI](https://aws.amazon.com/cli/) command `aws configrue`.
+Or it can be created manually:
+
+```ini
+[default]
+aws_access_key_id = AKIAXXXXXXXXXXXXXXXX
+aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 ```
-"""
-const AWSConfig = SymbolDict
 
+If your `~/.aws/credentials` file contains multiple profiles you can pass the
+profile name as a string to the `profile` keyword argument (`nothing` by
+default) or select a profile by setting the `AWS_PROFILE` environment variable.
+"""
+mutable struct AWSCredentials
+    access_key_id::String
+    secret_key::String
+    token::String
+    user_arn::String
+    account_number::String
+
+    function AWSCredentials(access_key_id, secret_key,
+                            token="", user_arn="", account_number="")
+        new(access_key_id, secret_key, token, user_arn, account_number)
+    end
+end
+
+include("AWSConfig.jl")
 
 """
 The `AWSRequest` dictionary describes a single API request:
@@ -57,78 +105,24 @@ include("names.jl")
 include("mime.jl")
 
 
-
 #------------------------------------------------------------------------------#
 # Configuration.
 #------------------------------------------------------------------------------#
 
-"""
-The `aws_config` function provides a simple way to creates an
-[`AWSConfig`](@ref) configuration dictionary.
-
-```julia
->aws = aws_config()
->aws = aws_config(creds = my_credentials)
->aws = aws_config(region = "ap-southeast-2")
->aws = aws_config(profile = "profile-name")
-```
-
-By default, the `aws_config` attempts to load AWS credentials from:
-
- - `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` [environemnt variables](http://docs.aws.amazon.com/cli/latest/userguide/cli-environment.html),
- - [`~/.aws/credentials`](http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html) or
- - [EC2 Instance Credentials](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials).
-
-A `~/.aws/credentials` file can be created using the
-[AWS CLI](https://aws.amazon.com/cli/) command `aws configrue`.
-Or it can be created manually:
-
-```ini
-[default]
-aws_access_key_id = AKIAXXXXXXXXXXXXXXXX
-aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-```
-
-If your `~/.aws/credentials` file contains multiple profiles you can pass the
-profile name as a string to the `profile` keyword argument (`nothing` by
-default) or select a profile by setting the `AWS_PROFILE` environment variable.
-
-`aws_config` understands the following [AWS CLI environment
-variables](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#cli-environment):
-`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`,
-`AWS_DEFAULT_REGION`, `AWS_PROFILE` and `AWS_CONFIG_FILE`.
-
-
-An configuration dictionary can also be created directly from a key pair
-as follows. However, putting access credentials in source code is discouraged.
-
-```julia
-aws = aws_config(creds = AWSCredentials("AKIAXXXXXXXXXXXXXXXX",
-                                        "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
-```
+global _default_aws_config = Ref{Union{AWSConfig,Nothing}}(nothing)
 
 """
-function aws_config(;profile=nothing,
-                     creds=AWSCredentials(profile=profile),
-                     region=get(ENV, "AWS_DEFAULT_REGION", "us-east-1"),
-                     args...)
-    @SymDict(creds, region, args...)
-end
+    default_aws_config()
 
-
-global _default_aws_config = nothing # Union{AWSConfig,Nothing}
-
-
-"""
-`default_aws_config` returns a global shared [`AWSConfig`](@ref) object
-obtained by calling [`aws_config`](@ref) with no optional arguments.
+Return the global shared [`AWSConfig`](@ref) object obtained by calling
+[`AWSConfig()`](@ref) with no arguments.
 """
 function default_aws_config()
     global _default_aws_config
-    if _default_aws_config === nothing
-        _default_aws_config = aws_config()
+    if _default_aws_config[] === nothing
+        _default_aws_config[] = AWSConfig()
     end
-    return _default_aws_config
+    return _default_aws_config[]
 end
 
 
@@ -201,7 +195,7 @@ Service endpoint URL for `request`.
 """
 function service_url(aws, request)
     endpoint = get(request, :endpoint, request[:service])
-    region = "." * aws[:region]
+    region = "." * aws.region
     if endpoint == "iam" || (endpoint == "sdb" && region == ".us-east-1")
         region = ""
     end
@@ -220,7 +214,7 @@ function service_query(aws::AWSConfig; args...)
     request = Dict{Symbol,Any}(args)
 
     request[:verb] = "POST"
-    request[:resource] = get(aws, :resource, "/")
+    request[:resource] = get(aws._extras, :resource, "/")
     request[:url] = service_url(aws, request)
     request[:headers] = Dict("Content-Type" =>
                              "application/x-www-form-urlencoded; charset=utf-8")
@@ -230,7 +224,7 @@ function service_query(aws::AWSConfig; args...)
     request[:query]["Version"] = request[:version]
 
     if request[:service] == "iam"
-        aws = merge(aws, Dict(:region => "us-east-1"))
+        aws.region = "us-east-1"
     end
     if request[:service] in ["iam", "sts", "sqs", "sns"]
         request[:query]["ContentType"] = "JSON"
@@ -238,7 +232,7 @@ function service_query(aws::AWSConfig; args...)
 
     request[:content] = HTTP.escapeuri(flatten_query(request[:service],
                                        request[:query]))
-    do_request(merge(request, aws))
+    do_request(merge(request, Dict(aws)))
 end
 
 
