@@ -81,12 +81,11 @@ function AWSCredentials(;profile=nothing)
     creds = nothing
 
     # Define our search options
-    # NOTE: Ordering matters
     functions = [
-        () -> env_instance_credentials(),
+        env_instance_credentials,
         () -> dot_aws_credentials(profile),
         () -> dot_aws_config(profile),
-        () -> instance_credentials(),
+        instance_credentials,
     ]
 
     # Loop through our search locations until we get credentials back
@@ -295,18 +294,18 @@ Try to load Credentials from [AWS CLI ~/.aws/credentials file]
 """
 function dot_aws_credentials(profile = nothing)
     creds = nothing
-
-    if profile === nothing
-        profile = aws_get_profile()
-    end
-
     credential_file = dot_aws_credentials_file()
 
     ini = nothing
     if isfile(credential_file)
         ini = read(Inifile(), credential_file)
-        key, key_id, token = aws_get_credential_details(profile, ini, false)
-        if key != :notfound
+        key, key_id, token = aws_get_credential_details(
+            profile === nothing ? aws_get_profile() : profile,
+            ini,
+            false
+        )
+
+        if key !== :notfound
             creds = AWSCredentials(key_id, key, token)
         end
     end
@@ -322,21 +321,18 @@ Try to load Credentials or assume a role via the [AWS CLI ~/.aws/config file]
 """
 function dot_aws_config(profile = nothing)
     creds = nothing
-
-    if profile === nothing
-        profile = aws_get_profile()
-    end
-
     config_file = dot_aws_config_file()
 
     ini = nothing
     if isfile(config_file)
         ini = read(Inifile(), config_file)
-        key, key_id, token = aws_get_credential_details(profile, ini, true)
-        if key != :notfound
+        p = profile === nothing ? aws_get_profile() : profile
+        key, key_id, token = aws_get_credential_details(p, ini, true)
+
+        if key !== :notfound
             creds = AWSCredentials(key_id, key, token)
         else
-            creds = aws_get_role(profile, ini)
+            creds = aws_get_role(p, ini)
         end
     end
 
@@ -393,7 +389,7 @@ end
 
 function aws_get_role(role::AbstractString, ini::Inifile)
     source_profile, role_arn = aws_get_role_details(role, ini)
-    source_profile == :notfound && return nothing
+    source_profile === :notfound && return nothing
 
     if debug_level > 0
         println("Assuming \"$source_profile\"... ")
