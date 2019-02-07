@@ -394,7 +394,14 @@ function aws_get_role(role::AbstractString, ini::Inifile)
     if debug_level > 0
         println("Assuming \"$source_profile\"... ")
     end
-    credentials = dot_aws_credentials(source_profile)
+    credentials = nothing
+
+    for f in [dot_aws_credentials, dot_aws_config]
+        credentials = f(source_profile)
+        credentials === nothing || break
+    end
+
+    credentials === nothing && return nothing
 
     config = AWSConfig(:creds=>credentials, :region=>aws_get_region(source_profile, ini))
 

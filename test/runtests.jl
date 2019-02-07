@@ -163,27 +163,23 @@ end
                 end
 
                 # Check we try to assume a role
-                # Producing a broken pipe error for some reason
-                # ENV["AWS_DEFAULT_PROFILE"] = "test:sub-dev"
-                # let oldout = stdout
-                #     r,w = redirect_stdout()
-                #     try
-                #         AWSCore.aws_config()
-                #         println("Completed")
-                #         @test false
-                #     catch e
-                #         println(typeof(e))
-                #         println(ecode(e))
-                #         @test e isa AWSCore.AWSException
-                #         @test ecode(e) == "InvalidClientTokenId"
-                #     end
-                #     redirect_stdout(oldout)
-                #     close(w)
-                #     output = String(read(r))
-                #     occursin("Assuming \"test:dev\"", output)
-                #     occursin("Assuming \"test\"", output)
-                #     close(r)
-                # end
+                ENV["AWS_DEFAULT_PROFILE"] = "test:sub-dev"
+                let oldout = stdout
+                    r,w = redirect_stdout()
+                    try
+                        AWSCore.aws_config()
+                        @test false
+                    catch e
+                        @test e isa AWSCore.AWSException
+                        @test ecode(e) == "InvalidClientTokenId"
+                    end
+                    redirect_stdout(oldout)
+                    close(w)
+                    output = String(read(r))
+                    occursin("Assuming \"test:dev\"", output)
+                    occursin("Assuming \"test\"", output)
+                    close(r)
+                end
             end
         end
     end
