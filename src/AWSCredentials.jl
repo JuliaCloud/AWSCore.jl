@@ -18,17 +18,30 @@ export AWSCredentials,
 
 
 """
-When you interact with AWS, you specify your [AWS Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html) to verify who you are and whether you have permission to access the resources that you are requesting. AWS uses the security credentials to authenticate and authorize your requests.
+When you interact with AWS, you specify your [AWS Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)
+to verify who you are and whether you have permission to access the resources that you are requesting.
+AWS uses the security credentials to authenticate and authorize your requests.
 
-The fields `access_key_id` and `secret_key` hold the access keys used to authenticate API requests (see [Creating, Modifying, and Viewing Access Keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)).
+The fields `access_key_id` and `secret_key` hold the access keys used to authenticate API requests
+(see [Creating, Modifying, and Viewing Access Keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)).
 
 [Temporary Security Credentials](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html) require the extra session `token` field.
 
 
 The `user_arn` and `account_number` fields are used to cache the result of the [`aws_user_arn`](@ref) and [`aws_account_number`](@ref) functions.
 
-The `AWSCredentials()` constructor tries to load local Credentials from
-environment variables, `~/.aws/credentials`, `~/.aws/config` or EC2 instance credentials.
+AWSCore searches for credentials in a series of possible locations and stop as soon as it finds credentials.
+The order of precedence for this search is as follows:
+
+1. Passing credentials directly to the `AWSCredentials` constructor
+2. [Environment variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
+3. Shared credential file [(~/.aws/credentials)](http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
+4. AWS config file [(~/.aws/config)](http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
+5. Assume Role provider via the aws config file
+6. Instance metadata service on an Amazon EC2 instance that has an IAM role configured.
+
+Each of those locations is discussed in more detail below.
+
 To specify the profile to use from `~/.aws/credentials`, do, for example, `AWSCredentials(profile="profile-name")`.
 """
 mutable struct AWSCredentials
@@ -65,26 +78,23 @@ import Base: copy!
 Base.@deprecate copy!(dest::AWSCredentials, src::AWSCredentials) copyto!(dest, src)
 
 function AWSCredentials(;profile=nothing)
+    creds = nothing
 
-    if haskey(ENV, "AWS_ACCESS_KEY_ID")
+    # Define our search options
+    functions = [
+        env_instance_credentials,
+        () -> dot_aws_credentials(profile),
+        () -> dot_aws_config(profile),
+        instance_credentials,
+    ]
 
-        creds = env_instance_credentials()
-
-    elseif isfile(dot_aws_credentials_file()) || isfile(dot_aws_config_file())
-
-        creds = dot_aws_credentials(profile)
-
-    elseif haskey(ENV, "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
-
-        creds = ecs_instance_credentials()
-
-    elseif localhost_maybe_ec2()
-
-        creds = ec2_instance_credentials()
-
-    else
-        error("Can't find AWS credentials!")
+    # Loop through our search locations until we get credentials back
+    for f in functions
+        creds = f()
+        creds === nothing || break
     end
+
+    creds === nothing && error("Can't find AWS credentials!")
 
     if debug_level > 0
         display(creds)
@@ -186,6 +196,15 @@ function ec2_metadata(key)
     String(http_get("http://169.254.169.254/latest/meta-data/$key").body)
 end
 
+function instance_credentials()
+    if haskey(ENV, "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
+        return ecs_instance_credentials()
+    elseif localhost_maybe_ec2()
+        return localhost_maybe_ec2()
+    else
+        return nothing
+    end
+end
 
 """
 Load [Instance Profile Credentials]
@@ -246,25 +265,79 @@ Load Credentials from [environment variables]
 """
 function env_instance_credentials()
 
-    if debug_level > 0
-        print("Loading AWSCredentials from ENV[\"AWS_ACCESS_KEY_ID\"]... ")
-    end
+    if haskey(ENV, "AWS_ACCESS_KEY_ID")
+        if debug_level > 0
+            print("Loading AWSCredentials from ENV[\"AWS_ACCESS_KEY_ID\"]... ")
+        end
 
-    AWSCredentials(ENV["AWS_ACCESS_KEY_ID"],
-                   ENV["AWS_SECRET_ACCESS_KEY"],
-                   get(ENV, "AWS_SESSION_TOKEN", ""),
-                   get(ENV, "AWS_USER_ARN", ""))
+        return AWSCredentials(
+            ENV["AWS_ACCESS_KEY_ID"],
+            ENV["AWS_SECRET_ACCESS_KEY"],
+            get(ENV, "AWS_SESSION_TOKEN", ""),
+            get(ENV, "AWS_USER_ARN", "")
+        )
+    else
+        return nothing
+    end
 end
 
 
 using IniFile
 
-dot_aws_credentials_file() = get(ENV, "AWS_SHARED_CREDENTIALS_FILE",
-                                 joinpath(homedir(), ".aws", "credentials"))
+function dot_aws_credentials_file()
+    get(ENV, "AWS_SHARED_CREDENTIALS_FILE", joinpath(homedir(), ".aws", "credentials"))
+end
 
-dot_aws_config_file() = get(ENV, "AWS_CONFIG_FILE",
-                                 joinpath(homedir(), ".aws", "config"))
+"""
+Try to load Credentials from [AWS CLI ~/.aws/credentials file]
+(http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
+"""
+function dot_aws_credentials(profile = nothing)
+    creds = nothing
+    credential_file = dot_aws_credentials_file()
 
+    ini = nothing
+    if isfile(credential_file)
+        ini = read(Inifile(), credential_file)
+        key, key_id, token = aws_get_credential_details(
+            profile === nothing ? aws_get_profile() : profile,
+            ini,
+            false
+        )
+
+        if key !== :notfound
+            creds = AWSCredentials(key_id, key, token)
+        end
+    end
+
+    return creds
+end
+
+dot_aws_config_file() = get(ENV, "AWS_CONFIG_FILE", joinpath(homedir(), ".aws", "config"))
+
+"""
+Try to load Credentials or assume a role via the [AWS CLI ~/.aws/config file]
+(http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
+"""
+function dot_aws_config(profile = nothing)
+    creds = nothing
+    config_file = dot_aws_config_file()
+
+    ini = nothing
+    if isfile(config_file)
+        ini = read(Inifile(), config_file)
+        p = profile === nothing ? aws_get_profile() : profile
+        key, key_id, token = aws_get_credential_details(p, ini, true)
+
+        if key !== :notfound
+            creds = AWSCredentials(key_id, key, token)
+        else
+            creds = aws_get_role(p, ini)
+        end
+    end
+
+    return creds
+end
 
 function aws_get_role_details(profile::AbstractString, ini::Inifile)
     if debug_level > 0
@@ -303,6 +376,10 @@ function aws_get_credential_details(profile::AbstractString, ini::Inifile, confi
     (key, key_id, token)
 end
 
+function aws_get_profile()
+    get(ENV, "AWS_DEFAULT_PROFILE", get(ENV, "AWS_PROFILE", "default"))
+end
+
 function aws_get_region(profile::AbstractString, ini::Inifile)
     region = get(ENV, "AWS_DEFAULT_REGION", "us-east-1")
 
@@ -312,15 +389,19 @@ end
 
 function aws_get_role(role::AbstractString, ini::Inifile)
     source_profile, role_arn = aws_get_role_details(role, ini)
-
-    if source_profile == :notfound
-        error("Can't find AWS credentials!")
-    end
+    source_profile === :notfound && return nothing
 
     if debug_level > 0
         println("Assuming \"$source_profile\"... ")
     end
-    credentials = dot_aws_credentials(source_profile)
+    credentials = nothing
+
+    for f in [dot_aws_credentials, dot_aws_config]
+        credentials = f(source_profile)
+        credentials === nothing || break
+    end
+
+    credentials === nothing && return nothing
 
     config = AWSConfig(:creds=>credentials, :region=>aws_get_region(source_profile, ini))
 
@@ -336,44 +417,6 @@ function aws_get_role(role::AbstractString, ini::Inifile)
         role_creds["SecretAccessKey"],
         role_creds["SessionToken"]
     )
-end
-
-"""
-Load Credentials from [AWS CLI ~/.aws/credentials file] or [AWS CLI ~/.aws/config file]
-(http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html).
-"""
-function dot_aws_credentials(profile = nothing)
-    @assert isfile(dot_aws_credentials_file()) || isfile(dot_aws_config_file())
-
-    if profile == nothing
-        profile = get(ENV, "AWS_DEFAULT_PROFILE",
-                get(ENV, "AWS_PROFILE", "default"))
-    end
-
-    # According to the docs the order of precedence is:
-    # 1. credentials in the credential file
-    # 2. credentials in the config file
-    # 3. roles in the config file
-    credential_file = dot_aws_credentials_file()
-    ini = nothing
-    if isfile(credential_file)
-        ini = read(Inifile(), credential_file)
-        key, key_id, token = aws_get_credential_details(profile, ini, false)
-        if key != :notfound
-            return AWSCredentials(key_id, key, token)
-        end
-    end
-
-    config_file = dot_aws_config_file()
-    if isfile(config_file)
-        ini = read(Inifile(), config_file)
-        key, key_id, token = aws_get_credential_details(profile, ini, true)
-        if key != :notfound
-            AWSCredentials(key_id, key, token)
-        else
-            aws_get_role(profile, ini)
-        end
-    end
 end
 
 #==============================================================================#

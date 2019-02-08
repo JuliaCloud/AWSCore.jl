@@ -121,7 +121,7 @@ end
                 "AWS_ACCESS_KEY_ID" => nothing
                 ) do
 
-                # Check credentials load 
+                # Check credentials load
                 config = AWSCore.aws_config()
                 creds = config[:creds]
 
