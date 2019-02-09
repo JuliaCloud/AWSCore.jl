@@ -200,7 +200,7 @@ function instance_credentials()
     if haskey(ENV, "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
         return ecs_instance_credentials()
     elseif localhost_maybe_ec2()
-        return localhost_maybe_ec2()
+        return ec2_instance_credentials()
     else
         return nothing
     end
