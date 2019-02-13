@@ -14,8 +14,11 @@ export AWSCredentials,
        localhost_is_ec2,
        localhost_maybe_ec2,
        aws_user_arn,
-       aws_account_number
+       aws_account_number,
+       get_credentials,
+       RenewableAWSCredentials
 
+const DEFAULT_DURATION = Hour(1)
 
 """
 When you interact with AWS, you specify your [AWS Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)
@@ -26,7 +29,6 @@ The fields `access_key_id` and `secret_key` hold the access keys used to authent
 (see [Creating, Modifying, and Viewing Access Keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)).
 
 [Temporary Security Credentials](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html) require the extra session `token` field.
-
 
 The `user_arn` and `account_number` fields are used to cache the result of the [`aws_user_arn`](@ref) and [`aws_account_number`](@ref) functions.
 
@@ -50,11 +52,80 @@ mutable struct AWSCredentials
     token::String
     user_arn::String
     account_number::String
+    expiry::DateTime
 
-    function AWSCredentials(access_key_id, secret_key,
-                            token="", user_arn="", account_number="")
-        new(access_key_id, secret_key, token, user_arn, account_number)
+    function AWSCredentials(access_key_id,secret_key,
+                            token="", user_arn="", account_number="";
+                            expiry=now(UTC) + DEFAULT_DURATION)
+        new(access_key_id, secret_key, token, user_arn, account_number, expiry)
     end
+end
+
+"""
+Holds an [`AWSCredentials`](@ref) object and ensures it is renewed before it can expire.
+Use [`get_credentials`](@ref) to access the credentials.
+
+The `RenewableAWSCredentials()` constructor tries to load local Credentials from
+environment variables, `~/.aws/credentials`, `~/.aws/config` or EC2 instance credentials.
+To specify the profile to use from `~/.aws/credentials`, do, for example, `RenewableAWSCredentials(profile="profile-name")`.
+"""
+struct RenewableAWSCredentials
+    creds::AWSCredentials
+    renew::Function
+end
+
+function RenewableAWSCredentials(;profile=nothing)
+    creds = nothing
+    renew = nothing
+
+    # Define our search options
+    functions = [
+        env_instance_credentials,
+        () -> dot_aws_credentials(profile),
+        () -> dot_aws_config(profile),
+        instance_credentials,
+    ]
+
+    # Loop through our search locations until we get credentials back
+    for f in functions
+        renew = f
+        creds = renew()
+        creds === nothing || break
+    end
+
+    creds === nothing && error("Can't find AWS credentials!")
+
+    if debug_level > 0
+        display(creds)
+        println()
+    end
+
+    return RenewableAWSCredentials(creds, renew)
+end
+
+@deprecate AWSCredentials(;profile=nothing) get_credentials(RenewableAWSCredentials(profile=profile))
+
+"""
+    get_credentials(cr::RenewableAWSCredentials; force_refresh::Bool=false)
+
+Gets current AWSCredentials, refreshing them if they are soon to expire.
+If force_refresh is `true` the credentials will be renewed immediately.
+"""
+function get_credentials(cr::RenewableAWSCredentials; force_refresh::Bool=false)
+    if force_refresh || now(UTC) >= cr.creds.expiry - Minute(5)
+        if debug_level > 0
+            println("Renewing credentials... ")
+        end
+        copyto!(cr.creds, cr.renew())
+    end
+    return cr.creds
+end
+
+function get_credentials(cr::AWSCredentials; force_refresh::Bool=false)
+    if force_refresh
+        copyto!(cr, get_credentials(RenewableAWSCredentials()))
+    end
+    cr
 end
 
 function Base.show(io::IO,c::AWSCredentials)
@@ -76,33 +147,6 @@ function Base.copyto!(dest::AWSCredentials, src::AWSCredentials)
 end
 import Base: copy!
 Base.@deprecate copy!(dest::AWSCredentials, src::AWSCredentials) copyto!(dest, src)
-
-function AWSCredentials(;profile=nothing)
-    creds = nothing
-
-    # Define our search options
-    functions = [
-        env_instance_credentials,
-        () -> dot_aws_credentials(profile),
-        () -> dot_aws_config(profile),
-        instance_credentials,
-    ]
-
-    # Loop through our search locations until we get credentials back
-    for f in functions
-        creds = f()
-        creds === nothing || break
-    end
-
-    creds === nothing && error("Can't find AWS credentials!")
-
-    if debug_level > 0
-        display(creds)
-        println()
-    end
-
-    return creds
-end
 
 
 """
@@ -155,7 +199,7 @@ e.g. `"arn:aws:iam::account-ID-without-hyphens:user/Bob"`
 """
 function aws_user_arn(aws::AWSConfig)
 
-    creds = aws[:creds]
+    creds = get_credentials(aws[:creds])
 
     if creds.user_arn == ""
 
@@ -174,7 +218,7 @@ end
 12-digit [AWS Account Number](http://docs.aws.amazon.com/general/latest/gr/acct-identifiers.html).
 """
 function aws_account_number(aws::AWSConfig)
-    creds = aws[:creds]
+    creds = get_credentials(aws[:creds])
     if creds.account_number == ""
         aws_user_arn(aws)
     end
@@ -229,7 +273,8 @@ function ec2_instance_credentials()
     AWSCredentials(new_creds["AccessKeyId"],
                    new_creds["SecretAccessKey"],
                    new_creds["Token"],
-                   info["InstanceProfileArn"])
+                   info["InstanceProfileArn"];
+                   expiry = unix2datetime(new_creds["Expiration"]))
 end
 
 
@@ -253,7 +298,8 @@ function ecs_instance_credentials()
     AWSCredentials(new_creds["AccessKeyId"],
                    new_creds["SecretAccessKey"],
                    new_creds["Token"],
-                   new_creds["RoleArn"])
+                   new_creds["RoleArn"];
+                   expiry = unix2datetime(new_creds["Expiration"]))
 end
 
 
@@ -413,10 +459,10 @@ function aws_get_role(role::AbstractString, ini::Inifile)
     )
     role_creds = role["Credentials"]
 
-    credentials = AWSCredentials(role_creds["AccessKeyId"],
+    AWSCredentials(role_creds["AccessKeyId"],
         role_creds["SecretAccessKey"],
-        role_creds["SessionToken"]
-    )
+        role_creds["SessionToken"];
+        expiry = unix2datetime(role_creds["Expiration"]))
 end
 
 #==============================================================================#

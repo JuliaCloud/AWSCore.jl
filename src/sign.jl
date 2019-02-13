@@ -34,13 +34,14 @@ function sign_aws2!(r::AWSRequest, t)
     r[:headers]["Content-Type"] =
         "application/x-www-form-urlencoded; charset=utf-8"
 
-    query["AWSAccessKeyId"] = r[:creds].access_key_id
+    creds = get_credentials(r[:creds])
+    query["AWSAccessKeyId"] = creds.access_key_id
     query["Expires"] = Dates.format(t + Dates.Second(120),
                                    dateformat"yyyy-mm-dd\THH:MM:SS\Z")
     query["SignatureVersion"] = "2"
     query["SignatureMethod"] = "HmacSHA256"
-    if r[:creds].token != ""
-        query["SecurityToken"] = r[:creds].token
+    if creds.token != ""
+        query["SecurityToken"] = creds.token
     end
 
     query = Pair[k => query[k] for k in sort(collect(keys(query)))]
@@ -48,7 +49,7 @@ function sign_aws2!(r::AWSRequest, t)
     u = HTTP.URI(r[:url])
     to_sign = "POST\n$(u.host)\n$(u.path)\n$(HTTP.escapeuri(query))"
 
-    secret = r[:creds].secret_key
+    secret = creds.secret_key
     push!(query, "Signature" =>
                   digest(MD_SHA256, to_sign, secret) |> base64encode |> strip)
 
@@ -69,8 +70,9 @@ function sign_aws4!(r::AWSRequest, t)
     # Authentication scope...
     scope = [date, r[:region], r[:service], "aws4_request"]
 
+    creds = get_credentials(r[:creds])
     # Signing key generated from today's scope string...
-    signing_key = string("AWS4", r[:creds].secret_key)
+    signing_key = string("AWS4", creds.secret_key)
     for element in scope
         signing_key = digest(MD_SHA256, element, signing_key)
     end
@@ -88,8 +90,8 @@ function sign_aws4!(r::AWSRequest, t)
         "x-amz-date"           => datetime,
         "Content-MD5"          => base64encode(digest(MD_MD5, r[:content]))
     ))
-    if r[:creds].token != ""
-        r[:headers]["x-amz-security-token"] = r[:creds].token
+    if creds.token != ""
+        r[:headers]["x-amz-security-token"] = creds.token
     end
 
     # Sort and lowercase() Headers to produce canonical form...
@@ -133,7 +135,7 @@ function sign_aws4!(r::AWSRequest, t)
     # Append Authorization header...
     r[:headers]["Authorization"] = string(
         "AWS4-HMAC-SHA256 ",
-        "Credential=$(r[:creds].access_key_id)/$scope, ",
+        "Credential=$(creds.access_key_id)/$scope, ",
         "SignedHeaders=$signed_headers, ",
         "Signature=$signature"
     )

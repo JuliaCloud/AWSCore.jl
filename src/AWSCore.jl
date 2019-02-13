@@ -25,10 +25,10 @@ using LazyJSON
 
 """
 Most `AWSCore` functions take a `AWSConfig` dictionary as the first argument.
-This dictionary holds [`AWSCredentials`](@ref) and AWS region configuration.
+This dictionary holds [`RenewableAWSCredentials`](@ref) and AWS region configuration.
 
 ```julia
-aws = AWSConfig(:creds => AWSCredentials(), :region => "us-east-1")`
+aws = AWSConfig(:creds => RenewableAWSCredentials(), :region => "us-east-1")`
 ```
 """
 const AWSConfig = SymbolDict
@@ -38,7 +38,7 @@ const AWSConfig = SymbolDict
 The `AWSRequest` dictionary describes a single API request:
 It contains the following keys:
 
-- `:creds` => [`AWSCredentials`](@ref) for authentication.
+- `:creds` => [`RenewableAWSCredentials`](@ref) for authentication.
 - `:verb` => `"GET"`, `"PUT"`, `"POST"` or `"DELETE"`
 - `:url` => service endpoint url (returned by [`aws_endpoint`](@ref))
 - `:headers` => HTTP headers
@@ -109,7 +109,7 @@ aws = aws_config(creds = AWSCredentials("AKIAXXXXXXXXXXXXXXXX",
 
 """
 function aws_config(;profile=nothing,
-                     creds=AWSCredentials(profile=profile),
+                     creds=RenewableAWSCredentials(profile=profile),
                      region=get(ENV, "AWS_DEFAULT_REGION", "us-east-1"),
                      args...)
     @SymDict(creds, region, args...)
@@ -399,11 +399,6 @@ function do_request(r::AWSRequest)
         r[:headers]["User-Agent"] = "AWSCore.jl/0.0.0"
         r[:headers]["Host"]       = HTTP.URI(r[:url]).host
 
-        # Load local system credentials if needed...
-        if r[:creds].token == "ExpiredToken"
-            copyto!(r[:creds], AWSCredentials())
-        end
-
         # Use credentials to sign request...
         sign!(r)
 
@@ -436,7 +431,9 @@ function do_request(r::AWSRequest)
                                "ExpiredTokenException",
                                "RequestExpired")
 
-            r[:creds].token = "ExpiredToken"
+            # Reload local system credentials if needed...
+            get_credentials(r[:creds], force_refresh=true)
+
         end
 
         # Handle throttling
