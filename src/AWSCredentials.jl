@@ -270,11 +270,13 @@ function ec2_instance_credentials()
         print("Loading AWSCredentials from EC2 metadata... ")
     end
 
+    expiry = DateTime(strip(new_creds["Expiration"], 'Z'))
+
     AWSCredentials(new_creds["AccessKeyId"],
                    new_creds["SecretAccessKey"],
                    new_creds["Token"],
                    info["InstanceProfileArn"];
-                   expiry = unix2datetime(new_creds["Expiration"]))
+                   expiry = expiry)
 end
 
 
@@ -295,11 +297,13 @@ function ecs_instance_credentials()
         print("Loading AWSCredentials from ECS metadata... ")
     end
 
+    expiry = DateTime(strip(new_creds["Expiration"], 'Z'))
+
     AWSCredentials(new_creds["AccessKeyId"],
                    new_creds["SecretAccessKey"],
                    new_creds["Token"],
                    new_creds["RoleArn"];
-                   expiry = unix2datetime(new_creds["Expiration"]))
+                   expiry = expiry)
 end
 
 
