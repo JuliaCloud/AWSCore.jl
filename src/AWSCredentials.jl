@@ -15,10 +15,7 @@ export AWSCredentials,
        localhost_maybe_ec2,
        aws_user_arn,
        aws_account_number,
-       get_credentials,
-       RenewableAWSCredentials
-
-const DEFAULT_DURATION = Hour(1)
+       check_credentials
 
 """
 When you interact with AWS, you specify your [AWS Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)
@@ -53,30 +50,19 @@ mutable struct AWSCredentials
     user_arn::String
     account_number::String
     expiry::DateTime
+    renew::Base.Callable
 
     function AWSCredentials(access_key_id,secret_key,
                             token="", user_arn="", account_number="";
-                            expiry=now(UTC) + DEFAULT_DURATION)
-        new(access_key_id, secret_key, token, user_arn, account_number, expiry)
+                            expiry=typemax(DateTime),
+                            renew=Nothing)
+        new(access_key_id, secret_key, token, user_arn, account_number, expiry, renew)
     end
 end
 
-"""
-Holds an [`AWSCredentials`](@ref) object and ensures it is renewed before it can expire.
-Use [`get_credentials`](@ref) to access the credentials.
-
-The `RenewableAWSCredentials()` constructor tries to load local Credentials from
-environment variables, `~/.aws/credentials`, `~/.aws/config` or EC2 instance credentials.
-To specify the profile to use from `~/.aws/credentials`, do, for example, `RenewableAWSCredentials(profile="profile-name")`.
-"""
-struct RenewableAWSCredentials
-    creds::AWSCredentials
-    renew::Function
-end
-
-function RenewableAWSCredentials(;profile=nothing)
+function AWSCredentials(;profile=nothing)
     creds = nothing
-    renew = nothing
+    renew = Nothing
 
     # Define our search options
     functions = [
@@ -94,38 +80,40 @@ function RenewableAWSCredentials(;profile=nothing)
     end
 
     creds === nothing && error("Can't find AWS credentials!")
+    creds.renew = renew
 
     if debug_level > 0
         display(creds)
         println()
     end
 
-    return RenewableAWSCredentials(creds, renew)
+    return creds
 end
 
-@deprecate AWSCredentials(;profile=nothing) get_credentials(RenewableAWSCredentials(profile=profile))
+will_expire(cr::AWSCredentials) = now(UTC) >= cr.expiry - Minute(5)
 
 """
-    get_credentials(cr::RenewableAWSCredentials; force_refresh::Bool=false)
+    check_credentials(cr::AWSCredentials; force_refresh::Bool=false)
 
-Gets current AWSCredentials, refreshing them if they are soon to expire.
+Checks current AWSCredentials, refreshing them if they are soon to expire.
 If force_refresh is `true` the credentials will be renewed immediately.
 """
-function get_credentials(cr::RenewableAWSCredentials; force_refresh::Bool=false)
-    if force_refresh || now(UTC) >= cr.creds.expiry - Minute(5)
+function check_credentials(cr::AWSCredentials; force_refresh::Bool=false)
+    if force_refresh || will_expire(cr)
         if debug_level > 0
             println("Renewing credentials... ")
         end
-        copyto!(cr.creds, cr.renew())
-    end
-    return cr.creds
-end
+        new_creds = cr.renew()
 
-function get_credentials(cr::AWSCredentials; force_refresh::Bool=false)
-    if force_refresh
-        copyto!(cr, get_credentials(RenewableAWSCredentials()))
+        if new_creds === nothing
+            if debug_level > 0
+                println("Credential renewal failed...")
+            end
+        else
+            copyto!(cr, new_creds)
+        end
     end
-    cr
+    return cr
 end
 
 function Base.show(io::IO,c::AWSCredentials)
@@ -198,16 +186,12 @@ for configrued user.
 e.g. `"arn:aws:iam::account-ID-without-hyphens:user/Bob"`
 """
 function aws_user_arn(aws::AWSConfig)
-
-    creds = get_credentials(aws[:creds])
-
+    creds = aws[:creds]
     if creds.user_arn == ""
-
         r = Services.sts(aws, "GetCallerIdentity", [])
         creds.user_arn = r["Arn"]
         creds.account_number = r["Account"]
     end
-
     return creds.user_arn
 end
 
@@ -218,7 +202,7 @@ end
 12-digit [AWS Account Number](http://docs.aws.amazon.com/general/latest/gr/acct-identifiers.html).
 """
 function aws_account_number(aws::AWSConfig)
-    creds = get_credentials(aws[:creds])
+    creds = aws[:creds]
     if creds.account_number == ""
         aws_user_arn(aws)
     end
@@ -324,7 +308,8 @@ function env_instance_credentials()
             ENV["AWS_ACCESS_KEY_ID"],
             ENV["AWS_SECRET_ACCESS_KEY"],
             get(ENV, "AWS_SESSION_TOKEN", ""),
-            get(ENV, "AWS_USER_ARN", "")
+            get(ENV, "AWS_USER_ARN", "");
+            renew = env_instance_credentials
         )
     else
         return nothing

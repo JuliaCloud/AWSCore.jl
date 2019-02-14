@@ -123,7 +123,7 @@ end
 
                 # Check credentials load
                 config = AWSCore.aws_config()
-                creds = get_credentials(config[:creds])
+                creds = config[:creds]
 
                 @test creds.access_key_id == "TEST_ACCESS_ID"
                 @test creds.secret_key == "TEST_ACCESS_KEY"
@@ -131,16 +131,14 @@ end
                 # Check credentials refresh
                 ENV["AWS_DEFAULT_PROFILE"] = "test"
                 config = AWSCore.aws_config(
-                    creds = RenewableAWSCredentials(
-                        AWSCredentials(
+                    creds = AWSCredentials(
                             "EXPIRED_ACCESS_ID",
                             "EXPIRED_ACCESS_KEY",
                             expiry = now(UTC),
-                        ),
-                        AWSCore.dot_aws_credentials,
+                            renew = AWSCore.dot_aws_credentials,
                     )
                 )
-                creds = get_credentials(config[:creds])
+                creds = check_credentials(config[:creds])
 
                 @test creds.access_key_id == "TEST_ACCESS_ID"
                 @test creds.secret_key == "TEST_ACCESS_KEY"
@@ -149,7 +147,7 @@ end
                 # Check credential file takes precedence over config
                 ENV["AWS_DEFAULT_PROFILE"] = "test2"
                 config = AWSCore.aws_config()
-                creds = get_credentials(config[:creds])
+                creds = config[:creds]
 
                 @test creds.access_key_id == "RIGHT_ACCESS_ID2"
                 @test creds.secret_key == "RIGHT_ACCESS_KEY2"
@@ -157,14 +155,14 @@ end
                 # Check credentials take precedence over role
                 ENV["AWS_DEFAULT_PROFILE"] = "test3"
                 config = AWSCore.aws_config()
-                creds = get_credentials(config[:creds])
+                creds = config[:creds]
 
                 @test creds.access_key_id == "RIGHT_ACCESS_ID3"
                 @test creds.secret_key == "RIGHT_ACCESS_KEY3"
 
                 ENV["AWS_DEFAULT_PROFILE"] = "test4"
                 config = AWSCore.aws_config()
-                creds = get_credentials(config[:creds])
+                creds = config[:creds]
 
                 @test creds.access_key_id == "RIGHT_ACCESS_ID4"
                 @test creds.secret_key == "RIGHT_ACCESS_KEY4"

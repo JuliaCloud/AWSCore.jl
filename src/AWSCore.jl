@@ -109,7 +109,7 @@ aws = aws_config(creds = AWSCredentials("AKIAXXXXXXXXXXXXXXXX",
 
 """
 function aws_config(;profile=nothing,
-                     creds=RenewableAWSCredentials(profile=profile),
+                     creds=AWSCredentials(profile=profile),
                      region=get(ENV, "AWS_DEFAULT_REGION", "us-east-1"),
                      args...)
     @SymDict(creds, region, args...)
@@ -432,7 +432,7 @@ function do_request(r::AWSRequest)
                                "RequestExpired")
 
             # Reload local system credentials if needed...
-            get_credentials(r[:creds], force_refresh=true)
+            check_credentials(r[:creds], force_refresh=true)
 
         end
 

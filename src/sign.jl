@@ -34,7 +34,7 @@ function sign_aws2!(r::AWSRequest, t)
     r[:headers]["Content-Type"] =
         "application/x-www-form-urlencoded; charset=utf-8"
 
-    creds = get_credentials(r[:creds])
+    creds = check_credentials(r[:creds])
     query["AWSAccessKeyId"] = creds.access_key_id
     query["Expires"] = Dates.format(t + Dates.Second(120),
                                    dateformat"yyyy-mm-dd\THH:MM:SS\Z")
@@ -70,7 +70,7 @@ function sign_aws4!(r::AWSRequest, t)
     # Authentication scope...
     scope = [date, r[:region], r[:service], "aws4_request"]
 
-    creds = get_credentials(r[:creds])
+    creds = check_credentials(r[:creds])
     # Signing key generated from today's scope string...
     signing_key = string("AWS4", creds.secret_key)
     for element in scope
