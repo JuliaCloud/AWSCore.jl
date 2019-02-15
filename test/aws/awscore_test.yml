@@ -22,3 +22,74 @@ Resources:
               - cloudformation:DescribeStacks
             Resource:
               - !Sub arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/${AWS::StackName}/*
+
+  # Policies to support testing on AWSS3 and AWSSQS
+  S3TestPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: Allow access to stack outputs
+      Users:
+        - !Sub ${PublicCIUser}
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - s3:ListAllMyBuckets
+            Resource: "*"
+          - Effect: Allow
+            Action:
+              - s3:GetBucketPolicyStatus
+              - s3:ListBucketByTags
+              - s3:GetBucketTagging
+              - s3:PutBucketTagging
+              - s3:ListBucketVersions
+              - s3:CreateBucket
+              - s3:ListBucket
+              - s3:GetBucketVersioning
+              - s3:DeleteBucket
+              - s3:PutBucketVersioning
+            Resource:
+              - arn:aws:s3:::ocaws.jl.test.*
+          - Effect: Allow
+            Action:
+              - s3:DeleteObjectTagging
+              - s3:PutObject
+              - s3:GetObject
+              - s3:DeleteObjectVersion
+              - s3:GetObjectVersionTagging
+              - s3:PutObjectVersionTagging
+              - s3:GetObjectTagging
+              - s3:PutObjectTagging
+              - s3:DeleteObjectVersionTagging
+              - s3:DeleteObject
+              - s3:GetObjectVersion
+            Resource:
+              - arn:aws:s3:::ocaws.jl.test.*/*
+  SQSTestPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: Allow access to stack outputs
+      Users:
+        - !Sub ${PublicCIUser}
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - sqs:ListQueues
+            Resource: "*"
+          - Effect: Allow
+            Action:
+              - sqs:GetQueueAttributes
+              - sqs:GetQueueUrl
+              - sqs:ReceiveMessage
+              - sqs:CreateQueue
+              - sqs:DeleteMessage
+              - sqs:DeleteMessageBatch
+              - sqs:DeleteQueue
+              - sqs:SendMessage
+              - sqs:SendMessageBatch
+              - sqs:SetQueueAttributes
+            Resource:
+              - !Sub arn:aws:sqs:*:${AWS::AccountId}:ocaws-jl-test-queue-*
