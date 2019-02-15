@@ -10,6 +10,10 @@ julia:
 matrix:
   allow_failures:
     - julia: nightly
+    - julia: 1.0
+      stage: "Verify AWSS3"
+    - julia: 1.0
+      stage: "Verify AWSSQS"
 branches:
   only:
     - master
