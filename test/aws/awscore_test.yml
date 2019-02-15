@@ -25,9 +25,9 @@ Resources:
 
   # Policies to support testing on AWSS3 and AWSSQS
   S3TestPolicy:
-    Type: AWS::IAM::ManagedPolicy
+    Type: AWS::IAM::Policy
     Properties:
-      Description: Allow access to stack outputs
+      PolicyName: S3TestPolicy
       Users:
         - !Sub ${PublicCIUser}
       PolicyDocument:
@@ -67,9 +67,9 @@ Resources:
             Resource:
               - arn:aws:s3:::ocaws.jl.test.*/*
   SQSTestPolicy:
-    Type: AWS::IAM::ManagedPolicy
+    Type: AWS::IAM::Policy
     Properties:
-      Description: Allow access to stack outputs
+      PolicyName: SQSTestPolicy
       Users:
         - !Sub ${PublicCIUser}
       PolicyDocument:
