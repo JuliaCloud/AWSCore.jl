@@ -39,7 +39,13 @@ The order of precedence for this search is as follows:
 5. Assume Role provider via the aws config file
 6. Instance metadata service on an Amazon EC2 instance that has an IAM role configured.
 
-Each of those locations is discussed in more detail below.
+Once the credentials are found, the method by which they were accessed is stored in the `renew` field
+and the DateTime at which they will expire is stored in the `expiry` field.
+This allows the credentials to be refreshed as needed using [`check_credentials`](@ref).
+If `renew` is set to `nothing`, no attempt will be made to refresh the credentials.
+
+Any renewal function is expected to return `nothing` on failure or a populated `AWSCredentials` object on success.
+The `renew` field of the returned `AWSCredentials` will be discarded and does not need to be set.
 
 To specify the profile to use from `~/.aws/credentials`, do, for example, `AWSCredentials(profile="profile-name")`.
 """
@@ -50,12 +56,12 @@ mutable struct AWSCredentials
     user_arn::String
     account_number::String
     expiry::DateTime
-    renew::Base.Callable
+    renew::Union{Function, Nothing}
 
     function AWSCredentials(access_key_id,secret_key,
                             token="", user_arn="", account_number="";
                             expiry=typemax(DateTime),
-                            renew=Nothing)
+                            renew=nothing)
         new(access_key_id, secret_key, token, user_arn, account_number, expiry, renew)
     end
 end
@@ -103,16 +109,23 @@ function check_credentials(cr::AWSCredentials; force_refresh::Bool=false)
         if debug_level > 0
             println("Renewing credentials... ")
         end
-        new_creds = cr.renew()
+        renew = cr.renew
 
-        if new_creds === nothing
-            if debug_level > 0
-                println("Credential renewal failed...")
-            end
-        else
+        if renew !== nothing
+            new_creds = renew()
+
+            new_creds === nothing && error("Can't find AWS credentials!")
             copyto!(cr, new_creds)
+
+            # Ensure renewal function is not overwritten by the new credentials
+            cr.renew = renew
+        else
+            if debug_level > 0
+                println("Credentials cannot be renewed...")
+            end
         end
     end
+
     return cr
 end
 

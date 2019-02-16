@@ -67,7 +67,55 @@ aws = aws_config()
     end
 end
 
-@testset "AssumeRole" begin
+@testset "AWSCredentials" begin
+    @testset "Defaults" begin
+        creds = AWSCredentials("access_key_id" ,"secret_key")
+        @test creds.token == ""
+        @test creds.user_arn == ""
+        @test creds.account_number ===""
+        @test creds.expiry == typemax(DateTime)
+        @test creds.renew == nothing
+    end
+
+    @testset "Renewal" begin
+        # Credentials shouldn't throw an error if no renew function is supplied
+        creds = AWSCredentials("access_key_id", "secret_key", renew = nothing)
+        newcreds = check_credentials(creds, force_refresh = true)
+        # Creds should remain unchanged if no renew function exists
+        @test creds === newcreds
+        @test creds.access_key_id == "access_key_id"
+        @test creds.secret_key == "secret_key"
+        @test creds.renew == nothing
+
+        # Creds should error if the renew function returns nothing
+        creds = AWSCredentials("access_key_id", "secret_key", renew = () -> nothing)
+        @test_throws ErrorException check_credentials(creds, force_refresh = true)
+        # Creds should remain unchanged
+        @test creds.access_key_id == "access_key_id"
+        @test creds.secret_key == "secret_key"
+
+        # Creds should take on value of a returned AWSCredentials except renew function
+        id = "NEW_ID"
+        key = "NEW_KEY"
+        creds = AWSCredentials(
+            "access_key_id",
+            "secret_key",
+            renew = () -> AWSCredentials(id, key, renew = nothing)
+        )
+        @test creds.access_key_id == "access_key_id"
+        @test creds.secret_key == "secret_key"
+        @test creds.renew !== nothing
+        @test creds.renew().renew === nothing
+        renew = creds.renew
+
+        newcreds = check_credentials(creds, force_refresh = true)
+        @test creds === newcreds
+        @test creds.access_key_id == id
+        @test creds.secret_key == key
+        @test creds.renew !== nothing
+        @test creds.renew === renew
+    end
+
     mktemp() do config_file, config_io
         write(config_io, """[profile test]
                 output = json
@@ -121,80 +169,120 @@ end
                 "AWS_ACCESS_KEY_ID" => nothing
                 ) do
 
-                # Check credentials load
-                config = AWSCore.aws_config()
-                creds = config[:creds]
+                @testset "Loading" begin
+                    # Check credentials load
+                    config = aws_config()
+                    creds = config[:creds]
+                    @test creds isa AWSCredentials
 
-                @test creds.access_key_id == "TEST_ACCESS_ID"
-                @test creds.secret_key == "TEST_ACCESS_KEY"
+                    @test creds.access_key_id == "TEST_ACCESS_ID"
+                    @test creds.secret_key == "TEST_ACCESS_KEY"
+                    @test creds.renew !== nothing
 
-                # Check credentials refresh
-                ENV["AWS_DEFAULT_PROFILE"] = "test"
-                config = AWSCore.aws_config(
-                    creds = AWSCredentials(
-                            "EXPIRED_ACCESS_ID",
-                            "EXPIRED_ACCESS_KEY",
-                            expiry = now(UTC),
-                            renew = AWSCore.dot_aws_credentials,
-                    )
-                )
-                creds = check_credentials(config[:creds])
+                    # Check credential file takes precedence over config
+                    ENV["AWS_DEFAULT_PROFILE"] = "test2"
+                    config = aws_config()
+                    creds = config[:creds]
 
-                @test creds.access_key_id == "TEST_ACCESS_ID"
-                @test creds.secret_key == "TEST_ACCESS_KEY"
-                @test creds.expiry > now(UTC)
+                    @test creds.access_key_id == "RIGHT_ACCESS_ID2"
+                    @test creds.secret_key == "RIGHT_ACCESS_KEY2"
 
-                # Check credential file takes precedence over config
-                ENV["AWS_DEFAULT_PROFILE"] = "test2"
-                config = AWSCore.aws_config()
-                creds = config[:creds]
+                    # Check credentials take precedence over role
+                    ENV["AWS_DEFAULT_PROFILE"] = "test3"
+                    config = aws_config()
+                    creds = config[:creds]
 
-                @test creds.access_key_id == "RIGHT_ACCESS_ID2"
-                @test creds.secret_key == "RIGHT_ACCESS_KEY2"
+                    @test creds.access_key_id == "RIGHT_ACCESS_ID3"
+                    @test creds.secret_key == "RIGHT_ACCESS_KEY3"
 
-                # Check credentials take precedence over role
-                ENV["AWS_DEFAULT_PROFILE"] = "test3"
-                config = AWSCore.aws_config()
-                creds = config[:creds]
+                    ENV["AWS_DEFAULT_PROFILE"] = "test4"
+                    config = aws_config()
+                    creds = config[:creds]
 
-                @test creds.access_key_id == "RIGHT_ACCESS_ID3"
-                @test creds.secret_key == "RIGHT_ACCESS_KEY3"
-
-                ENV["AWS_DEFAULT_PROFILE"] = "test4"
-                config = AWSCore.aws_config()
-                creds = config[:creds]
-
-                @test creds.access_key_id == "RIGHT_ACCESS_ID4"
-                @test creds.secret_key == "RIGHT_ACCESS_KEY4"
-
-                # Check we try to assume a role
-                ENV["AWS_DEFAULT_PROFILE"] = "test:dev"
-
-                try
-                    AWSCore.aws_config()
-                    @test false
-                catch e
-                    @test e isa AWSCore.AWSException
-                    @test ecode(e) == "InvalidClientTokenId"
+                    @test creds.access_key_id == "RIGHT_ACCESS_ID4"
+                    @test creds.secret_key == "RIGHT_ACCESS_KEY4"
                 end
 
-                # Check we try to assume a role
-                ENV["AWS_DEFAULT_PROFILE"] = "test:sub-dev"
-                let oldout = stdout
-                    r,w = redirect_stdout()
+                @testset "Refresh" begin
+                    ENV["AWS_DEFAULT_PROFILE"] = "test"
+                    # Check credentials refresh on timeout
+                    config = aws_config()
+                    creds = config[:creds]
+                    creds.access_key_id = "EXPIRED_ACCESS_ID"
+                    creds.secret_key = "EXPIRED_ACCESS_KEY"
+                    creds.expiry = now(UTC)
+
+                    @test creds.renew !== nothing
+                    renew = creds.renew
+                    @test renew() isa AWSCredentials
+
+                    creds = check_credentials(config[:creds])
+
+                    @test creds.access_key_id == "TEST_ACCESS_ID"
+                    @test creds.secret_key == "TEST_ACCESS_KEY"
+                    @test creds.expiry > now(UTC)
+
+                    # Check renew function remains unchanged
+                    @test creds.renew !== nothing
+                    @test creds.renew === renew
+
+                    # Check force_refresh
+                    creds.access_key_id = "WRONG_ACCESS_KEY"
+                    creds = check_credentials(creds, force_refresh = true)
+                    @test creds.access_key_id == "TEST_ACCESS_ID"
+                end
+
+                @testset "Profile" begin
+                    # Check profile kwarg
+                    ENV["AWS_DEFAULT_PROFILE"] = "test"
+                    creds = AWSCredentials(profile="test2")
+                    @test creds.access_key_id == "RIGHT_ACCESS_ID2"
+                    @test creds.secret_key == "RIGHT_ACCESS_KEY2"
+
+                    config = aws_config(profile="test2")
+                    creds = config[:creds]
+                    @test creds.access_key_id == "RIGHT_ACCESS_ID2"
+                    @test creds.secret_key == "RIGHT_ACCESS_KEY2"
+
+                    # Check profile persists on renewal
+                    creds.access_key_id = "WRONG_ACCESS_ID2"
+                    creds.secret_key = "WRONG_ACCESS_KEY2"
+                    creds = check_credentials(creds, force_refresh=true)
+
+                    @test creds.access_key_id == "RIGHT_ACCESS_ID2"
+                    @test creds.secret_key == "RIGHT_ACCESS_KEY2"
+                end
+
+                @testset "Assume Role" begin
+                    # Check we try to assume a role
+                    ENV["AWS_DEFAULT_PROFILE"] = "test:dev"
+
                     try
-                        AWSCore.aws_config()
+                        aws_config()
                         @test false
                     catch e
-                        @test e isa AWSCore.AWSException
+                        @test e isa AWSException
                         @test ecode(e) == "InvalidClientTokenId"
                     end
-                    redirect_stdout(oldout)
-                    close(w)
-                    output = String(read(r))
-                    occursin("Assuming \"test:dev\"", output)
-                    occursin("Assuming \"test\"", output)
-                    close(r)
+
+                    # Check we try to assume a role
+                    ENV["AWS_DEFAULT_PROFILE"] = "test:sub-dev"
+                    let oldout = stdout
+                        r,w = redirect_stdout()
+                        try
+                            aws_config()
+                            @test false
+                        catch e
+                            @test e isa AWSException
+                            @test ecode(e) == "InvalidClientTokenId"
+                        end
+                        redirect_stdout(oldout)
+                        close(w)
+                        output = String(read(r))
+                        occursin("Assuming \"test:dev\"", output)
+                        occursin("Assuming \"test\"", output)
+                        close(r)
+                    end
                 end
             end
         end
