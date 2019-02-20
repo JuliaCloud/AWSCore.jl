@@ -15,10 +15,7 @@ export AWSCredentials,
        localhost_maybe_ec2,
        aws_user_arn,
        aws_account_number,
-       get_credentials,
-       RenewableAWSCredentials
-
-const DEFAULT_DURATION = Hour(1)
+       check_credentials
 
 """
 When you interact with AWS, you specify your [AWS Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)
@@ -42,7 +39,13 @@ The order of precedence for this search is as follows:
 5. Assume Role provider via the aws config file
 6. Instance metadata service on an Amazon EC2 instance that has an IAM role configured.
 
-Each of those locations is discussed in more detail below.
+Once the credentials are found, the method by which they were accessed is stored in the `renew` field
+and the DateTime at which they will expire is stored in the `expiry` field.
+This allows the credentials to be refreshed as needed using [`check_credentials`](@ref).
+If `renew` is set to `nothing`, no attempt will be made to refresh the credentials.
+
+Any renewal function is expected to return `nothing` on failure or a populated `AWSCredentials` object on success.
+The `renew` field of the returned `AWSCredentials` will be discarded and does not need to be set.
 
 To specify the profile to use from `~/.aws/credentials`, do, for example, `AWSCredentials(profile="profile-name")`.
 """
@@ -53,30 +56,19 @@ mutable struct AWSCredentials
     user_arn::String
     account_number::String
     expiry::DateTime
+    renew::Union{Function, Nothing}
 
     function AWSCredentials(access_key_id,secret_key,
                             token="", user_arn="", account_number="";
-                            expiry=now(UTC) + DEFAULT_DURATION)
-        new(access_key_id, secret_key, token, user_arn, account_number, expiry)
+                            expiry=typemax(DateTime),
+                            renew=nothing)
+        new(access_key_id, secret_key, token, user_arn, account_number, expiry, renew)
     end
 end
 
-"""
-Holds an [`AWSCredentials`](@ref) object and ensures it is renewed before it can expire.
-Use [`get_credentials`](@ref) to access the credentials.
-
-The `RenewableAWSCredentials()` constructor tries to load local Credentials from
-environment variables, `~/.aws/credentials`, `~/.aws/config` or EC2 instance credentials.
-To specify the profile to use from `~/.aws/credentials`, do, for example, `RenewableAWSCredentials(profile="profile-name")`.
-"""
-struct RenewableAWSCredentials
-    creds::AWSCredentials
-    renew::Function
-end
-
-function RenewableAWSCredentials(;profile=nothing)
+function AWSCredentials(;profile=nothing)
     creds = nothing
-    renew = nothing
+    renew = Nothing
 
     # Define our search options
     functions = [
@@ -94,38 +86,47 @@ function RenewableAWSCredentials(;profile=nothing)
     end
 
     creds === nothing && error("Can't find AWS credentials!")
+    creds.renew = renew
 
     if debug_level > 0
         display(creds)
         println()
     end
 
-    return RenewableAWSCredentials(creds, renew)
+    return creds
 end
 
-@deprecate AWSCredentials(;profile=nothing) get_credentials(RenewableAWSCredentials(profile=profile))
+will_expire(cr::AWSCredentials) = now(UTC) >= cr.expiry - Minute(5)
 
 """
-    get_credentials(cr::RenewableAWSCredentials; force_refresh::Bool=false)
+    check_credentials(cr::AWSCredentials; force_refresh::Bool=false)
 
-Gets current AWSCredentials, refreshing them if they are soon to expire.
+Checks current AWSCredentials, refreshing them if they are soon to expire.
 If force_refresh is `true` the credentials will be renewed immediately.
 """
-function get_credentials(cr::RenewableAWSCredentials; force_refresh::Bool=false)
-    if force_refresh || now(UTC) >= cr.creds.expiry - Minute(5)
+function check_credentials(cr::AWSCredentials; force_refresh::Bool=false)
+    if force_refresh || will_expire(cr)
         if debug_level > 0
             println("Renewing credentials... ")
         end
-        copyto!(cr.creds, cr.renew())
-    end
-    return cr.creds
-end
+        renew = cr.renew
 
-function get_credentials(cr::AWSCredentials; force_refresh::Bool=false)
-    if force_refresh
-        copyto!(cr, get_credentials(RenewableAWSCredentials()))
+        if renew !== nothing
+            new_creds = renew()
+
+            new_creds === nothing && error("Can't find AWS credentials!")
+            copyto!(cr, new_creds)
+
+            # Ensure renewal function is not overwritten by the new credentials
+            cr.renew = renew
+        else
+            if debug_level > 0
+                println("Credentials cannot be renewed...")
+            end
+        end
     end
-    cr
+
+    return cr
 end
 
 function Base.show(io::IO,c::AWSCredentials)
@@ -198,16 +199,12 @@ for configrued user.
 e.g. `"arn:aws:iam::account-ID-without-hyphens:user/Bob"`
 """
 function aws_user_arn(aws::AWSConfig)
-
-    creds = get_credentials(aws[:creds])
-
+    creds = aws[:creds]
     if creds.user_arn == ""
-
         r = Services.sts(aws, "GetCallerIdentity", [])
         creds.user_arn = r["Arn"]
         creds.account_number = r["Account"]
     end
-
     return creds.user_arn
 end
 
@@ -218,7 +215,7 @@ end
 12-digit [AWS Account Number](http://docs.aws.amazon.com/general/latest/gr/acct-identifiers.html).
 """
 function aws_account_number(aws::AWSConfig)
-    creds = get_credentials(aws[:creds])
+    creds = aws[:creds]
     if creds.account_number == ""
         aws_user_arn(aws)
     end
@@ -270,11 +267,13 @@ function ec2_instance_credentials()
         print("Loading AWSCredentials from EC2 metadata... ")
     end
 
+    expiry = DateTime(strip(new_creds["Expiration"], 'Z'))
+
     AWSCredentials(new_creds["AccessKeyId"],
                    new_creds["SecretAccessKey"],
                    new_creds["Token"],
                    info["InstanceProfileArn"];
-                   expiry = unix2datetime(new_creds["Expiration"]))
+                   expiry = expiry)
 end
 
 
@@ -295,11 +294,13 @@ function ecs_instance_credentials()
         print("Loading AWSCredentials from ECS metadata... ")
     end
 
+    expiry = DateTime(strip(new_creds["Expiration"], 'Z'))
+
     AWSCredentials(new_creds["AccessKeyId"],
                    new_creds["SecretAccessKey"],
                    new_creds["Token"],
                    new_creds["RoleArn"];
-                   expiry = unix2datetime(new_creds["Expiration"]))
+                   expiry = expiry)
 end
 
 
@@ -320,7 +321,8 @@ function env_instance_credentials()
             ENV["AWS_ACCESS_KEY_ID"],
             ENV["AWS_SECRET_ACCESS_KEY"],
             get(ENV, "AWS_SESSION_TOKEN", ""),
-            get(ENV, "AWS_USER_ARN", "")
+            get(ENV, "AWS_USER_ARN", "");
+            renew = env_instance_credentials
         )
     else
         return nothing
