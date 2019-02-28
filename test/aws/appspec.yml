@@ -1,0 +1,6 @@
+version: 0.0
+os: linux
+hooks:
+  ValidateService:
+    - location: AWSCore/test/aws/runtests.sh
+      runas: ec2-user

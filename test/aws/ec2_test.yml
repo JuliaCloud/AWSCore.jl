@@ -1,0 +1,206 @@
+  # EC2 Testing
+  # To run locally, export the stack outputs and do:
+  # ```
+  # tmp=$(mktemp -d)
+  # cp -r .  $tmp/AWSCore
+  # cp test/aws/appspec.yml $tmp
+  # tar -c -f AWSCore.tar $tmp
+  # rm -rf $tmp
+  # aws s3 cp AWSCore.tar s3://$BucketName
+  # aws deploy create-deployment \
+  # --application-name $EC2ApplicationName \
+  # --deployment-group-name $DeployGroupName \
+  # --s3-location bundleType=tar,bucket=$BucketName,key=AWSCore.tar
+  # ```
+
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  A stack for testing AWSCore on EC2.
+
+Parameters:
+  MyIP:
+    Description: >-
+      An IP the test instance may be accessed by for debugging.
+    Type: String
+    AllowedPattern: "((\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2}))|^$"
+    Default: ""
+  MyKeyName:
+    Description: The keyname associated with the instance for debugging.
+    Type: String
+    Default: ""
+
+Conditions:
+  HasIP: !Not [!Equals [!Ref MyIP, ""]]
+  HasKey: !Not [!Equals [!Ref MyKeyName, ""]]
+Resources:
+  SecurityGroup:
+    Condition: HasIP
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: test
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: !Ref MyIP
+
+  CodeDeployLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub ${AWS::StackName}-deployments-log
+      RetentionInDays: 14
+  InstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: /
+  InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref InstanceRole
+  InstancePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      Roles:
+        - !Ref InstanceRole
+      PolicyName: InstancePolicy
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - s3:Get*
+              - s3:List*
+            Resource:
+              - !Sub ${CodeBucket.Arn}/*
+              - arn:aws:s3:::aws-codedeploy-*/*
+          - Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+            Resource: "*"
+          - Effect: Allow
+            Action:
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+              - logs:DescribeLogStreams
+            Resource:
+              - !GetAtt CodeDeployLogGroup.Arn
+              - !Sub ${CodeDeployLogGroup.Arn}:*:*
+  CodeDeployEC2:
+    Type: AWS::EC2::Instance
+    Properties:
+      IamInstanceProfile: !Ref InstanceProfile
+      InstanceType: t2.micro
+      ImageId: ami-0922553b7b0369273
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+
+          yum update -y
+
+          # Install julia v1.0.3
+          yum install -y curl tar git
+          julia_url="https://julialang-s3.julialang.org/bin/linux/x64/1.0/julia-1.0.3-linux-x86_64.tar.gz"
+          julia_root=/julia
+
+          mkdir $julia_root
+          curl -s -L --retry 7 "$julia_url" | tar -C "$julia_root" -x -z --strip-components=1 -f -
+          # Add to the user path for easier debugging
+          echo "export PATH=\$PATH:$julia_root/bin" >> /etc/bashrc
+          # Check install
+          /julia/bin/julia -e 'using Pkg; Pkg.add("Example"); Pkg.test("Example")'
+
+          # Install AWSCodeDeploy Agent
+          yum install -y wget ruby
+          wget https://aws-codedeploy-${AWS::Region}.s3.amazonaws.com/latest/install
+          chmod +x ./install
+          sudo ./install auto
+
+          # Set up CodeDeploy logging
+          mkdir /etc/awslogs
+          echo "
+          [general]
+          state_file = /var/lib/awslogs/agent-state
+
+          [codedeploy-deployment-logs]
+          file = /opt/codedeploy-agent/deployment-root/deployment-logs/codedeploy-agent-deployments.log
+          log_stream_name = EC2-{instance_id}
+          log_group_name = ${AWS::StackName}-deployments-log
+          " > /etc/awslogs/awslogs.conf
+
+          yum install -y awslogs
+          systemctl start awslogsd
+
+      Tags:
+        - Key: DeployTag
+          Value: EC2
+      SecurityGroupIds:
+        - !If [HasIP, !Ref SecurityGroup, !Ref "AWS::NoValue"]
+      KeyName: !If [HasKey, !Ref MyKeyName, !Ref "AWS::NoValue"]
+  EC2Application:
+    Type: AWS::CodeDeploy::Application
+  DeployGroup:
+    Type: AWS::CodeDeploy::DeploymentGroup
+    Properties:
+      ApplicationName: !Ref EC2Application
+      DeploymentConfigName: CodeDeployDefault.OneAtATime
+      Ec2TagFilters:
+        - Key: DeployTag
+          Type: KEY_AND_VALUE
+          Value: EC2
+      ServiceRoleArn: !GetAtt DeployRole.Arn
+  DeployRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - codedeploy.amazonaws.com
+            Action:
+              - sts:AssumeRole
+  DeployPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      Roles:
+        - !Ref DeployRole
+      PolicyName: DeployPolicy
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - ec2:DescribeInstances
+              - ec2:DescribeInstanceStatus
+              - ec2:TerminateInstances
+              - tag:GetTags
+              - tag:GetResources
+              - sns:Publish
+              - cloudwatch:DescribeAlarms
+              - cloudwatch:PutMetricAlarm
+            Resource: "*"
+  CodeBucket:
+    Type: AWS::S3::Bucket
+Outputs:
+  BucketName:
+    Value: !Ref CodeBucket
+  EC2ApplicationName:
+    Value: !Ref EC2Application
+  DeployGroupName:
+    Value: !Ref DeployGroup
+
+
+
+
+

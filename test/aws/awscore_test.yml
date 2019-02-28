@@ -1,3 +1,17 @@
+# To generate stacks for ECS/EC2 do:
+# ```
+# BUCKET=my-template-bucket-name
+# aws s3 mb s3://$BUCKET
+# aws cloudformation package \
+# --template-file test/aws/awscore-test.yml --s3-bucket $BUCKET \
+# --output-template-file temp.yml
+
+# aws cloudformation deploy \
+# --template-file temp.yml \
+# --stack-name awscore --parameter-overrides PublicCIUser=$MyCIUSer \
+# --capabilities CAPABILITY_NAMED_IAM
+# ```
+
 AWSTemplateFormatVersion: 2010-09-09
 Description: >-
   A stack for testing AWSCore from public CI.
@@ -6,6 +20,18 @@ Parameters:
   PublicCIUser:
     Description: User which can assume the testing role
     Type: String
+  TestECS:
+    Description: Create an AWSBatch stack for testing ECS functions ("true" or "false")
+    Type: String
+    Default: false
+  TestEC2:
+    Description: Create an EC2 stack for testing ("true" or "false")
+    Type: String
+    Default: false
+
+Conditions:
+  MakeECSStack: !Equals [!Ref TestECS, true]
+  MakeEC2Stack: !Equals [!Ref TestEC2, true]
 
 Resources:
   StackInfoPolicy:
@@ -93,3 +119,15 @@ Resources:
               - sqs:SetQueueAttributes
             Resource:
               - !Sub arn:aws:sqs:*:${AWS::AccountId}:ocaws-jl-test-queue-*
+  ECSTestStack:
+    Condition: MakeECSStack
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./ecs_test.yml
+  EC2TestStack:
+    Condition: MakeEC2Stack
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ./ec2_test.yml
+
+
