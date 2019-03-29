@@ -93,3 +93,42 @@ Resources:
               - sqs:SetQueueAttributes
             Resource:
               - !Sub arn:aws:sqs:*:${AWS::AccountId}:ocaws-jl-test-queue-*
+
+  # Policies to support testing on EC2
+  EC2StackPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: EC2StackPolicy
+      Users:
+        - !Sub ${PublicCIUser}
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - ec2:DescribeInstances
+              - ec2:DescribeSecurityGroups
+              - ec2:CreateSecurityGroup
+              - ec2:AuthorizeSecurityGroupIngress
+              - ec2:TerminateInstances
+              - ec2:RunInstances
+              - ec2:StopInstances
+              - ec2:StartInstances
+              - ec2:DeleteSecurityGroup
+            Resource: "*"
+          - Effect: Allow
+            Action:
+              - iam:*
+            Resource:
+              - !Sub arn:aws:iam::${AWS::AccountId}:instance-profile/awscore-*
+              - !Sub arn:aws:iam::${AWS::AccountId}:role/awscore-*
+          - Effect: Allow
+            Action:
+              - cloudformation:*
+            Resource:
+              - !Sub arn:aws:cloudformation:*:${AWS::AccountId}:stack/awscore-*/*
+          - Effect: Allow
+            Action:
+              - ssm:GetParameter
+            Resource:
+              - !Sub arn:aws:ssm:*:${AWS::AccountId}:parameter/public_ci/AWSCore/ec2_keyfile

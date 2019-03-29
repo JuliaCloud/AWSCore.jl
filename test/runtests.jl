@@ -518,6 +518,17 @@ end
                           "invocations/function%3Af%3APROD"
 end
 
+if get(ENV, "AWSCORE_EC2", "false") == "true"
+    @testset "EC2" begin
+        @test_nowarn AWSCore.ec2_instance_credentials()
+        ec2_creds = AWSCore.ec2_instance_credentials()
+        @test ec2_creds !== nothing
+
+        default_creds = AWSCredentials()
+        @test default_creds.access_key_id == ec2_creds.access_key_id
+        @test default_creds.secret_key == ec2_creds.secret_key
+    end
+end
 end # testset "AWSCore"
 
 
