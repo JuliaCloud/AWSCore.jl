@@ -25,24 +25,35 @@ Resources:
             Action:
               - ec2:DescribeInstances
               - ec2:DescribeInstanceStatus
-              - ec2:TerminateInstances
             Resource: "*"
           - Effect: Allow
-            Action:
-              - ec2:CreateTags
+            Action: ec2:CreateTags  # Only tag instances on creation
             Resource: !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/*
+            Condition:
+              StringEquals:
+                ec2:CreateAction: RunInstances
           - Effect: Allow
-            Action:
-              - ec2:RunInstances
+            Action: ec2:RunInstances  # Create instance only from AWSCoreEC2Template
+            Resource: "*"
+            Condition:
+              ArnLike:
+                ec2:LaunchTemplate: !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:launch-template/${AWSCoreEC2Template}
+              Bool:
+                ec2:IsLaunchTemplateResource: true
+          - Effect: Allow
+            Action: ec2:RunInstances  # Authorize resources not defined in AWSCoreEC2Template
             Resource:
-              - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:launch-template/${AWSCoreEC2Template}
               - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:subnet/*
-              - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:key-pair/${KeyName}
-              - !Sub arn:aws:ec2:${AWS::Region}::image/ami-0922553b7b0369273
-              - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/*
-              - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:volume/*
-              - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:security-group/${SecurityGroup.GroupId}
               - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:network-interface/*
+            Condition:
+              ArnLike:
+                ec2:LaunchTemplate: !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:launch-template/${AWSCoreEC2Template}
+          - Effect: Allow
+            Action: ec2:TerminateInstances  # Only terminate instances created from the template
+            Resource: !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/*
+            Condition:
+              StringEquals:
+                ec2:ResourceTag/aws:ec2launchtemplate:id: !Sub ${AWSCoreEC2Template}
           - Effect: Allow
             Action:
               - iam:PassRole
@@ -91,8 +102,8 @@ Resources:
         IamInstanceProfile:
           Name: !Ref InstanceProfile
         # Allow ssh access into the instance
-        SecurityGroups:
-          - !Ref SecurityGroup
+        SecurityGroupIds:
+          - !GetAtt SecurityGroup.GroupId
         KeyName: !Ref KeyName
         UserData:
           Fn::Base64: !Sub |

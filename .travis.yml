@@ -49,7 +49,7 @@ jobs:
         - chmod 600 ec2.pem
         - export KEYFILE=ec2.pem
         # Tag with commit to be able to terminate later
-        - INSTANCE_ID=$(aws ec2 run-instances --launch-template LaunchTemplateName=AWSCoreEC2Template,Version=1 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$TRAVIS_COMMIT}]" --query 'Instances[0].InstanceId' --output text)
+        - INSTANCE_ID=$(aws ec2 run-instances --launch-template LaunchTemplateName=AWSCoreEC2Template --tag-specifications "ResourceType=instance,Tags=[{Key=AWSCoreCommit,Value=$TRAVIS_COMMIT}]" --query 'Instances[0].InstanceId' --output text)
         # Wait until UserData installs Julia
         - aws ec2 wait instance-status-ok --instance-ids $INSTANCE_ID
         - export EC2Ip=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID  --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
@@ -72,7 +72,7 @@ jobs:
           @fetch Pkg.test("AWSCore")
           '
       after_script:
-        - export INSTANCE_ID=$(aws ec2 describe-instances --filter Name=tag:Name,Values=$TRAVIS_COMMIT Name=instance-state-name,Values=running,pending --query 'Reservations[*].Instances[0].InstanceId' --output text)
+        - INSTANCE_ID=$(aws ec2 describe-instances --filter Name=tag:AWSCoreCommit,Values=$TRAVIS_COMMIT Name=instance-state-name,Values=running,pending --query 'Reservations[*].Instances[0].InstanceId' --output text)
         - |
           if [ "$INSTANCE_ID" ]; then
               aws ec2 terminate-instances --instance-ids $INSTANCE_ID
