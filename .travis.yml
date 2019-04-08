@@ -48,12 +48,11 @@ jobs:
         - aws ssm get-parameter --name /public_ci/AWSCore/ec2_keyfile --query 'Parameter.Value' --output text --with-decryption > ec2.pem
         - chmod 600 ec2.pem
         - export KEYFILE=ec2.pem
-        - STACKNAME="awscore-$TRAVIS_COMMIT"
-        - aws cloudformation create-stack --stack-name $STACKNAME --template-body file://test/aws/ec2.yml --capabilities CAPABILITY_IAM
-        - aws cloudformation wait stack-create-complete --stack-name $STACKNAME
-        - export EC2Ip=$(aws cloudformation describe-stacks --stack-name $STACKNAME --query 'Stacks[0].Outputs[?OutputKey==`EC2Ip`].OutputValue' --output text)
-        - scp -i $KEYFILE -o "StrictHostKeyChecking=no" -r . ec2-user@$EC2Ip:AWSCore
-        # Fix `MethodError: no method matching getindex(::Nothing, ::String)` when installed on a fresh stack
+        # Tag with commit to be able to terminate later
+        - INSTANCE_ID=$(aws ec2 run-instances --launch-template LaunchTemplateName=AWSCoreEC2Template,Version=1 --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$TRAVIS_COMMIT}]" --query 'Instances[0].InstanceId' --output text)
+        # Wait until UserData installs Julia
+        - aws ec2 wait instance-status-ok --instance-ids $INSTANCE_ID
+        - export EC2Ip=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID  --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
         - |
           julia -e '
           using Distributed
@@ -61,33 +60,24 @@ jobs:
               ["ec2-user@$(ENV["EC2Ip"])"],
               sshflags=`-i $(ENV["KEYFILE"]) -o "StrictHostKeyChecking=no"`,
               exename="/julia/bin/julia",
-              dir="/home/ec2-user/AWSCore",
+              dir="/home/ec2-user",
               tunnel=true,
           )
-          @everywhere using Pkg
-          @everywhere Pkg.add("AWSCore")
-          @everywhere using AWSCore
-          '
-        - |
-          julia --project -e '
-          using Distributed
-          addprocs(
-              ["ec2-user@$(ENV["EC2Ip"])"],
-              sshflags=`-i $(ENV["KEYFILE"]) -o "StrictHostKeyChecking=no"`,
-              exename="/julia/bin/julia",
-              dir="/home/ec2-user/AWSCore",
-              tunnel=true,
-          )
-          @everywhere using Pkg
-          fetch(@spawn Pkg.activate(pwd()))
-          fetch(@spawn ENV["AWSCORE_EC2"]="true")
-          fetch(@spawn Pkg.build())
-          fetch(@spawn Pkg.test())
+          @fetch @eval using Pkg
+          rev=ENV["TRAVIS_COMMIT"]
+          @fetch Pkg.add(PackageSpec(url="https://github.com/JuliaCloud/AWSCore.jl", rev=rev))
+          @fetch ENV["AWSCORE_EC2"]="true"
+          @fetch Pkg.build("AWSCore")
+          @fetch @eval using AWSCore
+          @fetch Pkg.test("AWSCore")
           '
       after_script:
-        - STACKNAME="awscore-$TRAVIS_COMMIT"
-        - aws cloudformation delete-stack --stack-name $STACKNAME
-        - aws cloudformation wait stack-delete-complete --stack-name $STACKNAME
+        - export INSTANCE_ID=$(aws ec2 describe-instances --filter Name=tag:Name,Values=$TRAVIS_COMMIT Name=instance-state-name,Values=running,pending --query 'Reservations[*].Instances[0].InstanceId' --output text)
+        - |
+          if [ "$INSTANCE_ID" ]; then
+              aws ec2 terminate-instances --instance-ids $INSTANCE_ID
+              aws ec2 wait instance-terminated --instance-ids $INSTANCE_ID
+          fi
       after_success: skip
     - stage: "Documentation"
       julia: 1.0

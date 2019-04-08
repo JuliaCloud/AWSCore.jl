@@ -3,12 +3,56 @@ Description: >-
   A stack for testing AWSCore on EC2.
 
 Parameters:
-  MyKeyName:
+  KeyName:
     Description: The keyname associated with the instance.
     Type: String
     Default: ec2_keyfile
+  PublicCIUser:
+    Description: User which can assume the testing role
+    Type: String
 
 Resources:
+  EC2TravisPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: EC2TravisPolicy
+      Users:
+        - !Sub ${PublicCIUser}
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - ec2:DescribeInstances
+              - ec2:DescribeInstanceStatus
+              - ec2:TerminateInstances
+            Resource: "*"
+          - Effect: Allow
+            Action:
+              - ec2:CreateTags
+            Resource: !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/*
+          - Effect: Allow
+            Action:
+              - ec2:RunInstances
+            Resource:
+              - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:launch-template/${AWSCoreEC2Template}
+              - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:subnet/*
+              - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:key-pair/${KeyName}
+              - !Sub arn:aws:ec2:${AWS::Region}::image/ami-0922553b7b0369273
+              - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:instance/*
+              - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:volume/*
+              - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:security-group/${SecurityGroup.GroupId}
+              - !Sub arn:aws:ec2:${AWS::Region}:${AWS::AccountId}:network-interface/*
+          - Effect: Allow
+            Action:
+              - iam:PassRole
+            Resource:
+              - !GetAtt InstanceRole.Arn
+          - Effect: Allow
+            Action:
+              - ssm:GetParameter
+            Resource:
+              - !Sub arn:aws:ssm:*:${AWS::AccountId}:parameter/public_ci/AWSCore/ec2_keyfile
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -36,37 +80,31 @@ Resources:
     Properties:
       Roles:
         - !Ref InstanceRole
-  TestingEC2:
-    CreationPolicy:
-      ResourceSignal:
-        Timeout: PT10M
-    Type: AWS::EC2::Instance
+  AWSCoreEC2Template:
+    Type: AWS::EC2::LaunchTemplate
     Properties:
-      InstanceType: t2.micro
-      ImageId: ami-0922553b7b0369273
-      # Instance must have a profile for `ec2_instance_credentials()` to succeed
-      IamInstanceProfile: !Ref InstanceProfile
-      UserData:
-        Fn::Base64: !Sub |
-          #!/bin/bash
-          yum update -y
+      LaunchTemplateName: AWSCoreEC2Template
+      LaunchTemplateData:
+        InstanceType: t2.micro
+        ImageId: ami-0922553b7b0369273
+        # Instance must have a profile for `ec2_instance_credentials()` to succeed
+        IamInstanceProfile:
+          Name: !Ref InstanceProfile
+        # Allow ssh access into the instance
+        SecurityGroups:
+          - !Ref SecurityGroup
+        KeyName: !Ref KeyName
+        UserData:
+          Fn::Base64: !Sub |
+            #!/bin/bash
+            yum update -y
 
-          # Install julia v1.0.3
-          yum install -y curl tar git
-          julia_url="https://julialang-s3.julialang.org/bin/linux/x64/1.0/julia-1.0.3-linux-x86_64.tar.gz"
-          julia_root=/julia
+            # Install julia v1.0.3
+            yum install -y curl tar git
+            julia_url="https://julialang-s3.julialang.org/bin/linux/x64/1.0/julia-1.0.3-linux-x86_64.tar.gz"
+            julia_root=/julia
 
-          mkdir $julia_root
-          curl -s -L --retry 7 "$julia_url" | tar -C "$julia_root" -x -z --strip-components=1 -f -
+            mkdir $julia_root
+            curl -s -L --retry 7 "$julia_url" | tar -C "$julia_root" -x -z --strip-components=1 -f -
 
-          /julia/bin/julia -e 'using InteractiveUtils; versioninfo()'
-          /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource TestingEC2
-
-      # Allow ssh access into the instance
-      SecurityGroupIds:
-        - !Ref SecurityGroup
-      KeyName: !Ref MyKeyName
-
-Outputs:
-  EC2Ip:
-    Value: !GetAtt TestingEC2.PublicIp
+            /julia/bin/julia -e 'using InteractiveUtils; versioninfo()'
