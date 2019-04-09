@@ -11,9 +11,7 @@ matrix:
   allow_failures:
     - julia: nightly
     - julia: 1.0
-      stage: "Verify AWSS3"
-    - julia: 1.0
-      stage: "Verify AWSSQS"
+      stage: "Verify Packages"
 branches:
   only:
     - master
@@ -29,16 +27,58 @@ env:
     - secure: Lrh6AxUp1yFdsB1XlvNHFk+5pOMGQR8bJadUtnqXsuk97ieINI5w/da6wBPIH4WkZBGpQr+uJLe10PTxDcaNeZOC1LcuSK+v5J88pSiFYi10BggYWC2Kb2XEVBjd9BHi/RxAkiHXziBEaqpuX2WcwY2hgAOU+rpt3M9U9SxDITXNG68PpVVqDJ7GSZvZeJZnLrjTPKLlFR8EkqrE23bTaGvzqn50fwk7U3n0F04slkmg2ORScWkgBSFmaATBbiSU9Pz7bB4KuGarNC0Q0eTeoZcThRVYVwse3oLnYLMXkUuIDF5QwDfA5HCC4ad5yXdVenwHZSPS/sSnRM+fVAwkU8CL7hFC9zX2X/fBExWet0LufaCh4L6pax3dKV2m6q3Uq9M1z8X33ry2xqS96rpdD4bo+FxYrzjyAotn46w4fPE7yb3YZgf+dbHTDfVjiPH70hIKUhKiyzyKMTwdT63WNIy1/qbREge4jPVXgnIM3/jAu0THf74cT+RwN4xQnt7a50Yn2c/I+37kO2B+4qkyh4p75eIfPXqak1vdDc9tUqxZa7lPdIkofT3jp7TaJ+4/OLf2OrpA2XFjx20el4/TdB9TiJtGv0qTrujY4wh5BALxGVoSEihj3ahkqV/FQ6RyWJsMggd3yoaING61nCkDXUvLk/44yzeYavNrUaMzWpc=
 jobs:
   include:
-    - stage: "Verify AWSS3"
+    - stage: "Verify Packages"
+      name: AWSS3
       julia: 1.0
       os: linux
       script:
         - julia --project=tmps3 -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.add("AWSS3"); Pkg.test("AWSS3")'
-    - stage: "Verify AWSSQS"
+    - stage: "Verify Packages"
+      name: AWSSQS
       julia: 1.0
       os: linux
       script:
         - julia --project=tmpsqs -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.add("AWSSQS"); Pkg.test("AWSSQS")'
+    - stage: "EC2"
+      julia: 1.0
+      os: linux
+      before_install:
+        - pip install --user awscli
+      script:
+        - aws ssm get-parameter --region us-east-1 --name /public_ci/AWSCore/ec2_keyfile --query 'Parameter.Value' --output text --with-decryption > ec2.pem
+        - chmod 600 ec2.pem
+        - export KEYFILE=ec2.pem
+        # Tag with commit to be able to terminate later
+        - INSTANCE_ID=$(aws ec2 run-instances --region us-east-1 --launch-template LaunchTemplateName=AWSCoreEC2Template --tag-specifications "ResourceType=instance,Tags=[{Key=AWSCoreCommit,Value=$TRAVIS_COMMIT}]" --query 'Instances[0].InstanceId' --output text)
+        # Wait until UserData installs Julia
+        - aws ec2 wait instance-status-ok --region us-east-1 --instance-ids $INSTANCE_ID
+        - export EC2Ip=$(aws ec2 describe-instances --region us-east-1 --instance-ids $INSTANCE_ID  --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
+        - |
+          julia -e '
+          using Distributed
+          addprocs(
+              ["ec2-user@$(ENV["EC2Ip"])"],
+              sshflags=`-i $(ENV["KEYFILE"]) -o "StrictHostKeyChecking=no"`,
+              exename="/julia/bin/julia",
+              dir="/home/ec2-user",
+              tunnel=true,
+          )
+          @fetch @eval using Pkg
+          rev=ENV["TRAVIS_COMMIT"]
+          @fetch Pkg.add(PackageSpec(url="https://github.com/JuliaCloud/AWSCore.jl", rev=rev))
+          @fetch ENV["AWSCORE_EC2"]="true"
+          @fetch Pkg.build("AWSCore")
+          @fetch @eval using AWSCore
+          @fetch Pkg.test("AWSCore")
+          '
+      after_script:
+        - INSTANCE_ID=$(aws ec2 describe-instances --region us-east-1 --filter Name=tag:AWSCoreCommit,Values=$TRAVIS_COMMIT Name=instance-state-name,Values=running,pending --query 'Reservations[*].Instances[0].InstanceId' --output text)
+        - |
+          if [ "$INSTANCE_ID" ]; then
+              aws ec2 terminate-instances --region us-east-1 --instance-ids $INSTANCE_ID
+              aws ec2 wait instance-terminated --region us-east-1 --instance-ids $INSTANCE_ID
+          fi
+      after_success: skip
     - stage: "Documentation"
       julia: 1.0
       os: linux
