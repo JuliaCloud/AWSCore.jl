@@ -45,14 +45,14 @@ jobs:
       before_install:
         - pip install --user awscli
       script:
-        - aws ssm get-parameter --name /public_ci/AWSCore/ec2_keyfile --query 'Parameter.Value' --output text --with-decryption > ec2.pem
+        - aws ssm get-parameter --region us-east-1 --name /public_ci/AWSCore/ec2_keyfile --query 'Parameter.Value' --output text --with-decryption > ec2.pem
         - chmod 600 ec2.pem
         - export KEYFILE=ec2.pem
         # Tag with commit to be able to terminate later
-        - INSTANCE_ID=$(aws ec2 run-instances --launch-template LaunchTemplateName=AWSCoreEC2Template --tag-specifications "ResourceType=instance,Tags=[{Key=AWSCoreCommit,Value=$TRAVIS_COMMIT}]" --query 'Instances[0].InstanceId' --output text)
+        - INSTANCE_ID=$(aws ec2 run-instances --region us-east-1 --launch-template LaunchTemplateName=AWSCoreEC2Template --tag-specifications "ResourceType=instance,Tags=[{Key=AWSCoreCommit,Value=$TRAVIS_COMMIT}]" --query 'Instances[0].InstanceId' --output text)
         # Wait until UserData installs Julia
-        - aws ec2 wait instance-status-ok --instance-ids $INSTANCE_ID
-        - export EC2Ip=$(aws ec2 describe-instances --instance-ids $INSTANCE_ID  --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
+        - aws ec2 wait instance-status-ok --region us-east-1 --instance-ids $INSTANCE_ID
+        - export EC2Ip=$(aws ec2 describe-instances --region us-east-1 --instance-ids $INSTANCE_ID  --query 'Reservations[0].Instances[0].PublicIpAddress' --output text)
         - |
           julia -e '
           using Distributed
@@ -72,11 +72,11 @@ jobs:
           @fetch Pkg.test("AWSCore")
           '
       after_script:
-        - INSTANCE_ID=$(aws ec2 describe-instances --filter Name=tag:AWSCoreCommit,Values=$TRAVIS_COMMIT Name=instance-state-name,Values=running,pending --query 'Reservations[*].Instances[0].InstanceId' --output text)
+        - INSTANCE_ID=$(aws ec2 describe-instances --region us-east-1 --filter Name=tag:AWSCoreCommit,Values=$TRAVIS_COMMIT Name=instance-state-name,Values=running,pending --query 'Reservations[*].Instances[0].InstanceId' --output text)
         - |
           if [ "$INSTANCE_ID" ]; then
-              aws ec2 terminate-instances --instance-ids $INSTANCE_ID
-              aws ec2 wait instance-terminated --instance-ids $INSTANCE_ID
+              aws ec2 terminate-instances --region us-east-1 --instance-ids $INSTANCE_ID
+              aws ec2 wait instance-terminated --region us-east-1 --instance-ids $INSTANCE_ID
           fi
       after_success: skip
     - stage: "Documentation"
