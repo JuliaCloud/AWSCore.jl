@@ -13,9 +13,8 @@ Parameters:
 
 Resources:
   EC2TravisPolicy:
-    Type: AWS::IAM::Policy
+    Type: AWS::IAM::ManagedPolicy
     Properties:
-      PolicyName: EC2TravisPolicy
       Users:
         - !Sub ${PublicCIUser}
       PolicyDocument:
