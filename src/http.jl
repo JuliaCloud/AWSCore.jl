@@ -58,7 +58,7 @@ function http_request(request::AWSRequest)
                         #isa(e, EOFError) || FIXME needed ?
                        (isa(e, HTTP.StatusError) && http_status(e) >= 500)
             if debug_level > 1
-                println("Caught $e in HTTP request, retrying...")
+                println("Caught $e during HTTP request, retrying...")
             end
         end
     end
