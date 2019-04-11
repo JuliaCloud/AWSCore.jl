@@ -56,7 +56,11 @@ function http_request(request::AWSRequest)
                         isa(e, HTTP.IOError) ||
                         isa(e, Base.IOError) ||
                         #isa(e, EOFError) || FIXME needed ?
-                       (isa(e, HTTP.StatusError) && http_status(e) >= 500) end
+                       (isa(e, HTTP.StatusError) && http_status(e) >= 500)
+            if debug_level > 1
+                println("Caught $e during HTTP request, retrying...")
+            end
+        end
     end
 
     assert(false) # Unreachable.

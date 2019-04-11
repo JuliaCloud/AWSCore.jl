@@ -422,7 +422,11 @@ function do_request(r::AWSRequest)
 
         # Handle expired signature...
         @retry if :message in fieldnames(typeof(e)) &&
-                  occursin(r"Signature expired", e.message) end
+                  occursin(r"Signature expired", e.message)
+            if debug_level > 1
+                println("Caught $e during request $(dump_aws_request(r)), retrying due to expired signature...")
+            end
+        end
 
         # Handle ExpiredToken...
         # See `credsExpiredCodes` in
@@ -433,7 +437,9 @@ function do_request(r::AWSRequest)
 
             # Reload local system credentials if needed...
             check_credentials(r[:creds], force_refresh=true)
-
+            if debug_level > 1
+                println("Caught $e during request $(dump_aws_request(r)), retrying due to expired credentials...")
+            end
         end
 
         # Handle throttling
@@ -456,7 +462,21 @@ function do_request(r::AWSRequest)
                                "BadDigest",
                                "RequestTimeoutException",
                                "PriorRequestNotComplete") ||
-                  header(e.cause, "crc32body") == "x-amz-crc32") end
+                  header(e.cause, "crc32body") == "x-amz-crc32")
+            if debug_level > 1
+                cause = "throttling"
+
+                if header(e.cause, "crc32body") == "x-amz-crc32"
+                    cause = "CRC32"
+                elseif ecode(e) in ("RequestTimeout",
+                                    "BadDigest",
+                                    "RequestTimeoutException",
+                                    "PriorRequestNotComplete")
+                    cause = ecode(e)
+                end
+                println("Caught $e during request $(dump_aws_request(r)), retrying due to $cause...")
+            end
+        end
     end
 
     if debug_level > 1
