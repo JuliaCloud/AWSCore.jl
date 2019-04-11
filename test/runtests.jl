@@ -518,6 +518,24 @@ end
                           "invocations/function%3Af%3APROD"
 end
 
+@testset "Exception" begin
+    code = "InvalidSignatureException"
+    message = "Signature expired: ..."
+    body = """
+        {
+           "__type": "$code",
+           "message": "$message"
+        }
+        """
+    resp = HTTP.Messages.Response(400, body)
+    HTTP.setheader(resp.headers, "Content-Type" => "application/x-amz-json-1.1")
+
+    ex = AWSException(HTTP.StatusError(400, resp))
+
+    @test ex.code == code
+    @test ex.message == message
+end
+
 if get(ENV, "AWSCORE_EC2", "false") == "true"
     @testset "EC2" begin
         @test_nowarn AWSCore.ec2_instance_credentials()

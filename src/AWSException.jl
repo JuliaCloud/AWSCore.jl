@@ -30,7 +30,6 @@ function AWSException(e::HTTP.StatusError)
     # Extract API error code from Lambda-style JSON error message...
     if occursin(r"json$", content_type(e))
         info = LazyJSON.value(http_message(e))
-        message = get(info, "message", message)
     end
 
     # Extract API error code from JSON error message...
@@ -51,6 +50,7 @@ function AWSException(e::HTTP.StatusError)
     info = get(info, "Error", info)
     code = get(info, "Code", code)
     message = get(info, "Message", message)
+    message = get(info, "message", message)
 
     AWSException(code, message, info, e)
 end
