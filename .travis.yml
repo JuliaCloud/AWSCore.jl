@@ -100,7 +100,7 @@ jobs:
         - |
           # Get test output
           logstream=$(aws batch describe-jobs --region us-east-1 --jobs $id --query jobs[0].container.logStreamName --output text)
-          if [ "$logstream"]; do
+          if [ "$logstream" ]; then
               aws logs get-log-events --region us-east-1 --log-group-name /aws/batch/job --log-stream-name $logstream --query events[*].message --output text | tr '\t' '\n'
           fi
         - test "$status" == "SUCCEEDED"

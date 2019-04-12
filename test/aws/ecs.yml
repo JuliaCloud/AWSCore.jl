@@ -18,7 +18,7 @@
 # echo "Job $id finished, status: $status"
 
 # logstream=$(aws batch describe-jobs --jobs $id --query jobs[0].container.logStreamName --output text)
-# if [ "$logstream"]; do
+# if [ "$logstream" ]; then
 #   aws logs get-log-events --log-group-name /aws/batch/job --log-stream-name $logstream --query events[*].message --output text | tr '\t' '\n'
 # fi
 
