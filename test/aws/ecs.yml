@@ -1,0 +1,212 @@
+# To test, do:
+# ```
+# BRANCH="name-of-branch-to-test"
+#
+# id=$(aws batch submit-job \
+#   --job-name $BRANCH \
+#   --job-definition AWSCoreECSJob:1 \
+#   --job-queue AWSCoreECSJobQueue \
+#   --container-overrides \
+#   "environment=[{name=AWSCORE_BRANCH,value=$BRANCH}]" --query jobId --output text)
+
+# status=$(aws batch describe-jobs --jobs $id --query jobs[0].status --output text)
+# while [ "$status" ] && [ "$status" != "FAILED" ] && [ "$status" != "SUCCEEDED" ]; do
+#   echo "Waiting for job $id, status: $status..."
+#   sleep 30
+#   status=$(aws batch describe-jobs --jobs $id --query jobs[0].status --output text)
+# done
+# echo "Job $id finished, status: $status"
+
+# logstream=$(aws batch describe-jobs --jobs $id --query jobs[0].container.logStreamName --output text)
+# if [ "$logstream"]; do
+#   aws logs get-log-events --log-group-name /aws/batch/job --log-stream-name $logstream --query events[*].message --output text | tr '\t' '\n'
+# fi
+
+# test "$status" == "SUCCEEDED"
+# ```
+
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  A bare bones AWS Batch environment for testing with AWSCore
+
+Parameters:
+  PublicCIUser:
+    Description: User which can assume the testing role
+    Type: String
+  VPCCidrBlock:
+    # https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html#VPC_Sizing
+    Description: >-
+      The IP address range used for batch instances in the new VPC.
+    Type: String
+    Default: 10.0.0.0/16
+    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
+  MaxVCPUs:
+    Description: >-
+      The maximum number of VCPUs. Typically this number does not need to be touched
+    Type: Number
+    Default: 16
+
+Resources:
+  ECSTravisPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Users:
+        - !Sub ${PublicCIUser}
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: batch:DescribeJobs
+            Resource: "*"
+          - Effect: Allow
+            Action: logs:GetLogEvents
+            Resource:
+              - !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/batch/job*
+          - Effect: Allow
+            Action: batch:SubmitJob
+            Resource:
+              - !Ref AWSCoreTestJob
+              - !Ref JobQueue
+
+  AWSCoreTestJob:
+    Type: AWS::Batch::JobDefinition
+    Properties:
+      JobDefinitionName: AWSCoreECSJob
+      Type: container
+      ContainerProperties:
+        Memory: 1600
+        Command:
+          - julia
+          - -e
+          - using Pkg; Pkg.add(PackageSpec(url=ENV["AWSCORE_URL"], rev=ENV["AWSCORE_BRANCH"])); Pkg.build("AWSCore"); Pkg.test("AWSCore")
+        Environment:
+          - Name: AWSCORE_URL
+            Value: https://github.com/JuliaCloud/AWSCore.jl
+          - Name: AWSCORE_BRANCH
+            Value: master
+          - Name: AWSCORE_INSTANCE_TYPE
+            Value: ECS
+        Image: julia:1.0.3
+        Vcpus: 1
+      Timeout:
+        AttemptDurationSeconds: 900
+
+  ComputeEnvironment:
+    Type: AWS::Batch::ComputeEnvironment
+    DependsOn: BatchServiceRole  # Removing the ServiceRole before deleting the ComputeEnvironment will cause issues
+    Properties:
+      Type: MANAGED
+      ComputeEnvironmentName: !Ref AWS::StackName
+      ComputeResources:
+        Type: SPOT
+        BidPercentage: 100
+        MinvCpus: 0
+        MaxvCpus: !Ref MaxVCPUs
+        InstanceTypes:
+          - optimal
+        Subnets:
+          - !Ref Subnet
+        SecurityGroupIds:
+          - !Ref SecurityGroup
+        InstanceRole: !Ref IamInstanceProfile
+        SpotIamFleetRole: !Ref BatchSpotFleetRole
+        Tags:
+          Name: !Sub "AWS Batch (${AWS::StackName})"
+      ServiceRole: !Ref BatchServiceRole
+  JobQueue:
+    Type: AWS::Batch::JobQueue
+    Properties:
+      JobQueueName: AWSCoreECSJobQueue
+      Priority: 1
+      ComputeEnvironmentOrder:
+        - Order: 1
+          ComputeEnvironment: !Ref ComputeEnvironment
+
+  IamInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref EcsInstanceRole
+  EcsInstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2008-10-17
+        Statement:
+          - Sid: ''
+            Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role
+  BatchServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: batch.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSBatchServiceRole
+
+  # http://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html
+  BatchSpotFleetRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: spotfleet.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonEC2SpotFleetTaggingRole
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: EC2 Security Group for instances launched in the VPC by Batch
+      VpcId: !Ref VPC
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VPCCidrBlock
+  Subnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: !Ref VPCCidrBlock
+      VpcId: !Ref VPC
+      MapPublicIpOnLaunch: True
+  RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref VPC
+  SubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref RouteTable
+      SubnetId: !Ref Subnet
+  Route:
+    Type: AWS::EC2::Route
+    DependsOn: VPCGatewayAttachment
+    Properties:
+      RouteTableId: !Ref RouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+  VPCGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref VPC
+      InternetGatewayId: !Ref InternetGateway
+
+Outputs:
+  JobQueueArn:
+    Value: !Ref JobQueue
+  JobDefinitionArn:
+    Value: !Ref AWSCoreTestJob
