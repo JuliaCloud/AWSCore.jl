@@ -67,7 +67,7 @@ jobs:
           @fetch @eval using Pkg
           rev=ENV["TRAVIS_COMMIT"]
           @fetch Pkg.add(PackageSpec(url="https://github.com/JuliaCloud/AWSCore.jl", rev=rev))
-          @fetch ENV["AWSCORE_EC2"]="true"
+          @fetch ENV["AWSCORE_INSTANCE_TYPE"]="EC2"
           @fetch Pkg.build("AWSCore")
           @fetch @eval using AWSCore
           @fetch Pkg.test("AWSCore")
