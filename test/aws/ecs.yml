@@ -80,6 +80,8 @@ Resources:
       JobDefinitionName: !Sub ${AWS::StackName}-Job
       Type: container
       ContainerProperties:
+        # Job must have a JobRole for `ecs_instance_credentials()` to succeed
+        JobRoleArn: !Ref JobRole
         Memory: 1600
         Command:
           - julia
@@ -96,6 +98,17 @@ Resources:
         Vcpus: 1
       Timeout:
         AttemptDurationSeconds: 900
+  JobRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ecs-tasks.amazonaws.com  # Note: Shouldn't be batch.amazonaws.com
+            Action: sts:AssumeRole
 
   ComputeEnvironment:
     Type: AWS::Batch::ComputeEnvironment
