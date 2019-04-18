@@ -87,7 +87,7 @@ jobs:
       before_install:
         - pip install --user awscli
       script:
-        - id=$(aws batch submit-job --region us-east-1 --job-name $TRAVIS_COMMIT --job-definition AWSCore-ECS-00001-Job:1 --job-queue AWSCore-ECS-00001-JobQueue --container-overrides "environment=[{name=AWSCORE_BRANCH,value=$TRAVIS_COMMIT}]" --query jobId --output text)
+        - id=$(aws batch submit-job --region us-east-1 --job-name $TRAVIS_COMMIT --job-definition AWSCore-ECS-00001-Job:2 --job-queue AWSCore-ECS-00001-JobQueue --container-overrides "environment=[{name=AWSCORE_BRANCH,value=$TRAVIS_COMMIT}]" --query jobId --output text)
         - |
           status=$(aws batch describe-jobs --region us-east-1 --jobs $id --query jobs[0].status --output text)
           # If the query fails it will either return "None" or status won't be set
