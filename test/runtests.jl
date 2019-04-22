@@ -536,8 +536,14 @@ end
     @test ex.message == message
 end
 
-if get(ENV, "AWSCORE_EC2", "false") == "true"
+instance_type = get(ENV, "AWSCORE_INSTANCE_TYPE", "")
+if instance_type == "EC2"
     @testset "EC2" begin
+        @test_nowarn AWSCore.ec2_metadata("instance-id")
+        @test startswith(AWSCore.ec2_metadata("instance-id"), "i-")
+
+        @test AWSCore.localhost_maybe_ec2()
+        @test AWSCore.localhost_is_ec2()
         @test_nowarn AWSCore.ec2_instance_credentials()
         ec2_creds = AWSCore.ec2_instance_credentials()
         @test ec2_creds !== nothing
@@ -546,7 +552,18 @@ if get(ENV, "AWSCORE_EC2", "false") == "true"
         @test default_creds.access_key_id == ec2_creds.access_key_id
         @test default_creds.secret_key == ec2_creds.secret_key
     end
+elseif instance_type == "ECS"
+    @testset "ECS" begin
+        @test_nowarn AWSCore.ecs_instance_credentials()
+        ecs_creds = AWSCore.ecs_instance_credentials()
+        @test ecs_creds !== nothing
+
+        default_creds = AWSCredentials()
+        @test default_creds.access_key_id == ecs_creds.access_key_id
+        @test default_creds.secret_key == ecs_creds.secret_key
+    end
 end
+
 end # testset "AWSCore"
 
 

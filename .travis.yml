@@ -39,7 +39,8 @@ jobs:
       os: linux
       script:
         - julia --project=tmpsqs -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.add("AWSSQS"); Pkg.test("AWSSQS")'
-    - stage: "EC2"
+    - stage: "Online tests"
+      name: "EC2"
       julia: 1.0
       os: linux
       before_install:
@@ -66,7 +67,7 @@ jobs:
           @fetch @eval using Pkg
           rev=ENV["TRAVIS_COMMIT"]
           @fetch Pkg.add(PackageSpec(url="https://github.com/JuliaCloud/AWSCore.jl", rev=rev))
-          @fetch ENV["AWSCORE_EC2"]="true"
+          @fetch ENV["AWSCORE_INSTANCE_TYPE"]="EC2"
           @fetch Pkg.build("AWSCore")
           @fetch @eval using AWSCore
           @fetch Pkg.test("AWSCore")
@@ -78,6 +79,31 @@ jobs:
               aws ec2 terminate-instances --region us-east-1 --instance-ids $INSTANCE_ID
               aws ec2 wait instance-terminated --region us-east-1 --instance-ids $INSTANCE_ID
           fi
+      after_success: skip
+    - stage: "Online tests"
+      name: "ECS"
+      julia: 1.0
+      os: linux
+      before_install:
+        - pip install --user awscli
+      script:
+        - id=$(aws batch submit-job --region us-east-1 --job-name $TRAVIS_COMMIT --job-definition AWSCore-ECS-00001-Job:2 --job-queue AWSCore-ECS-00001-JobQueue --container-overrides "environment=[{name=AWSCORE_BRANCH,value=$TRAVIS_COMMIT}]" --query jobId --output text)
+        - |
+          status=$(aws batch describe-jobs --region us-east-1 --jobs $id --query jobs[0].status --output text)
+          # If the query fails it will either return "None" or status won't be set
+          while [ "$status" ] && [ "$status" != "None" ] && [ "$status" != "FAILED" ] && [ "$status" != "SUCCEEDED" ]; do
+              echo "Waiting for job $id, status: $status..."
+              sleep 30
+              status=$(aws batch describe-jobs --region us-east-1 --jobs $id --query jobs[0].status --output text)
+          done
+          echo "Job $id finished, status: $status"
+        - |
+          # Get test output
+          logstream=$(aws batch describe-jobs --region us-east-1 --jobs $id --query jobs[0].container.logStreamName --output text)
+          if [ "$logstream" ]; then
+              aws logs get-log-events --region us-east-1 --log-group-name /aws/batch/job --log-stream-name $logstream --query events[*].message --output text | tr '\t' '\n'
+          fi
+        - test "$status" == "SUCCEEDED"
       after_success: skip
     - stage: "Documentation"
       julia: 1.0
