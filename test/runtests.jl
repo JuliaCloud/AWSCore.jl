@@ -21,6 +21,42 @@ AWSCore.set_debug_level(1)
 
 aws = aws_config()
 
+@testset "NoAuth" begin
+    pub_request1 = Dict{Symbol, Any}(
+    :service => "s3",
+    :headers => Dict{String, String}("Range" => "bytes=0-0"),
+    :content => "",
+    :resource => "/invenia-static-website-content/invenia_ca/index.html",
+    :url => "https://s3.us-east-1.amazonaws.com/invenia-static-website-content/invenia_ca/index.html",
+    :verb => "GET",
+    :region => "us-east-1",
+    :creds => nothing,
+    )
+    pub_request2 = Dict{Symbol, Any}(
+    :service => "s3",
+    :headers => Dict{String, String}("Range" => "bytes=0-0"),
+    :content => "",
+    :resource => "ryft-public-sample-data/AWS-x86-AMI-queries.json",
+    :url => "https://s3.amazonaws.com/ryft-public-sample-data/AWS-x86-AMI-queries.json",
+    :verb => "GET",
+    :region => "us-east-1",
+    :creds => nothing,
+    )
+    response = nothing
+    try
+        response = AWSCore.do_request(pub_request1)
+    catch e
+        println(e)
+        @test ecode(e) in ["AccessDenied", "NoSuchEntity"]
+        try
+            response = AWSCore.do_request(pub_request2)
+        catch e
+            println(e)
+            @test ecode(e) in ["AccessDenied", "NoSuchEntity"]
+        end
+    end
+    @test response == "<" || response == UInt8['[']
+end
 @testset "Load Credentials" begin
     user = aws_user_arn(aws)
 
