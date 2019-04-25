@@ -399,8 +399,8 @@ function do_request(r::AWSRequest)
         r[:headers]["User-Agent"] = "AWSCore.jl/0.0.0"
         r[:headers]["Host"]       = HTTP.URI(r[:url]).host
 
-        # Use credentials to sign request...
-        sign!(r)
+        # If existing, use credentials to sign request...
+        r[:creds] === nothing || sign!(r)
 
         if debug_level > 0
             dump_aws_request(r)
