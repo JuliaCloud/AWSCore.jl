@@ -26,8 +26,8 @@ function http_request(request::AWSRequest)
             push!(options, (:response_stream, io))
         end
 
-        if haskey(request, :http_connection_settings)
-            for v in request[:http_connection_settings]
+        if haskey(request, :http_options)
+            for v in request[:http_options]
                 push!(options, v)
             end
         end
