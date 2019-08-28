@@ -1971,7 +1971,7 @@ function s3(aws::AWSConfig, verb, resource, args=[])
 
     AWSCore.service_rest_xml(
         aws;
-        service      = "s3",
+        service      = get(aws, :service_name, "s3"),
         version      = "2006-03-01",
         verb         = verb,
         resource     = resource,
