@@ -12,8 +12,6 @@ using Retry
 using XMLDict
 using HTTP
 
-using AWSCore: service_query
-
 AWSCore.set_debug_level(1)
 
 
@@ -563,10 +561,13 @@ end
            "message": "$message"
         }
         """
-    resp = HTTP.Messages.Response(400, body)
-    HTTP.setheader(resp.headers, "Content-Type" => "application/x-amz-json-1.1")
+    headers = ["Content-Type" => "application/x-amz-json-1.1"]
+    status_code = 400
 
-    ex = AWSException(HTTP.StatusError(400, resp))
+    # This does not actually send a request, just creates the object to test with
+    req = HTTP.Request("GET", "https://amazon.ca", headers, body)
+    resp = HTTP.Response(status_code, headers; body=body, request=req)
+    ex = AWSException(HTTP.StatusError(status_code, resp))
 
     @test ex.code == code
     @test ex.message == message
@@ -601,8 +602,3 @@ elseif instance_type == "ECS"
 end
 
 end # testset "AWSCore"
-
-
-#==============================================================================#
-# End of file.
-#==============================================================================#
