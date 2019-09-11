@@ -8,8 +8,8 @@
 module AWSCore
 
 
-export AWSException, AWSConfig, AWSRequest,
-       aws_config, default_aws_config
+export AWSException, AWSConfig, AWSRequest, SignatureV4, aws_config, default_aws_config,
+    http_get
 
 using Base64
 using Dates
@@ -49,14 +49,15 @@ It contains the following keys:
 """
 const AWSRequest = SymbolDict
 
-
 include("http.jl")
 include("AWSException.jl")
 include("AWSCredentials.jl")
+include("deprecations.jl")
 include("names.jl")
 include("mime.jl")
-
-
+include("signaturev4.jl")
+include("sign.jl")
+include("Services.jl")
 
 #------------------------------------------------------------------------------#
 # Configuration.
@@ -106,7 +107,6 @@ as follows. However, putting access credentials in source code is discouraged.
 aws = aws_config(creds = AWSCredentials("AKIAXXXXXXXXXXXXXXXX",
                                         "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 ```
-
 """
 function aws_config(;profile=nothing,
                      creds=AWSCredentials(profile=profile),
@@ -120,6 +120,8 @@ global _default_aws_config = nothing # Union{AWSConfig,Nothing}
 
 
 """
+    default_aws_config()
+
 `default_aws_config` returns a global shared [`AWSConfig`](@ref) object
 obtained by calling [`aws_config`](@ref) with no optional arguments.
 """
@@ -138,7 +140,6 @@ end
 Convert nested `Vector{Pair}` maps in `args` into `Dict{String,Any}` maps.
 """
 function aws_args_dict(args)
-
     result = stringdict(args)
 
     dictlike(t) = (t <: AbstractDict
@@ -557,11 +558,6 @@ global debug_level = 0
 function set_debug_level(n)
     global debug_level = n
 end
-
-
-include("Services.jl")
-
-
 end # module AWSCore
 
 

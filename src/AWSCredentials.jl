@@ -1,32 +1,35 @@
-#==============================================================================#
-# AWSCredentials.jl
-#
-# Load AWS Credentials from:
-# - EC2 Instance Profile,
-# - Environment variables, or
-# - ~/.aws/credentials file.
-#
-# Copyright OC Technology Pty Ltd 2014 - All rights reserved
-#==============================================================================#
+using Base
+using IniFile
+using HTTP
+using Dates
+using Mocking
+using JSON
+
 
 export AWSCredentials,
-       localhost_is_lambda,
+       aws_account_number,
+       aws_get_region,
+       aws_get_role_details,
+       aws_user_arn,
+       check_credentials,
+       dot_aws_config,
+       dot_aws_credentials,
+       dot_aws_credentials_file,
+       dot_aws_config_file,
+       ec2_instance_credentials,
+       ecs_instance_credentials,
+       env_var_credentials,
        localhost_is_ec2,
        localhost_maybe_ec2,
-       aws_user_arn,
-       aws_account_number,
-       check_credentials
+       localhost_is_lambda
 
 """
 When you interact with AWS, you specify your [AWS Security Credentials](http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html)
 to verify who you are and whether you have permission to access the resources that you are requesting.
 AWS uses the security credentials to authenticate and authorize your requests.
-
 The fields `access_key_id` and `secret_key` hold the access keys used to authenticate API requests
 (see [Creating, Modifying, and Viewing Access Keys](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey)).
-
 [Temporary Security Credentials](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html) require the extra session `token` field.
-
 The `user_arn` and `account_number` fields are used to cache the result of the [`aws_user_arn`](@ref) and [`aws_account_number`](@ref) functions.
 
 AWSCore searches for credentials in a series of possible locations and stop as soon as it finds credentials.
@@ -43,7 +46,6 @@ Once the credentials are found, the method by which they were accessed is stored
 and the DateTime at which they will expire is stored in the `expiry` field.
 This allows the credentials to be refreshed as needed using [`check_credentials`](@ref).
 If `renew` is set to `nothing`, no attempt will be made to refresh the credentials.
-
 Any renewal function is expected to return `nothing` on failure or a populated `AWSCredentials` object on success.
 The `renew` field of the returned `AWSCredentials` will be discarded and does not need to be set.
 
@@ -56,392 +58,470 @@ mutable struct AWSCredentials
     user_arn::String
     account_number::String
     expiry::DateTime
-    renew::Union{Function, Nothing}
+    renew::Union{Function, Nothing}  # Function which can be used to refresh credentials
 
-    function AWSCredentials(access_key_id,secret_key,
-                            token="", user_arn="", account_number="";
-                            expiry=typemax(DateTime),
-                            renew=nothing)
-        new(access_key_id, secret_key, token, user_arn, account_number, expiry, renew)
+    function AWSCredentials(
+        access_key_id,
+        secret_key,
+        token="",
+        user_arn="",
+        account_number="";
+        expiry=typemax(DateTime),
+        renew=nothing,
+    )
+        return new(access_key_id, secret_key, token, user_arn, account_number, expiry, renew)
     end
 end
 
-function AWSCredentials(;profile=nothing)
-    creds = nothing
-    renew = Nothing
-
-    # Define our search options
-    functions = [
-        env_instance_credentials,
-        () -> dot_aws_credentials(profile),
-        () -> dot_aws_config(profile),
-        instance_credentials,
-    ]
-
-    # Loop through our search locations until we get credentials back
-    for f in functions
-        renew = f
-        creds = renew()
-        creds === nothing || break
-    end
-
-    creds === nothing && error("Can't find AWS credentials!")
-    creds.renew = renew
-
-    if debug_level > 0
-        display(creds)
-        println()
-    end
-
-    return creds
-end
-
-will_expire(cr::AWSCredentials) = now(UTC) >= cr.expiry - Minute(5)
-
-"""
-    check_credentials(cr::AWSCredentials; force_refresh::Bool=false)
-
-Checks current AWSCredentials, refreshing them if they are soon to expire.
-If force_refresh is `true` the credentials will be renewed immediately.
-"""
-function check_credentials(cr::AWSCredentials; force_refresh::Bool=false)
-    if force_refresh || will_expire(cr)
-        if debug_level > 0
-            println("Renewing credentials... ")
-        end
-        renew = cr.renew
-
-        if renew !== nothing
-            new_creds = renew()
-
-            new_creds === nothing && error("Can't find AWS credentials!")
-            copyto!(cr, new_creds)
-
-            # Ensure renewal function is not overwritten by the new credentials
-            cr.renew = renew
-        else
-            if debug_level > 0
-                println("Credentials cannot be renewed...")
-            end
-        end
-    end
-
-    return cr
-end
 
 function Base.show(io::IO,c::AWSCredentials)
-    println(io, string(c.user_arn,
-                       c.user_arn == "" ? "" : " ",
-                       "(",
-                       c.account_number,
-                       c.account_number == "" ? "" : ", ",
-                       c.access_key_id,
-                       c.secret_key == "" ? "" : ", $(c.secret_key[1:3])...",
-                       c.token == "" ? "" : ", $(c.token[1:3])..."),
-                       ")")
+    println(io,
+        c.user_arn,
+        isempty(c.user_arn) ? "" : " ",
+        "(",
+        c.account_number,
+        isempty(c.account_number) ? "" : ", ",
+        c.access_key_id,
+        isempty(c.secret_key) ? "" : ", $(c.secret_key[1:3])...",
+        isempty(c.token) ? "" : ", $(c.token[1:3])...",
+        c.expiry,
+        ")"
+    )
 end
+
 
 function Base.copyto!(dest::AWSCredentials, src::AWSCredentials)
     for f in fieldnames(typeof(dest))
         setfield!(dest, f, getfield(src, f))
     end
 end
-import Base: copy!
-Base.@deprecate copy!(dest::AWSCredentials, src::AWSCredentials) copyto!(dest, src)
 
 
-"""
-Is Julia running in an AWS Lambda sandbox?
-"""
+dot_aws_config_file() = get(ENV, "AWS_CONFIG_FILE", joinpath(homedir(), ".aws", "config"))
+dot_aws_credentials_file() = get(ENV, "AWS_SHARED_CREDENTIALS_FILE", joinpath(homedir(), ".aws", "credentials"))
+localhost_maybe_ec2() = localhost_is_ec2() || isfile("/sys/devices/virtual/dmi/id/product_uuid")
 localhost_is_lambda() = haskey(ENV, "LAMBDA_TASK_ROOT")
+_aws_get_profile() = get(ENV, "AWS_DEFAULT_PROFILE", get(ENV, "AWS_PROFILE", "default"))
 
 
 """
-Is Julia running on an EC2 virtual machine?
-"""
-function localhost_is_ec2()
+    AWSCredentials(;profile=nothing) -> Union{AWSCredentials, Nothing}
 
-    if localhost_is_lambda()
-        return false
+Create an AWSCredentials object, given a provided profile (if not provided "default" will be
+used).
+
+Checks credential locations in the order:
+    1. Environment Variables
+    2. ~/.aws/credentials
+    3. ~/.aws/config
+    4. EC2 or ECS metadata
+
+# Keywords
+- `profile::AbstractString`: Specific profile used to search for AWSCredentials
+
+# Throws
+- `error("Can't find AWS Credentials")`: AWSCredentials could not be found
+"""
+function AWSCredentials(;profile=nothing)
+    creds = nothing
+    credential_function = () -> nothing
+
+    if profile == nothing
+        profile = get(ENV, "AWS_PROFILE", get(ENV, "AWS_DEFAULT_PROFILE", nothing))
     end
 
-    if isfile("/sys/hypervisor/uuid") &&
-       String(read("/sys/hypervisor/uuid",3)) == "ec2"
+    # Define our search options, expected to be callable with no arguments. Should return
+    # `nothing` when credentials are not able to be located
+    functions = [
+        env_var_credentials,
+        () -> dot_aws_credentials(profile),
+        () -> dot_aws_config(profile),
+        ecs_instance_credentials,
+        ec2_instance_credentials
+    ]
+
+    # Loop through our search locations until we get credentials back
+    for f in functions
+        credential_function = f
+        creds = credential_function()
+        creds === nothing || break
+    end
+
+    creds === nothing && error("Can't find AWS credentials!")
+    creds.renew = credential_function
+
+    return creds
+end
+
+
+"""
+    localhost_is_ec2() -> Bool
+
+Determine if the machine executing this code is running on an EC2 instance.
+"""
+function localhost_is_ec2()
+    # Checking to see if you are running on an EC2 instance is a complicated problem due to
+    # a large amount of caveats. Below is a list of methods to implement to work through
+    # most of these problems:
+    #
+    # 1. Check the `hostname -d`; this will not work if using non-Amazon DNS
+    # 2. Check metadata with EC2 internal domain name `curl -s
+    # http://instance-data.ec2.internal`; this will not work with a VPC (legacy EC2 only)
+    # 3. Check `sudo dmidecode -s bios-version`; this requires `dmidecode` on the instance
+    # 4. Check `/sys/devices/virtual/dmi/id/bios_version`; this may not work depending on
+    # the instance, Amazon does not document this file however so it's quite unreliable
+    # 5. Check `http://169.254.169.254`; This is a link-local address for metadata,
+    # apparently other cloud providers make this metadata URL available now as well so it's
+    # not guaranteed that you're on an EC2 instance
+    # 6. When checking the UUID, check for little-endian representation,
+    # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/identify_ec2_instances.html
+
+    # This is not guarenteed to work on Windows as RNG can make the UUID begin with EC2 on a
+    # non-EC2 instance
+    if @mock Sys.iswindows()
+        command = `wmic path win32_computersystemproduct get uuid`
+        result = @mock Base.read(command, String)
+        instance_uuid = strip(split(result, "\n")[2])
+
+        return instance_uuid[1:3] == "EC2"
+    end
+
+    # Note: This will not work on new m5 and c5 instances because they use a new hypervisor
+    # stack and the kernel does not create files in sysfs
+    hypervisor_uuid = "/sys/hypervisor/uuid"
+    if isfile(hypervisor_uuid) && _begins_with_ec2(hypervisor_uuid)
         return true
     end
 
-    if isfile("/sys/devices/virtual/dmi/id/product_uuid")
-        try
-            # product_uuid is not world readable!
-            # https://patchwork.kernel.org/patch/6461521/
-            # https://github.com/JuliaCloud/AWSCore.jl/issues/24
-            if String(read("/sys/devices/virtual/dmi/id/product_uuid")) == "EC2"
-                return true
-            end
-        catch
-        end
+    product_uuid = "/sys/devices/virtual/dmi/id/product_uuid"
+    if isreadable(open(product_uuid, "r")) && _begins_with_ec2(product_uuid)
+        return true
     end
 
     return false
 end
 
-localhost_maybe_ec2() = localhost_is_ec2() ||
-                        isfile("/sys/devices/virtual/dmi/id/product_uuid")
+_begins_with_ec2(file_name::String) = return uppercase(String(read(file_name, 3))) == "EC2"
+
 
 """
-    aws_user_arn(::AWSConfig)
+    check_credentials(
+        aws_creds::AWSCredentials, force_refresh::Bool=false
+    ) -> AWSCredentials
 
-Unique
-[Amazon Resource Name]
-(http://docs.aws.amazon.com/IAM/latest/UserGuide/id_users.html)
-for configrued user.
+Checks current AWSCredentials, refreshing them if they are soon to expire. If
+`force_refresh` is `true` the credentials will be renewed immediately
 
-e.g. `"arn:aws:iam::account-ID-without-hyphens:user/Bob"`
+# Arguments
+- `aws_creds::AWSCredentials`: AWSCredentials to be checked / refreshed
+
+# Keywords
+- `force_refresh::Bool=false`: `true` to refresh the credentials
+
+# Throws
+- `error("Can't find AWS credentials!")`: If no credentials can be found
 """
-function aws_user_arn(aws::AWSConfig)
-    creds = aws[:creds]
-    if creds.user_arn == ""
-        r = Services.sts(aws, "GetCallerIdentity", [])
-        creds.user_arn = r["Arn"]
-        creds.account_number = r["Account"]
+function check_credentials(aws_creds::AWSCredentials; force_refresh::Bool=false)
+    if force_refresh || _will_expire(aws_creds)
+        credential_method = aws_creds.renew
+
+        if credential_method !== nothing
+            new_aws_creds = credential_method()
+
+            new_aws_creds === nothing && error("Can't find AWS credentials!")
+            copyto!(aws_creds, new_aws_creds)
+
+            # Ensure credential_method is not overwritten by the new credentials
+            aws_creds.renew = credential_method
+        end
     end
-    return creds.user_arn
+
+    return aws_creds
+end
+
+
+function _will_expire(aws_creds::AWSCredentials)
+    return now(UTC) >= aws_creds.expiry - Minute(5)
 end
 
 
 """
-    aws_account_number(::AWSConfig)
+    _ec2_metadata(metadata_endpoint::String) -> Union{String, Nothing}
 
-12-digit [AWS Account Number](http://docs.aws.amazon.com/general/latest/gr/acct-identifiers.html).
+Retrieve the EC2 meta data from the local AWS endpoint. Return the EC2 metadata request
+body, or `nothing` if not running on an EC2 instance.
+
+# Arguments
+- `metadata_endpoint::String`: AWS internal meta data endpoint to hit
+
+# Throws
+- `StatusError`: If the response status is >= 300
+- `ParsingError`: Invalid HTTP request target
 """
-function aws_account_number(aws::AWSConfig)
-    creds = aws[:creds]
-    if creds.account_number == ""
-        aws_user_arn(aws)
+function _ec2_metadata(metadata_endpoint::String)
+    try
+        request = @mock http_get(
+            "http://169.254.169.254/latest/meta-data/$metadata_endpoint"
+        )
+
+        return String(request.body)
+    catch e
+        e isa IOError || rethrow(e)
     end
-    return creds.account_number
+
+    return nothing
 end
 
 
 """
-    ec2_metadata(key)
+    ec2_instance_credentials() -> AWSCredentials
 
-Fetch [EC2 meta-data]
-(http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
-for `key`.
-"""
-function ec2_metadata(key)
-
-    @assert localhost_maybe_ec2()
-
-    String(http_get("http://169.254.169.254/latest/meta-data/$key").body)
-end
-
-function instance_credentials()
-    if haskey(ENV, "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
-        return ecs_instance_credentials()
-    elseif localhost_maybe_ec2()
-        return ec2_instance_credentials()
-    else
-        return nothing
-    end
-end
-
-"""
-Load [Instance Profile Credentials]
-(http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#instance-metadata-security-credentials)
-for EC2 virtual machine.
+Parse the EC2 metadata to retrieve AWSCredentials.
 """
 function ec2_instance_credentials()
+    info  = _ec2_metadata("iam/info")
+    info  = JSON.parse(info)
 
-    @assert localhost_maybe_ec2()
-
-    info  = ec2_metadata("iam/info")
-    info  = LazyJSON.value(info)
-
-    name  = ec2_metadata("iam/security-credentials/")
-    creds = ec2_metadata("iam/security-credentials/$name")
-    new_creds = LazyJSON.value(creds)
-
-    if debug_level > 0
-        print("Loading AWSCredentials from EC2 metadata... ")
-    end
+    name  = _ec2_metadata("iam/security-credentials/")
+    creds = _ec2_metadata("iam/security-credentials/$name")
+    new_creds = JSON.parse(creds)
 
     expiry = DateTime(strip(new_creds["Expiration"], 'Z'))
 
-    AWSCredentials(new_creds["AccessKeyId"],
-                   new_creds["SecretAccessKey"],
-                   new_creds["Token"],
-                   info["InstanceProfileArn"];
-                   expiry = expiry)
+    return AWSCredentials(
+        new_creds["AccessKeyId"],
+        new_creds["SecretAccessKey"],
+        new_creds["Token"],
+        info["InstanceProfileArn"];
+        expiry=expiry,
+        renew=ec2_instance_credentials
+    )
 end
 
 
 """
-Load [ECS Task Credentials]
-(http://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html)
+    ecs_instance_credentials() -> Union{AWSCredential, Nothing}
+
+Retrieve credentials from the local endpoint. Return `nothing` if not running on an ECS
+instance.
+
+More information can be found at:
+https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html
+
+# Returns
+- `AWSCredentials`: AWSCredentials from `ECS` credentials URI, `nothing` if the Env Var is
+    not set (not running on an ECS container instance)
+
+# Throws
+- `StatusError`: If the response status is >= 300
+- `ParsingError`: Invalid HTTP request target
 """
 function ecs_instance_credentials()
-
-    @assert haskey(ENV, "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
+    if !haskey(ENV, "AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
+        return nothing
+    end
 
     uri = ENV["AWS_CONTAINER_CREDENTIALS_RELATIVE_URI"]
 
-    new_creds = String(http_get("http://169.254.170.2$uri").body)
+    response = @mock http_get("http://169.254.170.2$uri")
+    new_creds = String(response.body)
     new_creds = LazyJSON.value(new_creds)
-
-    if debug_level > 0
-        print("Loading AWSCredentials from ECS metadata... ")
-    end
 
     expiry = DateTime(strip(new_creds["Expiration"], 'Z'))
 
-    AWSCredentials(new_creds["AccessKeyId"],
-                   new_creds["SecretAccessKey"],
-                   new_creds["Token"],
-                   new_creds["RoleArn"];
-                   expiry = expiry)
+    return AWSCredentials(
+        new_creds["AccessKeyId"],
+        new_creds["SecretAccessKey"],
+        new_creds["Token"],
+        new_creds["RoleArn"];
+        expiry=expiry,
+        renew=ecs_instance_credentials
+    )
 end
 
 
 """
-Load Credentials from [environment variables]
-(http://docs.aws.amazon.com/cli/latest/userguide/cli-environment.html)
-`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` etc.
-(e.g. in Lambda sandbox).
+    env_var_credentials() -> Union{AWSCredential, Nothing}
+
+Use AWS environmental variables (e.g. AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, etc.)
+to create AWSCredentials.
 """
-function env_instance_credentials()
-
-    if haskey(ENV, "AWS_ACCESS_KEY_ID")
-        if debug_level > 0
-            print("Loading AWSCredentials from ENV[\"AWS_ACCESS_KEY_ID\"]... ")
-        end
-
+function env_var_credentials()
+    if haskey(ENV, "AWS_ACCESS_KEY_ID") && haskey(ENV, "AWS_SECRET_ACCESS_KEY")
         return AWSCredentials(
             ENV["AWS_ACCESS_KEY_ID"],
             ENV["AWS_SECRET_ACCESS_KEY"],
             get(ENV, "AWS_SESSION_TOKEN", ""),
             get(ENV, "AWS_USER_ARN", "");
-            renew = env_instance_credentials
+            renew=env_var_credentials
         )
-    else
-        return nothing
     end
+
+    return nothing
 end
 
 
-using IniFile
-
-function dot_aws_credentials_file()
-    get(ENV, "AWS_SHARED_CREDENTIALS_FILE", joinpath(homedir(), ".aws", "credentials"))
-end
-
 """
-Try to load Credentials from [AWS CLI ~/.aws/credentials file]
-(http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
-"""
-function dot_aws_credentials(profile = nothing)
-    creds = nothing
-    credential_file = dot_aws_credentials_file()
+    dot_aws_credentials(profile=nothing) -> Union{AWSCredential, Nothing}
 
-    ini = nothing
+Retrieve AWSCredentials from the `~/.aws/credentials` file
+
+# Arguments
+- `profile`: Specific profile used to get AWSCredentials, default is `nothing`
+"""
+function dot_aws_credentials(profile=nothing)
+    credential_file = @mock dot_aws_credentials_file()
+
     if isfile(credential_file)
         ini = read(Inifile(), credential_file)
-        key, key_id, token = aws_get_credential_details(
-            profile === nothing ? aws_get_profile() : profile,
+        access_key, secret_key, token = _aws_get_credential_details(
+            profile === nothing ? _aws_get_profile() : profile,
             ini,
-            false
         )
 
-        if key !== :notfound
-            creds = AWSCredentials(key_id, key, token)
+        if access_key !== nothing
+            return AWSCredentials(access_key, secret_key, token)
         end
     end
 
-    return creds
+    return nothing
 end
 
-dot_aws_config_file() = get(ENV, "AWS_CONFIG_FILE", joinpath(homedir(), ".aws", "config"))
 
 """
-Try to load Credentials or assume a role via the [AWS CLI ~/.aws/config file]
-(http://docs.aws.amazon.com/cli/latest/userguide/cli-config-files.html)
+    dot_aws_config(profile=nothing) -> Union{AWSCredential, Nothing}
+
+Retrieve AWSCredentials for the default or specified profile from the `~/.aws/config` file.
+If this fails try to retrieve credentials from `_aws_get_role()`, otherwise return `nothing`
+
+# Arguments
+- `profile`: Specific profile used to get AWSCredentials, default is `nothing`
 """
-function dot_aws_config(profile = nothing)
-    creds = nothing
+function dot_aws_config(profile=nothing)
     config_file = dot_aws_config_file()
 
-    ini = nothing
     if isfile(config_file)
         ini = read(Inifile(), config_file)
-        p = profile === nothing ? aws_get_profile() : profile
-        key, key_id, token = aws_get_credential_details(p, ini, true)
+        p = profile === nothing ? _aws_get_profile() : profile
+        access_key, secret_key, token = _aws_get_credential_details(p, ini)
 
-        if key !== :notfound
-            creds = AWSCredentials(key_id, key, token)
+        if access_key !== nothing
+            return AWSCredentials(access_key, secret_key, token)
         else
-            creds = aws_get_role(p, ini)
+            return _aws_get_role(p, ini)
         end
     end
+
+    return nothing
+end
+
+
+"""
+    _aws_get_credential_details(profile::AbstractString, ini::Inifile) -> Tuple
+
+Get `AWSCredentials` for the specified `profile` from the `inifile`. If targeting the
+`~/.aws/config` file, with a non-default `profile`, you must specify `config=true` otherwise
+the default credentials will be returned.
+
+# Arguments
+- `profile::AbstractString`: Specific profile used to get AWSCredentials
+- `ini::Inifile`: Inifile to look into for the `profile` credentials
+"""
+function _aws_get_credential_details(profile::AbstractString, ini::Inifile)
+    access_key = _get_ini_value(ini, profile, "aws_access_key_id")
+    secret_key = _get_ini_value(ini, profile, "aws_secret_access_key")
+    token = _get_ini_value(ini, profile, "aws_session_token"; default_value="")
+
+    return (access_key, secret_key, token)
+end
+
+
+"""
+    aws_get_region(profile::AbstractString, ini::Inifile) -> String
+
+Retrieve the AWS Region for a given profile, returns `us-east-1` as a default.
+
+# Arguments
+- `profile::AbstractString`: Specific profile used to get the region
+- `ini::Inifile`: Inifile to look in for the region
+"""
+function aws_get_region(profile::AbstractString, ini::Inifile)
+    region = get(ENV, "AWS_DEFAULT_REGION", "us-east-1")
+    region = _get_ini_value(ini, profile, "region"; default_value=region)
+
+    return region
+end
+
+
+"""
+    aws_user_arn(aws::AWSConfig) -> String
+
+Retrieve the `User ARN` from the `AWSConfig`, if not present query STS to update the
+`user_arn`.
+
+# Arguments
+- `aws::AWSConfig`: SymbolDict used to retrieve the user arn
+"""
+function aws_user_arn(aws::AWSConfig)
+    creds = aws[:creds]
+
+    if isempty(creds.user_arn)
+        _update_creds(aws)
+    end
+
+    return creds.user_arn
+end
+
+
+"""
+    aws_account_number(aws::AWSConfig) -> String
+
+Retrieve the `AWS account number` from the `AWSConfig`, if not present query STS to update
+the `AWS account number`.
+
+# Arguments
+- `aws::AWSConfig`: SymbolDict used to retrieve the AWS account number
+"""
+function aws_account_number(aws::AWSConfig)
+    creds = aws[:creds]
+
+    if isempty(creds.account_number)
+        _update_creds(aws)
+    end
+
+    return creds.account_number
+end
+
+
+"""
+    _update_creds(aws::AWSConfig) -> AWSConfig
+
+
+Update the `user_arn` and `account_number` from Security Token Services.
+"""
+function _update_creds(aws::AWSConfig)
+    r = Services.sts(aws, "GetCallerIdentity", [])
+    creds = aws[:creds]
+
+    creds.user_arn = r["Arn"]
+    creds.account_number = r["Account"]
 
     return creds
 end
 
-function aws_get_role_details(profile::AbstractString, ini::Inifile)
-    if debug_level > 0
-        println("Loading \"$profile\" Profile from " *
-                dot_aws_config_file() * "... ")
-    end
 
-    role_arn = get(ini, profile, "role_arn")
-    source_profile = get(ini, profile, "source_profile")
+"""
+    _aws_get_role(role::AbstractString, ini::Inifile) -> Union{AWSCredentials, Nothing}
 
-    profile = "profile $profile"
-    role_arn = get(ini, profile, "role_arn", role_arn)
-    source_profile = get(ini, profile, "source_profile", source_profile)
+Retrieve the `AWSCredentials` for a given role from Security Token Services (STS).
 
-    (source_profile, role_arn)
-end
-
-function aws_get_credential_details(profile::AbstractString, ini::Inifile, config::Bool)
-    if debug_level > 0
-        filename = config ? dot_aws_config_file() : dot_aws_credentials_file()
-        println("Loading \"$profile\" AWSCredentials from " * filename
-                * "... ")
-    end
-
-    key_id = get(ini, profile, "aws_access_key_id")
-    key = get(ini, profile, "aws_secret_access_key")
-    token = get(ini, profile, "aws_session_token", "")
-
-    if config
-        profile = "profile $profile"
-        key_id = get(ini, profile, "aws_access_key_id", key_id)
-        key = get(ini, profile, "aws_secret_access_key", key)
-        token = get(ini, profile, "aws_session_token", token)
-    end
-
-    (key, key_id, token)
-end
-
-function aws_get_profile()
-    get(ENV, "AWS_DEFAULT_PROFILE", get(ENV, "AWS_PROFILE", "default"))
-end
-
-function aws_get_region(profile::AbstractString, ini::Inifile)
-    region = get(ENV, "AWS_DEFAULT_REGION", "us-east-1")
-
-    region = get(ini, profile, "region", region)
-    region = get(ini, "profile $profile", "region", region)
-end
-
-function aws_get_role(role::AbstractString, ini::Inifile)
+# Arguments
+- `role::AbstractString`: Name of the `role`
+- `ini::Inifile`: Inifile to look into to find the `role`
+"""
+function _aws_get_role(role::AbstractString, ini::Inifile)
     source_profile, role_arn = aws_get_role_details(role, ini)
-    source_profile === :notfound && return nothing
-
-    if debug_level > 0
-        println("Assuming \"$source_profile\"... ")
-    end
+    source_profile === nothing && return nothing
     credentials = nothing
 
     for f in [dot_aws_credentials, dot_aws_config]
@@ -450,7 +530,6 @@ function aws_get_role(role::AbstractString, ini::Inifile)
     end
 
     credentials === nothing && return nothing
-
     config = AWSConfig(:creds=>credentials, :region=>aws_get_region(source_profile, ini))
 
     role = Services.sts(
@@ -459,14 +538,57 @@ function aws_get_role(role::AbstractString, ini::Inifile)
         RoleArn=role_arn,
         RoleSessionName=replace(role, r"[^\w+=,.@-]" => s"-"),
     )
+
     role_creds = role["Credentials"]
 
-    AWSCredentials(role_creds["AccessKeyId"],
+    return AWSCredentials(
+        role_creds["AccessKeyId"],
         role_creds["SecretAccessKey"],
         role_creds["SessionToken"];
-        expiry = unix2datetime(role_creds["Expiration"]))
+        expiry=unix2datetime(role_creds["Expiration"])
+    )
 end
 
-#==============================================================================#
-# End of file.
-#==============================================================================#
+
+"""
+    aws_get_role_details(profile::AbstractString, ini::Inifile) -> Tuple
+
+Return a tuple of `profile` details and the `role arn`.
+
+# Arguments
+- `profile::AbstractString`: Specific profile to get role details about
+- `ini::Inifile`: Inifile to look into to find the role details
+"""
+function aws_get_role_details(profile::AbstractString, ini::Inifile)
+    role_arn = _get_ini_value(ini, profile, "role_arn")
+    source_profile = _get_ini_value(ini, profile, "source_profile")
+
+    return (source_profile, role_arn)
+end
+
+
+"""
+    _get_ini_value(
+        ini::Inifile, profile::AbstractString, key::AbstractString;
+        default_value=nothing
+    ) -> String
+
+Get the value for `key` in the `ini` file for a given `profile`.
+
+# Arguments
+- `ini::Inifile`: Inifile to look for `key` in
+- `profile::AbstractString`: Given profile to find the `key` for
+- `key::AbstractString`: Name of the `key` to get
+
+# Keywords
+- `default_value`: If the `key` is not found, default to this value
+"""
+function _get_ini_value(
+    ini::Inifile, profile::AbstractString, key::AbstractString;
+    default_value=nothing
+)
+    value = get(ini, profile, key, default_value)
+    value = get(ini, "profile $profile", key, value)
+
+    return value
+end
