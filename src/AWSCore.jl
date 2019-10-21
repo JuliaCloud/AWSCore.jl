@@ -448,7 +448,7 @@ function do_request(r::AWSRequest)
         # Recommended for SDKs at:
         # https://docs.aws.amazon.com/general/latest/gr/api-retries.html
         # Also BadDigest error and CRC32 thing
-        @retry if e isa AWSException && (
+        @delay_retry if e isa AWSException && (
                   http_status(e.cause) == 429 ||
                   ecode(e) in ("Throttling",
                                "ThrottlingException",
