@@ -447,7 +447,6 @@ function do_request(r::AWSRequest)
         # https://github.com/boto/botocore/blob/master/botocore/data/_retry.json
         # Recommended for SDKs at:
         # https://docs.aws.amazon.com/general/latest/gr/api-retries.html
-        # Also BadDigest error and CRC32 thing
         @delay_retry if e isa AWSException && (
                   http_status(e.cause) == 429 ||
                   ecode(e) in ("Throttling",
@@ -459,20 +458,30 @@ function do_request(r::AWSRequest)
                                "LimitExceededException",
                                "RequestThrottled",
                                "RequestTimeout",
-                               "BadDigest",
                                "RequestTimeoutException",
-                               "PriorRequestNotComplete") ||
-                  header(e.cause, "crc32body") == "x-amz-crc32")
+                               "PriorRequestNotComplete"))
             if debug_level > 1
                 cause = "throttling"
 
-                if header(e.cause, "crc32body") == "x-amz-crc32"
-                    cause = "CRC32"
-                elseif ecode(e) in ("RequestTimeout",
-                                    "BadDigest",
-                                    "RequestTimeoutException",
-                                    "PriorRequestNotComplete")
+                if ecode(e) in ("RequestTimeout",
+                                "RequestTimeoutException",
+                                "PriorRequestNotComplete")
                     cause = ecode(e)
+                end
+                println("Caught $e during request $(dump_aws_request(r)), retrying due to $cause...")
+            end
+        end
+
+        # Handle BadDigest error and CRC32 thing
+        @retry if e isa AWSException && (
+            header(e.cause, "crc32body") == "x-amz-crc32" ||
+            ecode(e) == "BadDigest"
+        )
+            if debug_level > 1
+                cause = if header(e.cause, "crc32body") == "x-amz-crc32"
+                    "CRC32"
+                else
+                    ecode(e)
                 end
                 println("Caught $e during request $(dump_aws_request(r)), retrying due to $cause...")
             end
