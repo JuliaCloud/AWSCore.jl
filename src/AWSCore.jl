@@ -457,15 +457,11 @@ function do_request(r::AWSRequest)
                                "ProvisionedThroughputExceededException",
                                "LimitExceededException",
                                "RequestThrottled",
-                               "RequestTimeout",
-                               "RequestTimeoutException",
                                "PriorRequestNotComplete"))
             if debug_level > 1
                 cause = "throttling"
 
-                if ecode(e) in ("RequestTimeout",
-                                "RequestTimeoutException",
-                                "PriorRequestNotComplete")
+                if ecode(e) == "PriorRequestNotComplete"
                     cause = ecode(e)
                 end
                 println("Caught $e during request $(dump_aws_request(r)), retrying due to $cause...")
@@ -475,7 +471,7 @@ function do_request(r::AWSRequest)
         # Handle BadDigest error and CRC32 thing
         @retry if e isa AWSException && (
             header(e.cause, "crc32body") == "x-amz-crc32" ||
-            ecode(e) == "BadDigest"
+            ecode(e) in ("BadDigest", "RequestTimeout", "RequestTimeoutException")
         )
             if debug_level > 1
                 cause = if header(e.cause, "crc32body") == "x-amz-crc32"
