@@ -378,9 +378,6 @@ function dump_aws_request(r::AWSRequest)
 end
 
 
-include("sign.jl")
-
-
 """
     do_request(::AWSRequest)
 
