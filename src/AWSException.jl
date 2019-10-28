@@ -22,7 +22,6 @@ end
 
 
 function AWSException(e::HTTP.StatusError)
-
     code = string(http_status(e))
     message = "AWSException"
     info = Dict()
