@@ -8,8 +8,8 @@
 module AWSCore
 
 
-export AWSException, AWSConfig, AWSRequest,
-       aws_config, default_aws_config
+export AWSException, AWSConfig, AWSRequest, SignatureV4, aws_config, default_aws_config,
+    http_get
 
 using Base64
 using Dates
@@ -49,14 +49,15 @@ It contains the following keys:
 """
 const AWSRequest = SymbolDict
 
-
 include("http.jl")
 include("AWSException.jl")
 include("AWSCredentials.jl")
+include("deprecations.jl")
 include("names.jl")
 include("mime.jl")
-
-
+include("signaturev4.jl")
+include("sign.jl")
+include("Services.jl")
 
 #------------------------------------------------------------------------------#
 # Configuration.
@@ -106,7 +107,6 @@ as follows. However, putting access credentials in source code is discouraged.
 aws = aws_config(creds = AWSCredentials("AKIAXXXXXXXXXXXXXXXX",
                                         "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"))
 ```
-
 """
 function aws_config(;profile=nothing,
                      creds=AWSCredentials(profile=profile),
@@ -120,6 +120,8 @@ global _default_aws_config = nothing # Union{AWSConfig,Nothing}
 
 
 """
+    default_aws_config()
+
 `default_aws_config` returns a global shared [`AWSConfig`](@ref) object
 obtained by calling [`aws_config`](@ref) with no optional arguments.
 """
@@ -138,7 +140,6 @@ end
 Convert nested `Vector{Pair}` maps in `args` into `Dict{String,Any}` maps.
 """
 function aws_args_dict(args)
-
     result = stringdict(args)
 
     dictlike(t) = (t <: AbstractDict
@@ -378,9 +379,6 @@ function dump_aws_request(r::AWSRequest)
 end
 
 
-include("sign.jl")
-
-
 """
     do_request(::AWSRequest)
 
@@ -448,8 +446,7 @@ function do_request(r::AWSRequest)
         # https://github.com/boto/botocore/blob/master/botocore/data/_retry.json
         # Recommended for SDKs at:
         # https://docs.aws.amazon.com/general/latest/gr/api-retries.html
-        # Also BadDigest error and CRC32 thing
-        @retry if e isa AWSException && (
+        @delay_retry if e isa AWSException && (
                   http_status(e.cause) == 429 ||
                   ecode(e) in ("Throttling",
                                "ThrottlingException",
@@ -459,21 +456,27 @@ function do_request(r::AWSRequest)
                                "ProvisionedThroughputExceededException",
                                "LimitExceededException",
                                "RequestThrottled",
-                               "RequestTimeout",
-                               "BadDigest",
-                               "RequestTimeoutException",
-                               "PriorRequestNotComplete") ||
-                  header(e.cause, "crc32body") == "x-amz-crc32")
+                               "PriorRequestNotComplete"))
             if debug_level > 1
                 cause = "throttling"
 
-                if header(e.cause, "crc32body") == "x-amz-crc32"
-                    cause = "CRC32"
-                elseif ecode(e) in ("RequestTimeout",
-                                    "BadDigest",
-                                    "RequestTimeoutException",
-                                    "PriorRequestNotComplete")
+                if ecode(e) == "PriorRequestNotComplete"
                     cause = ecode(e)
+                end
+                println("Caught $e during request $(dump_aws_request(r)), retrying due to $cause...")
+            end
+        end
+
+        # Handle BadDigest error and CRC32 thing
+        @retry if e isa AWSException && (
+            header(e.cause, "crc32body") == "x-amz-crc32" ||
+            ecode(e) in ("BadDigest", "RequestTimeout", "RequestTimeoutException")
+        )
+            if debug_level > 1
+                cause = if header(e.cause, "crc32body") == "x-amz-crc32"
+                    "CRC32"
+                else
+                    ecode(e)
                 end
                 println("Caught $e during request $(dump_aws_request(r)), retrying due to $cause...")
             end
@@ -558,11 +561,6 @@ global debug_level = 0
 function set_debug_level(n)
     global debug_level = n
 end
-
-
-include("Services.jl")
-
-
 end # module AWSCore
 
 
