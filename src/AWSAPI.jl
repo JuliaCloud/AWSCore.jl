@@ -343,6 +343,10 @@ function service_request_function(service)
     args = ["service      = \"$(meta["signingName"])\"",
             "version      = \"$(meta["apiVersion"])\""]
 
+    if meta["signingName"] == "s3"
+        args[1] = "service      = get(aws, :service_name, \"s3\")"
+    end
+
     if meta["endpointPrefix"] != meta["signingName"]
         push!(args,
             "endpoint     = \"$(meta["endpointPrefix"])\"")
