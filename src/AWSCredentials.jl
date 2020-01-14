@@ -173,7 +173,7 @@ function localhost_is_ec2()
     # 5. Check `http://169.254.169.254`; This is a link-local address for metadata,
     # apparently other cloud providers make this metadata URL available now as well so it's
     # not guaranteed that you're on an EC2 instance
-    #    Or check a specific endpoint of the instance metadata such as: 
+    #    Or check a specific endpoint of the instance metadata such as:
     #         ims_local_hostname = String(HTTP.get("http://169.254.169.254/latest/meta-data/local-hostname").body)
     #    but with a fast timeout and cache the result.
     #    See https://docs.aws.amazon.com/en_us/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
@@ -190,16 +190,17 @@ function localhost_is_ec2()
         return instance_uuid[1:3] == "EC2"
     end
 
+    # Note: try catch required for open calls on files of mode 400 (-r--------)
     # Note: This will not work on new m5 and c5 instances because they use a new hypervisor
     # stack and the kernel does not create files in sysfs
     hypervisor_uuid = "/sys/hypervisor/uuid"
-    if isfile(hypervisor_uuid) && isreadable(open(hypervisor_uuid, "r")) && _begins_with_ec2(hypervisor_uuid)
+    if isfile(hypervisor_uuid) && try isreadable(open(hypervisor_uuid, "r")) catch e; false; end
         return true
     end
 
     # Note: Works if you are running as root
     product_uuid = "/sys/devices/virtual/dmi/id/product_uuid"
-    if isfile(product_uuid) && isreadable(open(product_uuid, "r")) && _begins_with_ec2(product_uuid)
+    if isfile(product_uuid) && try isreadable(open(product_uuid, "r")) catch e; false; end && _begins_with_ec2(product_uuid)
         return true
     end
 
@@ -208,7 +209,7 @@ function localhost_is_ec2()
     # filenames = ["bios_vendor", "board_vendor", "chassis_asset_tag", "chassis_version", "sys_vendor", "uevent", "modalias"]
     # all return "Amazon EC2" except the last two
     sys_vendor = "/sys/devices/virtual/dmi/id/sys_vendor"
-    if isfile(sys_vendor) && isreadable(open(sys_vendor, "r")) && _ends_with_ec2(sys_vendor)
+    if isfile(sys_vendor) && try isreadable(open(sys_vendor, "r")) catch e; false; end && _ends_with_ec2(sys_vendor)
         return true
     end
 
