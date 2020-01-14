@@ -173,6 +173,10 @@ function localhost_is_ec2()
     # 5. Check `http://169.254.169.254`; This is a link-local address for metadata,
     # apparently other cloud providers make this metadata URL available now as well so it's
     # not guaranteed that you're on an EC2 instance
+    #    Or check a specific endpoint of the instance metadata such as: 
+    #         ims_local_hostname = String(HTTP.get("http://169.254.169.254/latest/meta-data/local-hostname").body)
+    #    but with a fast timeout and cache the result.
+    #    See https://docs.aws.amazon.com/en_us/AWSEC2/latest/UserGuide/instancedata-data-retrieval.html
     # 6. When checking the UUID, check for little-endian representation,
     # https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/identify_ec2_instances.html
 
@@ -189,12 +193,22 @@ function localhost_is_ec2()
     # Note: This will not work on new m5 and c5 instances because they use a new hypervisor
     # stack and the kernel does not create files in sysfs
     hypervisor_uuid = "/sys/hypervisor/uuid"
-    if isfile(hypervisor_uuid) && _begins_with_ec2(hypervisor_uuid)
+    if isfile(hypervisor_uuid) && isreadable(open(hypervisor_uuid, "r")) && _begins_with_ec2(hypervisor_uuid)
         return true
     end
 
+    # Note: Works if you are running as root
     product_uuid = "/sys/devices/virtual/dmi/id/product_uuid"
-    if isreadable(open(product_uuid, "r")) && _begins_with_ec2(product_uuid)
+    if isfile(product_uuid) && isreadable(open(product_uuid, "r")) && _begins_with_ec2(product_uuid)
+        return true
+    end
+
+    # Check additional values under /sys/devices/virtual/dmi/id for the key "EC2"
+    # These work for the new m5 and c5 (nitro hypervisor) when root isn't available
+    # filenames = ["bios_vendor", "board_vendor", "chassis_asset_tag", "chassis_version", "sys_vendor", "uevent", "modalias"]
+    # all return "Amazon EC2" except the last two
+    sys_vendor = "/sys/devices/virtual/dmi/id/sys_vendor"
+    if isfile(sys_vendor) && isreadable(open(sys_vendor, "r")) && _ends_with_ec2(sys_vendor)
         return true
     end
 
@@ -202,6 +216,7 @@ function localhost_is_ec2()
 end
 
 _begins_with_ec2(file_name::String) = return uppercase(String(read(file_name, 3))) == "EC2"
+_ends_with_ec2(file_name::String) = return endswith(strip(uppercase(String(read(file_name, String)))), "EC2")
 
 
 """
