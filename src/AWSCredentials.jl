@@ -194,13 +194,13 @@ function localhost_is_ec2()
     # Note: This will not work on new m5 and c5 instances because they use a new hypervisor
     # stack and the kernel does not create files in sysfs
     hypervisor_uuid = "/sys/hypervisor/uuid"
-    if isfile(hypervisor_uuid) && try isreadable(open(hypervisor_uuid, "r")) catch e; false; end
+    if _can_read_file(hypervisor_uuid)
         return true
     end
 
     # Note: Works if you are running as root
     product_uuid = "/sys/devices/virtual/dmi/id/product_uuid"
-    if isfile(product_uuid) && try isreadable(open(product_uuid, "r")) catch e; false; end && _begins_with_ec2(product_uuid)
+    if _can_read_file(product_uuid) && _begins_with_ec2(product_uuid)
         return true
     end
 
@@ -209,13 +209,14 @@ function localhost_is_ec2()
     # filenames = ["bios_vendor", "board_vendor", "chassis_asset_tag", "chassis_version", "sys_vendor", "uevent", "modalias"]
     # all return "Amazon EC2" except the last two
     sys_vendor = "/sys/devices/virtual/dmi/id/sys_vendor"
-    if isfile(sys_vendor) && try isreadable(open(sys_vendor, "r")) catch e; false; end && _ends_with_ec2(sys_vendor)
+    if _can_read_file(sys_vendor) && _ends_with_ec2(sys_vendor)
         return true
     end
 
     return false
 end
 
+_can_read_file(file_name::String) = return isfile(file_name) && try isreadable(open(file_name, "r")) catch e; false; end
 _begins_with_ec2(file_name::String) = return uppercase(String(read(file_name, 3))) == "EC2"
 _ends_with_ec2(file_name::String) = return endswith(strip(uppercase(String(read(file_name, String)))), "EC2")
 
