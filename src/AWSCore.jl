@@ -202,13 +202,20 @@ Service endpoint URL for `request`.
 """
 function service_url(aws, request)
     endpoint = get(request, :endpoint, request[:service])
-    region = "." * aws[:region]
-    if endpoint == "iam" || (endpoint == "sdb" && region == ".us-east-1") || region=="."
+    region = aws[:region]
+    regionless_endpoints = ("iam", "route53")
+
+    if endpoint in regionless_endpoints || (endpoint == "sdb" && region == "us-east-1")
         region = ""
     end
-    service_host = get(aws,:service_host,"amazonaws.com")
-    string("https://", endpoint, region, ".", service_host,
-      request[:resource])
+
+    service_host = get(aws, :service_host, "amazonaws.com")
+
+    if !isempty(region)
+        return string("https://", endpoint, ".", region, ".", service_host, request[:resource])
+    else
+        return string("https://", endpoint, ".", service_host, request[:resource])
+    end
 end
 
 
