@@ -63,6 +63,9 @@ Resources:
               - ssm:GetParameter
             Resource:
               - !Sub arn:aws:ssm:*:${AWS::AccountId}:parameter/public_ci/AWSCore/ec2_keyfile
+          - Effect: Allow
+            Action: route53:GetAccountLimit
+            Resource: "*"
   SecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:

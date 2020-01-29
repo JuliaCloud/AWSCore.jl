@@ -73,6 +73,9 @@ Resources:
             Resource:
               - !Ref AWSCoreTestJob
               - !Ref JobQueue
+          - Effect: Allow
+            Action: route53:GetAccountLimit
+            Resource: "*"
 
   AWSCoreTestJob:
     Type: AWS::Batch::JobDefinition
