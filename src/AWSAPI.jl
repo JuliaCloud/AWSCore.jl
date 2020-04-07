@@ -15,8 +15,8 @@ module AWSAPI
 
 using AWSMetadata
 using HTML2MD
-using DataStructures
 using JSON
+using OrderedCollections: OrderedDict
 
 
 sdk_module_name(service_name) = "AWSSDK.$(service_name)"
@@ -563,7 +563,7 @@ end # module Services
     sdk_dir = joinpath(@__DIR__, "..", "..", "AWSSDK")
     src_path = joinpath(sdk_dir, "src", "AWSSDK.jl")
     mkpath(dirname(src_path))
-        
+
     write(src_path,
 """
 #==============================================================================#
