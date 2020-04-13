@@ -389,7 +389,7 @@ end
 """
     do_request(::AWSRequest)
 
-Submit an API request, return the result.
+Submit an API request, return the response body and headers.
 """
 function do_request(r::AWSRequest)
 
@@ -507,7 +507,7 @@ function do_request(r::AWSRequest)
 
     # Return raw data if requested...
     if get(r, :return_raw, false)
-        return response.body
+        return (response.body, response.headers)
     end
 
     # Parse response data according to mimetype...
@@ -521,7 +521,7 @@ function do_request(r::AWSRequest)
     body = String(copy(response.body))
 
     if occursin(r"/xml", mime)
-        return parse_xml(body)
+        return (parse_xml(body), Dict(response.headers))
     end
 
     if occursin(r"/x-amz-json-1.[01]$", mime)
@@ -529,9 +529,9 @@ function do_request(r::AWSRequest)
             return nothing
         end
         if get(r, :ordered_json_dict, true)
-            return JSON.parse(body, dicttype=OrderedDict)
+            return (JSON.parse(body, dicttype=OrderedDict), Dict(response.headers))
         else
-            return JSON.parse(body)
+            return (JSON.parse(body), Dict(response.headers))
         end
     end
 
@@ -551,15 +551,15 @@ function do_request(r::AWSRequest)
         catch e
             @ignore if typeof(e) == KeyError end
         end
-        return info
+        return (info, Dict(response.headers))
     end
 
     if occursin(r"^text/", mime)
-        return body
+        return (body, Dict(response.headers))
     end
 
     # Return raw data by default...
-    return response.body
+    return response.body, nothing
 end
 
 

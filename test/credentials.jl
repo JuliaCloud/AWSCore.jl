@@ -60,7 +60,7 @@ end
     )
 
     try
-        response = AWSCore.do_request(pub_request1)
+        response, _ = AWSCore.do_request(pub_request1)
         @test response == "<"
     catch e
         @test_ecode(
@@ -70,7 +70,7 @@ end
     end
 
     try
-        response = AWSCore.do_request(pub_request2)
+        response, _ = AWSCore.do_request(pub_request2)
         @test response == UInt8['[']
     catch e
         @test_ecode(
