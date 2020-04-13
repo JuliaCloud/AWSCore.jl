@@ -60,8 +60,10 @@ end
     )
 
     try
-        response, _ = AWSCore.do_request(pub_request1)
+        response, headers = AWSCore.do_request(pub_request1)
         @test response == "<"
+        @test headers["Server"] == "AmazonS3"
+        @test headers["Content-Type"] == "text/html"
     catch e
         @test_ecode(
             ["AccessDenied", "NoSuchEntity"],
@@ -70,8 +72,9 @@ end
     end
 
     try
-        response, _ = AWSCore.do_request(pub_request2)
+        response, headers = AWSCore.do_request(pub_request2)
         @test response == UInt8['[']
+        @test headers == nothing
     catch e
         @test_ecode(
             ["AccessDenied", "NoSuchEntity"],

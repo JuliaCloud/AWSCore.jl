@@ -221,6 +221,7 @@ end
         expected_data = "{\n    \"zarr_format\": 2\n}"
 
         @test result["Contents"][1]["Key"] == expected_content_key
+        @test headers["Content-Type"] == "application/xml; charset=UTF-8"
 
         key_result, key_header = AWSCore.Services.s3(
             aws_google,
@@ -229,6 +230,7 @@ end
             Key="$(data_prefix)/.zgroup")
 
         @test String(key_result) == expected_data
+        @test key_header == nothing
     end
 
     @testset "Accessing OTC Object Store" begin
@@ -236,5 +238,8 @@ end
         result, headers = AWSCore.Services.s3(aws_otc, "GET", "/{Bucket}?list-type=2", Dict(:Bucket=>"obs-esdc-v2.0.0",:prefix=>"",:delimiter=>"/"))
 
         @test result["CommonPrefixes"][1]["Prefix"] == "esdc-8d-0.0083deg-184x60x60-2.0.0_colombia.zarr/"
+        @test headers["Server"] == "OBS"
+        @test headers["x-amz-bucket-region"] == "eu-de"
+        @test headers["Content-Type"] == "application/xml"
     end
 end
