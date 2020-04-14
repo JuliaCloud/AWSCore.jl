@@ -210,18 +210,17 @@ end
             service_name="storage"
         )
 
-        result, headers = AWSCore.Services.s3(
+        result = AWSCore.Services.s3(
             aws_google,
             "GET",
             "/{Bucket}",
-            Dict(:Bucket=>"cmip6",:prefix=>data_prefix, :return_headers=>true)
+            Dict(:Bucket=>"cmip6",:prefix=>data_prefix)
         )
 
         expected_content_key = "AerChemMIP/BCC/BCC-ESM1/piClim-CH4/r1i1p1f1/Amon/vas/gn/.zattrs"
         expected_data = "{\n    \"zarr_format\": 2\n}"
 
         @test result["Contents"][1]["Key"] == expected_content_key
-        @test headers["Content-Type"] == "application/xml; charset=UTF-8"
 
         key_result= AWSCore.Services.s3(
             aws_google,
@@ -235,11 +234,8 @@ end
 
     @testset "Accessing OTC Object Store" begin
         aws_otc = aws_config(creds=nothing, region="eu-de", service_name="obs", service_host="otc.t-systems.com")
-        result, headers = AWSCore.Services.s3(aws_otc, "GET", "/{Bucket}?list-type=2", Dict(:Bucket=>"obs-esdc-v2.0.0", :prefix=>"",:delimiter=>"/", :return_headers=>true))
+        result = AWSCore.Services.s3(aws_otc, "GET", "/{Bucket}?list-type=2", Dict(:Bucket=>"obs-esdc-v2.0.0", :prefix=>"",:delimiter=>"/"))
 
         @test result["CommonPrefixes"][1]["Prefix"] == "esdc-8d-0.0083deg-184x60x60-2.0.0_colombia.zarr/"
-        @test headers["Server"] == "OBS"
-        @test headers["x-amz-bucket-region"] == "eu-de"
-        @test headers["Content-Type"] == "application/xml"
     end
 end

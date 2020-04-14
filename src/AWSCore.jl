@@ -219,18 +219,6 @@ function service_url(aws, request)
 end
 
 
-function _return_headers(args)
-    if isempty(args)
-        return args, false
-    end
-
-    return_headers = get(args, "return_headers", false)
-    delete!(args, "return_headers")
-
-    return (args, return_headers)
-end
-
-
 """
     service_query(aws::AWSConfig; args...)
 
@@ -239,15 +227,13 @@ Process request for AWS "query" service protocol.
 function service_query(aws::AWSConfig; args...)
     request = Dict{Symbol,Any}(args)
 
-    args, return_headers = _return_headers(request[:args])
-
     request[:verb] = "POST"
     request[:resource] = get(aws, :resource, "/")
     request[:url] = service_url(aws, request)
     request[:headers] = Dict("Content-Type" =>
                              "application/x-www-form-urlencoded; charset=utf-8")
 
-    request[:query] = aws_args_dict(args)
+    request[:query] = aws_args_dict(request[:args])
     request[:query]["Action"] = request[:operation]
     request[:query]["Version"] = request[:version]
 
@@ -260,7 +246,7 @@ function service_query(aws::AWSConfig; args...)
 
     request[:content] = HTTP.escapeuri(flatten_query(request[:service],
                                        request[:query]))
-    do_request(merge(request, aws); return_headers=return_headers)
+    do_request(merge(request, aws))
 end
 
 
@@ -272,17 +258,15 @@ Process request for AWS "json" service protocol.
 function service_json(aws::AWSConfig; args...)
     request = Dict{Symbol,Any}(args)
 
-    args, return_headers = _return_headers(args)
-
     request[:verb] = "POST"
     request[:resource] = "/"
     request[:url] = service_url(aws, request)
     request[:headers] = Dict(
         "Content-Type" => "application/x-amz-json-$(request[:json_version])",
         "X-Amz-Target" => "$(request[:target]).$(request[:operation])")
-    request[:content] = json(aws_args_dict(args))
+    request[:content] = json(aws_args_dict(request[:args]))
 
-    do_request(merge(request, aws); return_headers=return_headers)
+    do_request(merge(request, aws))
 end
 
 
@@ -318,8 +302,6 @@ function service_rest_json(aws::AWSConfig; args...)
     request = Dict{Symbol,Any}(args)
     args = Dict(request[:args])
 
-    args, return_headers = _return_headers(args)
-
     request[:resource] = rest_resource(request, args)
     request[:url] = service_url(aws, request)
 
@@ -328,7 +310,7 @@ function service_rest_json(aws::AWSConfig; args...)
     request[:headers]["Content-Type"] = "application/json"
     request[:content] = json(aws_args_dict(args))
 
-    do_request(merge(request, aws); return_headers=return_headers)
+    do_request(merge(request, aws))
 end
 
 
@@ -340,8 +322,6 @@ Process request for AWS "rest_xml" service protocol.
 function service_rest_xml(aws::AWSConfig; args...)
     request = Dict{Symbol,Any}(args)
     args = stringdict(request[:args])
-
-    args, return_headers = _return_headers(args)
 
     request[:headers] = Dict{String,String}(get(args, "headers", []))
     delete!(args, "headers")
@@ -363,7 +343,7 @@ function service_rest_xml(aws::AWSConfig; args...)
     #FIXME deal with bucket prefix
     request[:url] = service_url(aws, request)
 
-    do_request(merge(request, aws); return_headers=return_headers)
+    do_request(merge(request, aws))
 end
 
 
@@ -405,7 +385,7 @@ end
 """
     do_request(::AWSRequest; return_headers=false)
 
-Submit an API request, return the response body and headers.
+Submit an API request, return the response body and headers if `return_headers=true`.
 """
 function do_request(r::AWSRequest; return_headers=false)
     response = nothing
