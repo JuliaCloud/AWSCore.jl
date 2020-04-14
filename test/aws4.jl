@@ -214,7 +214,7 @@ end
             aws_google,
             "GET",
             "/{Bucket}",
-            Dict(:Bucket=>"cmip6",:prefix=>data_prefix)
+            Dict(:Bucket=>"cmip6",:prefix=>data_prefix, :return_headers=>true)
         )
 
         expected_content_key = "AerChemMIP/BCC/BCC-ESM1/piClim-CH4/r1i1p1f1/Amon/vas/gn/.zattrs"
@@ -223,19 +223,19 @@ end
         @test result["Contents"][1]["Key"] == expected_content_key
         @test headers["Content-Type"] == "application/xml; charset=UTF-8"
 
-        key_result, key_header = AWSCore.Services.s3(
+        key_result= AWSCore.Services.s3(
             aws_google,
             "GET", "/{Bucket}/{Key+}",
             Bucket="cmip6",
-            Key="$(data_prefix)/.zgroup")
+            Key="$(data_prefix)/.zgroup"
+        )
 
         @test String(key_result) == expected_data
-        @test key_header == nothing
     end
 
     @testset "Accessing OTC Object Store" begin
         aws_otc = aws_config(creds=nothing, region="eu-de", service_name="obs", service_host="otc.t-systems.com")
-        result, headers = AWSCore.Services.s3(aws_otc, "GET", "/{Bucket}?list-type=2", Dict(:Bucket=>"obs-esdc-v2.0.0",:prefix=>"",:delimiter=>"/"))
+        result, headers = AWSCore.Services.s3(aws_otc, "GET", "/{Bucket}?list-type=2", Dict(:Bucket=>"obs-esdc-v2.0.0", :prefix=>"",:delimiter=>"/", :return_headers=>true))
 
         @test result["CommonPrefixes"][1]["Prefix"] == "esdc-8d-0.0083deg-184x60x60-2.0.0_colombia.zarr/"
         @test headers["Server"] == "OBS"

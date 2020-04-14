@@ -517,7 +517,7 @@ end
 Update the `user_arn` and `account_number` from Security Token Services.
 """
 function _update_creds(aws::AWSConfig)
-    r, _ = Services.sts(aws, "GetCallerIdentity", [])
+    r = Services.sts(aws, "GetCallerIdentity", [])
     creds = aws[:creds]
 
     creds.user_arn = r["Arn"]

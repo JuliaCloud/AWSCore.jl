@@ -219,14 +219,27 @@ function service_url(aws, request)
 end
 
 
+function _return_headers(args)
+    if isempty(args)
+        return args, false
+    end
+
+    return_headers = get(args, "return_headers", false)
+    delete!(args, "return_headers")
+
+    return (args, return_headers)
+end
+
+
 """
     service_query(aws::AWSConfig; args...)
 
 Process request for AWS "query" service protocol.
 """
 function service_query(aws::AWSConfig; args...)
-
     request = Dict{Symbol,Any}(args)
+
+    args, return_headers = _return_headers(request[:args])
 
     request[:verb] = "POST"
     request[:resource] = get(aws, :resource, "/")
@@ -234,7 +247,7 @@ function service_query(aws::AWSConfig; args...)
     request[:headers] = Dict("Content-Type" =>
                              "application/x-www-form-urlencoded; charset=utf-8")
 
-    request[:query] = aws_args_dict(request[:args])
+    request[:query] = aws_args_dict(args)
     request[:query]["Action"] = request[:operation]
     request[:query]["Version"] = request[:version]
 
@@ -247,7 +260,7 @@ function service_query(aws::AWSConfig; args...)
 
     request[:content] = HTTP.escapeuri(flatten_query(request[:service],
                                        request[:query]))
-    do_request(merge(request, aws))
+    do_request(merge(request, aws); return_headers=return_headers)
 end
 
 
@@ -257,8 +270,9 @@ end
 Process request for AWS "json" service protocol.
 """
 function service_json(aws::AWSConfig; args...)
-
     request = Dict{Symbol,Any}(args)
+
+    args, return_headers = _return_headers(args)
 
     request[:verb] = "POST"
     request[:resource] = "/"
@@ -266,9 +280,9 @@ function service_json(aws::AWSConfig; args...)
     request[:headers] = Dict(
         "Content-Type" => "application/x-amz-json-$(request[:json_version])",
         "X-Amz-Target" => "$(request[:target]).$(request[:operation])")
-    request[:content] = json(aws_args_dict(request[:args]))
+    request[:content] = json(aws_args_dict(args))
 
-    do_request(merge(request, aws))
+    do_request(merge(request, aws); return_headers=return_headers)
 end
 
 
@@ -301,9 +315,10 @@ end
 Process request for AWS "rest_json" service protocol.
 """
 function service_rest_json(aws::AWSConfig; args...)
-
     request = Dict{Symbol,Any}(args)
     args = Dict(request[:args])
+
+    args, return_headers = _return_headers(args)
 
     request[:resource] = rest_resource(request, args)
     request[:url] = service_url(aws, request)
@@ -313,7 +328,7 @@ function service_rest_json(aws::AWSConfig; args...)
     request[:headers]["Content-Type"] = "application/json"
     request[:content] = json(aws_args_dict(args))
 
-    do_request(merge(request, aws))
+    do_request(merge(request, aws); return_headers=return_headers)
 end
 
 
@@ -323,9 +338,10 @@ end
 Process request for AWS "rest_xml" service protocol.
 """
 function service_rest_xml(aws::AWSConfig; args...)
-
     request = Dict{Symbol,Any}(args)
     args = stringdict(request[:args])
+
+    args, return_headers = _return_headers(args)
 
     request[:headers] = Dict{String,String}(get(args, "headers", []))
     delete!(args, "headers")
@@ -347,7 +363,7 @@ function service_rest_xml(aws::AWSConfig; args...)
     #FIXME deal with bucket prefix
     request[:url] = service_url(aws, request)
 
-    do_request(merge(request, aws))
+    do_request(merge(request, aws); return_headers=return_headers)
 end
 
 
@@ -387,12 +403,11 @@ end
 
 
 """
-    do_request(::AWSRequest)
+    do_request(::AWSRequest; return_headers=false)
 
 Submit an API request, return the response body and headers.
 """
-function do_request(r::AWSRequest)
-
+function do_request(r::AWSRequest; return_headers=false)
     response = nothing
 
     # Try request 3 times to deal with possible Redirect and ExiredToken...
@@ -507,7 +522,7 @@ function do_request(r::AWSRequest)
 
     # Return raw data if requested...
     if get(r, :return_raw, false)
-        return (response.body, response.headers)
+        return (return_headers ? (response.body, response.headers) : response.body)
     end
 
     # Parse response data according to mimetype...
@@ -521,7 +536,7 @@ function do_request(r::AWSRequest)
     body = String(copy(response.body))
 
     if occursin(r"/xml", mime)
-        return (parse_xml(body), Dict(response.headers))
+        return (return_headers ? (parse_xml(body), Dict(response.headers)) : parse_xml(body))
     end
 
     if occursin(r"/x-amz-json-1.[01]$", mime)
@@ -529,9 +544,9 @@ function do_request(r::AWSRequest)
             return nothing
         end
         if get(r, :ordered_json_dict, true)
-            return (JSON.parse(body, dicttype=OrderedDict), Dict(response.headers))
+            return (return_headers ? (JSON.parse(body, dicttype=OrderedDict), Dict(response.headers)) : JSON.parse(body, dicttype=OrderedDict))
         else
-            return (JSON.parse(body), Dict(response.headers))
+            return (return_headers ? (JSON.parse(body), Dict(response.headers)) : JSON.parse(body))
         end
     end
 
@@ -551,15 +566,16 @@ function do_request(r::AWSRequest)
         catch e
             @ignore if typeof(e) == KeyError end
         end
-        return (info, Dict(response.headers))
+
+        return (return_headers ? (info, Dict(response.headers)) : info)
     end
 
     if occursin(r"^text/", mime)
-        return (body, Dict(response.headers))
+        return (return_headers ? (body, Dict(response.headers)) : body)
     end
 
     # Return raw data by default...
-    return response.body, nothing
+    return (return_headers ? (response.body, nothing) : response.body)
 end
 
 
