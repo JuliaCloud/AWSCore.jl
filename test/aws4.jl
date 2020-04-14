@@ -222,7 +222,7 @@ end
 
         @test result["Contents"][1]["Key"] == expected_content_key
 
-        key_result= AWSCore.Services.s3(
+        key_result = AWSCore.Services.s3(
             aws_google,
             "GET", "/{Bucket}/{Key+}",
             Bucket="cmip6",
