@@ -225,7 +225,6 @@ end
 Process request for AWS "query" service protocol.
 """
 function service_query(aws::AWSConfig; args...)
-
     request = Dict{Symbol,Any}(args)
 
     request[:verb] = "POST"
@@ -257,7 +256,6 @@ end
 Process request for AWS "json" service protocol.
 """
 function service_json(aws::AWSConfig; args...)
-
     request = Dict{Symbol,Any}(args)
 
     request[:verb] = "POST"
@@ -301,7 +299,6 @@ end
 Process request for AWS "rest_json" service protocol.
 """
 function service_rest_json(aws::AWSConfig; args...)
-
     request = Dict{Symbol,Any}(args)
     args = Dict(request[:args])
 
@@ -323,7 +320,6 @@ end
 Process request for AWS "rest_xml" service protocol.
 """
 function service_rest_xml(aws::AWSConfig; args...)
-
     request = Dict{Symbol,Any}(args)
     args = stringdict(request[:args])
 
@@ -387,12 +383,11 @@ end
 
 
 """
-    do_request(::AWSRequest)
+    do_request(::AWSRequest; return_headers=false)
 
-Submit an API request, return the result.
+Submit an API request, return the response body and headers if `return_headers=true`.
 """
-function do_request(r::AWSRequest)
-
+function do_request(r::AWSRequest; return_headers=false)
     response = nothing
 
     # Try request 3 times to deal with possible Redirect and ExiredToken...
@@ -507,7 +502,7 @@ function do_request(r::AWSRequest)
 
     # Return raw data if requested...
     if get(r, :return_raw, false)
-        return response.body
+        return (return_headers ? (response.body, response.headers) : response.body)
     end
 
     # Parse response data according to mimetype...
@@ -521,7 +516,7 @@ function do_request(r::AWSRequest)
     body = String(copy(response.body))
 
     if occursin(r"/xml", mime)
-        return parse_xml(body)
+        return (return_headers ? (parse_xml(body), Dict(response.headers)) : parse_xml(body))
     end
 
     if occursin(r"/x-amz-json-1.[01]$", mime)
@@ -529,9 +524,9 @@ function do_request(r::AWSRequest)
             return nothing
         end
         if get(r, :ordered_json_dict, true)
-            return JSON.parse(body, dicttype=OrderedDict)
+            return (return_headers ? (JSON.parse(body, dicttype=OrderedDict), Dict(response.headers)) : JSON.parse(body, dicttype=OrderedDict))
         else
-            return JSON.parse(body)
+            return (return_headers ? (JSON.parse(body), Dict(response.headers)) : JSON.parse(body))
         end
     end
 
@@ -551,15 +546,16 @@ function do_request(r::AWSRequest)
         catch e
             @ignore if typeof(e) == KeyError end
         end
-        return info
+
+        return (return_headers ? (info, Dict(response.headers)) : info)
     end
 
     if occursin(r"^text/", mime)
-        return body
+        return (return_headers ? (body, Dict(response.headers)) : body)
     end
 
     # Return raw data by default...
-    return response.body
+    return (return_headers ? (response.body, nothing) : response.body)
 end
 
 

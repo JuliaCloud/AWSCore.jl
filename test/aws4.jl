@@ -221,17 +221,20 @@ end
         expected_data = "{\n    \"zarr_format\": 2\n}"
 
         @test result["Contents"][1]["Key"] == expected_content_key
-        @test String(AWSCore.Services.s3(
+
+        key_result = AWSCore.Services.s3(
             aws_google,
             "GET", "/{Bucket}/{Key+}",
             Bucket="cmip6",
-            Key="$(data_prefix)/.zgroup")
-        ) == expected_data
+            Key="$(data_prefix)/.zgroup"
+        )
+
+        @test String(key_result) == expected_data
     end
 
     @testset "Accessing OTC Object Store" begin
         aws_otc = aws_config(creds=nothing, region="eu-de", service_name="obs", service_host="otc.t-systems.com")
-        result = AWSCore.Services.s3(aws_otc, "GET", "/{Bucket}?list-type=2", Dict(:Bucket=>"obs-esdc-v2.0.0",:prefix=>"",:delimiter=>"/"))
+        result = AWSCore.Services.s3(aws_otc, "GET", "/{Bucket}?list-type=2", Dict(:Bucket=>"obs-esdc-v2.0.0", :prefix=>"",:delimiter=>"/"))
 
         @test result["CommonPrefixes"][1]["Prefix"] == "esdc-8d-0.0083deg-184x60x60-2.0.0_colombia.zarr/"
     end
