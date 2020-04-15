@@ -555,7 +555,7 @@ function do_request(r::AWSRequest; return_headers=false)
     end
 
     # Return raw data by default...
-    return (return_headers ? (response.body, nothing) : response.body)
+    return (return_headers ? (response.body, Dict(response.headers)) : response.body)
 end
 
 
