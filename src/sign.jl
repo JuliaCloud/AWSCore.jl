@@ -26,7 +26,7 @@ end
 function sign_aws2!(r::AWSRequest, t)
 
     query = Dict{AbstractString,AbstractString}()
-    for elem in split(r[:content], '&', keep=false)
+    for elem in split(r[:content], '&', keepempty=false)
         (n, v) = split(elem, "=")
         query[n] = HTTP.unescapeuri(v)
     end
