@@ -100,9 +100,9 @@ sqs_delete_message(q, m)
 Start an EC2 server and fetch info...
 
 ```julia
-ec2(aws, "StartInstances", {"InstanceId.1" => my_instance_id})
-r = ec2(aws, "DescribeInstances", {"Filter.1.Name" => "instance-id",
-                                   "Filter.1.Value.1" => my_instance_id})
+ec2(aws, "StartInstances", var"InstanceId.1" = my_instance_id})
+r = ec2(aws, "DescribeInstances", var"Filter.1.Name" = "instance-id",
+                                  var"Filter.1.Value.1" = my_instance_id)
 println(r)
 ```
 
@@ -110,7 +110,7 @@ println(r)
 Create an IAM user...
 
 ```julia
-iam(aws, "CreateUser", {"UserName" => "me"})
+iam(aws, "CreateUser", UserName = "me")
 ```
 
 
