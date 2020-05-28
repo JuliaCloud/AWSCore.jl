@@ -471,11 +471,11 @@ function do_request(r::AWSRequest; return_headers=false)
 
         # Handle BadDigest error and CRC32 thing
         @retry if e isa AWSException && (
-            HTTP.header(e.cause, "crc32body") == "x-amz-crc32" ||
+            header(e.cause, "crc32body") == "x-amz-crc32" ||
             ecode(e) in ("BadDigest", "RequestTimeout", "RequestTimeoutException")
         )
             if debug_level > 1
-                cause = if HTTP.header(e.cause, "crc32body") == "x-amz-crc32"
+                cause = if header(e.cause, "crc32body") == "x-amz-crc32"
                     "CRC32"
                 else
                     ecode(e)
