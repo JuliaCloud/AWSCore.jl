@@ -239,3 +239,40 @@ end
         @test result["CommonPrefixes"][1]["Prefix"] == "esdc-8d-0.0083deg-184x60x60-2.0.0_colombia.zarr/"
     end
 end
+
+@testset "hyphen kwarg" begin
+    bucket_name = "awscore.jl-test---" * lowercase(Dates.format(now(Dates.UTC), "yyyymmddTHHMMSSZ"))
+    test_files = ["Sample-File1", "Sample-File2", "Sample-File3"]
+
+    function _iterate_test_files(operation)
+        for file in test_files
+            AWSCore.Services.s3(operation, "/$bucket_name/$file")
+        end
+    end
+
+    function _setup()
+        # Create Bucket
+        AWSCore.Services.s3("PUT", "/$bucket_name")
+
+        # Place items in the bucket
+        _iterate_test_files("PUT")
+    end
+
+    function _teardown()
+        # Empty the bucket
+        _iterate_test_files("DELETE")
+
+        # Delete the bucket
+        AWSCore.Services.s3("DELETE", "/$bucket_name")
+    end
+
+    _setup()
+    max_keys = 2
+    result = AWSCore.Services.s3("GET", "/$bucket_name"; max_keys=max_keys)
+
+    try
+        @test max_keys == length(result["Contents"])
+    finally
+        _teardown()
+    end
+end

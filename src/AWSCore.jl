@@ -330,7 +330,9 @@ function service_rest_xml(aws::AWSConfig; args...)
 
     request[:resource] = rest_resource(request, args)
 
-    query_str  = HTTP.escapeuri(args)
+    query_str = HTTP.escapeuri(args)
+    # Convert out arg name to match the AWS hyphen style
+    query_str = replace(query_str, "_"=>"-")
 
     if query_str  != ""
         if occursin("?", request[:resource])
