@@ -5,6 +5,7 @@
 #==============================================================================#
 
 using AWSCore
+using AWSCore: Services
 using Dates
 using HTTP
 using HTTP: Headers, URI
