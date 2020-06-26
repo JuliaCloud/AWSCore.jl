@@ -23,7 +23,40 @@ Resources:
             Resource:
               - !Sub arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/${AWS::StackName}/*
 
-  # Policies to support testing on AWSS3 and AWSSQS
+  # Policies to support testing on Glacier, Route53, S3, and SQS
+  GlacierTestPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: GlacierTestPolicy
+      Users:
+        - !Sub ${PublicCIUser}
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - glacier:CreateVault
+              - glacier:DeleteVault
+            Resource:
+              - !Sub arn:aws:glacier:*:${AWS::AccountId}:vaults/test-vault-*
+          - Effect: Allow
+            Action:
+              - glacier:ListVaults
+            Resource:
+              - "*"
+  Route53TestPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: Route53TestPolicy
+      Users:
+        - !Sub ${PublicCIUser}
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - route53:GetAccountLimit
+            Resource: "*"
   S3TestPolicy:
     Type: AWS::IAM::Policy
     Properties:
