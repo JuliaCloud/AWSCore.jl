@@ -26,9 +26,22 @@ end
             # If this is an Integer AWS Coral cannot convert it to a String
             # "class com.amazon.coral.value.json.numbers.TruncatingBigNumber can not be converted to an String"
             limit = "1"
+            headers = Dict("foo"=>"bar")
 
-            result = Services.glacier("GET", "/-/vaults", ("limit"=>limit))
-            @test length(result["VaultList"]) == parse(Int, limit)
+            cases = [
+                Dict("limit"=>limit, "headers"=>Dict("foo"=>"bar")),
+                Dict("limit"=>limit),
+                ("limit"=>limit, "headers"=>Dict("foo"=>"bar")),
+                ("limit"=>limit),
+                [("limit"=>limit), ("headers"=>Dict("foo"=>"bar"))],
+                [("limit"=>limit)]
+            ]
+
+            @testset "$case" for case in cases
+                result = Services.glacier("GET", "/-/vaults", case)
+
+                @test length(result["VaultList"]) == parse(Int, limit)
+            end
         end
 
         @testset "Delete Vaults" begin
@@ -37,11 +50,10 @@ end
             end
 
             result = Services.glacier("GET", "/-/vaults")
-
-            vault_names = [v["VaultName"] for v in result["VaultList"]]
+            vaults = [v["VaultName"] for v in result["VaultList"]]
 
             for vault in vault_names
-                @test !(vault in vault_names)
+                @test !(vault in vaults)
             end
         end
     end
