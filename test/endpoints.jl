@@ -30,10 +30,16 @@ end
 
             cases = [
                 Dict("limit"=>limit, "headers"=>Dict("foo"=>"bar")),
+                Dict("limit"=>limit, "headers"=>("foo"=>"bar")),
+                Dict("limit"=>limit, "headers"=>[("foo"=>"bar"), ("biz"=>"baz")]),
                 Dict("limit"=>limit),
                 ("limit"=>limit, "headers"=>Dict("foo"=>"bar")),
+                ("limit"=>limit, "headers"=>("foo"=>"bar")),
+                ("limit"=>limit, "headers"=>[("foo"=>"bar"), ("biz"=>"baz")]),
                 ("limit"=>limit),
                 [("limit"=>limit), ("headers"=>Dict("foo"=>"bar"))],
+                [("limit"=>limit), ("headers"=>("foo"=>"bar"))],
+                [("limit"=>limit), ("headers"=>[("foo"=>"bar"), ("biz"=>"baz")])],
                 [("limit"=>limit)]
             ]
 
