@@ -14,7 +14,7 @@ end
 
 @testset "rest-json" begin
     @testset "glacier - special case" begin
-        vault_names = ["test-vault-01", "test-vault-02"]
+        vault_names = [string("test-vault-", UUIDs.uuid4()), string("test-vault-", UUIDs.uuid4())]
 
         @testset "Create Vaults" begin
             for vault in vault_names

@@ -15,6 +15,7 @@ using Mocking
 using Retry
 using SymDict
 using Test
+using UUIDs
 using XMLDict
 using .SignatureV4
 
