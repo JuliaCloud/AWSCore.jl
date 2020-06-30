@@ -1385,11 +1385,21 @@ gamelift(operation, args=[]) =
 gamelift(a...; b...) = gamelift(a..., b)
 
 function glacier(aws::AWSConfig, verb, resource, args=[])
+    version = "2012-06-01"
+    glacier_version_header = Dict("x-amz-glacier-version"=>version)
+
+    args = Dict{String, Any}(args)
+
+    if haskey(args, "headers")
+        args["headers"] = merge!(Dict(args["headers"]), glacier_version_header)
+    else
+        args["headers"] = glacier_version_header
+    end
 
     AWSCore.service_rest_json(
         aws;
         service      = "glacier",
-        version      = "2012-06-01",
+        version      = version,
         verb         = verb,
         resource     = resource,
         args         = args)
