@@ -19,7 +19,7 @@ The following high-level packages are also available:
 [AWS Lambda](http://github.com/samoconnor/AWSLambda.jl),
 [AWS SES](http://github.com/samoconnor/AWSSES.jl) and
 [AWS SDB](http://github.com/samoconnor/AWSSDB.jl).
-These packages include operation specific result structure parsing, error
+These packages include operation-specific result structure parsing, error
 handling, type convenience functions, iterators, etc.
 
 Full documentation [is available here](https://juliacloud.github.io/AWSCore.jl/build/index.html),
@@ -127,7 +127,7 @@ source_profile = valid-iam-profile
 ```
 
 
-```julia
+Julia
 ENV["AWS_PROFILE"] = "example-role-name"
 AWSCore.aws_config()
 ```
