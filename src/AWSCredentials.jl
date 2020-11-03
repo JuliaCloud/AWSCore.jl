@@ -365,13 +365,17 @@ to create AWSCredentials.
 """
 function env_var_credentials()
     if haskey(ENV, "AWS_ACCESS_KEY_ID") && haskey(ENV, "AWS_SECRET_ACCESS_KEY")
-        return AWSCredentials(
-            ENV["AWS_ACCESS_KEY_ID"],
-            ENV["AWS_SECRET_ACCESS_KEY"],
-            get(ENV, "AWS_SESSION_TOKEN", ""),
-            get(ENV, "AWS_USER_ARN", "");
-            renew=env_var_credentials
-        )
+        aws_access_key_id = ENV["AWS_ACCESS_KEY_ID"]
+        aws_secret_access_key = ENV["AWS_SECRET_ACCESS_KEY"]
+        if !isempty(aws_access_key_id) && !isempty(aws_secret_access_key)
+            return AWSCredentials(
+                aws_access_key_id,
+                aws_secret_access_key,
+                get(ENV, "AWS_SESSION_TOKEN", ""),
+                get(ENV, "AWS_USER_ARN", "");
+                renew=env_var_credentials
+            )
+        end
     end
 
     return nothing
