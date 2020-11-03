@@ -474,6 +474,13 @@ end
             @test aws_creds.access_key_id == test_values["AccessKeyId"]
             @test aws_creds.secret_key == test_values["SecretAccessKey"]
         end
+
+        withenv(
+            "AWS_ACCESS_KEY_ID" => "",
+            "AWS_SECRET_ACCESS_KEY" => ""
+        ) do
+            @test env_var_credentials() === nothing
+        end
     end
 
     @testset "Instance - EC2" begin
