@@ -30,6 +30,11 @@ This dictionary holds [`RenewableAWSCredentials`](@ref) and AWS region configura
 ```julia
 aws = AWSConfig(:creds => RenewableAWSCredentials(), :region => "us-east-1")`
 ```
+
+Available keys are
+- `:creds`: `AWSCredentials` object as retruned by `AWSCredentials()`.
+- `:region`: String giving the region, e.g. `"us-east-1"`.
+- `:endpoint`: AWS host URL to use.
 """
 const AWSConfig = SymbolDict
 
